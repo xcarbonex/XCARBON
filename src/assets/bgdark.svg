@@ -1,0 +1,42 @@
+<svg width="1440" height="1040" viewBox="0 0 1440 1040" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_624_4729)">
+<rect width="1440" height="1040" fill="#0E0F11"/>
+<line x1="713.806" y1="-18.2724" x2="713.805" y2="816" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line y1="-0.5" x2="930.005" y2="-0.5" transform="matrix(0.488632 0.87249 -0.920411 0.390952 791.052 -18.2707)" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line y1="-0.5" x2="930.005" y2="-0.5" transform="matrix(0.488632 -0.87249 -0.920411 -0.390952 209.926 739.907)" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line y1="-0.5" x2="580.23" y2="-0.5" transform="matrix(0.862242 0.506497 -0.61233 0.790602 951.063 -18.2707)" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line y1="-0.5" x2="580.23" y2="-0.5" transform="matrix(0.862242 -0.506497 -0.61233 -0.790602 -10.5 266.202)" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line y1="-0.5" x2="730.749" y2="-0.5" transform="matrix(0.754113 0.656745 -0.754113 0.656745 868.99 -18.2707)" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line y1="-0.5" x2="730.749" y2="-0.5" transform="matrix(0.754113 -0.656745 -0.754113 -0.656745 6.2793 460.469)" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="1.06575" x2="1620" y2="1.06575" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="13.8773" x2="1620" y2="13.8773" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="28.068" x2="1620" y2="28.068" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="44.3242" x2="1620" y2="44.3242" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="63.8867" x2="1620" y2="63.8867" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="86.4821" x2="1620" y2="86.4821" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="113.485" x2="1620" y2="113.485" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="145.996" x2="1620" y2="145.996" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="187.19" x2="1620" y2="187.19" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="238.164" x2="1620" y2="238.164" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="309.729" x2="1620" y2="309.729" stroke="#ECF15E" stroke-opacity="0.12"/>
+<line x1="-180" y1="416.54" x2="1620" y2="416.54" stroke="#ECF15E" stroke-opacity="0.12"/>
+<g filter="url(#filter0_f_624_4729)">
+<ellipse cx="719" cy="-21" rx="500" ry="100" fill="white" fill-opacity="0.72"/>
+</g>
+<rect x="-37.5" y="64" width="1542" height="1157" fill="url(#paint0_linear_624_4729)"/>
+</g>
+<defs>
+<filter id="filter0_f_624_4729" x="-381" y="-721" width="2200" height="1400" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="300" result="effect1_foregroundBlur_624_4729"/>
+</filter>
+<linearGradient id="paint0_linear_624_4729" x1="733.5" y1="64" x2="733.5" y2="1221" gradientUnits="userSpaceOnUse">
+<stop stop-color="#0E0F11" stop-opacity="0"/>
+<stop offset="0.358581" stop-color="#0E0F11"/>
+</linearGradient>
+<clipPath id="clip0_624_4729">
+<rect width="1440" height="1040" fill="white"/>
+</clipPath>
+</defs>
+</svg>

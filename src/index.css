@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --bg-color: #4c6663;
+    --text-color: #ffffff;
+    --primary-color: #3b82f6;
+    --bg-main: #ffffff;
+    --bg-secondary: #fdfdfb;
+    --border: #d8d8d8;
+    --text-secondary: #000000;
+    --bg-input: #4c666326;
+    --bg-btn: #c2a57b;
+    --bg-tertiary: #a6b3b1;
+    --chart-border: #a6b3b1;
+    --logo-url: url("/xNeon.svg");
+  }
+}
+
+.dark {
+  /* Base Colors */
+  --bg-color: #191919;
+  --text-color: #ffffff;
+  --primary-color: #60a5fa;
+  --bg-main: #141517;
+  --bg-secondary: #191919;
+  --border: #363638;
+  --text-secondary: #ffffff;
+  --bg-input: #ffffff14;
+  --bg-btn: #000000;
+  --bg-tertiary: #353535;
+  --chart-border: #ffffff;
+  --logo-url: url("/logodark.png");
+}
+
+.rdrDefinedRangesWrapper {
+  @apply bg-secondary text-tbase ;
+}
+
+.rdrStaticRange {
+  @apply bg-secondary border border-b;
+}
+
+/* .rdrStaticRange :hover {
+  @apply bg-[#202020d8]
+} */
+
+.rdrStaticRangeSelected {
+  @apply bg-[#A6B3B1] dark:bg-black hover:bg-transparent;
+}
+
+.rdrStaticRangeSelected span{
+  @apply text-tbase font-semibold;
+}
+
+.rdrDayToday .rdrDayNumber span:after {
+  @apply bg-tertiary;
+}
+
+
+.rdrCalendarWrapper {
+  @apply bg-secondary text-tbase border-none border-l;
+}
+.rdrDateDisplayWrapper {
+  @apply bg-tertiary  border-l text-tbase;
+}
+
+.rdrDateDisplayItem input {
+  @apply bg-input ;
+}
+.rdrDayNumber span {
+  @apply text-tbase ;
+}
+
+/* .rdrStaticRangeSelected {
+  @apply text-semibold;
+} */
+
+
+
+
+/* @media screen and (max-width: 1391px) {
+  #dots::before {
+    height: 170px;
+  }
+}
+
+@media screen and (max-width: 2660px) {
+  #eye {
+    left: 35rem;
+  }
+}
+
+@media screen and (max-width: 1940px) {
+  #eye {
+    left: 90%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  #eye {
+    right: 40px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  #eye {
+    right: 35px;
+  }
+} */
