@@ -38,7 +38,7 @@
 }
 
 .rdrDefinedRangesWrapper {
-  @apply bg-secondary text-tbase ;
+  @apply bg-secondary text-tbase;
 }
 
 .rdrStaticRange {
@@ -53,14 +53,13 @@
   @apply bg-[#A6B3B1] dark:bg-black hover:bg-transparent;
 }
 
-.rdrStaticRangeSelected span{
+.rdrStaticRangeSelected span {
   @apply text-tbase font-semibold;
 }
 
 .rdrDayToday .rdrDayNumber span:after {
   @apply bg-tertiary;
 }
-
 
 .rdrCalendarWrapper {
   @apply bg-secondary text-tbase border-none border-l;
@@ -70,45 +69,20 @@
 }
 
 .rdrDateDisplayItem input {
-  @apply bg-input ;
+  @apply bg-input;
 }
 .rdrDayNumber span {
-  @apply text-tbase ;
+  @apply text-tbase;
 }
 
-/* .rdrStaticRangeSelected {
-  @apply text-semibold;
-} */
-
-
-
-
-/* @media screen and (max-width: 1391px) {
-  #dots::before {
-    height: 170px;
-  }
+/* to remove the aroows from input fields  */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-@media screen and (max-width: 2660px) {
-  #eye {
-    left: 35rem;
-  }
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
-
-@media screen and (max-width: 1940px) {
-  #eye {
-    left: 90%;
-  }
-}
-
-@media screen and (max-width: 560px) {
-  #eye {
-    right: 40px;
-  }
-}
-
-@media screen and (max-width: 350px) {
-  #eye {
-    right: 35px;
-  }
-} */

@@ -13,7 +13,7 @@ import logoLight from "@/assets/logoLight.svg";
 import logoBlack from "@/assets/logoBlack.svg";
 import { Link, useNavigate } from "react-router-dom";
 import xNeon from "@/assets/xNeon.svg";
-import xNeonBlack from '@/assets/xNeonBlack.svg';
+import xNeonBlack from "@/assets/xNeonBlack.svg";
 import EnterpriseDetail from "./EnterpriseDetail";
 import IndividualDetail from "./IndividualDetail";
 import { Tabs } from "@/components";
@@ -53,12 +53,12 @@ const SignUp = () => {
   const [tabVisible, setTabVisible] = useState(false);
   const [activeTab, setActiveTab] = useState("enterprise");
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
@@ -68,15 +68,15 @@ const SignUp = () => {
     theme
   );
 
-  let logo = theme === "dark" ? xNeon : xNeonBlack;
+  let logo = theme === "dark" ? logoLight : logoBlack;
   let tabsContainerLogo = theme === "dark" ? xNeon : logoBlack;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!validateEmail(formData.email)) {
-      setError('Please enter a valid email address');
+      setError("Please enter a valid email address");
       return;
     }
 
@@ -87,7 +87,7 @@ const SignUp = () => {
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
@@ -95,10 +95,10 @@ const SignUp = () => {
 
     try {
       // TODO: Implement your signup logic here
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulated API call
+      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulated API call
       setTabVisible(true);
     } catch (err) {
-      setError('Failed to create account. Please try again.');
+      setError("Failed to create account. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -120,37 +120,37 @@ const SignUp = () => {
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
     if (password.length < minLength) {
-      return 'Password must be at least 8 characters long';
+      return "Password must be at least 8 characters long";
     }
     if (!hasUpperCase) {
-      return 'Password must contain at least one uppercase letter';
+      return "Password must contain at least one uppercase letter";
     }
     if (!hasLowerCase) {
-      return 'Password must contain at least one lowercase letter';
+      return "Password must contain at least one lowercase letter";
     }
     if (!hasNumbers) {
-      return 'Password must contain at least one number';
+      return "Password must contain at least one number";
     }
     if (!hasSpecialChar) {
-      return 'Password must contain at least one special character';
+      return "Password must contain at least one special character";
     }
-    return '';
+    return "";
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(prev => !prev);
+    setShowPassword((prev) => !prev);
   };
 
   const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(prev => !prev);
+    setShowConfirmPassword((prev) => !prev);
   };
 
   return (
@@ -165,7 +165,11 @@ const SignUp = () => {
       >
         <div>
           <div>
-            <img src={logo} className={clsx("w-fit h-fit pl-7 md:scale-125")} alt="X Carbon Logo" />
+            <img
+              src={logo}
+              className={clsx("w-fit h-fit pl-7 md:scale-125")}
+              alt="X Carbon Logo"
+            />
           </div>
           <div className="hidden md:block">
             <div className="text-2xl tracking-wider">
@@ -247,7 +251,7 @@ const SignUp = () => {
                   id="email"
                   name="email"
                   placeholder="Email"
-                  prefix={<MdOutlineEmail className='h-6 w-6'/>}
+                  prefix={<MdOutlineEmail className="h-6 w-6" />}
                   required
                   value={formData.email}
                   onChange={handleChange}
@@ -326,18 +330,34 @@ const SignUp = () => {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  size='lg'
+                  size="lg"
                   className={`group relative w-full flex justify-center border border-transparent bg-btn ${
-                    isLoading ? 'bg-indigo-400' : ' hover:bg-btn-500'
+                    isLoading ? "bg-indigo-400" : " hover:bg-btn-500"
                   } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 >
                   {isLoading ? (
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                   ) : null}
-                  {isLoading ? 'Creating account...' : 'Create account'}
+                  {isLoading ? "Creating account..." : "Create account"}
                 </Button>
               </div>
               <div className="col-span-2">
@@ -380,14 +400,14 @@ const SignUp = () => {
           </div>
           <div className="p-4  bg-secondary rounded-xl drop-shadow space-y-7">
             {/* <div className="grid grid-cols-2 gap-4 "> */}
-              <Tabs
+            <Tabs
               tabs={xtabs}
               activeTab={activeTab}
               onTabChange={setActiveTab}
               containerClassName="border-b-0"
               tabClassName={"w-full border-input border h-16"}
             />
-              {/* {xtabs.map((tab, key) => (
+            {/* {xtabs.map((tab, key) => (
                 <button
                   key={key}
                   onClick={() => handltTabChange(tab.key)}

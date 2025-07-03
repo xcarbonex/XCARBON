@@ -4,6 +4,7 @@ import {
   Settings,
   Portfolio,
   Wallet,
+  Deposit,
   Membership,
   Login,
   SignUp,
@@ -17,8 +18,11 @@ import {
   CarbonCreditTokenization,
   ForgotPassword,
   ResetPassword,
+  MintCarbonCredits,
+  MintCarbonCreditsSummary,
 } from "./pages";
 import NotificationsPage from "./pages/Notifications";
+import NotificationDetail from "./pages/Notifications/NotificationDetail";
 import TestError from "@/pages/TestError";
 import Layout from "@/components/AppLayout";
 import WithdrawTokenizedCarbonCredit from "./pages/Wallet/WithdrawTokenizedCarbonCredit";
@@ -58,6 +62,10 @@ export const router = createBrowserRouter([
             element: <WalletInfoScreen />,
           },
           {
+            path: "Deposit",
+            element: <Deposit />,
+          },
+          {
             path: "withdraw-tokenized-carbon-credit",
             element: <WithdrawTokenizedCarbonCredit />,
           },
@@ -84,6 +92,10 @@ export const router = createBrowserRouter([
         element: <NotificationsPage />,
       },
       {
+        path: "notifications/:id",
+        element: <NotificationDetail />,
+      },
+      {
         path: "carbon-credit-registry",
         element: <CarbonCreditAssetsFromRegistry />,
       },
@@ -95,7 +107,15 @@ export const router = createBrowserRouter([
         path: "carbon-credit-tokenization",
         element: <CarbonCreditTokenization />,
       },
-    ]
+      {
+        path: "MintCarbonCredits",
+        element: <MintCarbonCredits />,
+      },
+      {
+        path: "MintCarbonCreditsSummary",
+        element: <MintCarbonCreditsSummary />,
+      },
+    ],
   },
   {
     path: "/login",

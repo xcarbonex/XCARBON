@@ -99,7 +99,7 @@ const NotificationPopup = () => {
             <div className="flex items-center justify-between">
               <Typography variant="h6">Notifications</Typography>
               <Link
-                to=""
+                to="notifications"
                 className="text-sm text-[#4C6663] hover:underline"
                 onClick={() => setIsOpen(false)}
               >

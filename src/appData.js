@@ -3,13 +3,14 @@ import portfolio from "./assets/navigation/portfolio.svg";
 import carbon_wallet from "./assets/navigation/carbon_wallet.svg";
 import user from "./assets/navigation/user.svg";
 import help from "./assets/navigation/help.svg";
+import settings from "./assets/settings.svg";
 import logout from "./assets/navigation/logout.svg";
 import logolight from "./assets/logolight.png";
 import bronze from "@/assets/bronze.svg";
 import silver from "@/assets/silver.svg";
 import gold from "@/assets/gold.svg";
 import platinum from "@/assets/platinum.svg";
-
+import MintCarbon from "@/assets/navigation/mintCarbon.svg";
 const sidebar = {
   logo: logolight,
   navigation: [
@@ -29,13 +30,19 @@ const sidebar = {
       route: "/wallet",
     },
     {
+      label: "Mint Carbon",
+      icon: MintCarbon,
+      route: "/MintCarbonCredits",
+    },
+
+    {
       label: "Membership",
       icon: user,
       route: "/membership",
     },
     {
       label: "Settings",
-      icon: user,
+      icon: settings,
       route: "/settings",
     },
   ],
@@ -176,7 +183,7 @@ const tokenBalance = [
   },
   {
     tokenName: "Carbon Credit - Reforest Brazil",
-    status: 'sale',
+    status: "sale",
     amount: "5000",
   },
   {
@@ -241,7 +248,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -256,7 +263,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -271,7 +278,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -286,7 +293,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -301,7 +308,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -316,7 +323,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -331,7 +338,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -346,7 +353,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -361,7 +368,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -376,7 +383,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -391,7 +398,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -406,7 +413,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -421,7 +428,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -436,7 +443,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -451,7 +458,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -466,7 +473,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -481,7 +488,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -496,7 +503,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -511,7 +518,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -526,9 +533,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
+    createdDate: "2025-05-27T14:15:40.012Z",
   },
-   {
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -541,7 +548,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -556,7 +563,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -571,7 +578,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -586,7 +593,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -601,7 +608,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -616,7 +623,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -631,7 +638,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -646,7 +653,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -661,7 +668,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -676,7 +683,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -691,7 +698,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -706,7 +713,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -721,7 +728,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -736,7 +743,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -751,7 +758,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -766,7 +773,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -781,7 +788,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -796,7 +803,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -811,7 +818,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -826,9 +833,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
+    createdDate: "2025-05-27T14:15:40.012Z",
   },
-   {
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -841,7 +848,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -856,7 +863,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -871,7 +878,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -886,7 +893,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -901,7 +908,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -916,7 +923,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -931,7 +938,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -946,7 +953,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -961,7 +968,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -976,7 +983,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -991,7 +998,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -1006,7 +1013,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -1021,7 +1028,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -1036,7 +1043,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -1051,7 +1058,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -1066,7 +1073,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -1081,7 +1088,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -1096,7 +1103,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -1111,7 +1118,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -1126,9 +1133,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
+    createdDate: "2025-05-27T14:15:40.012Z",
   },
-   {
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -1141,7 +1148,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -1156,7 +1163,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -1171,7 +1178,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -1186,7 +1193,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -1201,7 +1208,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -1216,7 +1223,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -1231,7 +1238,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -1246,7 +1253,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -1261,7 +1268,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -1276,7 +1283,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -1291,7 +1298,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -1306,7 +1313,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -1321,7 +1328,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -1336,7 +1343,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -1351,7 +1358,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -1366,7 +1373,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -1381,7 +1388,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -1396,7 +1403,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -1411,7 +1418,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -1426,9 +1433,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
+    createdDate: "2025-05-27T14:15:40.012Z",
   },
-   {
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -1441,7 +1448,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -1456,7 +1463,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -1471,7 +1478,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -1486,7 +1493,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -1501,7 +1508,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -1516,7 +1523,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -1531,7 +1538,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -1546,7 +1553,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -1561,7 +1568,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -1576,7 +1583,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -1591,7 +1598,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -1606,7 +1613,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -1621,7 +1628,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -1636,7 +1643,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -1651,7 +1658,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -1666,7 +1673,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -1681,7 +1688,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -1696,7 +1703,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -1711,7 +1718,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -1726,9 +1733,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
+    createdDate: "2025-05-27T14:15:40.012Z",
   },
-   {
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -1741,7 +1748,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -1756,7 +1763,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -1771,7 +1778,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -1786,7 +1793,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -1801,7 +1808,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -1816,7 +1823,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -1831,7 +1838,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -1846,7 +1853,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -1861,7 +1868,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -1876,7 +1883,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -1891,7 +1898,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -1906,7 +1913,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -1921,7 +1928,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -1936,7 +1943,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -1951,7 +1958,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -1966,7 +1973,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -1981,7 +1988,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -1996,7 +2003,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -2011,7 +2018,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -2026,9 +2033,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
+    createdDate: "2025-05-27T14:15:40.012Z",
   },
-   {
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -2041,7 +2048,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -2056,7 +2063,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -2071,7 +2078,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -2086,7 +2093,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -2101,7 +2108,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -2116,7 +2123,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -2131,7 +2138,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -2146,7 +2153,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -2161,7 +2168,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -2176,7 +2183,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -2191,7 +2198,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -2206,7 +2213,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -2221,7 +2228,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -2236,7 +2243,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -2251,7 +2258,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -2266,7 +2273,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -2281,7 +2288,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -2296,7 +2303,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -2311,7 +2318,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -2326,8 +2333,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
-  }, {
+    createdDate: "2025-05-27T14:15:40.012Z",
+  },
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -2340,7 +2348,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -2355,7 +2363,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -2370,7 +2378,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -2385,7 +2393,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -2400,7 +2408,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -2415,7 +2423,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -2430,7 +2438,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -2445,7 +2453,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -2460,7 +2468,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -2475,7 +2483,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -2490,7 +2498,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -2505,7 +2513,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -2520,7 +2528,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -2535,7 +2543,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -2550,7 +2558,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -2565,7 +2573,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -2580,7 +2588,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -2595,7 +2603,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -2610,7 +2618,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -2625,8 +2633,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
-  }, {
+    createdDate: "2025-05-27T14:15:40.012Z",
+  },
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -2639,7 +2648,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -2654,7 +2663,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -2669,7 +2678,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -2684,7 +2693,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -2699,7 +2708,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -2714,7 +2723,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -2729,7 +2738,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -2744,7 +2753,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -2759,7 +2768,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -2774,7 +2783,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -2789,7 +2798,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -2804,7 +2813,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -2819,7 +2828,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -2834,7 +2843,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -2849,7 +2858,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -2864,7 +2873,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -2879,7 +2888,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -2894,7 +2903,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -2909,7 +2918,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -2924,8 +2933,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
-  }, {
+    createdDate: "2025-05-27T14:15:40.012Z",
+  },
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -2938,7 +2948,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -2953,7 +2963,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -2968,7 +2978,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -2983,7 +2993,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -2998,7 +3008,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -3013,7 +3023,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -3028,7 +3038,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -3043,7 +3053,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -3058,7 +3068,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -3073,7 +3083,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -3088,7 +3098,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -3103,7 +3113,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -3118,7 +3128,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -3133,7 +3143,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -3148,7 +3158,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -3163,7 +3173,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -3178,7 +3188,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -3193,7 +3203,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -3208,7 +3218,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -3223,8 +3233,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
-  }, {
+    createdDate: "2025-05-27T14:15:40.012Z",
+  },
+  {
     assetName: "VCS-FORESTRY",
     date: "Brazil Project 2021",
     projectType: "Forestry",
@@ -3237,7 +3248,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "25",
     action: "BUY",
-    createdDate: "2023-08-10T09:15:32.123Z"
+    createdDate: "2023-08-10T09:15:32.123Z",
   },
   {
     assetName: "GS-RENEWABLE",
@@ -3252,7 +3263,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "50",
     action: "SELL",
-    createdDate: "2024-03-22T17:45:01.456Z"
+    createdDate: "2024-03-22T17:45:01.456Z",
   },
   {
     assetName: "ACR-METHANE",
@@ -3267,7 +3278,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "30",
     action: "BUY",
-    createdDate: "2023-11-05T03:20:19.789Z"
+    createdDate: "2023-11-05T03:20:19.789Z",
   },
   {
     assetName: "CAR-SOIL",
@@ -3282,7 +3293,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "40",
     action: "SELL",
-    createdDate: "2025-01-15T12:10:45.234Z"
+    createdDate: "2025-01-15T12:10:45.234Z",
   },
   {
     assetName: "VCS-AFFORESTATION",
@@ -3297,7 +3308,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "20",
     action: "BUY",
-    createdDate: "2023-06-30T20:55:28.567Z"
+    createdDate: "2023-06-30T20:55:28.567Z",
   },
   {
     assetName: "GS-FORESTRY",
@@ -3312,7 +3323,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "35",
     action: "SELL",
-    createdDate: "2024-09-12T06:25:13.890Z"
+    createdDate: "2024-09-12T06:25:13.890Z",
   },
   {
     assetName: "ACR-RENEWABLE",
@@ -3327,7 +3338,7 @@ const marketplace = [
     vintage: "2024",
     quantity: "45",
     action: "BUY",
-    createdDate: "2025-04-08T15:40:57.123Z"
+    createdDate: "2025-04-08T15:40:57.123Z",
   },
   {
     assetName: "CAR-METHANE",
@@ -3342,7 +3353,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "15",
     action: "BUY",
-    createdDate: "2023-12-25T22:05:36.456Z"
+    createdDate: "2023-12-25T22:05:36.456Z",
   },
   {
     assetName: "VCS-SOIL",
@@ -3357,7 +3368,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "60",
     action: "SELL",
-    createdDate: "2024-07-19T11:30:24.789Z"
+    createdDate: "2024-07-19T11:30:24.789Z",
   },
   {
     assetName: "GS-AFFORESTATION",
@@ -3372,7 +3383,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "28",
     action: "BUY",
-    createdDate: "2023-09-03T04:15:49.012Z"
+    createdDate: "2023-09-03T04:15:49.012Z",
   },
   {
     assetName: "ACR-FORESTRY",
@@ -3387,7 +3398,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "33",
     action: "SELL",
-    createdDate: "2024-02-14T18:50:11.345Z"
+    createdDate: "2024-02-14T18:50:11.345Z",
   },
   {
     assetName: "CAR-RENEWABLE",
@@ -3402,7 +3413,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "22",
     action: "BUY",
-    createdDate: "2025-06-01T08:35:26.678Z"
+    createdDate: "2025-06-01T08:35:26.678Z",
   },
   {
     assetName: "VCS-METHANE",
@@ -3417,7 +3428,7 @@ const marketplace = [
     vintage: "2018",
     quantity: "48",
     action: "SELL",
-    createdDate: "2023-05-17T13:20:42.901Z"
+    createdDate: "2023-05-17T13:20:42.901Z",
   },
   {
     assetName: "GS-SOIL",
@@ -3432,7 +3443,7 @@ const marketplace = [
     vintage: "2023",
     quantity: "37",
     action: "BUY",
-    createdDate: "2024-10-29T21:45:58.234Z"
+    createdDate: "2024-10-29T21:45:58.234Z",
   },
   {
     assetName: "ACR-AFFORESTATION",
@@ -3447,7 +3458,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "55",
     action: "SELL",
-    createdDate: "2023-07-08T02:10:14.567Z"
+    createdDate: "2023-07-08T02:10:14.567Z",
   },
   {
     assetName: "CAR-FORESTRY",
@@ -3462,7 +3473,7 @@ const marketplace = [
     vintage: "2019",
     quantity: "29",
     action: "BUY",
-    createdDate: "2024-04-23T16:25:39.890Z"
+    createdDate: "2024-04-23T16:25:39.890Z",
   },
   {
     assetName: "VCS-RENEWABLE",
@@ -3477,7 +3488,7 @@ const marketplace = [
     vintage: "2022",
     quantity: "44",
     action: "SELL",
-    createdDate: "2025-02-16T10:40:55.123Z"
+    createdDate: "2025-02-16T10:40:55.123Z",
   },
   {
     assetName: "GS-METHANE",
@@ -3492,7 +3503,7 @@ const marketplace = [
     vintage: "2020",
     quantity: "31",
     action: "BUY",
-    createdDate: "2023-10-11T05:55:10.456Z"
+    createdDate: "2023-10-11T05:55:10.456Z",
   },
   {
     assetName: "ACR-SOIL",
@@ -3507,7 +3518,7 @@ const marketplace = [
     vintage: "2021",
     quantity: "52",
     action: "SELL",
-    createdDate: "2024-08-04T19:30:25.789Z"
+    createdDate: "2024-08-04T19:30:25.789Z",
   },
   {
     assetName: "CAR-AFFORESTATION",
@@ -3522,9 +3533,9 @@ const marketplace = [
     vintage: "2023",
     quantity: "27",
     action: "BUY",
-    createdDate: "2025-05-27T14:15:40.012Z"
-  }
-]
+    createdDate: "2025-05-27T14:15:40.012Z",
+  },
+];
 
 const newsESG = [
   {
@@ -3700,20 +3711,20 @@ const portfolioData = {
         marketValue: "$150,000",
         costBasis: "$140,000",
         vintage: "2023",
-    location: "Brazil",
+        location: "Brazil",
         status: "Active",
-        date: "2024-03-15"
+        date: "2024-03-15",
       },
       {
         assetName: "Wind Farm Project",
-    projectType: "Renewable Energy",
+        projectType: "Renewable Energy",
         quantity: "5,000",
         marketValue: "$75,000",
         costBasis: "$70,000",
         vintage: "2024",
         location: "India",
         status: "Active",
-        date: "2024-03-10"
+        date: "2024-03-10",
       },
       {
         assetName: "Mangrove Restoration",
@@ -3724,9 +3735,9 @@ const portfolioData = {
         vintage: "2023",
         location: "Indonesia",
         status: "Active",
-        date: "2024-02-28"
-      }
-    ]
+        date: "2024-02-28",
+      },
+    ],
   },
   historicalTrades: {
     title: "Historical Trades",
@@ -3739,7 +3750,7 @@ const portfolioData = {
         tradedValue: "$42,000",
         tradeType: "Buy",
         date: "2024-01-15",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-002",
@@ -3749,7 +3760,7 @@ const portfolioData = {
         tradedValue: "$70,000",
         tradeType: "Sell",
         date: "2024-02-01",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-003",
@@ -3759,9 +3770,9 @@ const portfolioData = {
         tradedValue: "$28,000",
         tradeType: "Buy",
         date: "2024-02-15",
-        status: "Completed"
-      }
-    ]
+        status: "Completed",
+      },
+    ],
   },
   pendingContracts: {
     title: "Pending Contracts",
@@ -3773,7 +3784,7 @@ const portfolioData = {
         quantity: "7,000",
         value: "$98,000",
         dueDate: "2024-04-30",
-        status: "Pending Approval"
+        status: "Pending Approval",
       },
       {
         contractId: "CT-2024-002",
@@ -3782,10 +3793,10 @@ const portfolioData = {
         quantity: "4,000",
         value: "$56,000",
         dueDate: "2024-05-15",
-        status: "Under Review"
-      }
-    ]
-  }
+        status: "Under Review",
+      },
+    ],
+  },
 };
 
 const activeAgreements = {
@@ -3799,7 +3810,7 @@ const activeAgreements = {
       totalDeliveries: "4/12",
       quantity: "2,500",
       status: "On Track",
-      vintage: "2023"
+      vintage: "2023",
     },
     {
       agreementId: "AG-2024-002",
@@ -3809,7 +3820,7 @@ const activeAgreements = {
       totalDeliveries: "2/6",
       quantity: "1,000",
       status: "On Track",
-      vintage: "2024"
+      vintage: "2024",
     },
     {
       agreementId: "AG-2024-003",
@@ -3819,25 +3830,25 @@ const activeAgreements = {
       totalDeliveries: "1/4",
       quantity: "2,000",
       status: "Pending",
-      vintage: "2023"
-    }
-  ]
+      vintage: "2023",
+    },
+  ],
 };
 
 const portlioOption = [
   {
-    lable: 'Open Positions',
-    value:'open_positions' 
+    lable: "Open Positions",
+    value: "open_positions",
   },
-   {
-    lable: 'Historical trades',
-    value:'historical_trades' 
+  {
+    lable: "Historical trades",
+    value: "historical_trades",
   },
-    {
-    lable: 'Pending Monthly Contracts',
-    value:'pending_contracts' 
+  {
+    lable: "Pending Monthly Contracts",
+    value: "pending_contracts",
   },
-]
+];
 
 const projects = [
   {
@@ -3849,7 +3860,7 @@ const projects = [
     value: "vcs-654321-2023",
   },
 ];
- 
+
 const reasonsWithdrawl = [
   {
     label: "Transfer of ownership",
@@ -3867,6 +3878,29 @@ const projectDetails = [
   { label: "Total Tonnes", value: "5,000 tCO₂e" },
   { label: "Registry", value: "Verra" },
 ];
+
+const notifications = [
+  {
+    id: 1,
+    type: "transaction",
+    title: "Transaction Completed",
+    message:
+      "Your purchase of 100 carbon credits has been completed successfully. The transaction has been recorded on the blockchain and the credits have been added to your portfolio.",
+    date: "2024-03-20T10:30:00",
+    read: false,
+  },
+  {
+    id: 2,
+    type: "system",
+    title: "System Maintenance",
+    message:
+      "Scheduled maintenance will occur on March 25th at 02:00 UTC. The platform will be unavailable for approximately 2 hours.",
+    date: "2024-03-19T15:45:00",
+    read: true,
+  },
+  // Add more sample notifications as needed
+];
+
 export {
   sidebar,
   plans,
@@ -3885,5 +3919,6 @@ export {
   projects,
   reasonsWithdrawl,
   projectDetails,
-  activeAgreements
+  activeAgreements,
+  notifications,
 };

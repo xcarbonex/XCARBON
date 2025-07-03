@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Typography } from "@/components";
+import { Input, Typography, Breadcrumb } from "@/components";
 import info from "../../../src/assets/info.svg";
 import { BsFillBox2Fill } from "react-icons/bs";
 import { PiBagSimpleFill } from "react-icons/pi";
@@ -86,9 +86,13 @@ const ProjectDetail = () => {
         "Securely sign and manage agreements with ours blockchain-based documents system.",
     },
   ];
- 
+   const breadcrumbItems = [
+    { label: 'Dashboard', path: '/' },
+    { label: 'Product Detail(VCS-REDD+ Brazil Forest 2019)', path: '/' }
+  ];
   return (
     <>
+      <Breadcrumb items={breadcrumbItems}/>
       <div className="bg-white transition-all duration-slow dark:bg-[#141517]">
         <div className="space-y-5 text-black dark:text-[#FFFFFF]/80 ">
           {/* Row 1 */}

@@ -1,17 +1,26 @@
 import React from "react";
 import clsx from "clsx";
 
-function Input({ className,inputClassName, suffix, prefix, type, variant='md',  ...rest }) {
-  const isCheckbox = type === "checkbox"||type === "radio";
+function Input({
+  className,
+  inputClassName,
+  suffix,
+  prefix,
+  type,
+  variant = "md",
+  ...rest
+}) {
+  const isCheckbox = type === "checkbox" || type === "radio";
 
   const sizeVariant = {
-    xs : 'h-9',
-    sm : 'h-9 md:h-11',
-    md : 'h-10 md:h-12',
-    lg : 'h-11 md:h-14'
-  }
+    xs: "h-9",
+    sm: "h-9 md:h-11",
+    md: "h-10 md:h-12",
+    lg: "h-11 md:h-14",
+    fit: "h-fit",
+  };
   let classes = clsx(
-    "flex flex-nowrap items-center gap-3 w-full px-4 bg-input border rounded-md shadow-sm focus-within:ring-1 focus-within:ring-input",
+    "flex flex-nowrap items-center gap-3 w-full p-4 bg-input border rounded-md shadow-sm focus-within:ring-1 focus-within:ring-input",
     sizeVariant[variant],
     className
   );
@@ -35,5 +44,3 @@ function Input({ className,inputClassName, suffix, prefix, type, variant='md',  
 }
 
 export default Input;
-
-

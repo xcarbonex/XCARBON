@@ -7,12 +7,14 @@ import { IoMdCalendar } from "react-icons/io";
 import { HiDotsVertical } from "react-icons/hi";
 import { CiTimer } from "react-icons/ci";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import {Table} from "@/components"
+import { Table } from "@/components";
 import { useNavigate } from "react-router-dom";
 import BuyCarbonCreditModal from "@/components/Modals/BuyCarbonCreditModal";
+import { Typography } from "../../../src/components/index";
+import { Breadcrumb } from "../../../src/components/index";
 
 const MarketPlaceAssets = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState("ESG");
   const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
   const [selectedCredit, setSelectedCredit] = useState(null);
@@ -39,53 +41,53 @@ const MarketPlaceAssets = () => {
   const columns = [
     {
       accessorKey: "assetName",
-      header: "Asset Name", 
+      header: "Asset Name",
       enableSorting: false,
-      cell: ({row}) => {
+      cell: ({ row }) => {
         return (
           <div className="whitespace-nowrap dark:text-white">
             <div>{row.original.assetName}</div>
             <div>{row.original.date}</div>
           </div>
         );
-      }
+      },
     },
     {
       accessorKey: "projectType",
-      header: "Project Type", 
+      header: "Project Type",
     },
     {
       accessorKey: "insuranceYear",
-      header: "Insurance Year", 
+      header: "Insurance Year",
     },
     {
       accessorKey: "location",
-      header: "Location", 
-      enableSorting: false
+      header: "Location",
+      enableSorting: false,
     },
     {
       accessorKey: "registry",
       header: "Registry",
-      enableSorting: false  
+      enableSorting: false,
     },
     {
       accessorKey: "price",
-      header: "Price", 
+      header: "Price",
     },
     {
       accessorKey: "availableVolume",
       header: "Available Volume",
-      enableSorting: false 
+      enableSorting: false,
     },
     {
       accessorKey: "supplier",
       header: "Supplier",
-      enableSorting: false, 
+      enableSorting: false,
     },
     {
       accessorKey: "vintage",
-      header: "Vintage", 
-      enableSorting: false 
+      header: "Vintage",
+      enableSorting: false,
     },
     {
       accessorKey: "quantity",
@@ -93,11 +95,11 @@ const MarketPlaceAssets = () => {
     },
     {
       accessorKey: "action",
-      header: "Action", 
+      header: "Action",
       enableSorting: false,
-      cell: ({row}) => {
+      cell: ({ row }) => {
         return (
-          <button 
+          <button
             onClick={(e) => {
               e.stopPropagation();
               handleBuyClick(row.original);
@@ -107,15 +109,22 @@ const MarketPlaceAssets = () => {
             BUY
           </button>
         );
-      } 
+      },
     },
   ];
-
+  const breadcrumbItems = [
+    { label: "Dashboard", path: "/" },
+    { label: "", path: "/" },
+  ];
   return (
     <>
       <div className="transition-all duration-slow">
         <div className="space-y-5 text-black dark:text-[#FFFFFF]/80 ">
           {/* Row 1 */}
+
+          <Typography variant="h4" className="border-b-2 border-[#363638] pb-2">
+            Dashboard
+          </Typography>
 
           <div className="grid  gap-5">
             <div className="grid shadow-xl p-4 border rounded-custom">
@@ -125,7 +134,9 @@ const MarketPlaceAssets = () => {
                 showSearch
                 showPageSize
                 showDataFilter
-                onRowClick={(data)=>navigate(`project-detail/${data.assetName}`)}
+                onRowClick={(data) =>
+                  navigate(`project-detail/${data.assetName}`)
+                }
                 title="Marketplace Instruments"
                 // className="bg-[#FDFDFB] text-white shadow-xl dark:bg-[#191919] p-5 border dark:border-[#363638] rounded-custom"
               />
@@ -142,15 +153,17 @@ const MarketPlaceAssets = () => {
                 <div>
                   <div className="flex gap-5 text-[13px] text-white">
                     <div className="flex gap-5 text-[13px] text-white">
-                      {["ESG", "Major Trades", "Regulatory"].map((category, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setActiveCategory(category)}
-                          className="px-3 py-1 bg-[#C2A57B] rounded-md text-[13px] transition-all duration-slow hover:bg-black dark:bg-black dark:hover:bg-[#949494]"
-                        >
-                          {category}
-                        </button>
-                      ))}
+                      {["ESG", "Major Trades", "Regulatory"].map(
+                        (category, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setActiveCategory(category)}
+                            className="px-3 py-1 bg-[#C2A57B] rounded-md text-[13px] transition-all duration-slow hover:bg-black dark:bg-black dark:hover:bg-[#949494]"
+                          >
+                            {category}
+                          </button>
+                        )
+                      )}
                     </div>
                   </div>
                 </div>

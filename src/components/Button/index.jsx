@@ -91,16 +91,7 @@ const Button = ({
   const content = (
     <>
       {icon && iconPosition === 'left' && renderIcon(icon)}
-      {typeof children === 'string' ? (
-        <Typography 
-          variant="button" 
-          className={variant.startsWith('dark') ? 'text-white' : undefined}
-        >
-          {children}
-        </Typography>
-      ) : (
-        children
-      )}
+        {children}
       {icon && iconPosition === 'right' && renderIcon(icon)}
     </>
   );

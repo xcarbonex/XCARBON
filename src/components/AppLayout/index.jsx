@@ -18,7 +18,7 @@ const UserMenu = () => {
     <div className="relative" ref={menuRef}>
       <button className="flex items-center space-x-3 border border-tbase p-2 rounded-lg bg-[#A6B3B1] dark:bg-background hover:bg-opacity-80 transition-colors">
         <span className=" text-md text-nowrap">Google LLC</span>
-        <HiOutlineDotsVertical className="w-5 h-5" />
+        {/* <HiOutlineDotsVertical className="w-5 h-5" /> */}
       </button>
     </div>
   );
@@ -27,7 +27,6 @@ const UserMenu = () => {
 function MainLayout() {
   const { theme } = useTheme();
   const { isMobileOpen, toggleMobileSidebar } = useSidebar();
-
 
   return (
     <main className={`flex min-h-screen ${theme}`}>
@@ -57,7 +56,7 @@ function MainLayout() {
 
         <div className=" flex-1 bg-main text-text">
           <ScrollBarWrapper>
-            <main className={clsx('md:pl-2 m-2 my-4')}>
+            <main className={clsx("md:pl-2 m-2 my-4")}>
               <Outlet />
             </main>
           </ScrollBarWrapper>

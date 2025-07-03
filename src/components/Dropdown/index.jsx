@@ -1,8 +1,7 @@
-
-import { clsx } from 'clsx';
-import { HiDotsVertical } from 'react-icons/hi';
-import { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { clsx } from "clsx";
+import { HiDotsVertical } from "react-icons/hi";
+import { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const Dropdown = ({
   options = [],
@@ -10,34 +9,36 @@ const Dropdown = ({
   onSelect,
   className,
   customInput = false,
-  buttonClassName = '',
-  dropdownClassName = '',
-  itemClassName = '',
-  placeholder = 'Custom',
+  buttonClassName = "",
+  dropdownClassName = "",
+  itemClassName = "",
+  placeholder = "Custom",
   onCustomSelect,
-  icon
+  icon,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [customValue, setCustomValue] = useState('');
-const [selectedOptionState, setSelectedOptionState] = useState(
-  selectedOption ?? (options.length > 0 ? options[0] : null)
-);
+  const [customValue, setCustomValue] = useState("");
+  const [selectedOptionState, setSelectedOptionState] = useState(
+    selectedOption ?? (options.length > 0 ? options[0] : null)
+  );
   const dropdownRef = useRef(null);
 
   const getButtonLabel = () => {
-    const selected = options.find((option) => option.value === selectedOptionState?.value);
-    return selected?.label ;
-};
+    const selected = options.find(
+      (option) => option.value === selectedOptionState?.value
+    );
+    return selected?.label;
+  };
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
-        setCustomValue('');
+        setCustomValue("");
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleToggle = (e) => {
@@ -46,33 +47,37 @@ const [selectedOptionState, setSelectedOptionState] = useState(
     setIsOpen((prev) => !prev);
   };
 
-const handleOptionSelect = (value) => {
-  setSelectedOptionState(value);
-  getButtonLabel()
-  onSelect(value);
-  setIsOpen(false);
-  setCustomValue('');
-};
-
-const handleCustomSubmit = () => {
-  const value = Number(customValue);
-  if (customInput && value > 0 && Number.isInteger(value)) {
+  const handleOptionSelect = (value) => {
     setSelectedOptionState(value);
-    onCustomSelect(value);
+    getButtonLabel();
+    onSelect(value);
     setIsOpen(false);
-    setCustomValue('');
-  } else {
-    alert('Please enter a valid positive integer');
-  }
-};
+    setCustomValue("");
+  };
+
+  const handleCustomSubmit = () => {
+    const value = Number(customValue);
+    if (customInput && value > 0 && Number.isInteger(value)) {
+      setSelectedOptionState(value);
+      onCustomSelect(value);
+      setIsOpen(false);
+      setCustomValue("");
+    } else {
+      alert("Please enter a valid positive integer");
+    }
+  };
 
   return (
-    <div className={clsx("relative  text-tbase min-w-[2.8rem]", className)}  ref={dropdownRef} style={{ userSelect: 'none' }}>
+    <div
+      className={clsx("relative  text-tbase min-w-[2.8rem]", className)}
+      ref={dropdownRef}
+      style={{ userSelect: "none" }}
+    >
       <button
         type="button"
         className={clsx(
-          'rounded p-1 cursor-pointer border focus:outline-none ',
-          {'w-full': !icon},
+          "rounded p-1 cursor-pointer border focus:outline-none ",
+          { "w-full": !icon },
           buttonClassName
         )}
         onClick={handleToggle}
@@ -83,26 +88,26 @@ const handleCustomSubmit = () => {
       </button>
       <div
         className={clsx(
-          'absolute right-0 bg-secondary border rounded shadow-lg z-20 p-1',
+          "absolute right-0 bg-secondary border rounded shadow-lg z-20 p-1",
           { hidden: !isOpen },
           dropdownClassName
         )}
       >
         <ul className="space-y-1 w-fit text-center">
-            {options.map((option, index) => (
-                <li
-                    key={index}
-                    className={clsx(
-                    'px-1 py-1 w-full cursor-pointer hover:bg-input rounded',
-                    { 'bg-input': selectedOptionState === option.value },
-                    itemClassName
-                    )}
-                    onClick={() => handleOptionSelect(option)}
-                    style={{ userSelect: 'none' }}
-                >
-                    {option.label}
-                </li>
-            ))}     
+          {options.map((option, index) => (
+            <li
+              key={index}
+              className={clsx(
+                "px-1 py-1 w-full cursor-pointer hover:bg-input rounded",
+                { "bg-input": selectedOptionState === option.value },
+                itemClassName
+              )}
+              onClick={() => handleOptionSelect(option)}
+              style={{ userSelect: "none" }}
+            >
+              {option.label}
+            </li>
+          ))}
           {customInput && (
             <li className="pt-2">
               <input
@@ -128,15 +133,19 @@ const handleCustomSubmit = () => {
   );
 };
 
-
 Dropdown.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        .isRequired,
     })
   ),
-  selectedOption: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.oneOf([null])]),
+  selectedOption: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.oneOf([null]),
+  ]),
   onSelect: PropTypes.func.isRequired,
   customInput: PropTypes.bool,
   buttonClassName: PropTypes.string,
@@ -150,11 +159,11 @@ Dropdown.defaultProps = {
   options: [],
   selectedOption: null,
   customInput: false,
-  buttonClassName: '',
-  dropdownClassName: '',
-  itemClassName: '',
-  placeholder: 'Custom',
+  buttonClassName: "",
+  dropdownClassName: "",
+  itemClassName: "",
+  placeholder: "Custom",
   onCustomSelect: () => {},
 };
 
-export default Dropdown
+export default Dropdown;
