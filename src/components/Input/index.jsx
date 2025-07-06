@@ -8,6 +8,7 @@ function Input({
   prefix,
   type,
   variant = "md",
+  width = "full",
   ...rest
 }) {
   const isCheckbox = type === "checkbox" || type === "radio";
@@ -19,9 +20,17 @@ function Input({
     lg: "h-11 md:h-14",
     fit: "h-fit",
   };
+  const widthVariant = {
+    full: "w-full",
+    fit: "w-fit",
+  };
   let classes = clsx(
-    "flex flex-nowrap items-center gap-3 w-full p-4 bg-input border rounded-md shadow-sm focus-within:ring-1 focus-within:ring-input",
+    "flex flex-nowrap items-center gap-3 w-fit px-4 bg-input border rounded-md focus-within:ring-1 focus-within:ring-input",
+    {
+      "opacity-70 cursor-not-allowed": rest.disabled,
+    },
     sizeVariant[variant],
+    widthVariant[width],
     className
   );
 
@@ -30,6 +39,7 @@ function Input({
     {
       "w-4 h-4": isCheckbox,
       "w-full h-full": !isCheckbox,
+      "cursor-not-allowed": rest.disabled,
     },
     inputClassName
   );

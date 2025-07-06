@@ -13,6 +13,7 @@
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
     "@types/node": "^24.0.10",
+    "axios": "^1.10.0",
     "chart.js": "^4.4.9",
     "chartjs-plugin-zoom": "^2.2.0",
     "clsx": "^2.1.1",
@@ -36,7 +37,9 @@
     "react-toggle-slider": "^0.4.1",
     "react-tooltip": "^5.28.1",
     "tailgrids": "^2.3.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "yup": "^1.6.1",
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -52,7 +55,9 @@
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
     "tailwindcss-motion": "^1.1.1",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vite-plugin-pwa": "^1.0.1",
+    "workbox-window": "^7.3.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

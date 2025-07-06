@@ -25,3 +25,6 @@ export {
   Breadcrumb,
   Accordion,
 };
+
+// PWA Components
+export { PWAInstallPrompt, PWAUpdatePrompt } from "./PWA";

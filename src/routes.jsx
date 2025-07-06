@@ -62,7 +62,7 @@ export const router = createBrowserRouter([
             element: <WalletInfoScreen />,
           },
           {
-            path: "Deposit",
+            path: "deposit",
             element: <Deposit />,
           },
           {

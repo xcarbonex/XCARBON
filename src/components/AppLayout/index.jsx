@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { Input as SearchInput } from "@/components";
 import { IoIosSearch } from "react-icons/io";
@@ -8,21 +8,13 @@ import { SidebarProvider, useSidebar } from "@/context/SidebarContext";
 import Sidebar from "@/components/Sidebar";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import NotificationPopup from "@/components/NotificationPopup";
-import { ScrollBarWrapper } from "@/components";
+import {
+  ScrollBarWrapper,
+  PWAInstallPrompt,
+  PWAUpdatePrompt,
+} from "@/components";
+import { UserProfile } from "@/components/Auth";
 import clsx from "clsx";
-
-const UserMenu = () => {
-  const menuRef = useRef(null);
-
-  return (
-    <div className="relative" ref={menuRef}>
-      <button className="flex items-center space-x-3 border border-tbase p-2 rounded-lg bg-[#A6B3B1] dark:bg-background hover:bg-opacity-80 transition-colors">
-        <span className=" text-md text-nowrap">Google LLC</span>
-        {/* <HiOutlineDotsVertical className="w-5 h-5" /> */}
-      </button>
-    </div>
-  );
-};
 
 function MainLayout() {
   const { theme } = useTheme();
@@ -49,7 +41,7 @@ function MainLayout() {
 
             <div className="flex items-center space-x-2 sm:space-x-4 py-2 sm:py-0">
               <NotificationPopup />
-              <UserMenu />
+              <UserProfile />
             </div>
           </div>
         </header>
@@ -62,6 +54,10 @@ function MainLayout() {
           </ScrollBarWrapper>
         </div>
       </div>
+
+      {/* PWA Components */}
+      <PWAInstallPrompt />
+      <PWAUpdatePrompt />
     </main>
   );
 }

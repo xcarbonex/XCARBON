@@ -5,20 +5,20 @@ import Dperson from "@/assets/doublePerson.svg";
 import Security from "@/assets/security.svg";
 import Verified from "@/assets/verified.svg";
 import lock from "@/assets/lock.svg";
-import eye from "@/assets/eye.svg";
 import { useTheme } from "@/components/ThemeProvider";
 import clsx from "clsx";
 import { Input, Button } from "@/components";
 import logoLight from "@/assets/logoLight.svg";
 import logoBlack from "@/assets/logoBlack.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import xNeon from "@/assets/xNeon.svg";
-import xNeonBlack from "@/assets/xNeonBlack.svg";
 import EnterpriseDetail from "./EnterpriseDetail";
 import IndividualDetail from "./IndividualDetail";
 import { Tabs } from "@/components";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import Form from "@/components/Form";
+import * as Yup from 'yup';
 
 const data = [
   {
@@ -52,16 +52,10 @@ const SignUp = () => {
   const { theme } = useTheme();
   const [tabVisible, setTabVisible] = useState(false);
   const [activeTab, setActiveTab] = useState("enterprise");
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const navigate = useNavigate();
 
   let parentClasses = clsx(
     theme === "dark" ? "bg-dark-bg" : "bg-light-bg",
@@ -71,78 +65,26 @@ const SignUp = () => {
   let logo = theme === "dark" ? logoLight : logoBlack;
   let tabsContainerLogo = theme === "dark" ? xNeon : logoBlack;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const initialValues = {
+    Fname: "",
+    Lname: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+  const handleSubmit = async (values, { setSubmitting }) => {
     setError("");
-
-    if (!validateEmail(formData.email)) {
-      setError("Please enter a valid email address");
-      return;
-    }
-
-    const passwordError = validatePassword(formData.password);
-    if (passwordError) {
-      setError(passwordError);
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
     setIsLoading(true);
-
     try {
       // TODO: Implement your signup logic here
       await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulated API call
       setTabVisible(true);
-    } catch (err) {
+    } catch {
       setError("Failed to create account. Please try again.");
     } finally {
       setIsLoading(false);
+      setSubmitting(false);
     }
-  };
-
-  const handltTabChange = (key) => {
-    setActiveTab(key);
-  };
-
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  const validatePassword = (password) => {
-    const minLength = 8;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumbers = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-    if (password.length < minLength) {
-      return "Password must be at least 8 characters long";
-    }
-    if (!hasUpperCase) {
-      return "Password must contain at least one uppercase letter";
-    }
-    if (!hasLowerCase) {
-      return "Password must contain at least one lowercase letter";
-    }
-    if (!hasNumbers) {
-      return "Password must contain at least one number";
-    }
-    if (!hasSpecialChar) {
-      return "Password must contain at least one special character";
-    }
-    return "";
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
   };
 
   const togglePasswordVisibility = () => {
@@ -152,6 +94,22 @@ const SignUp = () => {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword((prev) => !prev);
   };
+
+  const validationSchema = Yup.object().shape({
+    Fname: Yup.string().required("First Name is required"),
+    Lname: Yup.string().required("Last Name is required"),
+    email: Yup.string().email("Invalid email address").required("Email is required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+      .matches(/\d/, "Password must contain at least one number")
+      .matches(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character")
+      .required("Password is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm Password is required'),
+  });
 
   return (
     <div
@@ -196,191 +154,195 @@ const SignUp = () => {
         <div className="relative">
           {/* <img src={dots} alt="logo" className="absolute bottom-0 left-0 right-0 z-[1]"/> */}
           <div className="bg-secondary p-7  rounded-lg drop-shadow">
-            <form
-              className=" grid grid-cols-1 md:grid-cols-2 gap-4"
-              onSubmit={handleSubmit}
-            >
-              <div className="space-y-2 col-span-2 md:col-span-1">
-                <label>First Name</label>
-                {/* Input Img */}
-                {/* <img
-                      src={Person}
-                      alt="person"
-                      className="absolute text-[30px] z-5 mt-6 ml-3 "
-                    /> */}
-                {/* inputbar */}
-                <Input
-                  type="text"
-                  id="Fname"
-                  name="Fname"
-                  placeholder="First Name"
-                  prefix={<img src={Person} alt="person" />}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2 col-span-2 md:col-span-1">
-                <label>Last Name</label>
-                {/* Input Img */}
-                {/* <img
-                      src={Person}
-                      alt="person"
-                      className="absolute z-5 mt-6 ml-3 "
-                    /> */}
-                <Input
-                  type="text"
-                  id="Lname"
-                  name="Lname"
-                  placeholder=" Last Name"
-                  prefix={<img src={Person} alt="person" />}
-                />
-              </div>
-
-              <div className="space-y-2 col-span-2">
-                <label>Email</label>
-
-                {/* Email img */}
-                {/* <img
-                    src={Email}
-                    alt="email"
-                    className="absolute  z-5 mt-7 ml-3"
-                  /> */}
-                {/* Email input */}
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email"
-                  prefix={<MdOutlineEmail className="h-6 w-6" />}
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                />
-              </div>
-
-              <div className="space-y-2 col-span-2">
-                <label>Password</label>
-                {/* Password Images */}
-                {/* <img
-                    src={lock}
-                    alt="lock"
-                    className="absolute z-10 mt-6 ml-3"
-                  /> */}
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  prefix={<img src={lock} alt="Lock" />}
-                  suffix={
-                    <button
-                      type="button"
-                      onClick={togglePasswordVisibility}
-                      className="text-gray-400 hover:text-gray-500 focus:outline-none"
+            <Form initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
+              {({ values, handleChange, handleBlur, handleSubmit, errors, touched }) => (
+                <form className=" grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
+                  <div className="space-y-2 col-span-2 md:col-span-1">
+                    <label>First Name</label>
+                    <Input
+                      type="text"
+                      id="Fname"
+                      name="Fname"
+                      placeholder="First Name"
+                      prefix={<img src={Person} alt="person" />}
+                      value={values.Fname}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.Fname && touched.Fname && (
+                      <p className="text-red-500 text-sm mt-1">{errors.Fname}</p>
+                    )}
+                  </div>
+                  <div className="space-y-2 col-span-2 md:col-span-1">
+                    <label>Last Name</label>
+                    <Input
+                      type="text"
+                      id="Lname"
+                      name="Lname"
+                      placeholder=" Last Name"
+                      prefix={<img src={Person} alt="person" />}
+                      value={values.Lname}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.Lname && touched.Lname && (
+                      <p className="text-red-500 text-sm mt-1">{errors.Lname}</p>
+                    )}
+                  </div>
+                  <div className="space-y-2 col-span-2">
+                    <label>Email</label>
+                    <Input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="Email"
+                      prefix={<MdOutlineEmail className="h-6 w-6" />}
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      disabled={isLoading}
+                    />
+                    {errors.email && touched.email && (
+                      <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                    )}
+                  </div>
+                  <div className="space-y-2 col-span-2">
+                    <label>Password</label>
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      name="password"
+                      placeholder="Password"
+                      prefix={<img src={lock} alt="Lock" />}
+                      suffix={
+                        <button
+                          type="button"
+                          onClick={togglePasswordVisibility}
+                          className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                        >
+                          {showPassword ? (
+                            <MdVisibilityOff className="h-5 w-5" />
+                          ) : (
+                            <MdVisibility className="h-5 w-5" />
+                          )}
+                        </button>
+                      }
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      disabled={isLoading}
+                    />
+                    {errors.password && touched.password && (
+                      <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                    )}
+                  </div>
+                  <div className="space-y-2 col-span-2">
+                    <label>Confirm Password</label>
+                    <Input
+                      type={showConfirmPassword ? "text" : "password"}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      suffix={
+                        <button
+                          type="button"
+                          onClick={toggleConfirmPasswordVisibility}
+                          className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                        >
+                          {showConfirmPassword ? (
+                            <MdVisibilityOff className="h-5 w-5" />
+                          ) : (
+                            <MdVisibility className="h-5 w-5" />
+                          )}
+                        </button>
+                      }
+                      value={values.confirmPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      disabled={isLoading}
+                    />
+                    {errors.confirmPassword && touched.confirmPassword && (
+                      <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+                    )}
+                  </div>
+                  <div className="col-span-2 mt-3">
+                    <Button
+                      type="submit"
+                      disabled={isLoading}
+                      size="lg"
+                      className={`group relative w-full flex justify-center border border-transparent bg-btn ${
+                        isLoading ? "bg-indigo-400" : " hover:bg-btn-500"
+                      } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                     >
-                      {showPassword ? (
-                        <MdVisibilityOff className="h-5 w-5" />
-                      ) : (
-                        <MdVisibility className="h-5 w-5" />
-                      )}
-                    </button>
-                  }
-                  required
-                  value={formData.password}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                />
-                {/* <img
-                      src={eye}
-                      alt="eye"
-                      className="absolute  -mt-8 transform -translate-x-1/2 "
-                      id="eye"
-                    /> */}
-              </div>
-
-              <div className="space-y-2 col-span-2">
-                <label>Confirm Password</label>
-                <Input
-                  type={showConfirmPassword ? "text" : "password"}
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  suffix={
-                    <button
-                      type="button"
-                      onClick={toggleConfirmPasswordVisibility}
-                      className="text-gray-400 hover:text-gray-500 focus:outline-none"
-                    >
-                      {showConfirmPassword ? (
-                        <MdVisibilityOff className="h-5 w-5" />
-                      ) : (
-                        <MdVisibility className="h-5 w-5" />
-                      )}
-                    </button>
-                  }
-                  required
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                />
-              </div>
-
-              <div className="col-span-2 mt-3">
-                <Button
-                  type="submit"
-                  disabled={isLoading}
-                  size="lg"
-                  className={`group relative w-full flex justify-center border border-transparent bg-btn ${
-                    isLoading ? "bg-indigo-400" : " hover:bg-btn-500"
-                  } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
-                >
-                  {isLoading ? (
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                  ) : null}
-                  {isLoading ? "Creating account..." : "Create account"}
-                </Button>
-              </div>
-              <div className="col-span-2">
-                <p>
-                  By creating an account, you agree to the
-                  <Link to="" className="underline font-semibold px-2">
-                    Terms of Service.
-                  </Link>
-                  We'll occasionally send you account-related emails.
-                </p>
-              </div>
-
-              <div className="col-span-2 text-center text-[14px]">
-                <p>
-                  Already have an Account?
-                  <span className="font-semibold ">
-                    <Link to="/login" className="ml-1">
-                      Login
-                    </Link>
-                  </span>
-                </p>
-              </div>
-            </form>
+                      {isLoading ? (
+                        <svg
+                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                      ) : null}
+                      {isLoading ? "Creating account..." : "Create account"}
+                    </Button>
+                  </div>
+                  <div className="col-span-2">
+                    <p>
+                      By creating an account, you agree to the
+                      <Link to="" className="underline font-semibold px-2">
+                        Terms of Service.
+                      </Link>
+                      We'll occasionally send you account-related emails.
+                    </p>
+                  </div>
+                  <div className="col-span-2 text-center text-[14px]">
+                    <p>
+                      Already have an Account?
+                      <span className="font-semibold ">
+                        <Link to="/login" className="ml-1">
+                          Login
+                        </Link>
+                      </span>
+                    </p>
+                  </div>
+                  {error && (
+                    <div className="col-span-2 rounded-md bg-red-50 p-4 mt-2">
+                      <div className="flex">
+                        <div className="flex-shrink-0">
+                          <svg
+                            className="h-5 w-5 text-red-400"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-sm font-medium text-red-800">{error}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </form>
+              )}
+            </Form>
           </div>
         </div>
       </div>

@@ -1,0 +1,89 @@
+{
+    "id": "5217",
+    "created_at": "2025-05-30T10:31:32Z",
+    "updated_at": "2025-07-01T07:52:59Z",
+    "name": "Idea Balance Safe Water Access Project",
+    "description": "The \"Idea Balance Safe Water Access Project\" will be implemented on Zanzibar Island, part of the United Republic of Tanzania. The project focuses on rehabilitating non-functional boreholes that have not received maintenance from the government or any authorized entity. These efforts will be financed and coordinated by the IDEA Universal International Development and Environment Association (IDEA Universal), leveraging their extensive expertise in sustainable water access initiatives.\n\nThis initiative aims to restore orphaned boreholes, identified based on household need and proximity to communities without alternative drinking water sources within a 1 km radius. By providing access to safe and clean drinking water, the project intends to reduce greenhouse gas emissions associated with boiling unsafe water and to decrease reliance on non-renewable biomass, mitigating environmental degradation and promoting sustainable resource use.\n",
+    "status": "LISTED",
+    "gsf_standards_version": "Gold Standard for the Global Goals",
+    "estimated_annual_credits": 21766,
+    "crediting_period_start_date": "2024-07-12",
+    "crediting_period_end_date": "2039-07-11",
+    "methodology": null,
+    "type": "Energy Efficiency - Domestic",
+    "size": "Small Scale",
+    "sustaincert_id": 23300,
+    "sustaincert_url": "https://assurance-platform.goldstandard.org/project-documents/GS23300",
+    "project_developer": "Climate Balanced İklim Enerji Ticaret ve Eğitim Limited Şirketi",
+    "country": "Tanzania, United Republic of",
+    "country_code": "TZ",
+    "latitude": null,
+    "longitude": null,
+    "state": null,
+    "carbon_stream": "GS_VER",
+    "programme_of_activities": "Standalone",
+    "sustainable_development_goals": [
+        {
+            "name": "Goal 5: Gender Equality",
+            "issuable_products": []
+        },
+        {
+            "name": "Goal 3: Good Health and Well-Being",
+            "issuable_products": [
+                {
+                    "name": "Averted Disability Adjusted Life Year",
+                    "abbreviation": "ADALY"
+                }
+            ]
+        },
+        {
+            "name": "Goal 1: No Poverty",
+            "issuable_products": [
+                {
+                    "name": "Verified Emission Reduction",
+                    "abbreviation": "VER"
+                }
+            ]
+        },
+        {
+            "name": "Goal 8: Decent Work and Economic Growth",
+            "issuable_products": []
+        },
+        {
+            "name": "Goal 6: Clean Water and Sanitation",
+            "issuable_products": [
+                {
+                    "name": "Water Benefit Certificate",
+                    "abbreviation": "WBC"
+                }
+            ]
+        },
+        {
+            "name": "Goal 13: Climate Action",
+            "issuable_products": [
+                {
+                    "name": "Verified Emission Reduction",
+                    "abbreviation": "VER"
+                },
+                {
+                    "name": "Certified Emission Reduction",
+                    "abbreviation": "CER"
+                },
+                {
+                    "name": "Renewable Energy Certificate",
+                    "abbreviation": "REC"
+                },
+                {
+                    "name": "Planned Emission Reduction",
+                    "abbreviation": "PER"
+                }
+            ]
+        },
+        {
+            "name": "Goal 15: Life On Land",
+            "issuable_products": []
+        }
+    ],
+    "has_corsia_eligible_credits": false,
+    "labels": []
+}

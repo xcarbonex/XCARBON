@@ -11,6 +11,7 @@ import silver from "@/assets/silver.svg";
 import gold from "@/assets/gold.svg";
 import platinum from "@/assets/platinum.svg";
 import MintCarbon from "@/assets/navigation/mintCarbon.svg";
+import certificate from "@/assets/certificate.svg";
 const sidebar = {
   logo: logolight,
   navigation: [
@@ -34,7 +35,11 @@ const sidebar = {
       icon: MintCarbon,
       route: "/MintCarbonCredits",
     },
-
+    {
+      label: "Carbon Registry",
+      icon: certificate,
+      route: "/carbon-credit-registry",
+    },
     {
       label: "Membership",
       icon: user,
@@ -3645,38 +3650,47 @@ const newsRegulatory = [
 const formFields = [
   {
     label: "Project Name",
+    name: "projectName",
     placeholder: "Mangrove Reforestation Initiative - Indonesia",
   },
   {
-    label: "Forestry & Land Use",
+    label: "Project Type",
+    name: "type",
     placeholder: "Mangrove Reforestation Initiative - Indonesia",
   },
   {
     label: "Vintage & Issuance Years",
+    name: "vintageYear",
     placeholder: "2022-2024",
   },
   {
     label: "Total Tonnes",
+    name: "quantity",
     placeholder: "25,000 tCO₂e",
   },
   {
     label: "Location",
+    name: "location",
     placeholder: "Kalimantan, Indonesia",
   },
   {
     label: "Certification Status",
+    name: "status",
     placeholder: "Verified & Issued",
   },
   {
     label: "Verification Body",
+    name: "verificationBody",
     placeholder: "DNV GL",
   },
   {
-    label: "Serial Number Rangey",
+    label: "Serial Number Range",
+    name: "serialNumberRange",
     placeholder: "VCS-123456-123456-123456-1-25000",
   },
   {
     label: "Project Developer",
+    name: "project_developer",
     placeholder: "EcoForest Partners",
   },
 ];

@@ -620,4 +620,22 @@ export const activeAgreements = {
       vintage: "2024"
     }
   ]
+};
+
+export const registryApiEndpoints = {
+  verra: {
+    sno: "https://api.example.com/verra/serial",
+    projectID: "https://api.example.com/verra/project",
+    registryURL: "https://api.example.com/verra/url",
+  },
+  gold_standard: {
+    sno: "https://api.example.com/goldstandard/serial",
+    projectID: "https://api.example.com/goldstandard/project",
+    registryURL: "https://api.example.com/goldstandard/url",
+  },
+  climate_action_reserve: {
+    sno: "https://api.example.com/climateactionreserve/serial",
+    projectID: "https://api.example.com/climateactionreserve/project",
+    registryURL: "https://api.example.com/climateactionreserve/url",
+  },
 }; 
