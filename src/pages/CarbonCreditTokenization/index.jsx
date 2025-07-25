@@ -27,13 +27,6 @@ const CarbonCreditTokenization = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      selectedRegistry,
-      projectId,
-      creditAmount,
-      vintage,
-      file
-    });
   };
 
   return (

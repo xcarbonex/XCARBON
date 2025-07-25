@@ -10,7 +10,10 @@ import Modal from "./Model";
 import ScrollBarWrapper from "./ScrollBarWrapper";
 import Breadcrumb from "./Breadcrumb";
 import Accordion from "./Accordion";
-
+import FileUpload from "./FileUpload";
+import List from "./List";
+import Card from "./Card";
+import Loader from "./Loader";
 export {
   Input,
   Table,
@@ -23,8 +26,12 @@ export {
   Modal,
   ScrollBarWrapper,
   Breadcrumb,
+  FileUpload,
   Accordion,
+  List,
+  Card,
+  Loader,
 };
 
 // PWA Components
-export { PWAInstallPrompt, PWAUpdatePrompt } from "./PWA";
+export {PWAInstallPrompt, PWAUpdatePrompt} from "./PWA";

@@ -41,12 +41,7 @@ const BuyCarbonCreditModal = ({ isOpen, onClose, creditData }) => {
     e.preventDefault();
     if (error) return;
 
-    console.log('Processing payment:', {
-      paymentMethod,
-      quantity,
-      totalCost,
-      creditData
-    });
+    // console.log('Processing payment:', {
   };
 
   const paymentOptions = [

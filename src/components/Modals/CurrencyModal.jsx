@@ -54,7 +54,7 @@ const CurrencyModal = ({ isOpen, onClose }) => {
   const handleCurrencySelect = (currencyCode) => {
     setSelectedCurrency(currencyCode);
     // TODO: Implement currency change logic here
-    console.log('Currency changed to:', currencyCode);
+    // console.log('Currency changed to:', currencyCode);
   };
 
   return (

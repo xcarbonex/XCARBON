@@ -1,10 +1,10 @@
 import React from "react";
-import { Typography, Accordion, Breadcrumb } from "@/components";
+import {Typography, Accordion, Breadcrumb} from "@/components";
 
 function Help() {
   const breadcrumbItems = [
-    { label: "Home", path: "/" },
-    { label: "Help", path: "/help" },
+    {label: "Home", path: "/"},
+    {label: "Help", path: "/help"},
   ];
 
   const faqs = [

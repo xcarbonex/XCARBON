@@ -57,8 +57,8 @@ const Enterprise = () => {
   return (
     <>
       <Form initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
-        {({ values, handleChange, setFieldValue, handleBlur, handleSubmit, errors, touched }) => (
-          <form className={clsx('grid grid-cols-2 gap-3 md:gap-4', { hidden: showRepresentative })} onSubmit={handleSubmit}>
+        {({ values, handleChange, setFieldValue, handleBlur, errors, touched }) => (
+          <div className={clsx('grid grid-cols-2 gap-3 md:gap-4', { hidden: showRepresentative })}>
             {[
               { label: "Entity Name / Company Name", name: "entityName", type: "text", placeholder: "Company Name" },
               { label: "Company Number", name: "companyNumber", type: "text", placeholder: "Company Number" },
@@ -193,7 +193,7 @@ const Enterprise = () => {
             <button type='submit' className="col-span-2 p-3 mt-10 bg-btn rounded-lg text-text hover:drop-shadow">
               { values.isUBO ? 'Next' : 'Complete Registration' }
             </button>
-          </form>
+          </div>
         )}
       </Form>
       {showRepresentative && <EnterpriseRepresentative />}

@@ -48,7 +48,7 @@ const Login = () => {
 
       if (values.email === DEMO_EMAIL && values.password === DEMO_PASSWORD) {
         // Simulate successful login - perhaps store a token in localStorage or context
-        console.log("Demo login successful!");
+        // console.log("Demo login successful!");
         navigate("/"); // Redirect to the root route
       } else {
         throw new Error("Invalid demo email or password");

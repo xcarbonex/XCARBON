@@ -1,0 +1,31 @@
+let GOLD_STANDARD = {
+  PROJECT_TYPE: [
+    {label: "A/R", value: 22},
+    {label: "Biogas - Cogeneration", value: 6},
+    {label: "Biogas - Electricity", value: 5},
+    {label: "Biogas - Heat", value: 4},
+    {label: "Biogas - Transportation", value: 7},
+    {label: "Biomass, or Liquid Biofuel - Cogeneration", value: 10},
+    {label: "Biomass, or Liquid Biofuel - Electricity", value: 9},
+    {label: "Biomass, or Liquid Biofuel - Heat", value: 8},
+    {label: "CSA", value: 23},
+    {label: "Clean Water Access", value: 24},
+    {label: "Energy Efficiency - Agriculture Sector", value: 19},
+    {label: "Energy Efficiency - Commercial Sector", value: 20},
+    {label: "Energy Efficiency - Domestic", value: 16},
+    {label: "Energy Efficiency - Industrial", value: 15},
+    {label: "Energy Efficiency - Public Sector", value: 18},
+    {label: "Energy Efficiency - Transport Sector", value: 17},
+    {label: "Geothermal", value: 13},
+    {label: "Liquid Biofuel - Transportation", value: 11},
+    {label: "Other", value: 21},
+    {label: "PV", value: 1},
+    {label: "Small, Low - Impact Hydro", value: 14},
+    {label: "Solar Thermal - Electricity", value: 2},
+    {label: "Solar Thermal - Heat", value: 3},
+    {label: "WASH", value: 25},
+    {label: "Wind", value: 12},
+  ],
+};
+
+export {GOLD_STANDARD};

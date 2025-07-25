@@ -10,8 +10,9 @@ import bronze from "@/assets/bronze.svg";
 import silver from "@/assets/silver.svg";
 import gold from "@/assets/gold.svg";
 import platinum from "@/assets/platinum.svg";
-import MintCarbon from "@/assets/navigation/mintCarbon.svg";
-import certificate from "@/assets/certificate.svg";
+// import MintCarbon from "@/assets/navigation/mintCarbon.svg";
+import registysearch from "@/assets/registrysearch.svg";
+
 const sidebar = {
   logo: logolight,
   navigation: [
@@ -30,14 +31,14 @@ const sidebar = {
       icon: carbon_wallet,
       route: "/wallet",
     },
-    {
-      label: "Mint Carbon",
-      icon: MintCarbon,
-      route: "/MintCarbonCredits",
-    },
+    // {
+    //   label: "Mint Carbon",
+    //   icon: MintCarbon,
+    //   route: "/MintCarbonCredits",
+    // },
     {
       label: "Carbon Registry",
-      icon: certificate,
+      icon: registysearch,
       route: "/carbon-credit-registry",
     },
     {
@@ -175,8 +176,8 @@ const tabData = {
     columns: ["Contract Name", "Due Date"],
     keys: ["contractName", "due"],
     items: [
-      { contractName: "Contract A", due: "2025-06-15" },
-      { contractName: "Contract B", due: "2025-07-01" },
+      {contractName: "Contract A", due: "2025-06-15"},
+      {contractName: "Contract B", due: "2025-07-01"},
     ],
   },
 };
@@ -3680,12 +3681,12 @@ const formFields = [
   },
   {
     label: "Verification Body",
-    name: "verificationBody",
+    name: "verification_body",
     placeholder: "DNV GL",
   },
   {
     label: "Serial Number Range",
-    name: "serialNumberRange",
+    name: "serial_number",
     placeholder: "VCS-123456-123456-123456-1-25000",
   },
   {
@@ -3887,10 +3888,10 @@ const reasonsWithdrawl = [
 ];
 
 const projectDetails = [
-  { label: "Project Type", value: "Rainforest Protection Project" },
-  { label: "Vintage Year", value: "2022" },
-  { label: "Total Tonnes", value: "5,000 tCO₂e" },
-  { label: "Registry", value: "Verra" },
+  {label: "Project Type", value: "Rainforest Protection Project"},
+  {label: "Vintage Year", value: "2022"},
+  {label: "Total Tonnes", value: "5,000 tCO₂e"},
+  {label: "Registry", value: "Verra"},
 ];
 
 const notifications = [

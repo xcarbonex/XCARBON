@@ -15,7 +15,7 @@ const PWAInstallPrompt = () => {
     };
 
     const handleAppInstalled = () => {
-      console.log("PWA was installed");
+      // console.log("PWA was installed");
       setShowInstallPrompt(false);
       setDeferredPrompt(null);
     };
@@ -42,9 +42,9 @@ const PWAInstallPrompt = () => {
     const { outcome } = await deferredPrompt.userChoice;
 
     if (outcome === "accepted") {
-      console.log("User accepted the install prompt");
+      // console.log("User accepted the install prompt");
     } else {
-      console.log("User dismissed the install prompt");
+      // console.log("User dismissed the install prompt");
     }
 
     // Clear the deferredPrompt
@@ -59,7 +59,7 @@ const PWAInstallPrompt = () => {
   if (!showInstallPrompt) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4 z-50">
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-90 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4 z-50">
       <div className="flex items-start space-x-3">
         <div className="flex-shrink-0">
           <img src="/logodark.png" alt="Quantum" className="w-8 h-8 rounded" />
@@ -69,14 +69,14 @@ const PWAInstallPrompt = () => {
             Install Quantum App
           </h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Install our app for a better experience with offline access.
+            Install our app for a better experience.
           </p>
         </div>
       </div>
       <div className="mt-4 flex space-x-2">
         <button
           onClick={handleInstallClick}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-3 rounded-md transition-colors"
+          className="flex-1 bg-btn hover:bg-blue-700 text-white text-sm font-medium py-2 px-3 rounded-md transition-colors"
         >
           Install
         </button>

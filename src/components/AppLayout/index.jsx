@@ -1,24 +1,25 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-import { Input as SearchInput } from "@/components";
-import { IoIosSearch } from "react-icons/io";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { useTheme } from "@/components/ThemeProvider";
-import { SidebarProvider, useSidebar } from "@/context/SidebarContext";
+import {Outlet} from "react-router-dom";
+import {Input as SearchInput} from "@/components";
+import {IoIosSearch} from "react-icons/io";
+import {HiOutlineDotsVertical} from "react-icons/hi";
+import {useTheme} from "@/components/ThemeProvider";
+import {SidebarProvider, useSidebar} from "@/context/SidebarContext";
 import Sidebar from "@/components/Sidebar";
-import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
+import {RiMenu3Line, RiCloseLine} from "react-icons/ri";
 import NotificationPopup from "@/components/NotificationPopup";
 import {
   ScrollBarWrapper,
   PWAInstallPrompt,
   PWAUpdatePrompt,
 } from "@/components";
-import { UserProfile } from "@/components/Auth";
+import {UserProfile} from "@/components/Auth";
 import clsx from "clsx";
-
+import {ThemeProvider} from "@/components/ThemeProvider";
+import {AuthProvider} from "@/components/Auth";
 function MainLayout() {
-  const { theme } = useTheme();
-  const { isMobileOpen, toggleMobileSidebar } = useSidebar();
+  const {theme} = useTheme();
+  const {isMobileOpen, toggleMobileSidebar} = useSidebar();
 
   return (
     <main className={`flex min-h-screen ${theme}`}>
@@ -38,7 +39,6 @@ function MainLayout() {
                 )}
               </button>
             </div>
-
             <div className="flex items-center space-x-2 sm:space-x-4 py-2 sm:py-0">
               <NotificationPopup />
               <UserProfile />
@@ -56,17 +56,21 @@ function MainLayout() {
       </div>
 
       {/* PWA Components */}
-      <PWAInstallPrompt />
-      <PWAUpdatePrompt />
+      {/* <PWAInstallPrompt />
+      <PWAUpdatePrompt /> */}
     </main>
   );
 }
 
 function Layout() {
   return (
-    <SidebarProvider>
-      <MainLayout />
-    </SidebarProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <SidebarProvider>
+          <MainLayout />
+        </SidebarProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

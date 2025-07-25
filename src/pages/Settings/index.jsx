@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import user from "@/assets/user.svg";
 import edit from "@/assets/editProfile.svg";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { useTheme } from "@/components/ThemeProvider";
-import { Typography, Button } from "@/components";
+import {MdDarkMode, MdLightMode} from "react-icons/md";
+import {useTheme} from "@/components/ThemeProvider";
+import {Typography, Button} from "@/components";
 import {
   ChangePasswordModal,
   MFAModal,
@@ -14,7 +14,7 @@ import {
   EditProfileModal,
 } from "@/components/Modals";
 
-import { SelectField } from "@/components";
+import {SelectField} from "@/components";
 
 const Settings = () => {
   const [activeModal, setActiveModal] = useState(null);
@@ -23,9 +23,9 @@ const Settings = () => {
 
   // For settings
   const securitySettings = [
-    { label: "Password", action: "Edit", modal: "password" },
-    { label: "Multi-factor Authorization", action: "Edit", modal: "mfa" },
-    { label: "API Keys", action: "Manage", modal: "apikey" },
+    {label: "Password", action: "Edit", modal: "password"},
+    {label: "Multi-factor Authorization", action: "Edit", modal: "mfa"},
+    {label: "API Keys", action: "Manage", modal: "apikey"},
   ];
 
   const preferences = [
@@ -34,7 +34,7 @@ const Settings = () => {
       type: "select",
       options: ["English", "Hindi", "French"],
     },
-    { label: "Appearance", type: "toggle" },
+    {label: "Appearance", type: "toggle"},
   ];
 
   const handleModalOpen = (modalName) => {
@@ -58,8 +58,8 @@ const Settings = () => {
       email: "john.doe@example.com",
       kycStatus: "verified",
       documents: [
-        { type: "ID Card", status: "verified", date: "2024-01-15" },
-        { type: "Proof of Address", status: "verified", date: "2024-01-15" },
+        {type: "ID Card", status: "verified", date: "2024-01-15"},
+        {type: "Proof of Address", status: "verified", date: "2024-01-15"},
       ],
     },
     enterprise: {
@@ -82,7 +82,7 @@ const Settings = () => {
           status: "verified",
           date: "2024-01-15",
         },
-        { type: "Tax Certificate", status: "verified", date: "2024-01-15" },
+        {type: "Tax Certificate", status: "verified", date: "2024-01-15"},
         {
           type: "Company Address Proof",
           status: "pending",
@@ -92,9 +92,9 @@ const Settings = () => {
     },
   };
 
-  const handleSaveProfile = (formData) => {
-    console.log("Saving profile data:", formData);
-  };
+  // const handleSaveProfile = (/*formData*/) => {
+  //   // console.log("Saving profile data:", formData);
+  // };
 
   return (
     <>
@@ -241,13 +241,12 @@ const Settings = () => {
             </Typography>
             <div className="flex justify-between items-center py-4">
               <Typography variant="body1">Delete Account</Typography>
-              <Button
-                variant="outline"
+              <button
                 size="sm"
-                className="bg-[#C2615F] hover:bg-[#c2615fea] dark:bg-[#363638] border-transparent dark:text-red-600"
+                className="bg-[#C2615F] rounded px-3 py-1 hover:bg-[#c2615fcb]"
               >
                 Permanently Delete Your Account
-              </Button>
+              </button>
             </div>
           </div>
         </div>
@@ -282,7 +281,6 @@ const Settings = () => {
         isOpen={isEditProfileModalOpen}
         onClose={() => setIsEditProfileModalOpen(false)}
         userData={mockUserData}
-        onSave={handleSaveProfile}
       />
     </>
   );
@@ -292,7 +290,7 @@ export default Settings;
 
 const Switcher11 = () => {
   const [isChecked, setIsChecked] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  const {theme, toggleTheme} = useTheme();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -301,7 +299,7 @@ const Switcher11 = () => {
 
   return (
     <>
-      <label className="themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center gap-1 rounded-md pg-secondary p-1 border">
+      <label className="themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center gap-1 rounded-md bg-secondary p-1 border">
         <input
           type="checkbox"
           className="sr-only"
@@ -309,15 +307,15 @@ const Switcher11 = () => {
           onChange={handleCheckboxChange}
         />
         <span
-          className={`flex items-center gap-1 rounded p-1 text-sm font-medium ${
-            theme == "light" ? "text-tbase bg-input" : "text-body-color"
+          className={`flex items-center gap-1 rounded text-tbase p-1 text-sm font-medium ${
+            theme == "light" ? "bg-input" : "text-body-color"
           }`}
         >
           <MdLightMode className="w-5 h-5" />
         </span>
         <span
-          className={`flex items-center gap-1 rounded p-1 text-sm font-medium ${
-            theme !== "light" ? "text-tbase bg-input" : "text-body-color"
+          className={`flex items-center gap-1 rounded text-tbase p-1 text-sm font-medium ${
+            theme !== "light" ? "bg-input" : "text-body-color"
           }`}
         >
           <MdDarkMode className="w-5 h-5" />

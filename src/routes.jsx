@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import {
   Dashboard,
   Settings,
@@ -18,7 +18,6 @@ import {
   CarbonCreditTokenization,
   ForgotPassword,
   ResetPassword,
-  MintCarbonCredits,
   MintCarbonCreditsSummary,
 } from "./pages";
 import NotificationsPage from "./pages/Notifications";
@@ -28,6 +27,7 @@ import Layout from "@/components/AppLayout";
 import WithdrawTokenizedCarbonCredit from "./pages/Wallet/WithdrawTokenizedCarbonCredit";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import NotFound from "@/pages/NotFound";
+import TwoFactorAuth from "./pages/TwoFactorAuth";
 
 export const router = createBrowserRouter([
   {
@@ -98,6 +98,12 @@ export const router = createBrowserRouter([
       {
         path: "carbon-credit-registry",
         element: <CarbonCreditAssetsFromRegistry />,
+        children: [
+          {
+            path: "carbon-credit-registry",
+            element: <CarbonCreditAssetsFromRegistry />,
+          },
+        ],
       },
       {
         path: "list-tokenized-assets",
@@ -106,10 +112,6 @@ export const router = createBrowserRouter([
       {
         path: "carbon-credit-tokenization",
         element: <CarbonCreditTokenization />,
-      },
-      {
-        path: "MintCarbonCredits",
-        element: <MintCarbonCredits />,
       },
       {
         path: "MintCarbonCreditsSummary",
@@ -135,6 +137,11 @@ export const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+    errorElement: <ErrorBoundary />,
+  },
+  {
+    path: "/2fa",
+    element: <TwoFactorAuth />,
     errorElement: <ErrorBoundary />,
   },
   {

@@ -25,7 +25,7 @@ const MFAModal = ({ isOpen, onClose }) => {
 
   const handleVerifyCode = () => {
     // Normally you would verify this with backend
-    console.log("Verifying code:", verificationCode);
+    // console.log("Verifying code:", verificationCode);
     setMfaEnabled(true);
     setShowQRCode(false);
     setVerificationCode("");

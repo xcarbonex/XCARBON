@@ -57,7 +57,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
     }
 
     // TODO: Implement password change logic here
-    console.log('Password change submitted:', formData);
+    // console.log('Password change submitted:', formData);
     onClose();
   };
 

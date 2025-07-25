@@ -25,7 +25,7 @@ function Input({
     fit: "w-fit",
   };
   let classes = clsx(
-    "flex flex-nowrap items-center gap-3 w-fit px-4 bg-input border rounded-md focus-within:ring-1 focus-within:ring-input",
+    "flex flex-nowrap items-center gap-3 px-4 bg-input border rounded-md focus-within:ring-1 focus-within:ring-input",
     {
       "opacity-70 cursor-not-allowed": rest.disabled,
     },

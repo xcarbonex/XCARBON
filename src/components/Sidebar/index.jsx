@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import { sidebar } from "@/appData";
-import { NavLink } from "react-router-dom";
-import { useSidebar } from "@/context/SidebarContext";
+import React, {useState} from "react";
+import {sidebar} from "@/appData";
+import {NavLink} from "react-router-dom";
+import {useSidebar} from "@/context/SidebarContext";
 import ToggleButton from "./ToggleButton";
 import Typography from "@/components/Typography";
 import logoX from "@/assets/logoX.svg";
 import clsx from "clsx";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Tooltip } from "react-tooltip";
-import { Modal, Button } from "@/components";
-
+import {useLocation, useNavigate} from "react-router-dom";
+import {Tooltip} from "react-tooltip";
+import {Modal, Button} from "@/components";
+import bronze from "@/assets/bronze.svg";
 function Sidebar() {
-  const location = useLocation();
+  let location = useLocation();
   const navigate = useNavigate();
-  const { isCollapsed, isMobileOpen, toggleMobileSidebar } = useSidebar();
+  const {isCollapsed, isMobileOpen, toggleMobileSidebar} = useSidebar();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const handleLogout = () => {
     // Here you would typically clear user session, tokens, etc.
-    console.log("User logged out");
+    // console.log("User logged out");
     setIsLogoutModalOpen(false);
     navigate("/login"); // Redirect to login page
   };
@@ -86,7 +86,7 @@ function Sidebar() {
                     onClick={toggleMobileSidebar}
                     data-tooltip-id={isCollapsed ? "sidebar_nav" : undefined}
                     data-tooltip-content={isCollapsed ? item.label : undefined}
-                    className={({ isActive }) => `
+                    className={({isActive}) => `
                       flex items-center
                       px-4 py-3
                        rounded-md
@@ -113,7 +113,7 @@ function Sidebar() {
                         variant="body2"
                         className={clsx(
                           "whitespace-nowrap text-white overflow-hidden transition-all duration-300",
-                          { "font-extrabold": location.pathname === item.route }
+                          {"font-extrabold": location.pathname === item.route}
                         )}
                       >
                         {item.label}
@@ -127,6 +127,18 @@ function Sidebar() {
 
           {/* Footer Navigation */}
           <footer className="mt-auto">
+            <div className=" flex flex-nowrap gap-3 w-full border-1 mb-3 p-3 rounded-md">
+              <img
+                src={bronze}
+                alt={"Bronze Plan"}
+                className={`
+                        h-7 w-7 
+                      `}
+              />
+              <Typography variant="h4" className="text-[#949494]">
+                Bronze
+              </Typography>
+            </div>
             <hr className="border-[#A6B3B1] dark:border-[#363638] mb-4" />
             <ul className="space-y-1">
               {sidebar.footernav.map((item, index) => (
@@ -138,7 +150,7 @@ function Sidebar() {
                         ? openLogoutModal
                         : toggleMobileSidebar
                     }
-                    className={({ isActive }) => `
+                    className={({isActive}) => `
                       flex items-center
                       px-4 py-3
                        rounded-md
@@ -165,7 +177,7 @@ function Sidebar() {
                         variant="body2"
                         className={clsx(
                           "whitespace-nowrap text-white overflow-hidden transition-all duration-300",
-                          { "font-extrabold": location.pathname === item.route }
+                          {"font-extrabold": location.pathname === item.route}
                         )}
                       >
                         {item.label}

@@ -1,9 +1,12 @@
 import tailwindcssMotion from "tailwindcss-motion";
-import tailgrids from 'tailgrids/plugin';
-
+import {heroui} from "@heroui/react";
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
+  ],
   darkMode: "class",
   theme: {
     container: {
@@ -13,45 +16,38 @@ export default {
         "2xl": "1400px",
       },
     },
-    variants: {
-      extend: {
-        backgroundColor: ["active", "hover"],
-        textColor: ["active", "hover"],
-        borderColor: ["active", "hover"],
-        boxShadow: ["active", "hover"],
-      },
-    },
+
     corePlugins: {
       preflight: true,
-      container: true, 
+      container: true,
     },
     extend: {
       colors: {
-        primary: 'var(--primary-color)',
-        secondary: 'var(--bg-secondary)',
+        primary: "var(--primary-color)",
+        secondary: "var(--bg-secondary)",
         accent: "#EF4444",
-        background: 'var(--bg-color)',
-        text: 'var(--text-color)',
-        main: 'var(--bg-main)',
-        tbase: 'var(--text-secondary)',
-        input: 'var(--bg-input)',
-        btn: 'var(--bg-btn)',
-        tertiary: 'var(--bg-tertiary)',
+        background: "var(--bg-color)",
+        text: "var(--text-color)",
+        main: "var(--bg-main)",
+        tbase: "var(--text-secondary)",
+        input: "var(--bg-input)",
+        btn: "var(--bg-btn)",
+        tertiary: "var(--bg-tertiary)",
       },
       fontFamily: {
         sans: ['"Bai Jamjuree"', "ui-sans-serif", "system-ui", "sans-serif"],
       },
       fontSize: {
-        xs: ['0.75rem', { lineHeight: '1rem' }],
-        sm: ['0.875rem', { lineHeight: '1.25rem' }],
-        base: ['1rem', { lineHeight: '1.5rem' }],
-        lg: ['1.125rem', { lineHeight: '1.75rem' }],
-        xl: ['1.25rem', { lineHeight: '1.75rem' }],
-        '2xl': ['1.5rem', { lineHeight: '2rem' }],
-        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
-        '5xl': ['3rem', { lineHeight: '1' }],
-        '6xl': ['3.75rem', { lineHeight: '1' }],
+        xs: ["0.75rem", {lineHeight: "1rem"}],
+        sm: ["0.875rem", {lineHeight: "1.25rem"}],
+        base: ["1rem", {lineHeight: "1.5rem"}],
+        lg: ["1.125rem", {lineHeight: "1.75rem"}],
+        xl: ["1.25rem", {lineHeight: "1.75rem"}],
+        "2xl": ["1.5rem", {lineHeight: "2rem"}],
+        "3xl": ["1.875rem", {lineHeight: "2.25rem"}],
+        "4xl": ["2.25rem", {lineHeight: "2.5rem"}],
+        "5xl": ["3rem", {lineHeight: "1"}],
+        "6xl": ["3.75rem", {lineHeight: "1"}],
       },
       spacing: {
         128: "32rem",
@@ -90,39 +86,41 @@ export default {
         custom:
           "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
       },
-      logo: 'var(--logo-url)',
+      logo: "var(--logo-url)",
     },
     transitionProperty: {
-      'width': 'width',
-      'height': 'height',
-      'spacing': 'margin, padding',
-      'background': 'background-color',
-      'border': 'border-color',
-      'shadow': 'box-shadow',
+      width: "width",
+      height: "height",
+      spacing: "margin, padding",
+      background: "background-color",
+      border: "border-color",
+      shadow: "box-shadow",
     },
     transitionDuration: {
-      'default': '300ms',
-      'fast': '150ms',
-      'slow': '500ms',
+      default: "300ms",
+      fast: "150ms",
+      slow: "500ms",
     },
     transitionTimingFunction: {
-      'default': 'ease-in-out',
-      'linear': 'linear',
-      'ease-in': 'ease-in',
-      'ease-out': 'ease-out',
-      'ease-in-out': 'ease-in-out',
+      default: "ease-in-out",
+      linear: "linear",
+      "ease-in": "ease-in",
+      "ease-out": "ease-out",
+      "ease-in-out": "ease-in-out",
     },
     transitionDelay: {
-      'default': '0ms',
-      'short': '100ms',
-      'long': '500ms',
+      default: "0ms",
+      short: "100ms",
+      long: "500ms",
     },
   },
-  plugins: [tailwindcssMotion,tailgrids,
-    function ({ addUtilities, theme }) {
+  plugins: [
+    tailwindcssMotion,
+    heroui(),
+    function ({addUtilities, theme}) {
       addUtilities({
-        '.x-logo': {
-          backgroundImage: theme('logo'),
+        ".x-logo": {
+          backgroundImage: theme("logo"),
         },
       });
     },

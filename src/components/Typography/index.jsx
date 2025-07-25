@@ -33,7 +33,7 @@ const Typography = ({
 }) => {
   const Component = component || (variant.startsWith("h") ? variant : "p");
   const combinedClassName =
-    `${variants[variant]} ${colors[color]} ${className}`.trim();
+    `${variants[variant]} text-${colors[color]} ${className}`.trim();
 
   return (
     <Component className={combinedClassName} {...props}>
@@ -41,6 +41,16 @@ const Typography = ({
     </Component>
   );
 };
+
+// Add Title and Text sub-components
+Typography.Title = ({level = 1, ...props}) => {
+  const variant = `h${level}`;
+  return <Typography variant={variant} component={`h${level}`} {...props} />;
+};
+
+Typography.Text = (props) => (
+  <Typography variant="body1" component="span" {...props} />
+);
 
 Typography.propTypes = {
   variant: PropTypes.oneOf([
@@ -60,6 +70,15 @@ Typography.propTypes = {
   color: PropTypes.oneOf(["primary", "secondary", "disabled", "error"]),
   component: PropTypes.elementType,
   className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
+
+Typography.Title.propTypes = {
+  level: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
+  children: PropTypes.node.isRequired,
+};
+
+Typography.Text.propTypes = {
   children: PropTypes.node.isRequired,
 };
 

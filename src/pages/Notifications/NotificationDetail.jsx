@@ -7,7 +7,7 @@ import { notifications } from '@/appData';
 const NotificationDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  console.log(notifications)
+  // console.log(notifications)
   const notification = notifications.find(n => n.id === parseInt(id)) || null;
   
   if (!notification) {

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { HiUser, HiLogout, HiCog } from "react-icons/hi";
+import React, {useState} from "react";
+import {HiUser, HiLogout, HiCog} from "react-icons/hi";
 import useAuthStore from "../../store/authStore";
 
-const UserProfile = ({ className = "" }) => {
-  const { user, logout, isLoading } = useAuthStore();
+const UserProfile = ({className = ""}) => {
+  const {user, logout, isLoading} = useAuthStore();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleLogout = async () => {
@@ -22,6 +22,7 @@ const UserProfile = ({ className = "" }) => {
         className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors"
       >
         <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+          Google
           {user.avatar ? (
             <img
               src={user.avatar}

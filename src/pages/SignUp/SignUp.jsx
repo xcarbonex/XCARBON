@@ -18,7 +18,7 @@ import { Tabs } from "@/components";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import Form from "@/components/Form";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 const data = [
   {
@@ -98,17 +98,22 @@ const SignUp = () => {
   const validationSchema = Yup.object().shape({
     Fname: Yup.string().required("First Name is required"),
     Lname: Yup.string().required("Last Name is required"),
-    email: Yup.string().email("Invalid email address").required("Email is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
       .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
       .matches(/[a-z]/, "Password must contain at least one lowercase letter")
       .matches(/\d/, "Password must contain at least one number")
-      .matches(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character")
+      .matches(
+        /[!@#$%^&*(),.?":{}|<>]/,
+        "Password must contain at least one special character"
+      )
       .required("Password is required"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
-      .required('Confirm Password is required'),
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Confirm Password is required"),
   });
 
   return (
@@ -154,9 +159,13 @@ const SignUp = () => {
         <div className="relative">
           {/* <img src={dots} alt="logo" className="absolute bottom-0 left-0 right-0 z-[1]"/> */}
           <div className="bg-secondary p-7  rounded-lg drop-shadow">
-            <Form initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
-              {({ values, handleChange, handleBlur, handleSubmit, errors, touched }) => (
-                <form className=" grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
+            <Form
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+            >
+              {({ values, handleChange, handleBlur, errors, touched }) => (
+                <div className=" grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2 col-span-2 md:col-span-1">
                     <label>First Name</label>
                     <Input
@@ -170,7 +179,9 @@ const SignUp = () => {
                       onBlur={handleBlur}
                     />
                     {errors.Fname && touched.Fname && (
-                      <p className="text-red-500 text-sm mt-1">{errors.Fname}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.Fname}
+                      </p>
                     )}
                   </div>
                   <div className="space-y-2 col-span-2 md:col-span-1">
@@ -186,7 +197,9 @@ const SignUp = () => {
                       onBlur={handleBlur}
                     />
                     {errors.Lname && touched.Lname && (
-                      <p className="text-red-500 text-sm mt-1">{errors.Lname}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.Lname}
+                      </p>
                     )}
                   </div>
                   <div className="space-y-2 col-span-2">
@@ -203,7 +216,9 @@ const SignUp = () => {
                       disabled={isLoading}
                     />
                     {errors.email && touched.email && (
-                      <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.email}
+                      </p>
                     )}
                   </div>
                   <div className="space-y-2 col-span-2">
@@ -233,7 +248,9 @@ const SignUp = () => {
                       disabled={isLoading}
                     />
                     {errors.password && touched.password && (
-                      <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.password}
+                      </p>
                     )}
                   </div>
                   <div className="space-y-2 col-span-2">
@@ -262,7 +279,9 @@ const SignUp = () => {
                       disabled={isLoading}
                     />
                     {errors.confirmPassword && touched.confirmPassword && (
-                      <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.confirmPassword}
+                      </p>
                     )}
                   </div>
                   <div className="col-span-2 mt-3">
@@ -335,12 +354,14 @@ const SignUp = () => {
                           </svg>
                         </div>
                         <div className="ml-3">
-                          <p className="text-sm font-medium text-red-800">{error}</p>
+                          <p className="text-sm font-medium text-red-800">
+                            {error}
+                          </p>
                         </div>
                       </div>
                     </div>
                   )}
-                </form>
+                </div>
               )}
             </Form>
           </div>

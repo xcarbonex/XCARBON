@@ -162,7 +162,7 @@ const Deposit = () => {
   const handleFiatDeposit = async (values, { setSubmitting, resetForm }) => {
     try {
       setIsSubmitting(true);
-      console.log("Fiat deposit:", values);
+      // console.log("Fiat deposit:", values);
 
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -182,7 +182,7 @@ const Deposit = () => {
   const handleCryptoDeposit = async (values, { setSubmitting }) => {
     try {
       setIsSubmitting(true);
-      console.log("Crypto deposit:", values);
+      // console.log("Crypto deposit:", values);
 
       // Simulate API call to generate deposit address
       await new Promise((resolve) => setTimeout(resolve, 1000));

@@ -76,7 +76,7 @@ const Table = ({
   const [pageIndex, setPageIndex] = useState(0);
   const [globalFilter, setGlobalFilter] = useState('');
   const [selectedDataFilter, setSelectedDataFilter] = useState(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  // const [showDatePicker, setShowDatePicker] = useState(false);
   const [dateRange, setDateRange] = useState({
     startDate: null,
     endDate: null,
@@ -93,7 +93,7 @@ const Table = ({
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
-        setShowDatePicker(false);
+        // setShowDatePicker(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -183,7 +183,7 @@ const Table = ({
     manualPagination: false,
     pageCount: Math.ceil(filteredData.length / pageSize)
   });
-console.log(dateRange)
+
   return (
     <div className={clsx('w-full overflow-auto')}>
       <div className="flex flex-col items-center sm:flex-row gap-4">
@@ -335,7 +335,12 @@ console.log(dateRange)
 
       <div className="flex flex-col sm:flex-row items-center justify-between mt-4 gap-4 text-text">
         <div className="flex justify-end items-center w-full gap-4">
-          <Pagination table={table}/>
+          <Pagination
+            currentPage={table.getState().pagination.pageIndex + 1}
+            totalCount={table.getRowCount()}
+            pageSize={table.getState().pagination.pageSize}
+            onPageChange={(page) => table.setPageIndex(page - 1)}
+          />
         </div>
       </div>
     </div>
