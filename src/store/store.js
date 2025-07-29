@@ -60,21 +60,6 @@ const useStore = create(
           mintedAt: "2025-07-18T09:10:00Z",
         },
         {
-          projectName: "Mangrove Restoration",
-          vintageYear: "2024",
-          location: "Indonesia",
-          quantity: 15,
-          mintedQuantity: 8,
-          totalQuantity: 15,
-          blockchain: "Celo",
-          tokenSymbol: "MGR",
-          status: "ON_CHAIN",
-          walletAddress: "0xghi789...xyz",
-          transactionHash: "0x345def...678",
-          blockNumber: null,
-          mintedAt: null,
-        },
-        {
           projectName: "Biogas Plant",
           vintageYear: "2023",
           location: "Kenya",
@@ -86,21 +71,6 @@ const useStore = create(
           status: "FAILED",
           walletAddress: "0xjkl012...mno",
           transactionHash: "",
-          blockNumber: null,
-          mintedAt: null,
-        },
-        {
-          projectName: "Solar Rooftop",
-          vintageYear: "2023",
-          location: "Brazil",
-          quantity: 18,
-          mintedQuantity: 12,
-          totalQuantity: 18,
-          blockchain: "Ethereum",
-          tokenSymbol: "SOL",
-          status: "ON_CHAIN",
-          walletAddress: "0xpqr345...stu",
-          transactionHash: "0x901ghi...234",
           blockNumber: null,
           mintedAt: null,
         },
@@ -198,11 +168,14 @@ const useStore = create(
         }
       },
 
-      getDraft: (id) => {
+      getDraft: (id, navigate) => {
         const {draft} = get();
         const draftItem = draft.find((item) => item.id === id) || null;
 
         set({selectedCarbonCreditDetails: draftItem});
+        if (draftItem) {
+          navigate(`/assets/look-up`);
+        }
       },
       // Helper function to map individual record
       mapSingleRecord: (data, registry, assetType, reference) => {

@@ -244,7 +244,7 @@ const CarbonCreditList = ({
             disabled={carbonCredits.length === 0 && !searchTerm}
             variant="xs"
             onChange={handleSearch}
-            className="w-[400px] "
+            className="min-w-[400px] "
           />
         </div>
         {filteredPamaeter?.registry &&

@@ -19,6 +19,8 @@ import {
   ForgotPassword,
   ResetPassword,
   MintCarbonCreditsSummary,
+  SearchAssetFromRegistry,
+  AssetsProgress
 } from "./pages";
 import NotificationsPage from "./pages/Notifications";
 import NotificationDetail from "./pages/Notifications/NotificationDetail";
@@ -96,13 +98,17 @@ export const router = createBrowserRouter([
         element: <NotificationDetail />,
       },
       {
-        path: "carbon-credit-registry",
+        path: "assets",
         element: <CarbonCreditAssetsFromRegistry />,
         children: [
           {
-            path: "carbon-credit-registry",
-            element: <CarbonCreditAssetsFromRegistry />,
+            path: "",
+            element: <AssetsProgress />,
           },
+          {
+            path: "look-up",
+            element: <SearchAssetFromRegistry />,
+          }
         ],
       },
       {

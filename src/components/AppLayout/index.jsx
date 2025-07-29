@@ -41,7 +41,10 @@ function MainLayout() {
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4 py-2 sm:py-0">
               <NotificationPopup />
-              <UserProfile />
+              <div className="p-2 border rounded-lg">
+                Google LLC
+              </div>
+              {/* <UserProfile /> */}
             </div>
           </div>
         </header>

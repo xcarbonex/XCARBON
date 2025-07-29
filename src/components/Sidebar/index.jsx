@@ -127,18 +127,19 @@ function Sidebar() {
 
           {/* Footer Navigation */}
           <footer className="mt-auto">
-            <div className=" flex flex-nowrap gap-3 w-full border-1 mb-3 p-3 rounded-md">
+             <div className="flex flex-nowrap gap-3 w-full border-1 mb-3 p-3 rounded-md">
               <img
-                src={bronze}
-                alt={"Bronze Plan"}
-                className={`
-                        h-7 w-7 
-                      `}
-              />
-              <Typography variant="h4" className="text-[#949494]">
-                Bronze
-              </Typography>
-            </div>
+              src={bronze}
+               alt={"Bronze Plan"}
+              className="h-7 w-7"
+                />
+  
+               {!isCollapsed && (
+                 <Typography variant="h4" className="text-[#949494]">
+                  Bronze
+                 </Typography>
+               )}
+             </div>
             <hr className="border-[#A6B3B1] dark:border-[#363638] mb-4" />
             <ul className="space-y-1">
               {sidebar.footernav.map((item, index) => (

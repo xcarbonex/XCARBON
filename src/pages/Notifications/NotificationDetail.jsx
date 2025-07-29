@@ -52,7 +52,7 @@ const NotificationDetail = () => {
             {getIcon(notification.type)}
           </div>
           <div className="flex-grow">
-            <Typography variant="h5" className="mb-2">
+            <Typography variant="h5" className="mb-2 text-tbase dark:text-white">
               {notification.title}
             </Typography>
             <Typography variant="caption" className="text-gray-500 dark:text-gray-400">

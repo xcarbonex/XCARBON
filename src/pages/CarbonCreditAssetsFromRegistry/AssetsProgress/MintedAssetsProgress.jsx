@@ -2,14 +2,12 @@ import React from "react";
 import {Chip} from "@heroui/react";
 const statusColors = {
   PENDING: "bg-yellow-100 text-yellow-800",
-  ON_CHAIN: "bg-blue-100 text-blue-800",
   CONFIRMED: "bg-green-100 text-green-800",
   FAILED: "bg-red-100 text-red-800",
 };
 
 const statusLabels = {
   PENDING: "Pending",
-  ON_CHAIN: "On-Chain",
   CONFIRMED: "Confirmed",
   FAILED: "Failed",
 };
@@ -42,10 +40,10 @@ function MintedAssetsProgress({mintedAssets = []}) {
               size="sm"
               variant="flat"
               className={`text-xs px-2 py-0.5 rounded shadow ${
-                statusColors[asset.status]
+                statusColors[asset.status] || 'bg-yellow-100 text-yellow-800'
               }`}
             >
-              {statusLabels[asset.status] || "Submitted"}
+              {statusLabels[asset.status] || "Pending"}
             </Chip>
           </div>
 
@@ -55,22 +53,22 @@ function MintedAssetsProgress({mintedAssets = []}) {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-tbase mt-2">
-            <p>
+            {/* <p>
               <strong>Blockchain:</strong> {asset.blockchain}
-            </p>
-            <p>
+            </p> */}
+            {/* <p>
               <strong>Wallet:</strong>{" "}
               <span className="text-xs">{asset.walletAddress}</span>
-            </p>
-            <p>
+            </p> */}
+           {asset.transactionHash && <p>
               <strong>Tx Hash:</strong>{" "}
               <span className="text-xs">{asset.transactionHash}</span>
-            </p>
-            {asset.blockNumber && (
+            </p>}
+            {/* {asset.blockNumber && (
               <p>
                 <strong>Block #:</strong> {asset.blockNumber}
               </p>
-            )}
+            )} */}
             {asset.mintedAt && (
               <p>
                 <strong>Minted At:</strong>{" "}

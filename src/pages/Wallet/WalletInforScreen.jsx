@@ -9,6 +9,7 @@ import { Table, Typography, Button } from "@/components";
 import history from "@/assets/history.svg";
 import plus from "@/assets/plus.svg";
 import { Breadcrumb } from "@/components";
+import useWalletStore from "@/store/walletStore";
 // Transaction History columns configuration
 const transactionColumns = [
   {
@@ -208,115 +209,10 @@ const transactionData = [
 ];
 
 // Sample contract delivery schedule data
-const deliveryData = [
-  {
-    contractId: "CT-2024-001",
-    asset: "Amazon Rainforest REDD+",
-    nextDelivery: "2024-04-15",
-    totalDeliveries: "3/12",
-    status: "On Track",
-  },
-  {
-    contractId: "CT-2024-002",
-    asset: "Wind Farm Project",
-    nextDelivery: "2024-04-20",
-    totalDeliveries: "2/6",
-    status: "Pending",
-  },
-  {
-    contractId: "CT-2024-003",
-    asset: "Solar Power Plant",
-    nextDelivery: "2024-04-25",
-    totalDeliveries: "4/8",
-    status: "Delayed",
-  },
-  {
-    contractId: "CT-2024-004",
-    asset: "Mangrove Restoration",
-    nextDelivery: "2024-05-01",
-    totalDeliveries: "1/4",
-    status: "On Track",
-  },
-  {
-    contractId: "CT-2024-005",
-    asset: "Hydroelectric Project",
-    nextDelivery: "2024-05-05",
-    totalDeliveries: "5/10",
-    status: "On Track",
-  },
-  {
-    contractId: "CT-2024-006",
-    asset: "Forest Conservation",
-    nextDelivery: "2024-05-10",
-    totalDeliveries: "2/8",
-    status: "Pending",
-  },
-  {
-    contractId: "CT-2024-007",
-    asset: "Tidal Energy Project",
-    nextDelivery: "2024-05-15",
-    totalDeliveries: "3/6",
-    status: "On Track",
-  },
-  {
-    contractId: "CT-2024-008",
-    asset: "Biomass Plant",
-    nextDelivery: "2024-05-20",
-    totalDeliveries: "4/12",
-    status: "Delayed",
-  },
-  {
-    contractId: "CT-2024-009",
-    asset: "Geothermal Project",
-    nextDelivery: "2024-05-25",
-    totalDeliveries: "1/4",
-    status: "On Track",
-  },
-  {
-    contractId: "CT-2024-010",
-    asset: "Peatland Protection",
-    nextDelivery: "2024-06-01",
-    totalDeliveries: "2/6",
-    status: "Pending",
-  },
-  {
-    contractId: "CT-2024-011",
-    asset: "Reforestation Project",
-    nextDelivery: "2024-06-05",
-    totalDeliveries: "5/10",
-    status: "On Track",
-  },
-  {
-    contractId: "CT-2024-012",
-    asset: "Wind Farm Extension",
-    nextDelivery: "2024-06-10",
-    totalDeliveries: "3/8",
-    status: "On Track",
-  },
-  {
-    contractId: "CT-2024-013",
-    asset: "Solar Array Project",
-    nextDelivery: "2024-06-15",
-    totalDeliveries: "2/6",
-    status: "Delayed",
-  },
-  {
-    contractId: "CT-2024-014",
-    asset: "Coastal Protection",
-    nextDelivery: "2024-06-20",
-    totalDeliveries: "1/4",
-    status: "Pending",
-  },
-  {
-    contractId: "CT-2024-015",
-    asset: "Forest Management",
-    nextDelivery: "2024-06-25",
-    totalDeliveries: "4/12",
-    status: "On Track",
-  },
-];
+
 
 const WalletInfoScreen = () => {
+  const { deliveryData } = useWalletStore();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const breadcrumbItems = [
@@ -334,18 +230,18 @@ const WalletInfoScreen = () => {
       </Modal>
       <Tooltip id="wallet" place="right" />
       <div>
-        <div className="space-y-5">
-          <Typography variant="h4" className="border-b-2 border-[#363638] pb-2">
+        <div className="space-y-5 ">
+          <Typography variant="h4" className="border-b-2 text-tbase border-[#363638] pb-2">
             Wallet
           </Typography>
           {/* Token Balances & Actions */}
           <div className="grid md:grid-cols-2 gap-6">
             {/* Token Balances Card */}
-            <div className="bg-[#4C6663] text-white dark:bg-[#191919] rounded-xl border border-[#363638] shadow-lg">
+            <div className="bg-[#4C6663] text-tbase dark:bg-[#191919] rounded-xl border border-[#363638] shadow-lg">
               <div className="p-4">
                 <Typography
                   variant="h5"
-                  className="border-b border-[#363638] pb-2 text-white"
+                  className="border-b text-tbase border-[#363638] pb-2"
                 >
                   Token Balances
                 </Typography>
@@ -357,7 +253,7 @@ const WalletInfoScreen = () => {
                     >
                       <Typography
                         variant="body2"
-                        className={clsx("text-white", {
+                        className={clsx({
                           "cursor-pointer hover:text-gray-200 transition-colors":
                             index !== 0,
                         })}
@@ -375,7 +271,7 @@ const WalletInfoScreen = () => {
                       >
                         {item.tokenName}
                       </Typography>
-                      <Typography variant="body2" className="text-white">
+                      <Typography variant="body2">
                         {item.amount}
                       </Typography>
                     </div>
@@ -385,11 +281,11 @@ const WalletInfoScreen = () => {
             </div>
 
             {/* Actions Card */}
-            <div className="bg-[#A6B3B1] dark:bg-[#191919] rounded-xl border border-[#D8D8D8] dark:border-[#363638] shadow-lg">
+            <div className="bg-secondary rounded-xl border border-[#D8D8D8] dark:border-[#363638] shadow-lg">
               <div className="p-4">
                 <Typography
                   variant="h5"
-                  className="border-b border-[#363638] pb-2"
+                  className="border-b border-[#363638] pb-2 text-tbase"
                 >
                   Deposit / Withdraw
                 </Typography>
@@ -408,7 +304,7 @@ const WalletInfoScreen = () => {
                     variant="secondary"
                     fullWidth
                     icon={history}
-                    className="flex items-center justify-center gap-2 border-transparent text-[#fff]"
+                    className="flex items-center justify-center gap-2 border-transparent"
                   >
                     Withdraw
                   </Button>
@@ -418,7 +314,7 @@ const WalletInfoScreen = () => {
           </div>
 
           {/* Transaction History */}
-          <div className="grid bg-secondary rounded-xl border shadow-lg p-6">
+          <div className="grid bg-secondary text-tbase rounded-xl border shadow-lg p-6">
             <Table
               columns={transactionColumns}
               data={transactionData}
@@ -432,7 +328,7 @@ const WalletInfoScreen = () => {
           </div>
 
           {/* Contract Delivery Schedule */}
-          <div className="grid bg-secondary rounded-xl border shadow-lg p-6">
+          <div className="grid text-tbase  bg-secondary rounded-xl border shadow-lg p-6">
             <Table
               columns={deliveryColumns}
               data={deliveryData}

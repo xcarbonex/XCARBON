@@ -4,20 +4,24 @@ import Modal from '@/components/Model';
 import clsx from 'clsx';
 import { IoInformationCircleOutline } from 'react-icons/io5';
 import { IoWalletOutline } from 'react-icons/io5';
+import {Spinner} from "@heroui/react";
+import { toast } from 'react-toastify';
+import useDashboardStore from "@/store/dashboardStore";
 
 const BuyCarbonCreditModal = ({ isOpen, onClose, creditData }) => {
+  const { buyCarbonAssets } = useDashboardStore();
   const [paymentMethod, setPaymentMethod] = useState('fiat');
   const [quantity, setQuantity] = useState('');
   const [totalCost, setTotalCost] = useState(0);
   const [error, setError] = useState('');
-
+  const [isLoading, setIsLoading] = useState(false);
   // TODO: Replace these with actual wallet balances from your state management
   const walletBalances = {
     fiat: 100000, // $100,000 USD
     xcb: 50000 // 50,000 XCB
   };
 
-  const availableQuantity = parseInt(creditData?.availableVolume?.replace(/,/g, '') || 0);
+  const availableQuantity = parseInt(creditData?.quantity?.replace(/,/g, '') || 0);
   const pricePerCredit = parseFloat(creditData?.price?.replace('$', '') || 0);
 
   useEffect(() => {
@@ -50,6 +54,7 @@ const BuyCarbonCreditModal = ({ isOpen, onClose, creditData }) => {
   ];
 
   const formatCurrency = (amount, currency = 'USD') => {
+    console.log('Formatting amount:', amount, 'Currency:', currency);
     // Handle undefined, null or NaN amounts
     if (amount === undefined || amount === null || isNaN(amount)) {
       return currency === 'USD' ? '$0.00' : '0 ' + currency;
@@ -65,7 +70,40 @@ const BuyCarbonCreditModal = ({ isOpen, onClose, creditData }) => {
     }
   };
 
-  const remainingBalance = walletBalances[paymentMethod] - totalCost;
+  const remainingBalance = walletBalances[paymentMethod?.value] - totalCost;
+
+  const handlePaymentForAssets = async () => {
+      setIsLoading(true);
+      let assetsObj = {
+        contractId: "CT-2024-011",
+        asset: creditData?.date ,
+        nextDelivery: "2025-08-28",
+        totalDeliveries: `0/${quantity}`,
+        status: "Pending",
+      };
+
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      try {
+        await buyCarbonAssets(assetsObj)
+        toast.success("Payment successful!", {
+          position: "top-right",    
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      } catch (error) {
+        console.error('Payment error:', error);
+      } finally {
+        setIsLoading(false);
+        setQuantity('');
+        setTotalCost(0);  
+        setError('');
+        setPaymentMethod('fiat');
+        onClose();
+      }
+  };
 
   return (
     <Modal
@@ -86,7 +124,7 @@ const BuyCarbonCreditModal = ({ isOpen, onClose, creditData }) => {
             </Typography>
           </div>
           <div className="text-right">
-            <Typography variant="subtitle2" className="text-tertiary font-medium">
+            <Typography variant="subtitle2" className="text-tbase font-medium">
               {creditData?.price}
             </Typography>
             <Typography variant="caption" className="text-gray-500 dark:text-gray-400">
@@ -132,7 +170,7 @@ const BuyCarbonCreditModal = ({ isOpen, onClose, creditData }) => {
             <Typography variant="caption" className="text-gray-500 dark:text-gray-400">
               Price Per Asset
             </Typography>
-            <Typography variant="subtitle2" className="text-tertiary font-medium">
+            <Typography variant="subtitle2" className="text-tbase font-medium">
               {creditData?.price}
             </Typography>
           </div>
@@ -148,7 +186,7 @@ const BuyCarbonCreditModal = ({ isOpen, onClose, creditData }) => {
                 <SelectField
                   options={paymentOptions}
                   value={paymentMethod}
-                  onChange={(value) => setPaymentMethod(value)}
+                  onChange={(value) =>{ setPaymentMethod(value);}}
                   className="w-full h-full"
                 />
                 <div className="flex items-center gap-2 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
@@ -158,7 +196,7 @@ const BuyCarbonCreditModal = ({ isOpen, onClose, creditData }) => {
                       Available Balance
                     </Typography>
                     <Typography variant="subtitle2" className="text-blue-600 dark:text-blue-400 font-medium">
-                      {formatCurrency(walletBalances?.[paymentMethod] || 0, paymentMethod === 'xcb' ? 'XCB' : 'USD')}
+                      {formatCurrency(walletBalances?.[paymentMethod?.value] || 0, paymentMethod?.value === 'xcb' ? 'XCB' : 'USD')}
                     </Typography>
                   </div>
                 </div>
@@ -284,15 +322,20 @@ const BuyCarbonCreditModal = ({ isOpen, onClose, creditData }) => {
             </button>
             <button
               type="submit"
-              disabled={!!error || !quantity}
+              disabled={!!error || !quantity || isLoading}
+              onClick={handlePaymentForAssets}
               className={clsx(
-                "px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors",
-                error || !quantity
+                "px-4 py-2 text-sm font-medium text-white rounded-lg min-w-[120px] transition-colors",
+                error || !quantity || isLoading
                   ? "bg-gray-400 dark:bg-gray-600 cursor-not-allowed"
                   : "bg-tertiary hover:bg-tertiary/90"
               )}
             >
-              Confirm Purchase
+              {isLoading ? (
+                <Spinner size="sm" />
+              ) : (
+                "Confirm Purchase"
+              )}
             </button>
           </div>
         </form>

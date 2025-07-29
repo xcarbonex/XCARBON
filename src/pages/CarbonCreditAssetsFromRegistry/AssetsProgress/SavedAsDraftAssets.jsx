@@ -1,9 +1,11 @@
 import React from "react";
 import {Chip} from "@heroui/react";
 import useStore from "@/store/store";
+import { useNavigate } from "react-router-dom";
 
 function SavedAsDraftAssets({drafts = []}) {
   const {getDraft} = useStore();
+  const navigate = useNavigate();
   if (drafts.length === 0) {
     return (
       <div className="flex flex-col border rounded-md items-center justify-center py-12 text-center">
@@ -16,9 +18,8 @@ function SavedAsDraftAssets({drafts = []}) {
       </div>
     );
   }
-  console.log(drafts);
   const handleDraftClick = (draft) => {
-    getDraft(draft?.id);
+    getDraft(draft?.id, navigate);
   };
 
   return (

@@ -3789,10 +3789,10 @@
   resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.44.2.tgz"
   integrity sha512-3+QZROYfJ25PDcxFF66UEk8jGWigHJeecZILvkPkyQN7oc5BvFo4YEXFkOs154j3FTMp9mn9Ky8RCOwastduEA==
 
-"@storybook/addon-a11y@9.0.16":
-  version "9.0.16"
-  resolved "https://registry.npmjs.org/@storybook/addon-a11y/-/addon-a11y-9.0.16.tgz"
-  integrity sha512-pi9ipxhs9bA2yCHDGp2+yWy6E2LywDFTqWcFh3aw/LRxnlRTf52QiVJkWpJbNFEXgk4QrKVrAruf9LLiXpTcOA==
+"@storybook/addon-a11y@9.0.18":
+  version "9.0.18"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-9.0.18.tgz#9f27828e508d0423bb8c2cefaff62af910bc86d1"
+  integrity sha512-msbsTI9TmePQ5ElVclLi7ns5WaAntouJFaj9ElNugFWME21k68RiyXnioDjDfEoi/+y8tthQNNqjsHoX/Ev0Og==
   dependencies:
     "@storybook/global" "^5.0.0"
     axe-core "^4.2.0"
@@ -3926,10 +3926,10 @@
   dependencies:
     memoizerific "^1.11.3"
 
-"@storybook/addon-vitest@9.0.16":
-  version "9.0.16"
-  resolved "https://registry.npmjs.org/@storybook/addon-vitest/-/addon-vitest-9.0.16.tgz"
-  integrity sha512-amIJLeAcREF/imEmAhZmsPc3kvtEDVdk7O6uvh8/ql8UYNN5Tnc+ud6CsfIZO82ru+PupoYKrt6SC8EwpQ8YMQ==
+"@storybook/addon-vitest@9.0.18":
+  version "9.0.18"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-vitest/-/addon-vitest-9.0.18.tgz#7fe8ac31c51c737a4c38dd2547b00e0ac8d8583f"
+  integrity sha512-uPLh9H7kRho+raxyIBCm8Ymd3j0VPuWIQ1HSAkdx8itmNafNqs4HE67Z8Cfl259YzdWU/j5BhZqoiT62BCbIDw==
   dependencies:
     "@storybook/global" "^5.0.0"
     "@storybook/icons" "^1.4.0"

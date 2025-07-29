@@ -10,7 +10,6 @@ import bronze from "@/assets/bronze.svg";
 import silver from "@/assets/silver.svg";
 import gold from "@/assets/gold.svg";
 import platinum from "@/assets/platinum.svg";
-// import MintCarbon from "@/assets/navigation/mintCarbon.svg";
 import registysearch from "@/assets/registrysearch.svg";
 
 const sidebar = {
@@ -31,15 +30,10 @@ const sidebar = {
       icon: carbon_wallet,
       route: "/wallet",
     },
-    // {
-    //   label: "Mint Carbon",
-    //   icon: MintCarbon,
-    //   route: "/MintCarbonCredits",
-    // },
     {
-      label: "Carbon Registry",
+      label: "Carbon Assets",
       icon: registysearch,
-      route: "/carbon-credit-registry",
+      route: "/assets",
     },
     {
       label: "Membership",
@@ -259,7 +253,7 @@ const marketplace = [
   {
     assetName: "GS-RENEWABLE",
     date: "India Project 2022",
-    projectType: "Renewable Energy",
+    projectType: "Waste Management",
     insuranceYear: "2021",
     location: "India",
     registry: "Gold Standard",
@@ -319,7 +313,7 @@ const marketplace = [
   {
     assetName: "GS-FORESTRY",
     date: "Indonesia Project 2018",
-    projectType: "Forestry",
+    projectType: "Waste Management",
     insuranceYear: "2019",
     location: "Indonesia",
     registry: "Gold Standard",

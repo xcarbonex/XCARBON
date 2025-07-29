@@ -7,7 +7,6 @@ import Login from "./Login";
 import SignUp from "./SignUp/SignUp";
 import Help from "./Help";
 import Logout from "./Logout";
-import CarbonCreditAssetsFromRegistry from "./CarbonCreditAssetsFromRegistry";
 import ListTokenizedAssets from "./ListTokenizedAssets";
 import WalletInfoScreen from "./Wallet/WalletInforScreen";
 import MarketPlaceAssets from "./Dashboard/MarketPlaceAssets";
@@ -19,6 +18,9 @@ import ResetPassword from "./ResetPassword";
 import MintCarbonCredits from "./MintCarbonCredits";
 import MintCarbonCreditsSummary from "./MintCarbonCredits/MintCarbonCreditsSummary";
 import Deposit from "./Deposit";
+import AssetsProgress from "./CarbonCreditAssetsFromRegistry/AssetsProgress";
+import SearchAssetFromRegistry from "./CarbonCreditAssetsFromRegistry/SearchAssetFromRegistry";
+import CarbonCreditAssetsFromRegistry from "./CarbonCreditAssetsFromRegistry";
 export {
   Dashboard,
   Portfolio,
@@ -41,4 +43,6 @@ export {
   MintCarbonCredits,
   MintCarbonCreditsSummary,
   Deposit,
+  AssetsProgress,
+  SearchAssetFromRegistry
 };

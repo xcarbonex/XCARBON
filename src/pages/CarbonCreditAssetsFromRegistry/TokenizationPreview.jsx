@@ -100,10 +100,10 @@ const previewAssetItems = [
     label: "Fraction",
     key: "fraction",
   },
-  {
-    label: "Files Uploaded",
-    key: "files",
-  },
+  // {
+  //   label: "Files Uploaded",
+  //   key: "files",
+  // },
 ];
 export default function TokenizationPreview({reviewData}) {
   const {togglePreview} = useStore();

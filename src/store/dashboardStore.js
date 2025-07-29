@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import dashboardService from '../services/dashboardService';
 import { withDevtools } from './withDevtools';
-
+import useWalletStore from './walletStore';
 const useDashboardStore = create(withDevtools((set) => ({
   carbonCredits: null,
   news: null,
@@ -81,6 +81,10 @@ const useDashboardStore = create(withDevtools((set) => ({
     }
   },
 
+  buyCarbonAssets: async (data) => {
+    const { updateDeliveryData } = useWalletStore.getState();
+    await updateDeliveryData(data);
+  },
   clearError: () => {
     set({ error: null });
   },

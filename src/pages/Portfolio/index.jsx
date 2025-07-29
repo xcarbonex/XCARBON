@@ -220,7 +220,7 @@ const Portfolio = () => {
         </div>
 
         {/* Active Agreements Section */}
-        <div className=" grid shadow-xl bg-secondary cursor-pointer border rounded-custom p-4 w-full overflow-auto">
+        <div className=" grid shadow-xl bg-secondary cursor-pointer border rounded-custom p-4 text-tbase dark:text-white w-full overflow-auto">
           <Table
             columns={agreementColumns}
             data={activeAgreements.data}

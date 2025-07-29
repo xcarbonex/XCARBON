@@ -120,7 +120,7 @@ const Settings = () => {
                 </div>
               </div>
               <div>
-                <Typography variant="h5" className="text-black dark:text-white">
+                <Typography variant="h5" className="text-tbase dark:text-white">
                   John Doe
                 </Typography>
                 <Typography variant="body2" className="text-gray-500">
@@ -144,7 +144,7 @@ const Settings = () => {
             <div className="grid bg-[#FDFDFB] shadow-xl dark:bg-[#191919] p-4 border dark:border-[#363638] rounded-xl">
               <Typography
                 variant="h5"
-                className="border-b-2 border-[#363638] pb-2"
+                className="border-b-2 dark:text-white text-tbase  border-[#363638] pb-2"
               >
                 Security Settings
               </Typography>
@@ -154,7 +154,7 @@ const Settings = () => {
                     key={index}
                     className="flex justify-between items-center"
                   >
-                    <Typography variant="body1">{item.label}</Typography>
+                    <Typography variant="body1" className="dark:text-white text-tbase">{item.label}</Typography>
                     <Button
                       variant="dark"
                       size="sm"
@@ -167,13 +167,13 @@ const Settings = () => {
 
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className=" text-black dark:text-white"> Currency</p>
+                    <p className=" text-tbase dark:text-white"> Currency</p>
                   </div>
                   <div>
                     <select
                       name=""
                       id=""
-                      className="text-white text-[14px] bg-[#212B36] rounded-md px-3 py-1"
+                      className="text-white text-[14px]  bg-black rounded-md px-3 py-1"
                     >
                       <option value="">USD</option>
                       <option value="" disabled>
@@ -193,7 +193,7 @@ const Settings = () => {
             <div className="bg-[#FDFDFB] shadow-xl dark:bg-[#191919] p-4 border border-[#D8D8D8] dark:border-[#363638] rounded-xl">
               <Typography
                 variant="h5"
-                className="border-b-2 border-[#363638] pb-2"
+                className="border-b-2 border-[#363638] dark:text-white text-tbase pb-2"
               >
                 Preferences
               </Typography>
@@ -203,7 +203,7 @@ const Settings = () => {
                     key={index}
                     className="flex justify-between items-center"
                   >
-                    <Typography variant="body1">{item.label}</Typography>
+                    <Typography variant="body1" className="dark:text-white text-tbase">{item.label}</Typography>
                     {item.type === "select" ? (
                       <select className="bg-[#191919] text-white px-3 py-1 rounded-md border border-[#363638] text-sm">
                         {item.options.map((option, idx) => (
@@ -235,12 +235,12 @@ const Settings = () => {
           <div className="p-4 border shadow-xl border-[#D8D8D8] dark:border-[#363638] rounded-xl">
             <Typography
               variant="h5"
-              className="border-b-2 border-[#363638] pb-2"
+              className="border-b-2 dark:text-white text-tbase border-[#363638] pb-2"
             >
               Active Sessions
             </Typography>
             <div className="flex justify-between items-center py-4">
-              <Typography variant="body1">Delete Account</Typography>
+              <Typography variant="body1" className="dark:text-white text-tbase ">Delete Account</Typography>
               <button
                 size="sm"
                 className="bg-[#C2615F] rounded px-3 py-1 hover:bg-[#c2615fcb]"

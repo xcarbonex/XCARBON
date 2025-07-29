@@ -39,11 +39,12 @@ const breadcrumbItems = [
   { label: "Wallet", path: "/wallet" },
   { label: "Withdraw Tokenized Carbon Credit", path: "/" },
 ];
+
 const WithdrawTokenizedCarbonCredit = () => {
   return (
     <div>
       <Breadcrumb items={breadcrumbItems} />
-      <div className="space-y-6">
+      <div className="space-y-6 text-tbase">
         {/* Asset Selection */}
         <section className="bg-[#FDFDFB] dark:bg-[#141517] border border-[#363638] rounded-xl p-6">
           <div className="flex items-center gap-4 border-b border-[#363638] pb-4 mb-6">
@@ -54,7 +55,6 @@ const WithdrawTokenizedCarbonCredit = () => {
               <Typography variant="h5">Select Tokenized Asset</Typography>
               <Typography
                 variant="caption"
-                className="text-[#949494] dark:text-white/30"
               >
                 Choose the tokenized carbon credit you wish to withdraw from
                 circulation

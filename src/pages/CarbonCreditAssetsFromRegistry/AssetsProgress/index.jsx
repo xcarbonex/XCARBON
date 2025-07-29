@@ -4,9 +4,9 @@ import MintedAssetsProgress from "./MintedAssetsProgress";
 import SavedAsDraftAssets from "./SavedAsDraftAssets";
 import useStore from "@/store/store";
 import {Button} from "@/components";
-
+import { RiSearchLine } from "react-icons/ri";
 function AssetsProgress() {
-  const {draft, mintedAssets} = useStore();
+  const {draft, mintedAssets, clearSearchResults } = useStore();
   return (
     <Card className=" dark:bg-[#141517] bg-[#FDFDFB] border-[#363638] border rounded-xl px-3 pt-2 pb-3 mt-5">
       <CardHeader className="border-b border-[#363638] flex justify-between">
@@ -16,6 +16,10 @@ function AssetsProgress() {
             Manage drafts & track minting progress of your carbon credit assets.
           </p>
         </div>
+         <Button size="md" className={"rounded-md"} to={"/assets/look-up"} onClick={clearSearchResults}>
+         <RiSearchLine className="mr-2" />
+          Look Up Assets
+        </Button>
       </CardHeader>
       <CardBody>
         <Tabs

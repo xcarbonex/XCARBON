@@ -8,8 +8,13 @@ import EnterpriseRepresentative from "./EnterpriseRepresentative";
 import clsx from "clsx";
 import Form from "@/components/Form";
 import * as Yup from 'yup';
+import { FileUpload } from "@/components";
+import {Select, SelectItem} from "@heroui/react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Enterprise = () => {
+  const navigate = useNavigate();
   const [isrepresentative, setIsRepresentative] = useState(false);
   const [showRepresentative, setShowRepresentative] = useState(false);
 
@@ -47,13 +52,31 @@ const Enterprise = () => {
     isUBO: Yup.boolean(),
   });
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
     if (isrepresentative) {
       setShowRepresentative(true);
+    }else{
+      setShowRepresentative(false);
+      toast.success("Registration completed successfully!");
+      navigate("/");
+      resetForm(); 
+      setSubmitting(false);
     }
-    setSubmitting(false);
   };
 
+  const businessTypes = [
+  {key: "", label: "Select Business Type"},
+  {key: "LLC", label: "LLC"},
+  {key: "Corporation", label: "Corporation"},
+  {key: "Partnership", label: "Partnership"},
+];
+
+const industryTypes = [
+  {key: "", label: "Select Industry Sector"},
+  {key: "Technology", label: "Technology"},
+  {key: "Finance", label: "Finance"},
+  {key: "Healthcare", label: "Healthcare"},
+];
   return (
     <>
       <Form initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
@@ -86,36 +109,28 @@ const Enterprise = () => {
             ))}
             <div className="col-span-2 md:col-span-1 space-y-2">
               <label>Business Type</label>
-              <select
-                name="businessType"
-                className="w-full mt-3 bg-input border rounded-md  focus:ring-1 focus:ring-input px-3 py-3"
-                value={values.businessType}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              >
-                <option value="">Select Business Type</option>
-                <option value="LLC">LLC</option>
-                <option value="Corporation">Corporation</option>
-                <option value="Partnership">Partnership</option>
-              </select>
+               <Select name="businessType" size="lg" radius="sm" variant={'flat'}  onChange={(e) =>setFieldValue("businessType", e.target.value)}>
+                 {businessTypes.map((type) => (
+                   <SelectItem key={type.key} value={type.key}>
+                     {type.label}
+                   </SelectItem>
+                 ))}
+               </Select>
+          
               {errors.businessType && touched.businessType && (
                 <p className="text-red-500 text-sm mt-1">{errors.businessType}</p>
               )}
             </div>
             <div className="col-span-2 md:col-span-1 space-y-2">
               <label>Industry Sector</label>
-              <select
-                name="industrySector"
-                className="w-full mt-3 bg-input border rounded-md  focus:ring-1 focus:ring-input px-3 py-3"
-                value={values.industrySector}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              >
-                <option value="">Select Industry Sector</option>
-                <option value="Technology">Technology</option>
-                <option value="Finance">Finance</option>
-                <option value="Healthcare">Healthcare</option>
-              </select>
+               <Select name="industrySector" size="lg" radius="sm" variant={'flat'} onChange={(e) =>setFieldValue("industrySector", e.target.value)}>
+                 {industryTypes.map((type) => (
+                   <SelectItem key={type.key} value={type.key}>
+                     {type.label}
+                   </SelectItem>
+                 ))}
+               </Select>
+      
               {errors.industrySector && touched.industrySector && (
                 <p className="text-red-500 text-sm mt-1">{errors.industrySector}</p>
               )}
@@ -135,40 +150,20 @@ const Enterprise = () => {
                 <p className="text-red-500 text-sm mt-1">{errors.officeAddress}</p>
               )}
             </div>
-            <div className="col-span-2 md:col-span-1">
-              <label htmlFor="uploadFile1" className=" text-[#949494] font-semibold  rounded p-[30px] flex flex-col items-center justify-center cursor-pointer border-2 border-[#363638] border-dashed mx-auto">
-                <img src={certificate} alt="certificate" className="mb-[5px]" />
-                <p className="text-center">Certificate of Incorporation</p>
-                <input
-                  type="file"
-                  id="uploadFile1"
-                  name="certificate"
-                  className="hidden"
-                  onChange={e => setFieldValue('certificate', e.currentTarget.files[0])}
-                />
-                {errors.certificate && touched.certificate && (
-                  <p className="text-red-500 text-sm mt-1">{errors.certificate}</p>
-                )}
-                <p className="text-[10px] font-medium text-[#949494] mt-2">(Including article of association)</p>
-              </label>
-            </div>
-            <div className="col-span-2 md:col-span-1">
-              <label htmlFor="uploadFile2" className=" text-[#949494] font-semibold h-full rounded p-[30px] flex flex-col items-center justify-center cursor-pointer border-2 border-[#363638] border-dashed mx-auto">
-                <img src={license} alt="license" />
-                <p className="text-center">Company license</p>
-                <input
-                  type="file"
-                  id="uploadFile2"
-                  name="license"
-                  className="hidden"
-                  onChange={e => setFieldValue('license', e.currentTarget.files[0])}
-                />
-                {errors.license && touched.license && (
-                  <p className="text-red-500 text-sm mt-1">{errors.license}</p>
-                )}
-                <p className="text-[10px] font-medium text-[#949494] mt-2">(Including article of association)</p>
-              </label>
-            </div>
+         
+             <FileUpload
+                          name="certificate"
+                          label="Certificate of Incorporation"
+                          icon={certificate}
+                          helperText="Upload PDF, JPG (Max 10MB)"
+                        />
+           
+              <FileUpload
+                          name="license"
+                          label="Company License"
+                          icon={license}
+                          helperText="Upload PDF, JPG (Max 10MB)"
+                        />
             <div className="col-span-2">
               <p className=" text-lg md:text-2xl font-bold ">Representative Information</p>
               <div>

@@ -11,6 +11,8 @@ import clsx from "clsx";
 import useStore from "@/store/store";
 import TokenizationPreview from "./TokenizationPreview";
 import {toast, Bounce} from "react-toastify";
+import {useNavigate} from "react-router-dom";
+
 const bgTags = [
   "bg-[#A6B3B1]",
   "bg-[#4C6663]",
@@ -25,6 +27,7 @@ const RegistryForms = ({
   showBackToList = false,
   resetParentForm = () => {},
 }) => {
+  const navigate = useNavigate();
   const {
     selectedCarbonCreditDetails,
     carbonCreditDetailsError,
@@ -39,7 +42,6 @@ const RegistryForms = ({
     mintedError,
   } = useStore();
 
-  console.log(selectedCarbonCreditDetails);
   const tokenizationInitialValues = {
     id: selectedCarbonCreditDetails?.projectId,
     registry: selectedCarbonCreditDetails?.registry,
@@ -59,19 +61,32 @@ const RegistryForms = ({
     listingDuration: selectedCarbonCreditDetails?.listingDuration || "",
     allowFactorization: selectedCarbonCreditDetails?.allowFactorization || "",
     fraction: selectedCarbonCreditDetails?.fraction || "",
-    files: selectedCarbonCreditDetails?.files || [], // Add for FileUpload component
+    files: selectedCarbonCreditDetails?.files || [],
+    mintQuantity: selectedCarbonCreditDetails?.mintQuantity || "", // Add for FileUpload component
   };
   const handleTokenizationSubmit = async (values, {resetForm}) => {
     await setMintedAssets(values);
     await resetForm();
     await togglePreview();
     await resetParentForm?.current?.resetForm();
+    await navigate("/assets");
+    toast.success("Tokenization request submitted successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   const handleSaveAsDraft = async (values) => {
     await setDraft(values);
     await togglePreview();
     await resetParentForm?.current?.resetForm();
+    await navigate("/assets");
     toast.success("Draft successfully saved", {
       position: "top-right",
       autoClose: 5000,
@@ -253,8 +268,8 @@ const RegistryForms = ({
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="mt-3">
-                          <h1 className="text-[16px] text-black dark:text-white mb-3 mt-2">
+                        <div >
+                          <h1 className="text-[16px] text-black dark:text-white mb-2 mt-2">
                             Token Symbol or Display Name
                           </h1>
                           <div>
@@ -289,8 +304,8 @@ const RegistryForms = ({
                             )}
                           </div>
                         </div>
-                        <div className="mt-3">
-                          <h1 className="text-[16px] text-black dark:text-white mb-3 mt-2">
+                        <div>
+                          <h1 className="text-[16px] text-black dark:text-white mb-2 mt-2">
                             Transfer Restrictions
                           </h1>
                           <div>
@@ -323,8 +338,28 @@ const RegistryForms = ({
                             )}
                           </div>
                         </div>
-                        <div className="mt-3">
-                          <h1 className="text-[16px] text-black dark:text-white mb-3 mt-2">
+                         <div >
+                          <h1 className="text-[16px] text-black dark:text-white mb-2 mt-2">
+                            Quantity To Mint (USD)
+                          </h1>
+                          <div>
+                            <Input
+                              placeholder="Enter Quantity To Mint"
+                              name="mintQuantity"
+                              type="number"
+                              value={values.mintQuantity}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            />
+                            {touched.mintQuantity && errors.mintQuantity && (
+                              <div className="text-red-500 text-sm mt-1">
+                                {errors.mintQuantity}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div >
+                          <h1 className="text-[16px] text-black dark:text-white mb-2 mt-2">
                             Listing Price (USD)
                           </h1>
                           <div>
@@ -343,8 +378,8 @@ const RegistryForms = ({
                             )}
                           </div>
                         </div>
-                        <div className="mt-3">
-                          <h1 className="text-[16px] text-black dark:text-white mb-3 mt-2">
+                        <div >
+                          <h1 className="text-[16px] text-black dark:text-white mb-2 mt-2">
                             Listing Duration
                           </h1>
                           <div>
@@ -373,14 +408,15 @@ const RegistryForms = ({
                           </div>
                         </div>
                         {/* Replace the existing file upload for Legal Opinion */}
-                        <FileUpload
-                          name="files"
-                          label="Proof of Ownership/Retirement"
-                          icon={certificate}
-                          maxFiles={2}
-                          helperText="Upload PDF, JPG (Max 10MB)"
-                        />
-
+                        <div className="mb-2 mt-2">
+                          <FileUpload
+                            name="files"
+                            label="Proof of Ownership/Retirement"
+                            icon={certificate}
+                            maxFiles={2}
+                            helperText="Upload PDF, JPG (Max 10MB)"
+                          />
+                        </div>
                         {/* Replace the existing file upload for Verification PDF */}
                         {/* <FileUpload
                       name="verificationPdfFile"
@@ -392,7 +428,7 @@ const RegistryForms = ({
                       </div>
                     </div>
 
-                    <div className=" dark:bg-[#141517] bg-[#FDFDFB] border rounded-xl p-4 mt-5">
+                    <div className=" dark:bg-[#141517] bg-[#FDFDFB] border rounded-xl p-3 mb-2 mt-2">
                       <div className="grid space-y-3">
                         {/* Section 1 */}
                         <div className="border-[#363636] border-b-2 pb-[10px] ">

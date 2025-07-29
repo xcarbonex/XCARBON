@@ -114,17 +114,17 @@ const NotificationPopup = () => {
                 <div
                   key={notification.id}
                   className={clsx(
-                    'p-4 border-b hover:bg-black/10 cursor-pointer',
+                    'p-4 border-b hover:bg-black/10 cursor-pointer ',
                     !notification.read && 'bg-black/5'
                   )}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start  gap-3">
                     <div className={clsx(
                       'w-2 h-2 mt-2 rounded-full flex-shrink-0',
                       notification.read ? 'bg-gray-300' : 'bg-[#4C6663]'
                     )} />
-                    <div className="flex-1">
-                      <Typography variant="body2" className="font-medium">
+                    <div className="flex-1 ">
+                      <Typography variant="body2" className="font-medium   ">
                         {notification.title}
                       </Typography>
                       <Typography variant="caption" className=" mt-1">

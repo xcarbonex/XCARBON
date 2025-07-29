@@ -210,11 +210,11 @@ const Deposit = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-tbase">
       <Breadcrumb items={breadcrumbItems} />
 
       {/* Header */}
-      <div className="border-b-2 border-border pb-4">
+      <div className=" bg-secondary border p-3 rounded-xl">
         <Typography variant="h4" className="mb-2">
           Deposit
         </Typography>
@@ -224,7 +224,7 @@ const Deposit = () => {
       </div>
 
       {/* Deposit Forms */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="bg-secondary  grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Fiat Deposit */}
         <div className="border border-border rounded-xl p-6 bg-card">
           <Typography variant="h6">Deposit Fiat Currency</Typography>
@@ -533,7 +533,7 @@ const Deposit = () => {
       </div>
 
       {/* Deposit History */}
-      <div className="border border-border rounded-xl p-6 bg-card">
+      <div className=" bg-secondary border border-border rounded-xl p-6 bg-card">
         <Table
           columns={depositHistoryColumns}
           data={mockDepositHistory}
