@@ -1,7 +1,7 @@
-import {create} from "zustand";
+import { create } from "zustand";
 import axios from "axios";
-import {withDevtools} from "./withDevtools";
-import {GOLD_STANDARD} from "./appData";
+import { withDevtools } from "./withDevtools";
+import { GOLD_STANDARD } from "./appData";
 
 const useStore = create(
   withDevtools(
@@ -130,7 +130,7 @@ const useStore = create(
       },
 
       setMintedAssets: (asset) => {
-        set({mintedAssetsLoading: true, mintedError: null});
+        set({ mintedAssetsLoading: true, mintedError: null });
         try {
           set((state) => {
             const newDraft = Array.isArray(asset)
@@ -143,13 +143,13 @@ const useStore = create(
             };
           });
         } catch (err) {
-          set({mintedError: err.message || "Failed to add draft"});
+          set({ mintedError: err.message || "Failed to add draft" });
         } finally {
-          set({mintedAssetsLoading: false});
+          set({ mintedAssetsLoading: false });
         }
       },
       setDraft: (asset) => {
-        set({draftLoading: true, draftError: null});
+        set({ draftLoading: true, draftError: null });
         try {
           set((state) => {
             const newDraft = Array.isArray(asset)
@@ -162,17 +162,17 @@ const useStore = create(
             };
           });
         } catch (err) {
-          set({draftError: err.message || "Failed to add draft"});
+          set({ draftError: err.message || "Failed to add draft" });
         } finally {
-          set({draftLoading: false});
+          set({ draftLoading: false });
         }
       },
 
       getDraft: (id, navigate) => {
-        const {draft} = get();
+        const { draft } = get();
         const draftItem = draft.find((item) => item.id === id) || null;
 
-        set({selectedCarbonCreditDetails: draftItem});
+        set({ selectedCarbonCreditDetails: draftItem });
         if (draftItem) {
           navigate(`/assets/look-up`);
         }
@@ -232,11 +232,8 @@ const useStore = create(
           };
         }
       },
-
-      // State for selected carbon credit details
-
       // Helper function to construct API URL
-      getRegistryApiUrl: (
+       getRegistryApiUrl: (
         registry,
         assetType,
         reference,
@@ -260,7 +257,7 @@ const useStore = create(
             assetRefType: {
               creditById: `/credits/${reference}`,
               sno: `/credits?query=${query}&page=${page}&size=${size}&issuances=false`,
-              projectID: `/credits?query=${query}&page=${page}&size=${size}&projects=${reference}&issuances=false`, //`/projects/${reference}`,
+              projectID: `/credits?query=${query}&page=${page}&size=${size}&projects=${reference}&issuances=false`,
               registryURL: `/projects/${reference}`,
               getProjectById: `/projects/${reference}`,
             },
@@ -349,25 +346,40 @@ const useStore = create(
         project,
         type,
         volume,
+        retirementType,
         query,
         page = 1,
         size = 25
       ) => {
-        let {min, max} = volume || {};
-        let appendUrl =
-          min && max && type
-            ? `&minQuantity=${min}&maxQuantity=${max}&projectTypes=${type}`
-            : min && max
-            ? `&minQuantity=${min}&maxQuantity=${max}`
-            : type
-            ? `&projectTypes=${type}`
-            : "";
+        let { min, max } = volume || {};
+        let {retired, assigned} = retirementType||{}
+        let appendUrl = ""
+          // min && max && type && retired && assigned
+          //   ? `&minQuantity=${min}&maxQuantity=${max}&projectTypes=${type}&retired=${retired}&assigned=${assigned}`
+          //   : min && max
+          //   ? `&minQuantity=${min}&maxQuantity=${max}`
+          //   : type
+          //   ? `&projectTypes=${type}`
+          //   : "";
 
+          
+        if (min && max) {
+          appendUrl += `&minQuantity=${min}&maxQuantity=${max}`;
+        }
+
+        if (type) {
+          appendUrl += `&projectTypes=${type}`;
+        }
+
+        if (retired || assigned) {
+          if(retired && !assigned) appendUrl += `&retired=${retired}`;
+          if(assigned && !retired) appendUrl += `&assigned=${assigned}`;
+          if(assigned && retired) appendUrl += `&retired=${retired}&assigned=${assigned}`;
+        }
         set({
           isLoading: true,
           error: null,
         });
-
         try {
           const apiUrl = get().getRegistryApiUrl(
             registry,

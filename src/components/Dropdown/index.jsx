@@ -13,6 +13,7 @@ const Dropdown = ({
   onSelect = () => {},
   className,
   customInput = false,
+  searchField=true,
   buttonClassName = "",
   dropdownClassName = "",
   placeholder = "Custom",
@@ -188,14 +189,14 @@ const Dropdown = ({
 
                     {customInput && (
                       <li className="pt-2 w-full">
-                        <Input
+                       {searchField && <Input
                           value={customValue}
                           onChange={(e) => handleSearch(e.target.value)}
                           placeholder={placeholder}
                           variant="xs"
                           className="w-full px-2 py-1 mb-1 border border-gray-300 rounded-md text-sm text-center focus:outline-none focus:ring-1 focus:ring-blue-500"
                           onClick={(e) => e.stopPropagation()}
-                        />
+                        />}
                         <div className="flex justify-between gap-2 w-full">
                           <Button
                             type="button"

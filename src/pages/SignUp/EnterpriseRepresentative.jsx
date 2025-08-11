@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import logox from "@/assets/logoX.svg";
 import certificate from "@/assets/certificate.svg";
 import camera from "@/assets/camera.svg";
 import { Input } from "@/components";
@@ -7,7 +5,7 @@ import clsx from "clsx";
 import { FileUpload } from "@/components";
 import Form from "@/components/Form";
 import * as Yup from "yup";
-import { DatePicker } from "@heroui/react";
+
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const EnterpriseRepresentative = () => {
@@ -25,7 +23,7 @@ const EnterpriseRepresentative = () => {
     governmentId: null,
     selfieId: null,
     declarations: {
-      PEP: false,   
+      PEP: false,
       SanctionScreening: false,
       TAndC: false,
       Conformation: false,
@@ -93,7 +91,6 @@ const EnterpriseRepresentative = () => {
       <Form
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          
           setSubmitting(false);
           navigate("/");
           resetForm();
@@ -104,12 +101,14 @@ const EnterpriseRepresentative = () => {
           dateOfBirth: Yup.date().required("Date of Birth is required"),
           nationality: Yup.string().required("Nationality is required"),
           companyRole: Yup.string().required("Company Role is required"),
-          companyIdNumber: Yup.string().required("Company ID Number is required"),
+          companyIdNumber: Yup.string().required(
+            "Company ID Number is required"
+          ),
           residentialAddress: Yup.string().required(
             "Residential Address is required"
           ),
           isUBO: Yup.boolean(),
-          governmentId: Yup.mixed().nullable(), 
+          governmentId: Yup.mixed().nullable(),
           selfieId: Yup.mixed().nullable(),
           declarations: Yup.object().shape({
             PEP: Yup.boolean(),
@@ -131,15 +130,16 @@ const EnterpriseRepresentative = () => {
             {inputFields.map((field, index) => (
               <div key={index} className="space-y-2 col-span-2 md:col-span-1">
                 <label>{field.label}</label>
-               <Input type={field.type}
-                   name={field.name}
-                   placeholder={field.placeholder}
-                   value={values[field.name]}
-                   onChange={handleChange}
-                   onBlur={handleBlur}
-                  />
-                     
-                     {errors[field.name] && touched[field.name] && (
+                <Input
+                  type={field.type}
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  value={values[field.name]}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+
+                {errors[field.name] && touched[field.name] && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors[field.name]}
                   </p>
@@ -154,15 +154,15 @@ const EnterpriseRepresentative = () => {
                 type="text"
                 placeholder="Company ID Number"
                 value={values.companyIdNumber}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-              // className="w-full mt-3 text-white px-3 py-3 bg-[#363638]/50 text-[14px] rounded-md focus:outline-none focus:ring-2 focus:ring-[#363638]"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                // className="w-full mt-3 text-white px-3 py-3 bg-[#363638]/50 text-[14px] rounded-md focus:outline-none focus:ring-2 focus:ring-[#363638]"
               />
-               {errors.companyIdNumber && touched.companyIdNumber && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.companyIdNumber}
-                  </p>
-                )}
+              {errors.companyIdNumber && touched.companyIdNumber && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.companyIdNumber}
+                </p>
+              )}
             </div>
 
             <div className="col-span-2 space-y-2">
@@ -171,28 +171,33 @@ const EnterpriseRepresentative = () => {
                 name="residentialAddress"
                 type="text"
                 value={values.residentialAddress}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="Registered Office Address"
                 className="w-full mt-3 bg-input border rounded-md  focus:ring-1 focus:ring-input px-3 py-3"
               />
-               {errors.residentialAddress && touched.residentialAddress && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.residentialAddress}
-                  </p>
-                )}
+              {errors.residentialAddress && touched.residentialAddress && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.residentialAddress}
+                </p>
+              )}
             </div>
 
             <div className="col-span-2  space-y-2">
               <label>LinkedIn URL (optional)</label>
-              <Input name="linkedinUrl" type="text" placeholder="LinkedIn URL"  value={values.linkedinUrl}
-                  onChange={handleChange}
-                  onBlur={handleBlur}/>
-                   {errors.linkedinUrl && touched.linkedinUrl && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.linkedinUrl}
-                  </p>
-                )}
+              <Input
+                name="linkedinUrl"
+                type="text"
+                placeholder="LinkedIn URL"
+                value={values.linkedinUrl}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.linkedinUrl && touched.linkedinUrl && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.linkedinUrl}
+                </p>
+              )}
             </div>
 
             <div className="col-span-2 space-y-2">
@@ -225,14 +230,12 @@ const EnterpriseRepresentative = () => {
                   />
                 </label>
               </div>
-               {errors.option && touched.option && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.option}
-                  </p>
-                )}
+              {errors.option && touched.option && (
+                <p className="text-red-500 text-sm mt-1">{errors.option}</p>
+              )}
             </div>
 
-              <FileUpload
+            <FileUpload
               name="governmentId"
               label="Upload a valid government-issued ID"
               icon={certificate}
@@ -244,7 +247,7 @@ const EnterpriseRepresentative = () => {
               icon={camera}
               helperText="JPG (Max 10MB)"
             />
-         
+
             <div className="col-span-2 mt-10 bg-input space-y-3 rounded-xl p-10">
               <p className="text-lg md:text-2xl font-bold">Declarations</p>
               {declarations.map((item, index) => (
@@ -253,9 +256,12 @@ const EnterpriseRepresentative = () => {
                     type="checkbox"
                     name={item.name}
                     checked={values.declarations[item.name]}
-                    onChange={e => {  
+                    onChange={(e) => {
                       handleChange(e);
-                      setFieldValue(`declarations.${item.name}`, e.target.checked);
+                      setFieldValue(
+                        `declarations.${item.name}`,
+                        e.target.checked
+                      );
                     }}
                     className="bg-transparent accent-tbase border-transparent px-0 shadow-none focus-within:ring-transparent focus-within:border-transparent focus-within:outline-transparent"
                     suffix={
@@ -289,8 +295,6 @@ const EnterpriseRepresentative = () => {
           </div>
         )}
       </Form>
-
-
     </>
   );
 };

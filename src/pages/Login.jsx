@@ -8,7 +8,7 @@ import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import xNeon from "@/assets/xNeon.svg";
 import xNeonBlack from "@/assets/xNeonBlack.svg";
 import Form from "@/components/Form";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 const Login = () => {
   const { theme } = useTheme();
@@ -84,8 +84,19 @@ const Login = () => {
             Welcome back! Please enter your details to sign in.
           </p>
         </div>
-        <Form initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
-          {({ values, handleChange, handleBlur,setFieldValue, errors, touched }) => (
+        <Form
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          {({
+            values,
+            handleChange,
+            handleBlur,
+            setFieldValue,
+            errors,
+            touched,
+          }) => (
             <div className="mt-8 space-y-4">
               <div className="rounded-md space-y-4">
                 <div className="space-y-2">
@@ -100,7 +111,9 @@ const Login = () => {
                     name="email"
                     type="email"
                     autoComplete="email"
-                    prefix={<MdOutlineEmail className="h-6 w-6" />}
+                    prefix={
+                      <MdOutlineEmail className="h-6 w-6 dark:text-white text-gray-400" />
+                    }
                     placeholder="Email address"
                     value={values.email}
                     onChange={handleChange}
@@ -143,7 +156,9 @@ const Login = () => {
                     }
                   />
                   {errors.password && touched.password && (
-                    <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.password}
+                    </p>
                   )}
                 </div>
               </div>
@@ -183,8 +198,8 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    setFieldValue('email', 'demo@example.com');
-                    setFieldValue('password', 'Demo@123');
+                    setFieldValue("email", "demo@example.com");
+                    setFieldValue("password", "Demo@123");
                   }}
                   className="px-3 py-1 border border-tbase-600 rounded-md text-sm font-medium text-tbase-600 hover:bg-tbase-600 transition-colors duration-200"
                 >

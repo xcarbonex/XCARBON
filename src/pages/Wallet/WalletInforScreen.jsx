@@ -10,6 +10,8 @@ import history from "@/assets/history.svg";
 import plus from "@/assets/plus.svg";
 import { Breadcrumb } from "@/components";
 import useWalletStore from "@/store/walletStore";
+import { FaPlus } from "react-icons/fa6";
+import { FaHistory } from "react-icons/fa";
 // Transaction History columns configuration
 const transactionColumns = [
   {
@@ -210,7 +212,6 @@ const transactionData = [
 
 // Sample contract delivery schedule data
 
-
 const WalletInfoScreen = () => {
   const { deliveryData } = useWalletStore();
   const navigate = useNavigate();
@@ -231,17 +232,20 @@ const WalletInfoScreen = () => {
       <Tooltip id="wallet" place="right" />
       <div>
         <div className="space-y-5 ">
-          <Typography variant="h4" className="border-b-2 text-tbase border-[#363638] pb-2">
+          <Typography
+            variant="h4"
+            className="border-b-2 text-tbase border-[#363638] pb-2"
+          >
             Wallet
           </Typography>
           {/* Token Balances & Actions */}
           <div className="grid md:grid-cols-2 gap-6">
             {/* Token Balances Card */}
-            <div className="bg-[#4C6663] text-tbase dark:bg-[#191919] rounded-xl border border-[#363638] shadow-lg">
+            <div className="bg-[#4C6663] text-white dark:bg-[#191919] rounded-xl border border-[#363638] shadow-lg">
               <div className="p-4">
                 <Typography
                   variant="h5"
-                  className="border-b text-tbase border-[#363638] pb-2"
+                  className="border-b   border-[#363638] pb-2"
                 >
                   Token Balances
                 </Typography>
@@ -271,9 +275,7 @@ const WalletInfoScreen = () => {
                       >
                         {item.tokenName}
                       </Typography>
-                      <Typography variant="body2">
-                        {item.amount}
-                      </Typography>
+                      <Typography variant="body2">{item.amount}</Typography>
                     </div>
                   ))}
                 </div>
@@ -294,7 +296,9 @@ const WalletInfoScreen = () => {
                     to="deposit"
                     variant="primary"
                     fullWidth
-                    icon={plus}
+                    icon={
+                      <FaPlus className="w-4 h-4 text-white dark:text-gray-400" />
+                    }
                     className="flex items-center justify-center gap-2"
                   >
                     Deposit (Fiat / Crypto)
@@ -303,7 +307,9 @@ const WalletInfoScreen = () => {
                     to="withdraw-tokenized-carbon-credit"
                     variant="secondary"
                     fullWidth
-                    icon={history}
+                    icon={
+                      <FaHistory className="w-4 h-4 text-white dark:text-gray-400" />
+                    }
                     className="flex items-center justify-center gap-2 border-transparent"
                   >
                     Withdraw

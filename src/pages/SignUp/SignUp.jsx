@@ -1,9 +1,5 @@
 import { useState } from "react";
 import Person from "@/assets/person.svg";
-import Email from "@/assets/email.svg";
-import Dperson from "@/assets/doublePerson.svg";
-import Security from "@/assets/security.svg";
-import Verified from "@/assets/verified.svg";
 import lock from "@/assets/lock.svg";
 import { useTheme } from "@/components/ThemeProvider";
 import clsx from "clsx";
@@ -19,25 +15,30 @@ import { MdOutlineEmail } from "react-icons/md";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import Form from "@/components/Form";
 import * as Yup from "yup";
+import { BsPersonCheckFill } from "react-icons/bs";
+import { GoVerified } from "react-icons/go";
+import { RiShieldFlashLine } from "react-icons/ri";
+import { BsPerson } from "react-icons/bs";
+import { LuLockKeyhole } from "react-icons/lu";
 
 const data = [
   {
     id: 1,
-    image: Dperson,
+    image: <BsPersonCheckFill className="w-6 h-6" />,
     title: "Lorem Ipsum person",
     description:
       "Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet",
   },
   {
     id: 2,
-    image: Verified,
+    image: <GoVerified className="w-6 h-6" />,
     title: "Lorem Ipsum verified",
     description:
       "Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet",
   },
   {
     id: 3,
-    image: Security,
+    image: <RiShieldFlashLine className="w-6 h-6" />,
     title: "lorem ipsum security",
     description:
       "Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet",
@@ -142,7 +143,7 @@ const SignUp = () => {
               {data.map((item) => (
                 <div key={item.id} className="mt-[25px]">
                   <div className="mt-3">
-                    <img src={item.image} alt={item.title} />
+                    <div>{item.image}</div>
                   </div>
                   <div className="grid grid-cols-1 gap-y-2 mt-3">
                     <h2 className="text-[16px]">{item.title}</h2>
@@ -173,7 +174,9 @@ const SignUp = () => {
                       id="Fname"
                       name="Fname"
                       placeholder="First Name"
-                      prefix={<img src={Person} alt="person" />}
+                      prefix={
+                        <BsPerson className="w-6 h-6 text-gray-400 dark:text-white" />
+                      }
                       value={values.Fname}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -191,7 +194,9 @@ const SignUp = () => {
                       id="Lname"
                       name="Lname"
                       placeholder=" Last Name"
-                      prefix={<img src={Person} alt="person" />}
+                      prefix={
+                        <BsPerson className="w-6 h-6 text-gray-400 dark:text-white" />
+                      }
                       value={values.Lname}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -209,7 +214,9 @@ const SignUp = () => {
                       id="email"
                       name="email"
                       placeholder="Email"
-                      prefix={<MdOutlineEmail className="h-6 w-6" />}
+                      prefix={
+                        <MdOutlineEmail className="h-6 w-6 text-gray-400 dark:text-white" />
+                      }
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -228,7 +235,9 @@ const SignUp = () => {
                       id="password"
                       name="password"
                       placeholder="Password"
-                      prefix={<img src={lock} alt="Lock" />}
+                      prefix={
+                        <LuLockKeyhole className="w-6 h-6 text-gray-400 dark:text-white" />
+                      }
                       suffix={
                         <button
                           type="button"

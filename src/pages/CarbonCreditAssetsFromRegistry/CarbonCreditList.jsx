@@ -1,20 +1,20 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   HiOutlineLocationMarker,
   HiOutlineCalendar,
   HiOutlineCube,
 } from "react-icons/hi";
-import {IoIosArrowForward} from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 import clsx from "clsx";
-import {debounce} from "../../utils/debounce";
+import { debounce } from "../../utils/debounce";
 import dayjs from "dayjs";
 import NoDataFound from "./NoDataFound";
 import useStore from "@/store/store";
 import Dropdown from "@/components/Dropdown";
-import {Typography, Input} from "@/components"; // Import Typography for custom renderOption
-import {Tooltip} from "react-tooltip";
-import {Button} from "@/components";
-import {toast} from "react-toastify";
+import { Typography, Input } from "@/components"; // Import Typography for custom renderOption
+import { Tooltip } from "react-tooltip";
+import { Button } from "@/components";
+import { toast } from "react-toastify";
 const bgTags = ["bg-[#A6B3B1]", "bg-[#4C6663]", "bg-[#C2A57B]", "bg-[#949494]"];
 
 const CarbonCreditList = ({
@@ -39,6 +39,7 @@ const CarbonCreditList = ({
     min: "",
     max: "",
   });
+  const [selectedStatuses, setSelectedStatus] = useState([]);
 
   useEffect(() => {
     setProjectType();
@@ -73,6 +74,10 @@ const CarbonCreditList = ({
       selectedProjedType.length > 0
         ? selectedProjedType.map((type) => type.value).join(",")
         : "";
+        let assetType = selectedStatuses.reduce((acc, item) => {
+      acc[item.label.toLowerCase()] = item.value;
+      return acc;
+    }, {});
     try {
       await filterRegistryAssets(
         filteredPamaeter?.registry,
@@ -80,6 +85,7 @@ const CarbonCreditList = ({
         projectIds,
         projectTypeIds,
         volume,
+        assetType,
         searchTerm
       );
     } catch (error) {
@@ -102,14 +108,18 @@ const CarbonCreditList = ({
       selectedProjedType.length > 0
         ? selectedProjedType.map((type) => type.value).join(",")
         : "";
-
+    let assetType = selectedStatuses.reduce((acc, item) => {
+      acc[item.label.toLowerCase()] = item.value;
+      return acc;
+    }, {});
     try {
       await filterRegistryAssets(
         filteredPamaeter?.registry,
         filteredPamaeter?.assetReferenceType,
         projectIds,
         projectTypeIds,
-        {min: "", max: ""},
+        { min: "", max: "" },
+        assetType,
         searchTerm
       );
     } catch (error) {
@@ -137,6 +147,10 @@ const CarbonCreditList = ({
     let projectTypeIds = selectedProjedType.length
       ? selectedProjedType.map((type) => type.value).join(",")
       : "";
+    let assetType = selectedStatuses.reduce((acc, item) => {
+      acc[item.label.toLowerCase()] = item.value;
+      return acc;
+    }, {});
     try {
       await filterRegistryAssets(
         filteredPamaeter?.registry,
@@ -144,6 +158,7 @@ const CarbonCreditList = ({
         projectIds,
         projectTypeIds,
         volume,
+        assetType,
         searchTerm
       );
     } catch (error) {
@@ -162,6 +177,10 @@ const CarbonCreditList = ({
       selectedProjedType.length > 0
         ? selectedProjedType.map((type) => type.value).join(",")
         : "";
+        let assetType = selectedStatuses.reduce((acc, item) => {
+      acc[item.label.toLowerCase()] = item.value;
+      return acc;
+    }, {});
     try {
       await filterRegistryAssets(
         filteredPamaeter?.registry,
@@ -169,6 +188,7 @@ const CarbonCreditList = ({
         projectIds,
         projectTypeIds,
         volume,
+        assetType,
         searchTerm
       );
     } catch (error) {
@@ -183,7 +203,10 @@ const CarbonCreditList = ({
       selectedProjects.length > 0
         ? selectedProjects.map((project) => project?.value).join(",")
         : "";
-
+    let assetType = selectedStatuses.reduce((acc, item) => {
+      acc[item.label.toLowerCase()] = item.value;
+      return acc;
+    }, {});
     try {
       await filterRegistryAssets(
         filteredPamaeter?.registry,
@@ -191,6 +214,7 @@ const CarbonCreditList = ({
         projectIds,
         "",
         volume,
+        assetType,
         searchTerm
       );
     } catch (error) {
@@ -205,6 +229,10 @@ const CarbonCreditList = ({
       selectedProjedType.length > 0
         ? selectedProjedType.map((type) => type?.value).join(",")
         : "";
+        let assetType = selectedStatuses.reduce((acc, item) => {
+      acc[item.label.toLowerCase()] = item.value;
+      return acc;
+    }, {});
     try {
       await filterRegistryAssets(
         filteredPamaeter?.registry,
@@ -212,6 +240,7 @@ const CarbonCreditList = ({
         "",
         projectTypeIds,
         volume,
+        assetType,
         searchTerm
       );
     } catch (error) {
@@ -221,6 +250,34 @@ const CarbonCreditList = ({
     }
   };
 
+
+  const handleRegistrAssetTypeFilter = async(_, setIsOpen) => {
+     let projectTypeIds =
+      selectedProjedType.length > 0
+        ? selectedProjedType.map((type) => type?.value).join(",")
+        : "";
+
+    let assetType = selectedStatuses.reduce((acc, item) => {
+      acc[item.value] = true;
+      return acc;
+    }, {});
+
+    try {
+      await filterRegistryAssets(
+        filteredPamaeter?.registry,
+        filteredPamaeter?.assetReferenceType,
+        "",
+        projectTypeIds,
+        volume,
+        assetType,
+        searchTerm
+      );
+    } catch (error) {
+      toast.error(error);
+    } finally {
+      setIsOpen((prev) => !prev);
+    }
+  }
   return (
     <>
       <Tooltip id="filter_val" place="right" className="z-50" />
@@ -276,7 +333,7 @@ const CarbonCreditList = ({
                     buttonClassName="w-full text-left flex items-center"
                     dropdownClassName="w-full"
                     placeholder="Select Projects"
-                    renderOption={({option, isSelected, onSelect}) => {
+                    renderOption={({ option, isSelected, onSelect }) => {
                       const isSelectAll = option.value === "_select_all_";
                       const isAllSelected =
                         selectedProjects.length === registryProjectList.length;
@@ -332,7 +389,7 @@ const CarbonCreditList = ({
                             name="minVolume"
                             value={volume.min}
                             onChange={(e) =>
-                              setVolume({...volume, min: e.target.value})
+                              setVolume({ ...volume, min: e.target.value })
                             }
                             variant="xs"
                             placeholder="Minimum"
@@ -346,13 +403,13 @@ const CarbonCreditList = ({
                             name="maxVolume"
                             value={volume.max}
                             onChange={(e) =>
-                              setVolume({...volume, max: e.target.value})
+                              setVolume({ ...volume, max: e.target.value })
                             }
                             variant="xs"
                             placeholder="Maximum"
                           />
-          </div>
-        </div>
+                        </div>
+                      </div>
                       {parseInt(volume.max) < parseInt(volume.min) && (
                         <p className="text-red-500 text-sm px-1">
                           Invalid: Maximum value must be greater than Minimum
@@ -404,7 +461,7 @@ const CarbonCreditList = ({
                     buttonClassName="w-full text-left flex items-center"
                     dropdownClassName="w-full"
                     placeholder="Select Projec Type"
-                    renderOption={({option, isSelected, onSelect}) => {
+                    renderOption={({ option, isSelected, onSelect }) => {
                       const isSelectAll = option.value === "_select_all_";
                       const isAllSelected =
                         selectedProjedType.length === projectTypeList.length;
@@ -436,7 +493,55 @@ const CarbonCreditList = ({
                   />
                 </div>
               )}
-              {/* </div> */}
+              <div className="flex flex-col gap-2">
+                <Typography variant="h6" className="text-black dark:text-white">
+                  Filter by Status
+                </Typography>
+                <Dropdown
+                  options={[
+                    { label: "Assigned", value: 'assigned' },
+                    { label: "Retired", value: 'retired' },
+                  ]}
+                  multiSelect
+                  customInput
+                  searchField={false}
+                  selectedOption={selectedStatuses}
+                  onSelect={option=>setSelectedStatus(option)}
+                  onSearchApply={handleRegistrAssetTypeFilter}
+                  label="Status"
+                  width={290}
+                  buttonClassName="w-full text-left flex items-center"
+                  dropdownClassName="w-full"
+                  renderOption={({ option, isSelected, onSelect }) => {
+                    const isSelectAll = option.value === "_select_all_";
+                    const isAllSelected = selectedStatuses.length === 2;
+                    return (
+                      <div
+                        data-tooltip-id="filter_val"
+                        data-tooltip-content={option.label}
+                        className="flex items-center px-2 py-1 cursor-pointer hover:bg-input rounded w-full h-fit"
+                        onClick={onSelect}
+                      >
+                        <Input
+                          type="checkbox"
+                          checked={isSelectAll ? isAllSelected : isSelected}
+                          width="fit"
+                          onChange={() => onSelect(option)}
+                          variant="xs"
+                          className="bg-transparent px-[0px] accent-tbase border-transparent shadow-none focus-within:ring-transparent focus-within:border-transparent focus-within:outline-transparent"
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                        <Typography
+                          variant="body2"
+                          className="pl-2 font-[600] text-nowrap line-clamp-2"
+                        >
+                          {option.label}
+                        </Typography>
+                      </div>
+                    );
+                  }}
+                />
+              </div>
             </div>
           )}
         {isLoading && (
