@@ -92,7 +92,7 @@ interface WalletState {
   deliveryData: DeliveryDataItem[];
   fetchTransactionHistory: () => Promise<void>;
   fetchContractDeliverySchedule: () => Promise<void>;
-  updateDeliveryData: (newData: unknown) => void;
+  updateDeliveryData: (_newData: unknown) => void;
   clearError: () => void;
 }
 
@@ -116,8 +116,7 @@ const useWalletStore = create<WalletState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -125,16 +124,14 @@ const useWalletStore = create<WalletState>()(
       fetchContractDeliverySchedule: async () => {
         set({ loading: true, error: null });
         try {
-          const response =
-            await walletService.getContractDeliverySchedule();
+          const response = await walletService.getContractDeliverySchedule();
           if (response.success) {
             set({ contractDeliverySchedule: response.data, loading: false });
           } else {
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },

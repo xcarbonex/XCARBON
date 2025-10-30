@@ -8,11 +8,7 @@ interface DepositState {
   depositList: DepositListItem[] | null;
   loading: boolean;
   error: string | null;
-  makeDeposit: (
-    currency: string,
-    amount: number,
-    method: string
-  ) => Promise<void>;
+  makeDeposit: (_currency: string, _amount: number, _method: string) => Promise<void>;
   fetchDepositList: () => Promise<void>;
   clearError: () => void;
 }
@@ -29,19 +25,14 @@ const useDepositStore = create<DepositState>()(
       makeDeposit: async (currency: string, amount: number, method: string) => {
         set({ loading: true, error: null });
         try {
-          const response = await depositService.deposit(
-            currency,
-            amount,
-            method
-          );
+          const response = await depositService.deposit(currency, amount, method);
           if (response.success) {
             set({ depositResult: response.data, loading: false });
           } else {
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -56,8 +47,7 @@ const useDepositStore = create<DepositState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },

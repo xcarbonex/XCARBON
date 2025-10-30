@@ -1,10 +1,7 @@
 import { create } from "zustand";
 import membershipService from "../services/membershipService";
 import { withDevtools } from "./withDevtools";
-import type {
-  CurrentPlan,
-  MutationResponse,
-} from "../services/membershipService";
+import type { CurrentPlan, MutationResponse } from "../services/membershipService";
 
 interface MembershipState {
   currentPlan: CurrentPlan | null;
@@ -17,12 +14,12 @@ interface MembershipState {
   loading: boolean;
   error: string | null;
   fetchCurrentPlan: () => Promise<void>;
-  upgradeUserPlan: (planId: string) => Promise<void>;
+  upgradeUserPlan: (_planId: string) => Promise<void>;
   generateOtp: () => Promise<void>;
-  changeUserEmail: (newEmail: string, password: string) => Promise<void>;
-  resetUserPassword: (email: string) => Promise<void>;
-  updateUserProfile: (input: Record<string, unknown>) => Promise<void>;
-  deleteUserAccount: (password: string) => Promise<void>;
+  changeUserEmail: (_newEmail: string, _password: string) => Promise<void>;
+  resetUserPassword: (_email: string) => Promise<void>;
+  updateUserProfile: (_input: Record<string, unknown>) => Promise<void>;
+  deleteUserAccount: (_password: string) => Promise<void>;
   clearError: () => void;
 }
 
@@ -50,8 +47,7 @@ const useMembershipStore = create<MembershipState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -66,8 +62,7 @@ const useMembershipStore = create<MembershipState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -82,8 +77,7 @@ const useMembershipStore = create<MembershipState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -91,18 +85,14 @@ const useMembershipStore = create<MembershipState>()(
       changeUserEmail: async (newEmail: string, password: string) => {
         set({ loading: true, error: null });
         try {
-          const response = await membershipService.changeEmail(
-            newEmail,
-            password
-          );
+          const response = await membershipService.changeEmail(newEmail, password);
           if (response.success) {
             set({ changeEmailResult: response.data, loading: false });
           } else {
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -117,8 +107,7 @@ const useMembershipStore = create<MembershipState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -133,8 +122,7 @@ const useMembershipStore = create<MembershipState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -149,8 +137,7 @@ const useMembershipStore = create<MembershipState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },

@@ -9,7 +9,7 @@ interface SettingsState {
   loading: boolean;
   error: string | null;
   fetchUserDetail: () => Promise<void>;
-  updateUserDetail: (input: Partial<UserDetail>) => Promise<void>;
+  updateUserDetail: (_input: Partial<UserDetail>) => Promise<void>;
   clearError: () => void;
 }
 
@@ -32,8 +32,7 @@ const useSettingsStore = create<SettingsState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -48,8 +47,7 @@ const useSettingsStore = create<SettingsState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },

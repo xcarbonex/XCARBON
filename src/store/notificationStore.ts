@@ -9,7 +9,7 @@ interface NotificationState {
   loading: boolean;
   error: string | null;
   fetchNotifications: () => Promise<void>;
-  fetchNotificationById: (id: string) => Promise<void>;
+  fetchNotificationById: (_id: string) => Promise<void>;
   clearError: () => void;
 }
 
@@ -32,8 +32,7 @@ const useNotificationStore = create<NotificationState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -41,16 +40,14 @@ const useNotificationStore = create<NotificationState>()(
       fetchNotificationById: async (id: string) => {
         set({ loading: true, error: null });
         try {
-          const response =
-            await notificationService.getNotificationById(id);
+          const response = await notificationService.getNotificationById(id);
           if (response.success) {
             set({ notificationDetail: response.data, loading: false });
           } else {
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },

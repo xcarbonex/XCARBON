@@ -55,11 +55,17 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      "no-unused-vars": "off", // Disable base rule for TypeScript files
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
+          vars: "all",
+          args: "all",
+          ignoreRestSiblings: true,
           varsIgnorePattern: "^[A-Z_]",
           argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
         },
       ],
       "@typescript-eslint/explicit-function-return-type": "off",

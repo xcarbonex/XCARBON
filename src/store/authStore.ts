@@ -10,13 +10,8 @@ interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
-  login: (
-    email: string,
-    password: string
-  ) => Promise<{ success: boolean; message?: string }>;
-  register: (
-    userData: RegisterRequest
-  ) => Promise<{ success: boolean; message?: string }>;
+  login: (_email: string, _password: string) => Promise<{ success: boolean; message?: string }>;
+  register: (_userData: RegisterRequest) => Promise<{ success: boolean; message?: string }>;
   logout: () => Promise<{ success: boolean; message?: string }>;
   refreshToken: () => Promise<{ success: boolean; message?: string }>;
   getCurrentUser: () => Promise<{
@@ -26,9 +21,9 @@ interface AuthState {
   }>;
   initializeAuth: () => void;
   clearError: () => void;
-  updateUser: (userData: Partial<User>) => void;
-  hasRole: (role: string) => boolean;
-  hasAnyRole: (roles: string[]) => boolean;
+  updateUser: (_userData: Partial<User>) => void;
+  hasRole: (_role: string) => boolean;
+  hasAnyRole: (_roles: string[]) => boolean;
 }
 
 const useAuthStore = create<AuthState>()(
@@ -66,8 +61,7 @@ const useAuthStore = create<AuthState>()(
               return { success: false, message: result.message };
             }
           } catch (error) {
-            const errorMessage =
-              error instanceof Error ? error.message : "Login failed";
+            const errorMessage = error instanceof Error ? error.message : "Login failed";
             set({
               isLoading: false,
               error: errorMessage,
@@ -99,8 +93,7 @@ const useAuthStore = create<AuthState>()(
               return { success: false, message: result.message };
             }
           } catch (error) {
-            const errorMessage =
-              error instanceof Error ? error.message : "Registration failed";
+            const errorMessage = error instanceof Error ? error.message : "Registration failed";
             set({
               isLoading: false,
               error: errorMessage,
@@ -152,8 +145,7 @@ const useAuthStore = create<AuthState>()(
             }
           } catch (error) {
             get().logout();
-            const message =
-              error instanceof Error ? error.message : "Token refresh failed";
+            const message = error instanceof Error ? error.message : "Token refresh failed";
             return { success: false, message };
           }
         },
@@ -179,8 +171,7 @@ const useAuthStore = create<AuthState>()(
               return { success: false, message: result.message };
             }
           } catch (error) {
-            const errorMessage =
-              error instanceof Error ? error.message : "Failed to get user data";
+            const errorMessage = error instanceof Error ? error.message : "Failed to get user data";
             set({
               isLoading: false,
               error: errorMessage,

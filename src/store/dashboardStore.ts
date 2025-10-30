@@ -2,12 +2,7 @@ import { create } from "zustand";
 import dashboardService from "../services/dashboardService";
 import { withDevtools } from "./withDevtools";
 import useWalletStore from "./walletStore";
-import type {
-  CarbonCredit,
-  News,
-  ContractTerm,
-  BuyCarbonCreditResponse,
-} from "@/types/api";
+import type { CarbonCredit, News, ContractTerm, BuyCarbonCreditResponse } from "@/types/api";
 
 interface DashboardState {
   carbonCredits: CarbonCredit[] | null;
@@ -18,11 +13,11 @@ interface DashboardState {
   loading: boolean;
   error: string | null;
   fetchCarbonCredits: () => Promise<void>;
-  fetchNews: (category?: string) => Promise<void>;
-  fetchCarbonCreditInfo: (id: string) => Promise<void>;
+  fetchNews: (_category?: string) => Promise<void>;
+  fetchCarbonCreditInfo: (_id: string) => Promise<void>;
   fetchContractTerms: () => Promise<void>;
-  purchaseCarbonCredit: (quantity: number) => Promise<void>;
-  buyCarbonAssets: (data: unknown) => Promise<void>;
+  purchaseCarbonCredit: (_quantity: number) => Promise<void>;
+  buyCarbonAssets: (_data: unknown) => Promise<void>;
   clearError: () => void;
 }
 
@@ -48,8 +43,7 @@ const useDashboardStore = create<DashboardState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -64,8 +58,7 @@ const useDashboardStore = create<DashboardState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -80,8 +73,7 @@ const useDashboardStore = create<DashboardState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -96,8 +88,7 @@ const useDashboardStore = create<DashboardState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -112,8 +103,7 @@ const useDashboardStore = create<DashboardState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },

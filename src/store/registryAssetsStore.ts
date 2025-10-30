@@ -8,10 +8,8 @@ interface RegistryAssetsState {
   tokenizedCcData: TokenizedCcData | null;
   loading: boolean;
   error: string | null;
-  fetchCcAssets: (params: CcAssetsParams) => Promise<void>;
-  fetchTokenizedCcDataByTokenizeAssetId: (
-    tokenizeAssetId: string
-  ) => Promise<void>;
+  fetchCcAssets: (_params: CcAssetsParams) => Promise<void>;
+  fetchTokenizedCcDataByTokenizeAssetId: (_tokenizeAssetId: string) => Promise<void>;
   clearError: () => void;
 }
 
@@ -34,29 +32,23 @@ const useRegistryAssetsStore = create<RegistryAssetsState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
 
-      fetchTokenizedCcDataByTokenizeAssetId: async (
-        tokenizeAssetId: string
-      ) => {
+      fetchTokenizedCcDataByTokenizeAssetId: async (tokenizeAssetId: string) => {
         set({ loading: true, error: null });
         try {
           const response =
-            await registryAssetsService.getTokenizedCcDataByTokenizeAssetId(
-              tokenizeAssetId
-            );
+            await registryAssetsService.getTokenizedCcDataByTokenizeAssetId(tokenizeAssetId);
           if (response.success) {
             set({ tokenizedCcData: response.data, loading: false });
           } else {
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },

@@ -1,11 +1,7 @@
 import { create } from "zustand";
 import listAssetsService from "../services/listAssetsService";
 import { withDevtools } from "./withDevtools";
-import type {
-  SaleTokenizedAsset,
-  ListedAsset,
-  ListAssetsInput,
-} from "@/types/api";
+import type { SaleTokenizedAsset, ListedAsset, ListAssetsInput } from "@/types/api";
 
 interface ListAssetsState {
   saleTokenizedAssets: SaleTokenizedAsset[] | null;
@@ -14,8 +10,8 @@ interface ListAssetsState {
   loading: boolean;
   error: string | null;
   fetchSaleTokenizedAssets: () => Promise<void>;
-  listUserAssets: (payload: ListAssetsInput) => Promise<void>;
-  searchUserAssets: (id: string) => Promise<void>;
+  listUserAssets: (_payload: ListAssetsInput) => Promise<void>;
+  searchUserAssets: (_id: string) => Promise<void>;
   clearError: () => void;
 }
 
@@ -32,16 +28,14 @@ const useListAssetsStore = create<ListAssetsState>()(
       fetchSaleTokenizedAssets: async () => {
         set({ loading: true, error: null });
         try {
-          const response =
-            await listAssetsService.getSaleTokenizedAssets();
+          const response = await listAssetsService.getSaleTokenizedAssets();
           if (response.success) {
             set({ saleTokenizedAssets: response.data, loading: false });
           } else {
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -56,8 +50,7 @@ const useListAssetsStore = create<ListAssetsState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },
@@ -72,8 +65,7 @@ const useListAssetsStore = create<ListAssetsState>()(
             set({ error: response.message, loading: false });
           }
         } catch (error) {
-          const message =
-            error instanceof Error ? error.message : "An error occurred";
+          const message = error instanceof Error ? error.message : "An error occurred";
           set({ error: message, loading: false });
         }
       },

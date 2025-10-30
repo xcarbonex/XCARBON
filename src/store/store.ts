@@ -112,50 +112,46 @@ interface MainStoreState {
   selectedProjectType: ProjectType | null;
   projectTypeList: ProjectType[];
   setProjectType: () => void;
-  setMintedAssets: (asset: MintedAsset | MintedAsset[]) => void;
-  setDraft: (asset: DraftAsset | DraftAsset[]) => void;
-  getDraft: (id: string, navigate: (path: string) => void) => void;
+  setMintedAssets: (_asset: MintedAsset | MintedAsset[]) => void;
+  setDraft: (_asset: DraftAsset | DraftAsset[]) => void;
+  getDraft: (_id: string, _navigate: (path: string) => void) => void;
   mapSingleRecord: (
-    data: any,
-    registry: string,
-    assetType: string,
-    reference: string
+    _data: any,
+    _registry: string,
+    _assetType: string,
+    _reference: string
   ) => CarbonCreditDetails;
   getRegistryApiUrl: (
-    registry: string,
-    assetType: string,
-    reference: string,
-    query?: string,
-    page?: number,
-    size?: number
+    _registry: string,
+    _assetType: string,
+    _reference: string,
+    _query?: string,
+    _page?: number,
+    _size?: number
   ) => string;
-  getRegistryAssets: (registry: string, assetType: string) => Promise<void>;
-  fetchRegistryProjectList: (
-    registry: string,
-    page?: number,
-    size?: number
-  ) => Promise<void>;
+  getRegistryAssets: (_registry: string, _assetType: string) => Promise<void>;
+  fetchRegistryProjectList: (_registry: string, _page?: number, _size?: number) => Promise<void>;
   filterRegistryAssets: (
-    registry: string,
-    assetType: string,
-    project: string,
-    type: string,
-    volume: VolumeFilter,
-    retirementType: RetirementTypeFilter,
-    query: string,
-    page?: number,
-    size?: number
+    _registry: string,
+    _assetType: string,
+    _project: string,
+    _type: string,
+    _volume: VolumeFilter,
+    _retirementType: RetirementTypeFilter,
+    _query: string,
+    _page?: number,
+    _size?: number
   ) => Promise<void>;
-  fetchCarbonCreditById: (registry: string, projectId: string) => Promise<void>;
+  fetchCarbonCreditById: (_registry: string, _projectId: string) => Promise<void>;
   searchRegistry: (
-    registry: string,
-    assetType: string,
-    reference?: string,
-    query?: string,
-    page?: number,
-    size?: number
+    _registry: string,
+    _assetType: string,
+    _reference?: string,
+    _query?: string,
+    _page?: number,
+    _size?: number
   ) => Promise<void>;
-  selectCarbonCredit: (selectedCredit: CarbonCreditDetails) => void;
+  selectCarbonCredit: (_selectedCredit: CarbonCreditDetails) => void;
   togglePreview: () => void;
   clearSearchResults: () => void;
 }
@@ -451,11 +447,7 @@ const useStore = create<MainStoreState>()(
         }
       },
 
-      fetchRegistryProjectList: async (
-        registry: string,
-        page = 1,
-        size = 25
-      ) => {
+      fetchRegistryProjectList: async (registry: string, page = 1, size = 25) => {
         set({
           isLoadingRegistryProjectList: true,
         });
@@ -509,8 +501,7 @@ const useStore = create<MainStoreState>()(
         if (retired || assigned) {
           if (retired && !assigned) appendUrl += `&retired=${retired}`;
           if (assigned && !retired) appendUrl += `&assigned=${assigned}`;
-          if (assigned && retired)
-            appendUrl += `&retired=${retired}&assigned=${assigned}`;
+          if (assigned && retired) appendUrl += `&retired=${retired}&assigned=${assigned}`;
         }
 
         set({
@@ -519,14 +510,7 @@ const useStore = create<MainStoreState>()(
         });
 
         try {
-          const apiUrl = get().getRegistryApiUrl(
-            registry,
-            assetType,
-            project,
-            query,
-            page,
-            size
-          );
+          const apiUrl = get().getRegistryApiUrl(registry, assetType, project, query, page, size);
           const response = await axios.get(apiUrl + appendUrl);
           const totalCount = parseInt(response.headers["x-total-count"], 10) || 0;
           set({
@@ -580,8 +564,7 @@ const useStore = create<MainStoreState>()(
         } catch (error: any) {
           if (error.response?.data?.message) {
             set({
-              carbonCreditDetailsError:
-                error.response?.data?.message || "record_not_found",
+              carbonCreditDetailsError: error.response?.data?.message || "record_not_found",
               isCarbonCreditDetailsLoading: false,
               selectedCarbonCreditDetails: null,
             });
@@ -607,14 +590,7 @@ const useStore = create<MainStoreState>()(
           },
         });
         try {
-          const apiUrl = get().getRegistryApiUrl(
-            registry,
-            assetType,
-            reference,
-            query,
-            page,
-            size
-          );
+          const apiUrl = get().getRegistryApiUrl(registry, assetType, reference, query, page, size);
           console.log(registry, assetType, reference, query, apiUrl);
 
           const response = await axios.get(apiUrl);
