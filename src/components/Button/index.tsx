@@ -1,9 +1,51 @@
 import React, { useRef, useState } from "react";
 import clsx from "clsx";
-import { Typography } from "@/components";
 import { Link } from "react-router-dom";
 
-const Button = ({
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "gold"
+  | "dark"
+  | "tonal-primary"
+  | "tonal-secondary"
+  | "tonal-gold"
+  | "flat-primary"
+  | "flat-secondary"
+  | "flat-gold"
+  | "border-primary"
+  | "border-secondary"
+  | "border-gold"
+  | "outline";
+
+type ButtonSize = "sm" | "md" | "lg";
+type IconPosition = "left" | "right";
+
+interface RippleEffect {
+  key: number;
+  style: {
+    top: string;
+    left: string;
+    width: string;
+    height: string;
+  };
+}
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  className?: string;
+  icon?: React.ReactNode | string;
+  iconPosition?: IconPosition;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  to?: string;
+  type?: "button" | "submit" | "reset";
+  rounded?: boolean;
+}
+
+const Button: React.FC<ButtonProps> = ({
   children,
   variant = "primary",
   size = "md",
@@ -18,16 +60,15 @@ const Button = ({
   ...props
 }) => {
   // Ripple state
-  const [ripples, setRipples] = useState([]);
-  const rippleContainer = useRef(null);
+  const [ripples, setRipples] = useState<RippleEffect[]>([]);
+  const rippleContainer = useRef<HTMLSpanElement>(null);
 
   const baseClasses =
     "inline-flex items-center justify-center transition-all duration-200 hover:opacity-80";
 
   const variants = {
     // Filled variants
-    primary:
-      "bg-btn hover:bg-btn-500 text-white dark:border-[#363638] shadow-sm hover:shadow-md",
+    primary: "bg-btn hover:bg-btn-500 text-white dark:border-[#363638] shadow-sm hover:shadow-md",
     secondary:
       "dark:bg-btn bg-[#4C6663] hover:bg-opacity-90 text-white dark:border-[#363638] border shadow-sm hover:shadow-md",
     gold: "bg-[#C2A57B] hover:bg-opacity-90 text-white dark:bg-[#3B3B3B] shadow-sm hover:shadow-md",
@@ -37,18 +78,15 @@ const Button = ({
     "tonal-primary": "bg-btn/10 hover:bg-btn/20 text-btn dark:text-btn-300",
     "tonal-secondary":
       "bg-[#4C6663]/10 hover:bg-[#4C6663]/20 text-[#4C6663] dark:text-[#4C6663]/80",
-    "tonal-gold":
-      "bg-[#C2A57B]/10 hover:bg-[#C2A57B]/20 text-[#C2A57B] dark:text-[#C2A57B]/80",
+    "tonal-gold": "bg-[#C2A57B]/10 hover:bg-[#C2A57B]/20 text-[#C2A57B] dark:text-[#C2A57B]/80",
 
     // Flat variants
     "flat-primary": "hover:bg-btn/5 text-btn dark:text-btn-300",
-    "flat-secondary":
-      "hover:bg-[#4C6663]/5 text-[#4C6663] dark:text-[#4C6663]/80",
+    "flat-secondary": "hover:bg-[#4C6663]/5 text-[#4C6663] dark:text-[#4C6663]/80",
     "flat-gold": "hover:bg-[#C2A57B]/5 text-[#C2A57B] dark:text-[#C2A57B]/80",
 
     // Border variants
-    "border-primary":
-      "border-2 border-btn hover:bg-btn/5 text-btn dark:text-btn-300",
+    "border-primary": "border-2 border-btn hover:bg-btn/5 text-btn dark:text-btn-300",
     "border-secondary":
       "border-2 border-[#4C6663] hover:bg-[#4C6663]/5 text-[#4C6663] dark:text-[#4C6663]/80",
     "border-gold":
@@ -76,14 +114,11 @@ const Button = ({
     className
   );
 
-  const renderIcon = (iconComponent) => {
+  const renderIcon = (iconComponent: React.ReactNode | string) => {
     if (!iconComponent) return null;
 
     // If icon is a React component
-    if (
-      typeof iconComponent === "function" ||
-      React.isValidElement(iconComponent)
-    ) {
+    if (typeof iconComponent === "function" || React.isValidElement(iconComponent)) {
       return (
         <span
           className={clsx(
@@ -96,23 +131,23 @@ const Button = ({
       );
     }
 
-    // If icon is an image path
-    return (
-      <span
-        className={clsx(
-          "w-4 h-4",
-          children && (iconPosition === "left" ? "mr-2" : "ml-2")
-        )}
-      >
-        <img src={iconComponent} alt="" className="w-full h-full" />
-      </span>
-    );
+    // If icon is an image path (string)
+    if (typeof iconComponent === "string") {
+      return (
+        <span className={clsx("w-4 h-4", children && (iconPosition === "left" ? "mr-2" : "ml-2"))}>
+          <img src={iconComponent} alt="" className="w-full h-full" />
+        </span>
+      );
+    }
+
+    return null;
   };
 
   // Ripple effect handler
-  const createRipple = (event) => {
+  const createRipple = (event: React.PointerEvent<HTMLButtonElement | HTMLAnchorElement>) => {
     if (disabled) return;
     const container = rippleContainer.current;
+    if (!container) return;
     const rect = container.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
     const x = event.clientX - rect.left - size / 2;
@@ -141,11 +176,7 @@ const Button = ({
         style={{ zIndex: 0 }}
       >
         {ripples.map((ripple) => (
-          <span
-            key={ripple.key}
-            className="ripple-effect"
-            style={ripple.style}
-          />
+          <span key={ripple.key} className="ripple-effect" style={ripple.style} />
         ))}
       </span>
       <span className="relative z-10 flex items-center justify-center w-full h-full">
@@ -162,8 +193,8 @@ const Button = ({
       <Link
         to={to}
         className={buttonClasses + " relative overflow-hidden"}
-        onPointerDown={createRipple}
-        {...props}
+        onPointerDown={createRipple as React.PointerEventHandler<HTMLAnchorElement>}
+        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {content}
       </Link>
