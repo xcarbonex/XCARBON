@@ -1,4 +1,10 @@
 import apiClient from "./apiClient";
+import type {
+  AuthServiceResponse,
+  SaleTokenizedAsset,
+  ListAssetsInput,
+  ListedAsset,
+} from "@/types/api";
 
 // GraphQL Queries and Mutations
 const GRAPHQL_QUERIES = {
@@ -48,41 +54,44 @@ const REST_ENDPOINTS = {
 };
 
 class ListAssetsService {
-  constructor() {
-    this.apiClient = apiClient;
-  }
+  private apiClient = apiClient;
 
-  async getSaleTokenizedAssets() {
+  async getSaleTokenizedAssets(): Promise<AuthServiceResponse<SaleTokenizedAsset[]>> {
     try {
-      let response;
+      let response: SaleTokenizedAsset[];
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{
+          saleTokenizedAssets: SaleTokenizedAsset[];
+        }>({
           query: GRAPHQL_QUERIES.SALE_TOKENIZED_ASSETS,
         });
-        response = response.saleTokenizedAssets;
+        response = result.saleTokenizedAssets;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<SaleTokenizedAsset[]>({
           method: "GET",
           url: REST_ENDPOINTS.SALE_TOKENIZED_ASSETS,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      const message = error instanceof Error ? error.message : "An error occurred";
+      return { success: false, message };
     }
   }
 
-  async listAssets(payload) {
+  async listAssets(payload: ListAssetsInput): Promise<AuthServiceResponse<ListedAsset>> {
     try {
-      let response;
+      let response: ListedAsset;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{
+          listAssets: ListedAsset;
+        }>({
           query: GRAPHQL_QUERIES.LIST_ASSETS,
           variables: { payload },
         });
-        response = response.listAssets;
+        response = result.listAssets;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<ListedAsset>({
           method: "POST",
           url: REST_ENDPOINTS.LIST_ASSETS,
           data: payload,
@@ -90,21 +99,24 @@ class ListAssetsService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      const message = error instanceof Error ? error.message : "An error occurred";
+      return { success: false, message };
     }
   }
 
-  async searchAssets(id) {
+  async searchAssets(id: string): Promise<AuthServiceResponse<ListedAsset>> {
     try {
-      let response;
+      let response: ListedAsset;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{
+          searchAssets: ListedAsset;
+        }>({
           query: GRAPHQL_QUERIES.SEARCH_ASSETS,
           variables: { id },
         });
-        response = response.searchAssets;
+        response = result.searchAssets;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<ListedAsset>({
           method: "GET",
           url: REST_ENDPOINTS.SEARCH_ASSETS,
           params: { id },
@@ -112,9 +124,11 @@ class ListAssetsService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      const message = error instanceof Error ? error.message : "An error occurred";
+      return { success: false, message };
     }
   }
 }
 
-export default new ListAssetsService(); 
+const listAssetsService = new ListAssetsService();
+export default listAssetsService;

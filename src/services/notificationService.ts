@@ -1,4 +1,5 @@
 import apiClient from "./apiClient";
+import type { AuthServiceResponse, Notification } from "@/types/api";
 
 // GraphQL Queries and Mutations
 const GRAPHQL_QUERIES = {
@@ -33,50 +34,55 @@ const REST_ENDPOINTS = {
 };
 
 class NotificationService {
-  constructor() {
-    this.apiClient = apiClient;
-  }
+  private apiClient = apiClient;
 
-  async getNotifications() {
+  async getNotifications(): Promise<AuthServiceResponse<Notification[]>> {
     try {
-      let response;
+      let response: Notification[];
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ notifications: Notification[] }>({
           query: GRAPHQL_QUERIES.GET_NOTIFICATIONS,
         });
-        response = response.notifications;
+        response = result.notifications;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<Notification[]>({
           method: "GET",
           url: REST_ENDPOINTS.GET_NOTIFICATIONS,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to fetch notifications",
+      };
     }
   }
 
-  async getNotificationById(id) {
+  async getNotificationById(id: string): Promise<AuthServiceResponse<Notification>> {
     try {
-      let response;
+      let response: Notification;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ notification: Notification }>({
           query: GRAPHQL_QUERIES.GET_NOTIFICATION_BY_ID,
           variables: { id },
         });
-        response = response.notification;
+        response = result.notification;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<Notification>({
           method: "GET",
           url: `${REST_ENDPOINTS.GET_NOTIFICATION_BY_ID}/${id}`,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to fetch notification",
+      };
     }
   }
 }
 
-export default new NotificationService(); 
+const notificationService = new NotificationService();
+export default notificationService;

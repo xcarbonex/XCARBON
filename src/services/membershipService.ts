@@ -1,4 +1,26 @@
 import apiClient from "./apiClient";
+import type { AuthServiceResponse } from "@/types/api";
+
+interface CurrentPlan {
+  id: string;
+  type: string;
+  price: number;
+  discount: number;
+  description: string;
+}
+
+interface MutationResponse {
+  success: boolean;
+  message: string;
+}
+
+interface GenerateOtpResponse extends MutationResponse {
+  otpKey?: string;
+}
+
+interface UpdateProfileInput {
+  [key: string]: unknown;
+}
 
 // GraphQL Queries and Mutations
 const GRAPHQL_QUERIES = {
@@ -76,41 +98,42 @@ const REST_ENDPOINTS = {
 };
 
 class MembershipService {
-  constructor() {
-    this.apiClient = apiClient;
-  }
+  private apiClient = apiClient;
 
-  async getCurrentPlan() {
+  async getCurrentPlan(): Promise<AuthServiceResponse<CurrentPlan>> {
     try {
-      let response;
+      let response: CurrentPlan;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ currentPlan: CurrentPlan }>({
           query: GRAPHQL_QUERIES.GET_CURRENT_PLAN,
         });
-        response = response.currentPlan;
+        response = result.currentPlan;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<CurrentPlan>({
           method: "GET",
           url: REST_ENDPOINTS.GET_CURRENT_PLAN,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to fetch current plan",
+      };
     }
   }
 
-  async upgradePlan(planId) {
+  async upgradePlan(planId: string): Promise<AuthServiceResponse<MutationResponse>> {
     try {
-      let response;
+      let response: MutationResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ upgradePlan: MutationResponse }>({
           query: GRAPHQL_QUERIES.UPGRADE_PLAN,
           variables: { planId },
         });
-        response = response.upgradePlan;
+        response = result.upgradePlan;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<MutationResponse>({
           method: "POST",
           url: REST_ENDPOINTS.UPGRADE_PLAN,
           data: { planId },
@@ -118,41 +141,50 @@ class MembershipService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to upgrade plan",
+      };
     }
   }
 
-  async generateOtpKey() {
+  async generateOtpKey(): Promise<AuthServiceResponse<GenerateOtpResponse>> {
     try {
-      let response;
+      let response: GenerateOtpResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ generateOtpKey: GenerateOtpResponse }>({
           query: GRAPHQL_QUERIES.GENERATE_OTP_KEY,
         });
-        response = response.generateOtpKey;
+        response = result.generateOtpKey;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<GenerateOtpResponse>({
           method: "POST",
           url: REST_ENDPOINTS.GENERATE_OTP_KEY,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to generate OTP key",
+      };
     }
   }
 
-  async changeEmail(newEmail, password) {
+  async changeEmail(
+    newEmail: string,
+    password: string
+  ): Promise<AuthServiceResponse<MutationResponse>> {
     try {
-      let response;
+      let response: MutationResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ changeEmail: MutationResponse }>({
           query: GRAPHQL_QUERIES.CHANGE_EMAIL,
           variables: { newEmail, password },
         });
-        response = response.changeEmail;
+        response = result.changeEmail;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<MutationResponse>({
           method: "POST",
           url: REST_ENDPOINTS.CHANGE_EMAIL,
           data: { newEmail, password },
@@ -160,21 +192,24 @@ class MembershipService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to change email",
+      };
     }
   }
 
-  async resetPassword(email) {
+  async resetPassword(email: string): Promise<AuthServiceResponse<MutationResponse>> {
     try {
-      let response;
+      let response: MutationResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ resetPassword: MutationResponse }>({
           query: GRAPHQL_QUERIES.RESET_PASSWORD,
           variables: { email },
         });
-        response = response.resetPassword;
+        response = result.resetPassword;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<MutationResponse>({
           method: "POST",
           url: REST_ENDPOINTS.RESET_PASSWORD,
           data: { email },
@@ -182,21 +217,24 @@ class MembershipService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to reset password",
+      };
     }
   }
 
-  async updateProfile(input) {
+  async updateProfile(input: UpdateProfileInput): Promise<AuthServiceResponse<MutationResponse>> {
     try {
-      let response;
+      let response: MutationResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ updateProfile: MutationResponse }>({
           query: GRAPHQL_QUERIES.UPDATE_PROFILE,
           variables: { input },
         });
-        response = response.updateProfile;
+        response = result.updateProfile;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<MutationResponse>({
           method: "PUT",
           url: REST_ENDPOINTS.UPDATE_PROFILE,
           data: input,
@@ -204,21 +242,24 @@ class MembershipService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to update profile",
+      };
     }
   }
 
-  async deleteAccount(password) {
+  async deleteAccount(password: string): Promise<AuthServiceResponse<MutationResponse>> {
     try {
-      let response;
+      let response: MutationResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ deleteAccount: MutationResponse }>({
           query: GRAPHQL_QUERIES.DELETE_ACCOUNT,
           variables: { password },
         });
-        response = response.deleteAccount;
+        response = result.deleteAccount;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<MutationResponse>({
           method: "POST",
           url: REST_ENDPOINTS.DELETE_ACCOUNT,
           data: { password },
@@ -226,9 +267,13 @@ class MembershipService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to delete account",
+      };
     }
   }
 }
 
-export default new MembershipService(); 
+const membershipService = new MembershipService();
+export default membershipService;

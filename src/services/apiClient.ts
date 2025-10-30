@@ -93,7 +93,7 @@ const buildGraphQLQuery = (
 
 // API Client Factory
 class ApiClient {
-  private type: "REST" | "GRAPHQL";
+  public type: "REST" | "GRAPHQL";
 
   constructor() {
     this.type = API_CONFIG.type;

@@ -1,4 +1,10 @@
 import apiClient from "./apiClient";
+import type {
+  AuthServiceResponse,
+  AssetDetail,
+  WithdrawAssetInput,
+  WithdrawAssetsResponse,
+} from "@/types/api";
 
 // GraphQL Queries and Mutations
 const GRAPHQL_QUERIES = {
@@ -33,42 +39,45 @@ const REST_ENDPOINTS = {
 };
 
 class WithdrawTokenizedCarbonCreditService {
-  constructor() {
-    this.apiClient = apiClient;
-  }
+  private apiClient = apiClient;
 
-  async getAssetById(id) {
+  async getAssetById(id: string): Promise<AuthServiceResponse<AssetDetail>> {
     try {
-      let response;
+      let response: AssetDetail;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ asset: AssetDetail }>({
           query: GRAPHQL_QUERIES.GET_ASSET_BY_ID,
           variables: { id },
         });
-        response = response.asset;
+        response = result.asset;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<AssetDetail>({
           method: "GET",
           url: `${REST_ENDPOINTS.GET_ASSET_BY_ID}/${id}`,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      const message = error instanceof Error ? error.message : "An error occurred";
+      return { success: false, message };
     }
   }
 
-  async saveWithdrawAssets(payload) {
+  async saveWithdrawAssets(
+    payload: WithdrawAssetInput
+  ): Promise<AuthServiceResponse<WithdrawAssetsResponse>> {
     try {
-      let response;
+      let response: WithdrawAssetsResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{
+          saveWithdrawAssets: WithdrawAssetsResponse;
+        }>({
           query: GRAPHQL_QUERIES.SAVE_WITHDRAW_ASSETS,
           variables: { payload },
         });
-        response = response.saveWithdrawAssets;
+        response = result.saveWithdrawAssets;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<WithdrawAssetsResponse>({
           method: "POST",
           url: REST_ENDPOINTS.SAVE_WITHDRAW_ASSETS,
           data: payload,
@@ -76,9 +85,11 @@ class WithdrawTokenizedCarbonCreditService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      const message = error instanceof Error ? error.message : "An error occurred";
+      return { success: false, message };
     }
   }
 }
 
-export default new WithdrawTokenizedCarbonCreditService(); 
+const withdrawTokenizedCarbonCreditService = new WithdrawTokenizedCarbonCreditService();
+export default withdrawTokenizedCarbonCreditService;

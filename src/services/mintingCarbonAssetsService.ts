@@ -1,4 +1,10 @@
 import apiClient from "./apiClient";
+import type {
+  AuthServiceResponse,
+  MintCarbonCreditInput,
+  MintCarbonCreditResponse,
+  GasFees,
+} from "@/types/api";
 
 // GraphQL Queries and Mutations
 const GRAPHQL_QUERIES = {
@@ -27,21 +33,23 @@ const REST_ENDPOINTS = {
 };
 
 class MintingCarbonAssetsService {
-  constructor() {
-    this.apiClient = apiClient;
-  }
+  private apiClient = apiClient;
 
-  async saveMintCarbonCredit(payload) {
+  async saveMintCarbonCredit(
+    payload: MintCarbonCreditInput
+  ): Promise<AuthServiceResponse<MintCarbonCreditResponse>> {
     try {
-      let response;
+      let response: MintCarbonCreditResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{
+          saveMintCarbonCredit: MintCarbonCreditResponse;
+        }>({
           query: GRAPHQL_QUERIES.SAVE_MINT_CARBON_CREDIT,
           variables: { payload },
         });
-        response = response.saveMintCarbonCredit;
+        response = result.saveMintCarbonCredit;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<MintCarbonCreditResponse>({
           method: "POST",
           url: REST_ENDPOINTS.SAVE_MINT_CARBON_CREDIT,
           data: payload,
@@ -49,21 +57,22 @@ class MintingCarbonAssetsService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      const message = error instanceof Error ? error.message : "An error occurred";
+      return { success: false, message };
     }
   }
 
-  async getGasFees(quantity) {
+  async getGasFees(quantity: number): Promise<AuthServiceResponse<GasFees>> {
     try {
-      let response;
+      let response: GasFees;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ gasFees: GasFees }>({
           query: GRAPHQL_QUERIES.GET_GAS_FEES,
           variables: { quantity },
         });
-        response = response.gasFees;
+        response = result.gasFees;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<GasFees>({
           method: "POST",
           url: REST_ENDPOINTS.GET_GAS_FEES,
           data: { quantity },
@@ -71,9 +80,11 @@ class MintingCarbonAssetsService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      const message = error instanceof Error ? error.message : "An error occurred";
+      return { success: false, message };
     }
   }
 }
 
-export default new MintingCarbonAssetsService(); 
+const mintingCarbonAssetsService = new MintingCarbonAssetsService();
+export default mintingCarbonAssetsService;

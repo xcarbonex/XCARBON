@@ -1,4 +1,11 @@
 import apiClient from "./apiClient";
+import type {
+  AuthServiceResponse,
+  CarbonCredit,
+  News,
+  ContractTerm,
+  BuyCarbonCreditResponse,
+} from "@/types/api";
 
 // GraphQL Queries and Mutations
 const GRAPHQL_QUERIES = {
@@ -64,41 +71,42 @@ const REST_ENDPOINTS = {
 };
 
 class DashboardService {
-  constructor() {
-    this.apiClient = apiClient;
-  }
+  private apiClient = apiClient;
 
-  async getCarbonCredit() {
+  async getCarbonCredit(): Promise<AuthServiceResponse<CarbonCredit[]>> {
     try {
-      let response;
+      let response: CarbonCredit[];
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ carbonCredits: CarbonCredit[] }>({
           query: GRAPHQL_QUERIES.GET_CARBON_CREDIT,
         });
-        response = response.carbonCredits;
+        response = result.carbonCredits;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<CarbonCredit[]>({
           method: "GET",
           url: REST_ENDPOINTS.GET_CARBON_CREDIT,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to fetch carbon credits",
+      };
     }
   }
 
-  async getNews(category) {
+  async getNews(category: string): Promise<AuthServiceResponse<News[]>> {
     try {
-      let response;
+      let response: News[];
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ news: News[] }>({
           query: GRAPHQL_QUERIES.GET_NEWS,
           variables: { category },
         });
-        response = response.news;
+        response = result.news;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<News[]>({
           method: "GET",
           url: REST_ENDPOINTS.GET_NEWS,
           params: { category },
@@ -106,21 +114,24 @@ class DashboardService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to fetch news",
+      };
     }
   }
 
-  async getCarbonCreditInfo(id) {
+  async getCarbonCreditInfo(id: string): Promise<AuthServiceResponse<CarbonCredit>> {
     try {
-      let response;
+      let response: CarbonCredit;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ carbonCredit: CarbonCredit }>({
           query: GRAPHQL_QUERIES.GET_CARBON_CREDIT_INFO,
           variables: { id },
         });
-        response = response.carbonCredit;
+        response = result.carbonCredit;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<CarbonCredit>({
           method: "GET",
           url: REST_ENDPOINTS.GET_CARBON_CREDIT_INFO,
           params: { id },
@@ -128,41 +139,47 @@ class DashboardService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to fetch carbon credit info",
+      };
     }
   }
 
-  async getContractTerms() {
+  async getContractTerms(): Promise<AuthServiceResponse<ContractTerm[]>> {
     try {
-      let response;
+      let response: ContractTerm[];
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ contractTerms: ContractTerm[] }>({
           query: GRAPHQL_QUERIES.GET_CONTRACT_TERMS,
         });
-        response = response.contractTerms;
+        response = result.contractTerms;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<ContractTerm[]>({
           method: "GET",
           url: REST_ENDPOINTS.GET_CONTRACT_TERMS,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to fetch contract terms",
+      };
     }
   }
 
-  async buyCarbonCredit(quantity) {
+  async buyCarbonCredit(quantity: number): Promise<AuthServiceResponse<BuyCarbonCreditResponse>> {
     try {
-      let response;
+      let response: BuyCarbonCreditResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ buyCarbonCredit: BuyCarbonCreditResponse }>({
           query: GRAPHQL_QUERIES.BUY_CARBON_CREDIT,
           variables: { quantity },
         });
-        response = response.buyCarbonCredit;
+        response = result.buyCarbonCredit;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<BuyCarbonCreditResponse>({
           method: "POST",
           url: REST_ENDPOINTS.BUY_CARBON_CREDIT,
           data: { quantity },
@@ -170,9 +187,13 @@ class DashboardService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to buy carbon credit",
+      };
     }
   }
 }
 
-export default new DashboardService(); 
+const dashboardService = new DashboardService();
+export default dashboardService;

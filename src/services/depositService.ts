@@ -1,4 +1,19 @@
 import apiClient from "./apiClient";
+import type { AuthServiceResponse } from "@/types/api";
+
+interface DepositResponse {
+  success: boolean;
+  message: string;
+}
+
+interface DepositListItem {
+  id: string;
+  currency: string;
+  amount: number;
+  method: string;
+  status: string;
+  transactionID: string;
+}
 
 // GraphQL Queries and Mutations
 const GRAPHQL_QUERIES = {
@@ -31,21 +46,23 @@ const REST_ENDPOINTS = {
 };
 
 class DepositService {
-  constructor() {
-    this.apiClient = apiClient;
-  }
+  private apiClient = apiClient;
 
-  async deposit(currency, amount, method) {
+  async deposit(
+    currency: string,
+    amount: number,
+    method: string
+  ): Promise<AuthServiceResponse<DepositResponse>> {
     try {
-      let response;
+      let response: DepositResponse;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ deposit: DepositResponse }>({
           query: GRAPHQL_QUERIES.DEPOSIT,
           variables: { currency, amount, method },
         });
-        response = response.deposit;
+        response = result.deposit;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<DepositResponse>({
           method: "POST",
           url: REST_ENDPOINTS.DEPOSIT,
           data: { currency, amount, method },
@@ -53,29 +70,36 @@ class DepositService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to deposit",
+      };
     }
   }
 
-  async getDepositList() {
+  async getDepositList(): Promise<AuthServiceResponse<DepositListItem[]>> {
     try {
-      let response;
+      let response: DepositListItem[];
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ depositList: DepositListItem[] }>({
           query: GRAPHQL_QUERIES.GET_DEPOSIT_LIST,
         });
-        response = response.depositList;
+        response = result.depositList;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<DepositListItem[]>({
           method: "GET",
           url: REST_ENDPOINTS.GET_DEPOSIT_LIST,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to fetch deposit list",
+      };
     }
   }
 }
 
-export default new DepositService(); 
+const depositService = new DepositService();
+export default depositService;

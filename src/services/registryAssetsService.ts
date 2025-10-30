@@ -1,4 +1,5 @@
 import apiClient from "./apiClient";
+import type { AuthServiceResponse, CcAsset, CcAssetsParams, TokenizedCcData } from "@/types/api";
 
 // GraphQL Queries and Mutations
 const GRAPHQL_QUERIES = {
@@ -45,43 +46,56 @@ const REST_ENDPOINTS = {
 };
 
 class RegistryAssetsService {
-  constructor() {
-    this.apiClient = apiClient;
-  }
+  private apiClient = apiClient;
 
-  async getCcAssets(params) {
+  async getCcAssets(params: CcAssetsParams): Promise<AuthServiceResponse<CcAsset[]>> {
     try {
-      let response;
+      let response: CcAsset[];
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{ ccAssets: CcAsset[] }>({
           query: GRAPHQL_QUERIES.GET_CC_ASSETS,
-          variables: params,
+          variables: params as Record<string, unknown>,
         });
-        response = response.ccAssets;
+        response = result.ccAssets;
       } else {
-        response = await this.apiClient.request({
+        // Filter out undefined values for REST params
+        const restParams = Object.entries(params).reduce(
+          (acc, [key, value]) => {
+            if (value !== undefined) {
+              acc[key] = value;
+            }
+            return acc;
+          },
+          {} as Record<string, string | boolean>
+        );
+        response = await this.apiClient.request<CcAsset[]>({
           method: "GET",
           url: REST_ENDPOINTS.GET_CC_ASSETS,
-          params: params,
+          params: restParams,
         });
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      const message = error instanceof Error ? error.message : "An error occurred";
+      return { success: false, message };
     }
   }
 
-  async getTokenizedCcDataByTokenizeAssetId(tokenizeAssetId) {
+  async getTokenizedCcDataByTokenizeAssetId(
+    tokenizeAssetId: string
+  ): Promise<AuthServiceResponse<TokenizedCcData>> {
     try {
-      let response;
+      let response: TokenizedCcData;
       if (this.apiClient.type === "GRAPHQL") {
-        response = await this.apiClient.request({
+        const result = await this.apiClient.request<{
+          tokenizedCcData: TokenizedCcData;
+        }>({
           query: GRAPHQL_QUERIES.GET_TOKENIZED_CC_DATA_BY_TOKENIZE_ASSET_ID,
           variables: { tokenizeAssetId },
         });
-        response = response.tokenizedCcData;
+        response = result.tokenizedCcData;
       } else {
-        response = await this.apiClient.request({
+        response = await this.apiClient.request<TokenizedCcData>({
           method: "GET",
           url: REST_ENDPOINTS.GET_TOKENIZED_CC_DATA_BY_TOKENIZE_ASSET_ID,
           params: { tokenizeAssetId },
@@ -89,9 +103,11 @@ class RegistryAssetsService {
       }
       return { success: true, data: response };
     } catch (error) {
-      return { success: false, message: error.message };
+      const message = error instanceof Error ? error.message : "An error occurred";
+      return { success: false, message };
     }
   }
 }
 
-export default new RegistryAssetsService(); 
+const registryAssetsService = new RegistryAssetsService();
+export default registryAssetsService;
