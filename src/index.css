@@ -5,35 +5,63 @@
 
 @layer base {
   :root {
-    /* Base Colors */
-    --bg-color: #4c6663;
-    --text-color: #ffffff;
-    --primary-color: #3b82f6;
+    /* Evergreen + Sky Brand Tokens */
+    --brand-900: #0b3b2e;
+    --brand-700: #166534;
+    --brand-600: #15803d;
+    --brand-500: #22c55e;
+    --brand-400: #4ade80;
+    --brand-300: #86efac;
+    --brand-200: #bbf7d0;
+    --brand-100: #dcfce7;
+    --brand-50: #f0fdf4;
+
+    --accent-500: #0ea5e9;
+    --accent-400: #38bdf8;
+    --accent-300: #7dd3fc;
+    --accent-200: #bae6fd;
+    --accent-100: #e0f2fe;
+
+    --neutral-900: #0f172a;
+    --neutral-800: #1e293b;
+    --neutral-700: #334155;
+    --neutral-600: #475569;
+    --neutral-500: #64748b;
+    --neutral-400: #94a3b8;
+    --neutral-300: #cbd5e1;
+    --neutral-200: #e2e8f0;
+    --neutral-100: #f1f5f9;
+    --neutral-50: #f8fafc;
+
+    /* Legacy mappings (light mode - mapped to new tokens) */
+    --bg-color: var(--brand-700);
+    --text-color: var(--neutral-900);
+    --primary-color: var(--brand-600);
     --bg-main: #ffffff;
-    --bg-secondary: #fdfdfb;
-    --border: #d8d8d8;
-    --text-secondary: #000000;
-    --bg-input: #4c666326;
-    --bg-btn: #c2a57b;
-    --bg-tertiary: #a6b3b1;
-    --chart-border: #a6b3b1;
+    --bg-secondary: var(--neutral-50);
+    --border: var(--neutral-300);
+    --text-secondary: var(--neutral-700);
+    --bg-input: var(--neutral-100);
+    --bg-btn: var(--brand-700);
+    --bg-tertiary: var(--neutral-200);
+    --chart-border: var(--neutral-300);
     --logo-url: url("/xNeon.svg");
   }
 }
 
 .dark {
-  /* Base Colors */
-  --bg-color: #191919;
-  --text-color: #ffffff;
-  --primary-color: #60a5fa;
-  --bg-main: #141517;
-  --bg-secondary: #191919;
-  --border: #363638;
-  --text-secondary: #ffffff;
-  --bg-input: #ffffff14;
-  --bg-btn: #000000;
-  --bg-tertiary: #353535;
-  --chart-border: #ffffff;
+  /* Dark mode tokens (mapped to new palette) */
+  --bg-color: var(--neutral-900);
+  --text-color: var(--neutral-50);
+  --primary-color: var(--brand-400);
+  --bg-main: var(--neutral-900);
+  --bg-secondary: var(--neutral-800);
+  --border: var(--neutral-600);
+  --text-secondary: var(--neutral-300);
+  --bg-input: rgba(255, 255, 255, 0.08);
+  --bg-btn: var(--brand-600);
+  --bg-tertiary: var(--neutral-700);
+  --chart-border: var(--neutral-500);
   --logo-url: url("/logodark.png");
 }
 
