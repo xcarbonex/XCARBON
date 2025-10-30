@@ -1,53 +1,71 @@
-import React, { useState } from 'react';
-import { Modal, Input, Typography, Button } from '@/components';
-import clsx from 'clsx';
+import React, { useState } from "react";
+import { Modal, Input, Typography, Button } from "@/components";
+import clsx from "clsx";
 
-const ChangePasswordModal = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: ''
+interface ChangePasswordModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+interface FormData {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+interface FormErrors {
+  currentPassword?: string;
+  newPassword?: string;
+  confirmPassword?: string;
+  [key: string]: string | undefined;
+}
+
+const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({ isOpen, onClose }) => {
+  const [formData, setFormData] = useState<FormData>({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: "",
       }));
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    
+  const validateForm = (): FormErrors => {
+    const newErrors: FormErrors = {};
+
     if (!formData.currentPassword) {
-      newErrors.currentPassword = 'Current password is required';
+      newErrors.currentPassword = "Current password is required";
     }
 
     if (!formData.newPassword) {
-      newErrors.newPassword = 'New password is required';
+      newErrors.newPassword = "New password is required";
     } else if (formData.newPassword.length < 8) {
-      newErrors.newPassword = 'Password must be at least 8 characters long';
+      newErrors.newPassword = "Password must be at least 8 characters long";
     }
 
     if (!formData.confirmPassword) {
-      newErrors.confirmPassword = 'Please confirm your new password';
+      newErrors.confirmPassword = "Please confirm your new password";
     } else if (formData.newPassword !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = "Passwords do not match";
     }
 
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newErrors = validateForm();
 
@@ -67,10 +85,10 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
       onClose={onClose}
       title="Change Password"
       className={clsx(
-        'w-full max-w-md p-6',
-        
-        'text-black dark:text-white',
-        'border border-[#D8D8D8] dark:border-[#363638]'
+        "w-full max-w-md p-6",
+
+        "text-black dark:text-white",
+        "border border-[#D8D8D8] dark:border-[#363638]"
       )}
     >
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -84,9 +102,9 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
             value={formData.currentPassword}
             onChange={handleChange}
             className={clsx(
-              'bg-[#4C666326] dark:bg-[#FFFFFF14]',
-              'border-[#D8D8D8] dark:border-[#363638]',
-              errors.currentPassword && 'border-red-500'
+              "bg-[#4C666326] dark:bg-[#FFFFFF14]",
+              "border-[#D8D8D8] dark:border-[#363638]",
+              errors.currentPassword && "border-red-500"
             )}
           />
           {errors.currentPassword && (
@@ -106,9 +124,9 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
             value={formData.newPassword}
             onChange={handleChange}
             className={clsx(
-              'bg-[#4C666326] dark:bg-[#FFFFFF14]',
-              'border-[#D8D8D8] dark:border-[#363638]',
-              errors.newPassword && 'border-red-500'
+              "bg-[#4C666326] dark:bg-[#FFFFFF14]",
+              "border-[#D8D8D8] dark:border-[#363638]",
+              errors.newPassword && "border-red-500"
             )}
           />
           {errors.newPassword && (
@@ -128,9 +146,9 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
             value={formData.confirmPassword}
             onChange={handleChange}
             className={clsx(
-              'bg-[#4C666326] dark:bg-[#FFFFFF14]',
-              'border-[#D8D8D8] dark:border-[#363638]',
-              errors.confirmPassword && 'border-red-500'
+              "bg-[#4C666326] dark:bg-[#FFFFFF14]",
+              "border-[#D8D8D8] dark:border-[#363638]",
+              errors.confirmPassword && "border-red-500"
             )}
           />
           {errors.confirmPassword && (
@@ -141,15 +159,15 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
         </div>
 
         <div className="flex justify-end gap-3 mt-6">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={onClose}
             className="border-[#D8D8D8] dark:border-[#363638] text-black dark:text-white"
           >
             Cancel
           </Button>
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             type="submit"
             className="bg-[#C2A57B] hover:bg-opacity-90 text-white dark:bg-[#3B3B3B]"
           >
@@ -161,4 +179,4 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default ChangePasswordModal; 
+export default ChangePasswordModal;
