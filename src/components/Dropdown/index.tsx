@@ -1,19 +1,58 @@
-import {clsx} from "clsx";
-import {useState, useRef, useEffect} from "react";
-import PropTypes from "prop-types";
-import {FixedSizeList as List} from "react-window";
-import {Input, Button, Loader} from "..";
-import DropdownRow from "./DropdownRow";
+import React, { useState, useRef, useEffect } from "react";
+import { clsx } from "clsx";
+// @ts-expect-error - react-window types not fully compatible
+import { FixedSizeList as List } from "react-window";
+import { Input, Button, Loader } from "..";
+import DropdownRow, { DropdownOption } from "./DropdownRow";
+
 const OPTION_HEIGHT = 40;
 const MAX_VISIBLE_OPTIONS = 8;
 
-const Dropdown = ({
+interface DropdownLabelFunctionParams {
+  selectedState: DropdownOption | DropdownOption[] | null;
+  options: DropdownOption[];
+}
+
+interface DropdownProps {
+  options?: DropdownOption[];
+  selectedOption?: DropdownOption | DropdownOption[] | null;
+  onSelect?: (selected: DropdownOption | DropdownOption[] | null) => void;
+  className?: string;
+  customInput?: boolean;
+  searchField?: boolean;
+  buttonClassName?: string;
+  dropdownClassName?: string;
+  placeholder?: string;
+  icon?: React.ReactNode;
+  renderOption?: (params: {
+    option: DropdownOption;
+    index: number;
+    isSelected: boolean;
+    onSelect: () => void;
+  }) => React.ReactNode;
+  width?: number;
+  onSearchApply?: (
+    values: (string | number)[],
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  ) => void;
+  label?: string | ((params: DropdownLabelFunctionParams) => string);
+  multiSelect?: boolean;
+  onClick?: () => void;
+  onReset?: (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) => void;
+  isLoading?: boolean;
+  enableSelectAll?: boolean;
+  children?:
+    | React.ReactNode
+    | ((setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) => React.ReactNode);
+}
+
+const Dropdown: React.FC<DropdownProps> = ({
   options = [],
   selectedOption = null,
   onSelect = () => {},
   className,
   customInput = false,
-  searchField=true,
+  searchField = true,
   buttonClassName = "",
   dropdownClassName = "",
   placeholder = "Custom",
@@ -29,11 +68,13 @@ const Dropdown = ({
   enableSelectAll = false,
   children,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [customValue, setCustomValue] = useState("");
-  const [filteredOptions, setFilteredOptions] = useState(options);
-  const [selectedState, setSelectedState] = useState(multiSelect ? [] : null);
-  const dropdownRef = useRef(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [customValue, setCustomValue] = useState<string>("");
+  const [filteredOptions, setFilteredOptions] = useState<DropdownOption[]>(options);
+  const [selectedState, setSelectedState] = useState<DropdownOption | DropdownOption[] | null>(
+    multiSelect ? [] : null
+  );
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // sync filtered options + selection when props change
   useEffect(() => {
@@ -47,8 +88,8 @@ const Dropdown = ({
   }, [options, selectedOption, multiSelect]);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setIsOpen(false);
         setCustomValue("");
         setFilteredOptions(options);
@@ -58,23 +99,25 @@ const Dropdown = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [options]);
 
-  const handleToggle = (e) => {
+  const handleToggle = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     onClick();
     setIsOpen((prev) => !prev);
   };
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (option: DropdownOption) => {
     if (multiSelect) {
       const allOptions = options.filter((opt) => opt.value !== "_select_all_");
-      let updated;
+      let updated: DropdownOption[];
+      const currentSelection = Array.isArray(selectedState) ? selectedState : [];
+
       if (option.value === "_select_all_") {
-        updated = selectedState.length === allOptions.length ? [] : allOptions;
+        updated = currentSelection.length === allOptions.length ? [] : allOptions;
       } else {
-        updated = selectedState.some((sel) => sel.value === option.value)
-          ? selectedState.filter((sel) => sel.value !== option.value)
-          : [...selectedState, option];
+        updated = currentSelection.some((sel: DropdownOption) => sel.value === option.value)
+          ? currentSelection.filter((sel: DropdownOption) => sel.value !== option.value)
+          : [...currentSelection, option];
       }
       setSelectedState(updated);
       onSelect(updated);
@@ -85,12 +128,10 @@ const Dropdown = ({
     }
   };
 
-  const handleSearch = (value) => {
+  const handleSearch = (value: string) => {
     setCustomValue(value);
     const q = value.toLowerCase();
-    setFilteredOptions(
-      options.filter((opt) => opt.label.toLowerCase().includes(q))
-    );
+    setFilteredOptions(options.filter((opt) => opt.label.toLowerCase().includes(q)));
   };
 
   const handleCustomSubmit = () => {
@@ -110,23 +151,23 @@ const Dropdown = ({
 
   const getButtonLabel = () => {
     if (typeof label === "function") {
-      return label({selectedState, options});
+      return label({ selectedState, options });
     }
 
     if (multiSelect) {
-      return selectedState.length > 0
-        ? `${label}: ${selectedState.length}`
-        : label;
+      const arrayState = Array.isArray(selectedState) ? selectedState : [];
+      return arrayState.length > 0 ? `${label}: ${arrayState.length}` : label;
     }
 
-    const selected = options.find((opt) => opt.value === selectedState?.value);
+    const singleState = !Array.isArray(selectedState) ? selectedState : null;
+    const selected = options.find((opt) => opt.value === singleState?.value);
     return selected?.label || label || "Select an option...";
   };
 
   const listOptions =
     multiSelect && filteredOptions.length > 0
       ? enableSelectAll
-        ? [{label: "Select All", value: "_select_all_"}, ...filteredOptions]
+        ? [{ label: "Select All", value: "_select_all_" }, ...filteredOptions]
         : filteredOptions
       : filteredOptions;
 
@@ -142,15 +183,15 @@ const Dropdown = ({
     <div
       className={clsx("relative text-tbase min-w-[2.8rem]", className)}
       ref={dropdownRef}
-      style={{userSelect: "none"}}
+      style={{ userSelect: "none" }}
     >
       <Button
         type="button"
-        size="xs"
+        size="sm"
         variant="flat-secondary"
         className={clsx(
           "rounded p-1 cursor-pointer border focus:outline-none",
-          {"w-full": !icon},
+          { "w-full": !icon },
           buttonClassName
         )}
         onClick={handleToggle}
@@ -173,10 +214,7 @@ const Dropdown = ({
                   <ul className="space-y-1 w-fit text-center">
                     {listOptions.length > 0 && (
                       <List
-                        height={
-                          Math.min(listOptions.length, MAX_VISIBLE_OPTIONS) *
-                          OPTION_HEIGHT
-                        }
+                        height={Math.min(listOptions.length, MAX_VISIBLE_OPTIONS) * OPTION_HEIGHT}
                         itemCount={listOptions.length}
                         itemSize={OPTION_HEIGHT}
                         width={width}
@@ -189,18 +227,20 @@ const Dropdown = ({
 
                     {customInput && (
                       <li className="pt-2 w-full">
-                       {searchField && <Input
-                          value={customValue}
-                          onChange={(e) => handleSearch(e.target.value)}
-                          placeholder={placeholder}
-                          variant="xs"
-                          className="w-full px-2 py-1 mb-1 border border-gray-300 rounded-md text-sm text-center focus:outline-none focus:ring-1 focus:ring-blue-500"
-                          onClick={(e) => e.stopPropagation()}
-                        />}
+                        {searchField && (
+                          <Input
+                            value={customValue}
+                            onChange={(e) => handleSearch(e.target.value)}
+                            placeholder={placeholder}
+                            variant="xs"
+                            className="w-full px-2 py-1 mb-1 border border-gray-300 rounded-md text-sm text-center focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                        )}
                         <div className="flex justify-between gap-2 w-full">
                           <Button
                             type="button"
-                            size="xs"
+                            size="sm"
                             onClick={handleResetFilter}
                             className="mt-1 w-fit h-full px-2 py-1 bg-gray-300 text-gray-700 rounded text-sm hover:bg-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
                           >
@@ -208,7 +248,7 @@ const Dropdown = ({
                           </Button>
                           <Button
                             type="button"
-                            size="xs"
+                            size="sm"
                             onClick={handleCustomSubmit}
                             className="w-fit px-2 py-1 text-sm rounded-md"
                           >
@@ -223,44 +263,6 @@ const Dropdown = ({
       )}
     </div>
   );
-};
-
-Dropdown.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired,
-    })
-  ),
-  selectedOption: PropTypes.oneOfType([
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        .isRequired,
-    }),
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-          .isRequired,
-      })
-    ),
-  ]),
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  onSelect: PropTypes.func,
-  className: PropTypes.string,
-  customInput: PropTypes.bool,
-  buttonClassName: PropTypes.string,
-  dropdownClassName: PropTypes.string,
-  placeholder: PropTypes.string,
-  icon: PropTypes.node,
-  renderOption: PropTypes.func,
-  width: PropTypes.number,
-  onSearchApply: PropTypes.func,
-  multiSelect: PropTypes.bool,
-  onClick: PropTypes.func,
-  isLoading: PropTypes.bool,
 };
 
 export default Dropdown;

@@ -268,13 +268,14 @@ const Table: React.FC<TableProps> = ({
             {/* Time Range Filter */}
             {showDataFilter && (
               <Dropdown
-                // @ts-expect-error - Dropdown not yet migrated to TypeScript
                 options={options}
-                // @ts-expect-error - Dropdown not yet migrated to TypeScript
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                onSelect={(value: any) => setSelectedDataFilter(value.value)}
-                // @ts-expect-error - Dropdown not yet migrated to TypeScript
-                selectedOption={selectedDataFilter}
+                onSelect={(value: any) => setSelectedDataFilter(value?.value || null)}
+                selectedOption={
+                  selectedDataFilter
+                    ? options.find((opt) => opt.value === selectedDataFilter) || null
+                    : null
+                }
                 buttonClassName="text-sm sm:text-base"
               />
             )}
@@ -282,9 +283,7 @@ const Table: React.FC<TableProps> = ({
             {/* Page Size Dropdown */}
             {showPageSize && (
               <Dropdown
-                // @ts-expect-error - Dropdown not yet migrated to TypeScript
                 options={sizeOptions}
-                // @ts-expect-error - Dropdown not yet migrated to TypeScript
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 onSelect={(value: any) => table.setPageSize(value.value)}
                 icon={<HiDotsVertical className="w-5 h-5" />}
