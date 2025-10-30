@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import { Formik, Form as FormikForm } from "formik";
 import * as Yup from "yup";
-import {
-  Breadcrumb,
-  SelectField,
-  Input,
-  Typography,
-  Button,
-  Table,
-} from "@/components";
+import type { FormikHelpers } from "formik";
+import { Breadcrumb, SelectField, Input, Typography, Button, Table } from "@/components";
 import { FaCcVisa, FaCcMastercard } from "react-icons/fa";
 import { SiAmericanexpress } from "react-icons/si";
 import QRCode from "react-qr-code";
@@ -17,7 +11,33 @@ import clsx from "clsx";
 import Form from "@/components/Form";
 import { FaRegCopy } from "react-icons/fa6";
 
-const breadcrumbItems = [
+interface BreadcrumbItem {
+  label: string;
+  path: string;
+}
+
+interface FiatDepositValues {
+  currency: string;
+  amount: string | number;
+  paymentMethod: string;
+}
+
+interface CryptoDepositValues {
+  asset: string;
+  network: string;
+}
+
+interface DepositHistoryItem {
+  id: number;
+  date: string;
+  asset: string;
+  amount: number;
+  status: string;
+  transactionId: string;
+  currency?: string;
+}
+
+const breadcrumbItems: BreadcrumbItem[] = [
   { label: "Wallet", path: "/wallet" },
   { label: "Deposit", path: "/deposit" },
 ];
@@ -56,10 +76,7 @@ const fiatDepositSchema = Yup.object().shape({
     .min(10, "Minimum deposit amount is $10"),
   paymentMethod: Yup.string()
     .required("Payment method is required")
-    .oneOf(
-      [PAYMENT_METHODS.CARD, PAYMENT_METHODS.BANK],
-      "Invalid payment method"
-    ),
+    .oneOf([PAYMENT_METHODS.CARD, PAYMENT_METHODS.BANK], "Invalid payment method"),
 });
 
 const cryptoDepositSchema = Yup.object().shape({
@@ -72,7 +89,8 @@ const depositHistoryColumns = [
   {
     accessorKey: "date",
     header: "Date",
-    cell: ({ row }) => new Date(row.original.date).toLocaleDateString(),
+    cell: ({ row }: { row: { original: DepositHistoryItem } }) =>
+      new Date(row.original.date).toLocaleDateString(),
   },
   {
     accessorKey: "asset",
@@ -81,13 +99,13 @@ const depositHistoryColumns = [
   {
     accessorKey: "amount",
     header: "Amount",
-    cell: ({ row }) =>
+    cell: ({ row }: { row: { original: DepositHistoryItem } }) =>
       `${row.original.amount} ${row.original.currency || row.original.asset}`,
   },
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => (
+    cell: ({ row }: { row: { original: DepositHistoryItem } }) => (
       <span
         className={clsx("px-2 py-1 rounded-full text-xs font-medium", {
           "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200":
@@ -105,14 +123,14 @@ const depositHistoryColumns = [
   {
     accessorKey: "transactionId",
     header: "Transaction ID",
-    cell: ({ row }) => (
+    cell: ({ row }: { row: { original: DepositHistoryItem } }) => (
       <span className="font-mono text-sm">{row.original.transactionId}</span>
     ),
   },
 ];
 
 // Mock data - in real app, this would come from API
-const mockDepositHistory = [
+const mockDepositHistory: DepositHistoryItem[] = [
   {
     id: 1,
     date: "2024-04-15T10:30:00Z",
@@ -140,66 +158,59 @@ const mockDepositHistory = [
   },
 ];
 
-const Deposit = () => {
-  const [depositAddress] = useState(
-    "0x7a8b9c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b"
-  );
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const Deposit: React.FC = () => {
+  const [depositAddress] = useState<string>("0x7a8b9c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   // Initial form values
-  const fiatInitialValues = {
+  const fiatInitialValues: FiatDepositValues = {
     currency: "",
     amount: "",
     paymentMethod: "",
   };
 
-  const cryptoInitialValues = {
+  const cryptoInitialValues: CryptoDepositValues = {
     asset: "",
     network: "",
   };
 
   // Form handlers
-  const handleFiatDeposit = async (values, { setSubmitting, resetForm }) => {
+  const handleFiatDeposit = async () => {
     try {
       setIsSubmitting(true);
-      // console.log("Fiat deposit:", values);
+      // console.log("Fiat deposit:", _values);
 
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Handle success (redirect to payment processor, show success message, etc.)
       alert("Redirecting to payment processor...");
-      resetForm();
     } catch (error) {
       console.error("Fiat deposit error:", error);
       alert("Deposit failed. Please try again.");
     } finally {
       setIsSubmitting(false);
-      setSubmitting(false);
     }
   };
 
-  const handleCryptoDeposit = async (values, { setSubmitting }) => {
+  const handleCryptoDeposit = async () => {
     try {
       setIsSubmitting(true);
-      // console.log("Crypto deposit:", values);
+      // console.log("Crypto deposit:", _values);
 
       // Simulate API call to generate deposit address
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert(
-        "Deposit address generated. Please send your crypto to the displayed address."
-      );
+      alert("Deposit address generated. Please send your crypto to the displayed address.");
     } catch (error) {
       console.error("Crypto deposit error:", error);
       alert("Failed to generate deposit address. Please try again.");
     } finally {
       setIsSubmitting(false);
-      setSubmitting(false);
     }
   };
 
-  const copyToClipboard = async (text) => {
+  const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
       alert("Address copied to clipboard!");
@@ -234,13 +245,7 @@ const Deposit = () => {
             validationSchema={fiatDepositSchema}
             onSubmit={handleFiatDeposit}
           >
-            {({
-              values,
-              errors,
-              touched,
-              setFieldValue,
-              isSubmitting: formSubmitting,
-            }) => (
+            {({ values, errors, touched, setFieldValue, isSubmitting: formSubmitting }) => (
               <FormikForm className="space-y-6">
                 {/* Currency Selection */}
                 <div>
@@ -249,9 +254,7 @@ const Deposit = () => {
                   </Typography>
                   <SelectField
                     options={FIAT_CURRENCIES}
-                    value={FIAT_CURRENCIES.find(
-                      (option) => option.value === values.currency
-                    )}
+                    value={FIAT_CURRENCIES.find((option) => option.value === values.currency)}
                     onChange={(selectedOption) =>
                       setFieldValue("currency", selectedOption?.value || "")
                     }
@@ -259,11 +262,8 @@ const Deposit = () => {
                     isClearable
                   />
                   {touched.currency && errors.currency && (
-                    <Typography
-                      variant="caption"
-                      className="text-destructive mt-1"
-                    >
-                      {errors.currency}
+                    <Typography variant="caption" className="text-destructive mt-1">
+                      {String(errors.currency)}
                     </Typography>
                   )}
                 </div>
@@ -278,18 +278,11 @@ const Deposit = () => {
                     type="number"
                     placeholder="Enter amount"
                     prefix={<span className="text-tbase">$</span>}
-                    suffix={
-                      <span className="text-tbase">
-                        {values.currency || "USD"}
-                      </span>
-                    }
+                    suffix={<span className="text-tbase">{values.currency || "USD"}</span>}
                   />
                   {touched.amount && errors.amount && (
-                    <Typography
-                      variant="caption"
-                      className="text-destructive mt-1"
-                    >
-                      {errors.amount}
+                    <Typography variant="caption" className="text-destructive mt-1">
+                      {String(errors.amount)}
                     </Typography>
                   )}
                 </div>
@@ -311,16 +304,10 @@ const Deposit = () => {
                         inputClassName="self-start mt-1"
                       />
                       <div className="flex-1">
-                        <Typography
-                          variant="body2"
-                          className="font-medium mb-1"
-                        >
+                        <Typography variant="body2" className="font-medium mb-1">
                           Credit/Debit Card
                         </Typography>
-                        <Typography
-                          variant="caption"
-                          className="text-muted-foreground mb-2"
-                        >
+                        <Typography variant="caption" className="text-muted-foreground mb-2">
                           Visa, Mastercard, American Express
                         </Typography>
                         <div className="flex gap-2 text-2xl">
@@ -341,27 +328,18 @@ const Deposit = () => {
                         className="bg-transparent accent-tbase border-transparent shadow-none focus-within:ring-transparent focus-within:border-transparent focus-within:outline-transparent"
                       />
                       <div>
-                        <Typography
-                          variant="body2"
-                          className="font-medium mb-1"
-                        >
+                        <Typography variant="body2" className="font-medium mb-1">
                           Bank Transfer
                         </Typography>
-                        <Typography
-                          variant="caption"
-                          className="text-muted-foreground"
-                        >
+                        <Typography variant="caption" className="text-muted-foreground">
                           Direct bank deposit (ACH, SEPA, Wire)
                         </Typography>
                       </div>
                     </label>
                   </div>
                   {touched.paymentMethod && errors.paymentMethod && (
-                    <Typography
-                      variant="caption"
-                      className="text-destructive mt-1"
-                    >
-                      {errors.paymentMethod}
+                    <Typography variant="caption" className="text-destructive mt-1">
+                      {String(errors.paymentMethod)}
                     </Typography>
                   )}
                 </div>
@@ -373,9 +351,7 @@ const Deposit = () => {
                   disabled={formSubmitting || isSubmitting}
                   className="mt-6"
                 >
-                  {formSubmitting || isSubmitting
-                    ? "Processing..."
-                    : "Continue to Payment"}
+                  {formSubmitting || isSubmitting ? "Processing..." : "Continue to Payment"}
                 </Button>
               </FormikForm>
             )}
@@ -391,13 +367,7 @@ const Deposit = () => {
             validationSchema={cryptoDepositSchema}
             onSubmit={handleCryptoDeposit}
           >
-            {({
-              values,
-              errors,
-              touched,
-              setFieldValue,
-              isSubmitting: formSubmitting,
-            }) => (
+            {({ values, errors, touched, setFieldValue, isSubmitting: formSubmitting }) => (
               <FormikForm className="space-y-6">
                 {/* Asset Selection */}
                 <div>
@@ -406,9 +376,7 @@ const Deposit = () => {
                   </Typography>
                   <SelectField
                     options={CRYPTO_ASSETS}
-                    value={CRYPTO_ASSETS.find(
-                      (option) => option.value === values.asset
-                    )}
+                    value={CRYPTO_ASSETS.find((option) => option.value === values.asset)}
                     onChange={(selectedOption) =>
                       setFieldValue("asset", selectedOption?.value || "")
                     }
@@ -416,11 +384,8 @@ const Deposit = () => {
                     isClearable
                   />
                   {touched.asset && errors.asset && (
-                    <Typography
-                      variant="caption"
-                      className="text-destructive mt-1"
-                    >
-                      {errors.asset}
+                    <Typography variant="caption" className="text-destructive mt-1">
+                      {String(errors.asset)}
                     </Typography>
                   )}
                 </div>
@@ -432,9 +397,7 @@ const Deposit = () => {
                   </Typography>
                   <SelectField
                     options={NETWORKS}
-                    value={NETWORKS.find(
-                      (option) => option.value === values.network
-                    )}
+                    value={NETWORKS.find((option) => option.value === values.network)}
                     onChange={(selectedOption) =>
                       setFieldValue("network", selectedOption?.value || "")
                     }
@@ -442,11 +405,8 @@ const Deposit = () => {
                     isClearable
                   />
                   {touched.network && errors.network && (
-                    <Typography
-                      variant="caption"
-                      className="text-destructive mt-1"
-                    >
-                      {errors.network}
+                    <Typography variant="caption" className="text-destructive mt-1">
+                      {String(errors.network)}
                     </Typography>
                   )}
                 </div>
@@ -473,37 +433,21 @@ const Deposit = () => {
 
                     {/* QR Code */}
                     <div className="border border-border rounded-md p-8 text-center">
-                      <QRCode
-                        value={depositAddress}
-                        size={150}
-                        className="mx-auto mb-4"
-                      />
-                      <Typography
-                        variant="caption"
-                        className="text-muted-foreground"
-                      >
+                      <QRCode value={depositAddress} size={150} className="mx-auto mb-4" />
+                      <Typography variant="caption" className="text-muted-foreground">
                         Scan this QR code to deposit {values.asset}
                       </Typography>
                     </div>
 
                     {/* Warning */}
                     <div className="flex gap-3 p-4 border border-warning bg-warning/10 rounded-lg">
-                      <img
-                        src={caution}
-                        alt="Warning"
-                        className="w-5 h-5 mt-0.5 flex-shrink-0"
-                      />
+                      <img src={caution} alt="Warning" className="w-5 h-5 mt-0.5 flex-shrink-0" />
                       <div>
                         <Typography variant="body2">
-                          <strong>Important:</strong> Only send {values.asset}{" "}
-                          tokens on the{" "}
-                          {
-                            NETWORKS.find((n) => n.value === values.network)
-                              ?.label
-                          }{" "}
-                          to this address. Sending unsupported tokens or using
-                          the wrong network may result in permanent loss of
-                          funds.
+                          <strong>Important:</strong> Only send {values.asset} tokens on the{" "}
+                          {NETWORKS.find((n) => n.value === values.network)?.label} to this address.
+                          Sending unsupported tokens or using the wrong network may result in
+                          permanent loss of funds.
                         </Typography>
                       </div>
                     </div>
@@ -514,17 +458,10 @@ const Deposit = () => {
                   type="submit"
                   variant="secondary"
                   fullWidth
-                  disabled={
-                    !values.asset ||
-                    !values.network ||
-                    formSubmitting ||
-                    isSubmitting
-                  }
+                  disabled={!values.asset || !values.network || formSubmitting || isSubmitting}
                   className="mt-6"
                 >
-                  {formSubmitting || isSubmitting
-                    ? "Generating..."
-                    : "Generate Deposit Address"}
+                  {formSubmitting || isSubmitting ? "Generating..." : "Generate Deposit Address"}
                 </Button>
               </FormikForm>
             )}
@@ -534,11 +471,7 @@ const Deposit = () => {
 
       {/* Deposit History */}
       <div className=" bg-secondary border border-border rounded-xl p-6 bg-card">
-        <Table
-          columns={depositHistoryColumns}
-          data={mockDepositHistory}
-          title="Recent Deposits"
-        />
+        <Table columns={depositHistoryColumns} data={mockDepositHistory} title="Recent Deposits" />
       </div>
     </div>
   );

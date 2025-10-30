@@ -1,6 +1,4 @@
-import history from "@/assets/history.svg";
-import plus from "@/assets/plus.svg";
-import arrow from "@/assets/arrow.svg";
+import React from "react";
 import divide from "@/assets/divide.svg";
 import world from "@/assets/world.svg";
 import community from "@/assets/community.svg";
@@ -9,8 +7,29 @@ import { Table, Typography } from "@/components";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { Breadcrumb } from "@/components";
-const Membership = () => {
-  const cards = [
+
+interface Card {
+  img: string;
+  title: string;
+  description: string;
+}
+
+interface BreadcrumbItem {
+  label: string;
+  path: string;
+}
+
+interface TransactionData {
+  date: string;
+  plan: string;
+  type: string;
+  amount: number;
+  status: string;
+  tx: string;
+}
+
+const Membership: React.FC = () => {
+  const cards: Card[] = [
     {
       img: divide,
       title: "Fee Discounts",
@@ -32,7 +51,7 @@ const Membership = () => {
   ];
 
   // For bg of the Membership cards
-  const bgColors = ["bg-white", "bg-[#A6B3B1]", "bg-[#4C6663]", "bg-[#C2A57B]"];
+  const bgColors: string[] = ["bg-white", "bg-[#A6B3B1]", "bg-[#4C6663]", "bg-[#C2A57B]"];
 
   // Transaction History columns configuration
   const transactionColumns = [
@@ -51,16 +70,14 @@ const Membership = () => {
     {
       accessorKey: "amount",
       header: "Amount",
-      cell: ({ row }) => (
-        <Typography variant="body2">
-          {row.original.amount.toLocaleString()} XCB
-        </Typography>
+      cell: ({ row }: { row: { original: TransactionData } }) => (
+        <Typography variant="body2">{row.original.amount.toLocaleString()} XCB</Typography>
       ),
     },
     {
       accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => (
+      cell: ({ row }: { row: { original: TransactionData } }) => (
         <span
           className={clsx("px-2 py-1 rounded-full text-xs", {
             "bg-[#52886C] text-white": row.original.status === "Confirmed",
@@ -75,7 +92,7 @@ const Membership = () => {
     {
       accessorKey: "tx",
       header: "Blockchain Tx",
-      cell: ({ row }) => (
+      cell: ({ row }: { row: { original: TransactionData } }) => (
         <Typography variant="body2">
           <a
             href={`https://etherscan.io/tx/${row.original.tx}`}
@@ -91,7 +108,7 @@ const Membership = () => {
   ];
 
   // Enhanced transaction history data
-  const transactionData = [
+  const transactionData: TransactionData[] = [
     {
       date: "2024-03-20",
       plan: "Gold",
@@ -133,10 +150,12 @@ const Membership = () => {
       tx: "0x2e7b...c9f5",
     },
   ];
-  const breadcrumbItems = [
+
+  const _breadcrumbItems: BreadcrumbItem[] = [
     { label: "Membership", path: "/membership" },
     { label: "", path: "/" },
   ];
+
   return (
     <div className="transition-all duration-fast">
       <div className="space-y-4 text-tbase">
@@ -166,17 +185,13 @@ const Membership = () => {
           <Typography variant="h5">Your Current Membership Plan</Typography>
 
           <div className="border-[#363638] bg-[#2F2F2F] text-white rounded-xl shadow-xl border p-4">
-            <Typography
-              variant="subtitle1"
-              className="tracking-wide mb-3 text-white"
-            >
+            <Typography variant="subtitle1" className="tracking-wide mb-3 text-white">
               <span className="font-semibold">BRONZE</span> Plan
             </Typography>
 
             <div className="grid gap-3 sm:flex justify-between items-center">
               <Typography variant="body1" className="text-white">
-                Staked:{" "}
-                <span className="text-sm opacity-80 ml-1">1,000,000 XCB</span>
+                Staked: <span className="text-sm opacity-80 ml-1">1,000,000 XCB</span>
               </Typography>
             </div>
 
@@ -212,9 +227,7 @@ const Membership = () => {
                 <div className="space-y-2">
                   <Typography variant="h6">{plan.name}</Typography>
                   <Typography variant="h4">{plan.amount}</Typography>
-                  <Typography variant="body2">
-                    {plan.tokenName} required
-                  </Typography>
+                  <Typography variant="body2">{plan.tokenName} required</Typography>
                   <Typography variant="subtitle2">{plan.discount}</Typography>
                 </div>
 
@@ -248,11 +261,7 @@ const Membership = () => {
                 key={index}
                 className="border dark:border-[#363638] p-4 rounded-lg bg-[#A6B3B1] dark:bg-[#191919]"
               >
-                <img
-                  src={card.img}
-                  alt={card.title}
-                  className="w-10 h-10 mb-3"
-                />
+                <img src={card.img} alt={card.title} className="w-10 h-10 mb-3" />
                 <Typography variant="subtitle2" className="mb-2">
                   {card.title}
                 </Typography>
