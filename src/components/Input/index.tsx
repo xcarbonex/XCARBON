@@ -1,7 +1,20 @@
 import React from "react";
 import clsx from "clsx";
 
-function Input({
+type InputVariant = "xs" | "sm" | "md" | "lg" | "fit";
+type InputWidth = "full" | "fit";
+
+interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "prefix"> {
+  className?: string;
+  inputClassName?: string;
+  suffix?: React.ReactNode;
+  prefix?: React.ReactNode;
+  type?: string;
+  variant?: InputVariant;
+  width?: InputWidth;
+}
+
+const Input: React.FC<InputProps> = ({
   className,
   inputClassName,
   suffix,
@@ -10,7 +23,7 @@ function Input({
   variant = "md",
   width = "full",
   ...rest
-}) {
+}) => {
   const isCheckbox = type === "checkbox" || type === "radio";
 
   const sizeVariant = {
@@ -51,6 +64,6 @@ function Input({
       {suffix}
     </div>
   );
-}
+};
 
 export default Input;
