@@ -1,49 +1,106 @@
-import React, { useState } from 'react';
-import { Modal, Typography, Button, Input } from '@/components';
-import clsx from 'clsx';
+import React, { useState } from "react";
+import { Modal, Typography, Button, Input } from "@/components";
+import clsx from "clsx";
 
-const EditProfileModal = ({ isOpen, onClose, userData, onSave }) => {
-  const [formData, setFormData] = useState({
-    ...(userData.type === 'individual' ? {
-      firstName: userData.individual.firstName,
-      lastName: userData.individual.lastName,
-      phone: userData.individual.phone,
-      email: userData.individual.email,
-      address: userData.individual.address,
-    } : {
-      companyName: userData.enterprise.companyName,
-      companyPhone: userData.enterprise.companyPhone,
-      companyEmail: userData.enterprise.companyEmail,
-      companyAddress: userData.enterprise.companyAddress,
-      representative: {
-        name: userData.enterprise.representative.name,
-        position: userData.enterprise.representative.position,
-        email: userData.enterprise.representative.email,
-        phone: userData.enterprise.representative.phone,
-      }
-    })
+interface Representative {
+  name: string;
+  position: string;
+  email: string;
+  phone: string;
+}
+
+interface IndividualFormData {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  address: string;
+}
+
+interface EnterpriseFormData {
+  companyName: string;
+  companyPhone: string;
+  companyEmail: string;
+  companyAddress: string;
+  representative: Representative;
+}
+
+type FormData = Partial<IndividualFormData & EnterpriseFormData>;
+
+interface UserData {
+  type: "individual" | "enterprise";
+  individual: {
+    firstName: string;
+    lastName: string;
+    phone: string;
+    email: string;
+    address: string;
+  };
+  enterprise: {
+    companyName: string;
+    companyPhone: string;
+    companyEmail: string;
+    companyAddress: string;
+    representative: Representative;
+  };
+}
+
+interface EditProfileModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  userData: UserData;
+  onSave: (formData: FormData) => void;
+}
+
+const EditProfileModal: React.FC<EditProfileModalProps> = ({
+  isOpen,
+  onClose,
+  userData,
+  onSave,
+}) => {
+  const [formData, setFormData] = useState<FormData>({
+    ...(userData.type === "individual"
+      ? {
+          firstName: userData.individual.firstName,
+          lastName: userData.individual.lastName,
+          phone: userData.individual.phone,
+          email: userData.individual.email,
+          address: userData.individual.address,
+        }
+      : {
+          companyName: userData.enterprise.companyName,
+          companyPhone: userData.enterprise.companyPhone,
+          companyEmail: userData.enterprise.companyEmail,
+          companyAddress: userData.enterprise.companyAddress,
+          representative: {
+            name: userData.enterprise.representative.name,
+            position: userData.enterprise.representative.position,
+            email: userData.enterprise.representative.email,
+            phone: userData.enterprise.representative.phone,
+          },
+        }),
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name.startsWith('representative.')) {
-      const field = name.split('.')[1];
-      setFormData(prev => ({
+    if (name.startsWith("representative.")) {
+      const field = name.split(".")[1] as keyof Representative;
+      setFormData((prev) => ({
         ...prev,
         representative: {
-          ...prev.representative,
-          [field]: value
-        }
+          ...(prev.representative || ({} as Representative)),
+          [field]: value,
+        },
       }));
     } else {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        [name]: value
+        [name]: value,
       }));
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSave(formData);
     onClose();
@@ -55,18 +112,18 @@ const EditProfileModal = ({ isOpen, onClose, userData, onSave }) => {
       onClose={onClose}
       title="Edit Profile"
       className={clsx(
-        'w-full max-w-2xl p-6',
-        'bg-[#FDFDFB] dark:bg-[#191919]',
-        'text-black dark:text-white',
-        'border border-[#D8D8D8] dark:border-[#363638]'
+        "w-full max-w-2xl p-6",
+        "bg-[#FDFDFB] dark:bg-[#191919]",
+        "text-black dark:text-white",
+        "border border-[#D8D8D8] dark:border-[#363638]"
       )}
     >
       <form onSubmit={handleSubmit} className="space-y-6">
         <Typography variant="h5" className="text-black dark:text-white mb-6">
-          {userData.type === 'individual' ? 'Edit Personal Details' : 'Edit Company Details'}
+          {userData.type === "individual" ? "Edit Personal Details" : "Edit Company Details"}
         </Typography>
 
-        {userData.type === 'individual' ? (
+        {userData.type === "individual" ? (
           <>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -191,11 +248,13 @@ const EditProfileModal = ({ isOpen, onClose, userData, onSave }) => {
               />
             </div>
 
-            <div className={clsx(
-              'p-4 rounded-lg border mt-6',
-              'bg-[#4C666326] dark:bg-[#FFFFFF14]',
-              'border-[#D8D8D8] dark:border-[#363638]'
-            )}>
+            <div
+              className={clsx(
+                "p-4 rounded-lg border mt-6",
+                "bg-[#4C666326] dark:bg-[#FFFFFF14]",
+                "border-[#D8D8D8] dark:border-[#363638]"
+              )}
+            >
               <Typography variant="h6" className="text-black dark:text-white mb-4">
                 Representative Details
               </Typography>
@@ -206,7 +265,7 @@ const EditProfileModal = ({ isOpen, onClose, userData, onSave }) => {
                   </Typography>
                   <Input
                     name="representative.name"
-                    value={formData.representative.name}
+                    value={formData.representative?.name || ""}
                     onChange={handleInputChange}
                     className="w-full"
                     required
@@ -218,7 +277,7 @@ const EditProfileModal = ({ isOpen, onClose, userData, onSave }) => {
                   </Typography>
                   <Input
                     name="representative.position"
-                    value={formData.representative.position}
+                    value={formData.representative?.position || ""}
                     onChange={handleInputChange}
                     className="w-full"
                     required
@@ -231,7 +290,7 @@ const EditProfileModal = ({ isOpen, onClose, userData, onSave }) => {
                   <Input
                     name="representative.email"
                     type="email"
-                    value={formData.representative.email}
+                    value={formData.representative?.email || ""}
                     onChange={handleInputChange}
                     className="w-full"
                     required
@@ -243,7 +302,7 @@ const EditProfileModal = ({ isOpen, onClose, userData, onSave }) => {
                   </Typography>
                   <Input
                     name="representative.phone"
-                    value={formData.representative.phone}
+                    value={formData.representative?.phone || ""}
                     onChange={handleInputChange}
                     className="w-full"
                     required
@@ -275,4 +334,4 @@ const EditProfileModal = ({ isOpen, onClose, userData, onSave }) => {
   );
 };
 
-export default EditProfileModal; 
+export default EditProfileModal;
