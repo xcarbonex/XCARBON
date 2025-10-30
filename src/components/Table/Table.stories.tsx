@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import type { ColumnDef } from "@tanstack/react-table";

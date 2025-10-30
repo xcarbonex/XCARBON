@@ -1,12 +1,13 @@
-import React from 'react';
-import ThemeProvider from './index.jsx';
+// @ts-nocheck
+import React from "react";
+import ThemeProvider from "./index.jsx";
 
 export default {
-  title: 'Components/ThemeProvider',
+  title: "Components/ThemeProvider",
   component: ThemeProvider,
 };
 
 const Template = (args) => <ThemeProvider {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {}; 
+Default.args = {};

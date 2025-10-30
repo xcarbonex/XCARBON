@@ -1,12 +1,13 @@
-import React from 'react';
-import Sidebar from './index.jsx';
+// @ts-nocheck
+import React from "react";
+import Sidebar from "./index.jsx";
 
 export default {
-  title: 'Components/Sidebar',
+  title: "Components/Sidebar",
   component: Sidebar,
 };
 
 const Template = (args) => <Sidebar {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {}; 
+Default.args = {};

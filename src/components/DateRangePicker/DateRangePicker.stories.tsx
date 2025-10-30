@@ -1,12 +1,13 @@
-import React from 'react';
-import DateRangePicker from './index.jsx';
+// @ts-nocheck
+import React from "react";
+import DateRangePicker from "./index.jsx";
 
 export default {
-  title: 'Components/DateRangePicker',
+  title: "Components/DateRangePicker",
   component: DateRangePicker,
 };
 
 const Template = (args) => <DateRangePicker {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {}; 
+Default.args = {};

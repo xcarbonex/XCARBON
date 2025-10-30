@@ -1,4 +1,6 @@
+// @ts-nocheck
 import React from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import List from ".";
 import { Typography } from "..";
 
@@ -122,7 +124,11 @@ ItemCustomRender.args = {
   ...Default.args,
   dataSource: [
     { id: "1", name: "Item 1" },
-    { id: "2", name: "Item 2 with Custom Render", render: (item) => <Typography.Text strong>{item.name} - Rendered Customly</Typography.Text> },
+    {
+      id: "2",
+      name: "Item 2 with Custom Render",
+      render: (item) => <Typography.Text strong>{item.name} - Rendered Customly</Typography.Text>,
+    },
     { id: "3", name: "Item 3" },
   ],
 };

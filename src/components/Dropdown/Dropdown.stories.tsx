@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import Dropdown from './index.jsx';
+// @ts-nocheck
+import React, { useState } from "react";
+import Dropdown from "./index.jsx";
 
 export default {
-  title: 'Components/Dropdown',
+  title: "Components/Dropdown",
   component: Dropdown,
 };
 
@@ -11,9 +12,9 @@ const Template = (args) => <Dropdown {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   options: [
-    { label: 'Option 1', value: 1 },
-    { label: 'Option 2', value: 2 },
-    { label: 'Option 3', value: 3 },
+    { label: "Option 1", value: 1 },
+    { label: "Option 2", value: 2 },
+    { label: "Option 3", value: 3 },
   ],
   onSelect: () => {},
 };
@@ -26,7 +27,10 @@ VirtualizedLargeList.args = {
 
 export const CustomRenderOption = (args) => {
   const [checked, setChecked] = useState({});
-  const options = Array.from({ length: 100 }, (_, i) => ({ label: `Checkbox ${i + 1}`, value: i + 1 }));
+  const options = Array.from({ length: 100 }, (_, i) => ({
+    label: `Checkbox ${i + 1}`,
+    value: i + 1,
+  }));
   return (
     <Dropdown
       {...args}
@@ -35,13 +39,16 @@ export const CustomRenderOption = (args) => {
         setChecked((prev) => ({ ...prev, [option.value]: !prev[option.value] }));
       }}
       renderOption={({ option, onSelect }) => (
-        <div className="flex items-center px-2 py-1 cursor-pointer hover:bg-input rounded" onClick={onSelect}>
+        <div
+          className="flex items-center px-2 py-1 cursor-pointer hover:bg-input rounded"
+          onClick={onSelect}
+        >
           <input
             type="checkbox"
             checked={!!checked[option.value]}
             onChange={() => onSelect(option)}
             className="mr-2"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           />
           <span>{option.label}</span>
         </div>
@@ -49,7 +56,7 @@ export const CustomRenderOption = (args) => {
     />
   );
 };
-CustomRenderOption.storyName = 'Custom Option (Checkbox)';
+CustomRenderOption.storyName = "Custom Option (Checkbox)";
 
 export const MultiSelectWithCheckboxes = (args) => {
   const initialOptions = Array.from({ length: 20 }, (_, i) => ({
@@ -95,4 +102,4 @@ export const MultiSelectWithCheckboxes = (args) => {
     />
   );
 };
-MultiSelectWithCheckboxes.storyName = 'Multi-Select with Checkboxes'; 
+MultiSelectWithCheckboxes.storyName = "Multi-Select with Checkboxes";
