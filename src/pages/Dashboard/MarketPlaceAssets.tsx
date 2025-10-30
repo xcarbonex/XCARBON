@@ -13,11 +13,32 @@ import BuyCarbonCreditModal from "@/components/Modals/BuyCarbonCreditModal";
 import { Typography } from "../../../src/components/index";
 import { Breadcrumb } from "../../../src/components/index";
 
-const MarketPlaceAssets = () => {
+interface MarketplaceAsset {
+  assetName: string;
+  date?: string;
+  projectType: string;
+  insuranceYear: string;
+  location: string;
+  registry: string;
+  price: string;
+  availableVolume: string;
+  supplier: string;
+  vintage: string;
+  quantity: string;
+}
+
+interface BreadcrumbItem {
+  label: string;
+  path: string;
+}
+
+type NewsCategory = "ESG" | "Major Trades" | "Regulatory";
+
+const MarketPlaceAssets: React.FC = () => {
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState("ESG");
-  const [isBuyModalOpen, setIsBuyModalOpen] = useState(false);
-  const [selectedCredit, setSelectedCredit] = useState(null);
+  const [activeCategory, setActiveCategory] = useState<NewsCategory>("ESG");
+  const [isBuyModalOpen, setIsBuyModalOpen] = useState<boolean>(false);
+  const [selectedCredit, setSelectedCredit] = useState<MarketplaceAsset | null>(null);
 
   // Get news based on category
   const getNewsByCategory = () => {
@@ -33,7 +54,7 @@ const MarketPlaceAssets = () => {
   };
   const news = getNewsByCategory();
 
-  const handleBuyClick = (rowData) => {
+  const handleBuyClick = (rowData: MarketplaceAsset) => {
     setSelectedCredit(rowData);
     setIsBuyModalOpen(true);
   };
@@ -43,7 +64,7 @@ const MarketPlaceAssets = () => {
       accessorKey: "assetName",
       header: "Asset Name",
       enableSorting: false,
-      cell: ({ row }) => {
+      cell: ({ row }: { row: { original: MarketplaceAsset } }) => {
         return (
           <div className="whitespace-nowrap dark:text-white">
             <div>{row.original.assetName}</div>
@@ -97,7 +118,7 @@ const MarketPlaceAssets = () => {
       accessorKey: "action",
       header: "Action",
       enableSorting: false,
-      cell: ({ row }) => {
+      cell: ({ row }: { row: { original: MarketplaceAsset } }) => {
         return (
           <button
             onClick={(e) => {
@@ -112,10 +133,12 @@ const MarketPlaceAssets = () => {
       },
     },
   ];
-  const breadcrumbItems = [
+
+  const _breadcrumbItems: BreadcrumbItem[] = [
     { label: "Dashboard", path: "/" },
     { label: "", path: "/" },
   ];
+
   return (
     <>
       <div className="transition-all duration-slow">
@@ -134,9 +157,7 @@ const MarketPlaceAssets = () => {
                 showSearch
                 showPageSize
                 showDataFilter
-                onRowClick={(data) =>
-                  navigate(`project-detail/${data.assetName}`)
-                }
+                onRowClick={(data) => navigate(`project-detail/${data.assetName}`)}
                 title="Marketplace Instruments"
                 // className="bg-[#FDFDFB] text-white shadow-xl dark:bg-[#191919] p-5 border dark:border-[#363638] rounded-custom"
               />
@@ -145,15 +166,13 @@ const MarketPlaceAssets = () => {
             <div className="grid bg-[#FDFDFB] text-white shadow-xl dark:bg-[#191919] p-5 border dark:border-[#363638] rounded-custom">
               <div className="grid sm:flex border-b-2 dark:border-[#333438] justify-between items-center pb-[10px]">
                 <div>
-                  <h1 className="text-[24px] text-black dark:text-white pb-[10px]">
-                    Live News
-                  </h1>
+                  <h1 className="text-[24px] text-black dark:text-white pb-[10px]">Live News</h1>
                 </div>
 
                 <div>
                   <div className="flex gap-5 text-[13px] text-white">
                     <div className="flex gap-5 text-[13px] text-white">
-                      {["ESG", "Major Trades", "Regulatory"].map(
+                      {(["ESG", "Major Trades", "Regulatory"] as NewsCategory[]).map(
                         (category, index) => (
                           <button
                             key={index}
@@ -174,17 +193,15 @@ const MarketPlaceAssets = () => {
                 <div className="grid">
                   {/* News rendering */}
                   <div className="grid sm:grid-cols-2 gap-5 my-5">
-                    {news.map((item) => (
+                    {news.map((item, index) => (
                       <div
-                        key={item.id}
+                        key={index}
                         className="dark:bg-[#282828] bg-[#A6B3B1] text-[#4C6663] dark:text-[#949494] p-3 rounded-xl"
                       >
                         <div className="flex justify-between items-center">
                           <div className="flex gap-3">
                             <CiTimer className="h-5 w-5" />
-                            <span className="text-[13px]">
-                              {item.timeLabel}
-                            </span>
+                            <span className="text-[13px]">{item.timeLabel}</span>
                           </div>
 
                           <div>
@@ -210,11 +227,13 @@ const MarketPlaceAssets = () => {
         </div>
       </div>
 
-      <BuyCarbonCreditModal
-        isOpen={isBuyModalOpen}
-        onClose={() => setIsBuyModalOpen(false)}
-        creditData={selectedCredit}
-      />
+      {selectedCredit && (
+        <BuyCarbonCreditModal
+          isOpen={isBuyModalOpen}
+          onClose={() => setIsBuyModalOpen(false)}
+          creditData={selectedCredit}
+        />
+      )}
     </>
   );
 };

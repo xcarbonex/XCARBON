@@ -1,16 +1,46 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import { Table, Tabs } from "@/components";
+import type { Tab } from "@/components/Tabs";
 import { portfolioData, activeAgreements } from "@/appData/portfolioData";
 import { Typography } from "@/components";
 import { Breadcrumb } from "@/components";
-const Portfolio = () => {
-  const [activeTab, setActiveTab] = useState("openPositions");
+
+interface BreadcrumbItem {
+  label: string;
+  path: string;
+}
+
+interface PortfolioRow {
+  assetName?: string;
+  projectType?: string;
+  quantity?: string;
+  marketValue?: string;
+  costBasis?: string;
+  vintage?: string;
+  location?: string;
+  status?: string;
+  tradeId?: string;
+  tradedValue?: string;
+  tradeType?: string;
+  date?: string;
+  contractId?: string;
+  value?: string;
+  dueDate?: string;
+  agreementId?: string;
+  nextDelivery?: string;
+  type?: string;
+  yearlyQuantity?: string;
+  duration?: string;
+}
+
+const Portfolio: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<string>("openPositions");
 
   // Convert portfolio data into tabs format
-  const tabs = Object.keys(portfolioData).map((key) => ({
+  const tabs: Tab[] = Object.keys(portfolioData).map((key) => ({
     id: key,
-    label: portfolioData[key].title,
+    label: portfolioData[key as keyof typeof portfolioData].title,
   }));
 
   // Define table columns for each tab
@@ -19,7 +49,7 @@ const Portfolio = () => {
       {
         accessorKey: "assetName",
         header: "Asset Name",
-        cell: ({ row }) => (
+        cell: ({ row }: { row: { original: PortfolioRow } }) => (
           <div className="whitespace-nowrap">
             <div>{row.original.assetName}</div>
           </div>
@@ -52,7 +82,7 @@ const Portfolio = () => {
       {
         accessorKey: "status",
         header: "Status",
-        cell: ({ row }) => (
+        cell: ({ row }: { row: { original: PortfolioRow } }) => (
           <span className="px-3 py-1 rounded-full text-sm bg-gray-200 dark:bg-secondary  text-tbase">
             {row.original.status}
           </span>
@@ -83,13 +113,11 @@ const Portfolio = () => {
       {
         accessorKey: "tradeType",
         header: "Type",
-        cell: ({ row }) => (
+        cell: ({ row }: { row: { original: PortfolioRow } }) => (
           <p
             className={clsx(
               "px-2 py-1 text-center max-w-14 rounded-full text-sm",
-              row.original.tradeType === "Buy"
-                ? "bg-[#52886C]"
-                : "bg-[#D94F0B]",
+              row.original.tradeType === "Buy" ? "bg-[#52886C]" : "bg-[#D94F0B]",
               "text-white"
             )}
           >
@@ -134,7 +162,7 @@ const Portfolio = () => {
       {
         accessorKey: "status",
         header: "Status",
-        cell: ({ row }) => (
+        cell: ({ row }: { row: { original: PortfolioRow } }) => (
           <p className="px-2 py-1 text-center max-w-36 rounded-full text-sm bg-[#D94F0B] text-white">
             {row.original.status}
           </p>
@@ -171,15 +199,15 @@ const Portfolio = () => {
     {
       accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => (
+      cell: ({ row }: { row: { original: PortfolioRow } }) => (
         <span
           className={clsx(
             "px-3 py-1 rounded-full text-sm text-white",
             row.original.status === "On Track"
               ? "bg-[#52886C]"
               : row.original.status === "Delayed"
-              ? "bg-[#174954]"
-              : "bg-[#D94F0B]"
+                ? "bg-[#174954]"
+                : "bg-[#D94F0B]"
           )}
         >
           {row.original.status}
@@ -187,7 +215,8 @@ const Portfolio = () => {
       ),
     },
   ];
-  const breadcrumbItems = [
+
+  const _breadcrumbItems: BreadcrumbItem[] = [
     { label: "Portfolio", path: "/portfolio" },
     { label: "", path: "/" },
   ];
@@ -201,8 +230,8 @@ const Portfolio = () => {
         <div className="bg-secondary shadow-xl border rounded-custom p-4">
           <div className="grid ">
             <Table
-              columns={tableColumns[activeTab]}
-              data={portfolioData[activeTab].data}
+              columns={tableColumns[activeTab as keyof typeof tableColumns]}
+              data={portfolioData[activeTab as keyof typeof portfolioData].data}
               showSearch
               showPageSize
               showDataFilter
@@ -212,7 +241,7 @@ const Portfolio = () => {
                 <Tabs
                   tabs={tabs}
                   activeTab={activeTab}
-                  onTabChange={setActiveTab}
+                  onTabChange={(tabId) => setActiveTab(tabId as string)}
                 />
               }
             />
