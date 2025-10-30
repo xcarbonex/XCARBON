@@ -3,10 +3,15 @@ import { Modal, Typography, Button, Toggle } from "@/components";
 import clsx from "clsx";
 import QRCode from "react-qr-code";
 
-const MFAModal = ({ isOpen, onClose }) => {
-  const [mfaEnabled, setMfaEnabled] = useState(false); // Global MFA state
-  const [showQRCode, setShowQRCode] = useState(false); // Local UI state
-  const [verificationCode, setVerificationCode] = useState("");
+interface MFAModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const MFAModal: React.FC<MFAModalProps> = ({ isOpen, onClose }) => {
+  const [mfaEnabled, setMfaEnabled] = useState<boolean>(false); // Global MFA state
+  const [showQRCode, setShowQRCode] = useState<boolean>(false); // Local UI state
+  const [verificationCode, setVerificationCode] = useState<string>("");
 
   const mockQRCodeData =
     "otpauth://totp/QuantumApp:user@example.com?secret=JBSWY3DPEHPK3PXP&issuer=QuantumApp&algorithm=SHA1&digits=6&period=30";
@@ -31,7 +36,7 @@ const MFAModal = ({ isOpen, onClose }) => {
     setVerificationCode("");
   };
 
-  const handleToggleChange = (enabled) => {
+  const handleToggleChange = (enabled: boolean) => {
     if (!enabled) {
       // User is disabling MFA
       setMfaEnabled(false);
@@ -75,15 +80,12 @@ const MFAModal = ({ isOpen, onClose }) => {
             </Typography>
 
             <div>
-              <Typography
-                variant="body2"
-                className="mb-2 text-black dark:text-white"
-              >
+              <Typography variant="body2" className="mb-2 text-black dark:text-white">
                 3. Enter the 6-digit code from your authenticator app
               </Typography>
               <input
                 type="text"
-                maxLength="6"
+                maxLength={6}
                 className={clsx(
                   "w-full px-4 py-2 rounded-lg",
                   "bg-[#4C666326] dark:bg-[#FFFFFF14]",
@@ -93,9 +95,7 @@ const MFAModal = ({ isOpen, onClose }) => {
                 )}
                 placeholder="Enter verification code"
                 value={verificationCode}
-                onChange={(e) =>
-                  setVerificationCode(e.target.value.replace(/[^0-9]/g, ""))
-                }
+                onChange={(e) => setVerificationCode(e.target.value.replace(/[^0-9]/g, ""))}
               />
             </div>
           </>
@@ -106,27 +106,33 @@ const MFAModal = ({ isOpen, onClose }) => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <Typography
-                  variant="body1"
-                  className="font-medium text-black dark:text-white"
-                >
+                <Typography variant="body1" className="font-medium text-black dark:text-white">
                   Two-Factor Authentication is enabled
                 </Typography>
-                <Typography
-                  variant="caption"
-                  className="text-gray-500 dark:text-gray-400"
-                >
+                <Typography variant="caption" className="text-gray-500 dark:text-gray-400">
                   Add and extra layer of security
                 </Typography>
               </div>
-              <Toggle defaultActive={true} onToggle={handleToggleChange} />
+              <label className="flex cursor-pointer select-none items-center">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    checked={mfaEnabled}
+                    onChange={(e) => handleToggleChange(e.target.checked)}
+                    className="sr-only"
+                  />
+                  <div className={`box block h-6 w-10 rounded-full bg-tbase`}></div>
+                  <div
+                    className={`absolute left-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-secondary transition ${
+                      mfaEnabled ? "translate-x-full" : ""
+                    }`}
+                  ></div>
+                </div>
+              </label>
             </div>
 
             <div className="bg-green-100 dark:bg-green-900 p-4 rounded-lg">
-              <Typography
-                variant="body2"
-                className="text-green-800 dark:text-green-200"
-              >
+              <Typography variant="body2" className="text-green-800 dark:text-green-200">
                 Your account is protected by two-factor authentication.
               </Typography>
             </div>

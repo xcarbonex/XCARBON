@@ -1,38 +1,51 @@
-import React, { useState } from 'react';
-import { Modal, Typography, Button } from '@/components';
-import clsx from 'clsx';
-import { FiCopy, FiTrash2, FiPlus } from 'react-icons/fi';
+import React, { useState } from "react";
+import { Modal, Typography, Button } from "@/components";
+import clsx from "clsx";
+import { FiCopy, FiTrash2, FiPlus } from "react-icons/fi";
 
-const APIKeyModal = ({ isOpen, onClose }) => {
-  const [apiKeys, setApiKeys] = useState([
+interface APIKeyModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+interface APIKey {
+  id: string;
+  name: string;
+  key: string;
+  created: string;
+  lastUsed: string;
+}
+
+const APIKeyModal: React.FC<APIKeyModalProps> = ({ isOpen, onClose }) => {
+  const [apiKeys, setApiKeys] = useState<APIKey[]>([
     {
-      id: '1',
-      name: 'Development API Key',
-      key: 'xc_dev_123456789',
-      created: '2024-03-15',
-      lastUsed: '2024-03-20'
+      id: "1",
+      name: "Development API Key",
+      key: "xc_dev_123456789",
+      created: "2024-03-15",
+      lastUsed: "2024-03-20",
     },
     {
-      id: '2',
-      name: 'Production API Key',
-      key: 'xc_prod_987654321',
-      created: '2024-03-10',
-      lastUsed: '2024-03-21'
-    }
+      id: "2",
+      name: "Production API Key",
+      key: "xc_prod_987654321",
+      created: "2024-03-10",
+      lastUsed: "2024-03-21",
+    },
   ]);
 
-  const [showNewKeyForm, setShowNewKeyForm] = useState(false);
-  const [newKeyName, setNewKeyName] = useState('');
-  const [copiedKey, setCopiedKey] = useState(null);
+  const [showNewKeyForm, setShowNewKeyForm] = useState<boolean>(false);
+  const [newKeyName, setNewKeyName] = useState<string>("");
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
-  const handleCopyKey = (key) => {
+  const handleCopyKey = (key: string) => {
     navigator.clipboard.writeText(key);
     setCopiedKey(key);
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
-  const handleDeleteKey = (id) => {
-    setApiKeys(prev => prev.filter(key => key.id !== id));
+  const handleDeleteKey = (id: string) => {
+    setApiKeys((prev) => prev.filter((key) => key.id !== id));
   };
 
   const handleCreateKey = () => {
@@ -42,12 +55,12 @@ const APIKeyModal = ({ isOpen, onClose }) => {
       id: Date.now().toString(),
       name: newKeyName,
       key: `xc_${Math.random().toString(36).substring(2, 15)}`,
-      created: new Date().toISOString().split('T')[0],
-      lastUsed: '-'
+      created: new Date().toISOString().split("T")[0],
+      lastUsed: "-",
     };
 
-    setApiKeys(prev => [...prev, newKey]);
-    setNewKeyName('');
+    setApiKeys((prev) => [...prev, newKey]);
+    setNewKeyName("");
     setShowNewKeyForm(false);
   };
 
@@ -57,10 +70,10 @@ const APIKeyModal = ({ isOpen, onClose }) => {
       onClose={onClose}
       title="API Keys"
       className={clsx(
-        'w-full max-w-3xl p-6',
-        'bg-[#FDFDFB] dark:bg-[#191919]',
-        'text-black dark:text-white',
-        'border border-[#D8D8D8] dark:border-[#363638]'
+        "w-full max-w-3xl p-6",
+        "bg-[#FDFDFB] dark:bg-[#191919]",
+        "text-black dark:text-white",
+        "border border-[#D8D8D8] dark:border-[#363638]"
       )}
     >
       <div className="space-y-6">
@@ -76,9 +89,9 @@ const APIKeyModal = ({ isOpen, onClose }) => {
             <div
               key={apiKey.id}
               className={clsx(
-                'p-4 rounded-lg border',
-                'bg-[#4C666326] dark:bg-[#FFFFFF14]',
-                'border-[#D8D8D8] dark:border-[#363638]'
+                "p-4 rounded-lg border",
+                "bg-[#4C666326] dark:bg-[#FFFFFF14]",
+                "border-[#D8D8D8] dark:border-[#363638]"
               )}
             >
               <div className="flex justify-between items-start">
@@ -93,8 +106,8 @@ const APIKeyModal = ({ isOpen, onClose }) => {
                     <button
                       onClick={() => handleCopyKey(apiKey.key)}
                       className={clsx(
-                        'p-1 rounded hover:bg-black/5 dark:hover:bg-white/5',
-                        'text-gray-500 dark:text-gray-400'
+                        "p-1 rounded hover:bg-black/5 dark:hover:bg-white/5",
+                        "text-gray-500 dark:text-gray-400"
                       )}
                     >
                       <FiCopy className="w-4 h-4" />
@@ -109,9 +122,9 @@ const APIKeyModal = ({ isOpen, onClose }) => {
                 <button
                   onClick={() => handleDeleteKey(apiKey.id)}
                   className={clsx(
-                    'p-2 rounded-lg',
-                    'hover:bg-red-50 dark:hover:bg-red-900/20',
-                    'text-red-600 dark:text-red-400'
+                    "p-2 rounded-lg",
+                    "hover:bg-red-50 dark:hover:bg-red-900/20",
+                    "text-red-600 dark:text-red-400"
                   )}
                 >
                   <FiTrash2 className="w-5 h-5" />
@@ -134,14 +147,14 @@ const APIKeyModal = ({ isOpen, onClose }) => {
             <input
               type="text"
               value={newKeyName}
-              onChange={(e) => setNewKeyName(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewKeyName(e.target.value)}
               placeholder="Enter a name for your API key"
               className={clsx(
-                'w-full px-4 py-2 rounded-lg',
-                'bg-[#4C666326] dark:bg-[#FFFFFF14]',
-                'border border-[#D8D8D8] dark:border-[#363638]',
-                'text-black dark:text-white',
-                'focus:outline-none focus:ring-2 focus:ring-[#C2A57B]'
+                "w-full px-4 py-2 rounded-lg",
+                "bg-[#4C666326] dark:bg-[#FFFFFF14]",
+                "border border-[#D8D8D8] dark:border-[#363638]",
+                "text-black dark:text-white",
+                "focus:outline-none focus:ring-2 focus:ring-[#C2A57B]"
               )}
             />
             <div className="flex gap-3">
@@ -157,8 +170,8 @@ const APIKeyModal = ({ isOpen, onClose }) => {
                 onClick={handleCreateKey}
                 disabled={!newKeyName.trim()}
                 className={clsx(
-                  'bg-[#C2A57B] hover:bg-opacity-90 text-white dark:bg-[#3B3B3B]',
-                  'disabled:opacity-50 disabled:cursor-not-allowed'
+                  "bg-[#C2A57B] hover:bg-opacity-90 text-white dark:bg-[#3B3B3B]",
+                  "disabled:opacity-50 disabled:cursor-not-allowed"
                 )}
               >
                 Create API Key
@@ -186,4 +199,4 @@ const APIKeyModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default APIKeyModal; 
+export default APIKeyModal;

@@ -1,71 +1,121 @@
-import React from 'react';
-import { Modal, Typography, Button } from '@/components';
-import clsx from 'clsx';
-import { FiCheck, FiX } from 'react-icons/fi';
+import React from "react";
+import { Modal, Typography, Button } from "@/components";
+import clsx from "clsx";
+import { FiCheck, FiX } from "react-icons/fi";
+
+interface UserOverviewModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+interface Document {
+  type: string;
+  status: string;
+  date: string;
+}
+
+interface Representative {
+  name: string;
+  position: string;
+  email: string;
+  phone: string;
+}
+
+interface IndividualData {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  nationality: string;
+  address: string;
+  phone: string;
+  email: string;
+  kycStatus: string;
+  documents: Document[];
+}
+
+interface EnterpriseData {
+  companyName: string;
+  registrationNumber: string;
+  taxId: string;
+  companyAddress: string;
+  companyPhone: string;
+  companyEmail: string;
+  representative: Representative;
+  kycStatus: string;
+  documents: Document[];
+}
+
+interface UserData {
+  type: "individual" | "enterprise";
+  individual: IndividualData;
+  enterprise: EnterpriseData;
+}
 
 // Mock data - In real app, this would come from your backend
-const mockUserData = {
-  type: 'enterprise', // or 'individual'
+const mockUserData: UserData = {
+  type: "enterprise", // or 'individual'
   individual: {
-    firstName: 'John',
-    lastName: 'Doe',
-    dateOfBirth: '1990-05-15',
-    nationality: 'United States',
-    address: '123 Main St, New York, NY 10001',
-    phone: '+1 234-567-8900',
-    email: 'john.doe@example.com',
-    kycStatus: 'verified',
+    firstName: "John",
+    lastName: "Doe",
+    dateOfBirth: "1990-05-15",
+    nationality: "United States",
+    address: "123 Main St, New York, NY 10001",
+    phone: "+1 234-567-8900",
+    email: "john.doe@example.com",
+    kycStatus: "verified",
     documents: [
-      { type: 'ID Card', status: 'verified', date: '2024-01-15' },
-      { type: 'Proof of Address', status: 'verified', date: '2024-01-15' }
-    ]
+      { type: "ID Card", status: "verified", date: "2024-01-15" },
+      { type: "Proof of Address", status: "verified", date: "2024-01-15" },
+    ],
   },
   enterprise: {
-    companyName: 'Tech Solutions Inc.',
-    registrationNumber: 'REG123456789',
-    taxId: 'TAX987654321',
-    companyAddress: '456 Business Ave, San Francisco, CA 94105',
-    companyPhone: '+1 987-654-3210',
-    companyEmail: 'contact@techsolutions.com',
+    companyName: "Tech Solutions Inc.",
+    registrationNumber: "REG123456789",
+    taxId: "TAX987654321",
+    companyAddress: "456 Business Ave, San Francisco, CA 94105",
+    companyPhone: "+1 987-654-3210",
+    companyEmail: "contact@techsolutions.com",
     representative: {
-      name: 'Jane Smith',
-      position: 'CEO',
-      email: 'jane.smith@techsolutions.com',
-      phone: '+1 876-543-2100'
+      name: "Jane Smith",
+      position: "CEO",
+      email: "jane.smith@techsolutions.com",
+      phone: "+1 876-543-2100",
     },
-    kycStatus: 'verified',
+    kycStatus: "verified",
     documents: [
-      { type: 'Business Registration', status: 'verified', date: '2024-01-15' },
-      { type: 'Tax Certificate', status: 'verified', date: '2024-01-15' },
-      { type: 'Company Address Proof', status: 'pending', date: '2024-03-15' }
-    ]
-  }
+      { type: "Business Registration", status: "verified", date: "2024-01-15" },
+      { type: "Tax Certificate", status: "verified", date: "2024-01-15" },
+      { type: "Company Address Proof", status: "pending", date: "2024-03-15" },
+    ],
+  },
 };
 
-const StatusBadge = ({ status }) => {
-  const isVerified = status === 'verified';
+const StatusBadge: React.FC<{ status: string }> = ({ status }) => {
+  const isVerified = status === "verified";
   return (
-    <span className={clsx(
-      'px-2 py-1 rounded-full text-sm flex items-center gap-1',
-      isVerified 
-        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-    )}>
+    <span
+      className={clsx(
+        "px-2 py-1 rounded-full text-sm flex items-center gap-1",
+        isVerified
+          ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+          : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+      )}
+    >
       {isVerified ? <FiCheck className="w-4 h-4" /> : <FiX className="w-4 h-4" />}
       {status.charAt(0).toUpperCase() + status.slice(1)}
     </span>
   );
 };
 
-const DocumentList = ({ documents }) => (
+const DocumentList: React.FC<{ documents: Document[] }> = ({ documents }) => (
   <div className="space-y-3">
     {documents.map((doc, index) => (
-      <div 
+      <div
         key={index}
         className={clsx(
-          'p-3 rounded-lg border',
-          'bg-[#4C666326] dark:bg-[#FFFFFF14]',
-          'border-[#D8D8D8] dark:border-[#363638]'
+          "p-3 rounded-lg border",
+          "bg-[#4C666326] dark:bg-[#FFFFFF14]",
+          "border-[#D8D8D8] dark:border-[#363638]"
         )}
       >
         <div className="flex justify-between items-center">
@@ -84,7 +134,7 @@ const DocumentList = ({ documents }) => (
   </div>
 );
 
-const IndividualDetails = ({ data }) => (
+const IndividualDetails: React.FC<{ data: IndividualData }> = ({ data }) => (
   <div className="space-y-6">
     <div className="grid grid-cols-2 gap-4">
       <div>
@@ -148,7 +198,7 @@ const IndividualDetails = ({ data }) => (
   </div>
 );
 
-const EnterpriseDetails = ({ data }) => (
+const EnterpriseDetails: React.FC<{ data: EnterpriseData }> = ({ data }) => (
   <div className="space-y-6">
     <div className="grid grid-cols-2 gap-4">
       <div>
@@ -203,11 +253,13 @@ const EnterpriseDetails = ({ data }) => (
       </Typography>
     </div>
 
-    <div className={clsx(
-      'p-4 rounded-lg border',
-      'bg-[#4C666326] dark:bg-[#FFFFFF14]',
-      'border-[#D8D8D8] dark:border-[#363638]'
-    )}>
+    <div
+      className={clsx(
+        "p-4 rounded-lg border",
+        "bg-[#4C666326] dark:bg-[#FFFFFF14]",
+        "border-[#D8D8D8] dark:border-[#363638]"
+      )}
+    >
       <Typography variant="h6" className="mb-3 text-black dark:text-white">
         Company Representative
       </Typography>
@@ -256,7 +308,7 @@ const EnterpriseDetails = ({ data }) => (
   </div>
 );
 
-const UserOverviewModal = ({ isOpen, onClose }) => {
+const UserOverviewModal: React.FC<UserOverviewModalProps> = ({ isOpen, onClose }) => {
   const userData = mockUserData; // In real app, this would come from your user context or props
 
   return (
@@ -265,21 +317,21 @@ const UserOverviewModal = ({ isOpen, onClose }) => {
       onClose={onClose}
       title="User Overview"
       className={clsx(
-        'w-full max-w-4xl p-6',
-        'bg-[#FDFDFB] dark:bg-[#191919]',
-        'text-black dark:text-white',
-        'border border-[#D8D8D8] dark:border-[#363638]'
+        "w-full max-w-4xl p-6",
+        "bg-[#FDFDFB] dark:bg-[#191919]",
+        "text-black dark:text-white",
+        "border border-[#D8D8D8] dark:border-[#363638]"
       )}
     >
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <Typography variant="h5" className="text-black dark:text-white">
-            {userData.type === 'individual' ? 'Individual Profile' : 'Enterprise Profile'}
+            {userData.type === "individual" ? "Individual Profile" : "Enterprise Profile"}
           </Typography>
           <StatusBadge status={userData[userData.type].kycStatus} />
         </div>
 
-        {userData.type === 'individual' ? (
+        {userData.type === "individual" ? (
           <IndividualDetails data={userData.individual} />
         ) : (
           <EnterpriseDetails data={userData.enterprise} />
@@ -299,4 +351,4 @@ const UserOverviewModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default UserOverviewModal; 
+export default UserOverviewModal;
