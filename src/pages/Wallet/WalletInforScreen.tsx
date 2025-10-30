@@ -1,17 +1,37 @@
+import React, { useState } from "react";
 import { tokenBalance } from "@/appData";
 import { Tooltip } from "react-tooltip";
 import Modal from "@/components/Model";
 import { ListTokenizedAssets } from "..";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { Table, Typography, Button } from "@/components";
-import history from "@/assets/history.svg";
-import plus from "@/assets/plus.svg";
-import { Breadcrumb } from "@/components";
 import useWalletStore from "@/store/walletStore";
 import { FaPlus } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
+
+interface TransactionData {
+  date: string;
+  plan: string;
+  type: string;
+  amount: string;
+  status: string;
+  tx: string;
+}
+
+interface DeliveryData {
+  contractId: string;
+  asset: string;
+  nextDelivery: string;
+  totalDeliveries: string;
+  status: string;
+}
+
+interface BreadcrumbItem {
+  label: string;
+  path: string;
+}
+
 // Transaction History columns configuration
 const transactionColumns = [
   {
@@ -33,7 +53,7 @@ const transactionColumns = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => (
+    cell: ({ row }: { row: { original: TransactionData } }) => (
       <p
         className={clsx("px-3 py-1 text-center max-w-24 rounded-full text-sm", {
           "bg-[#52886C] text-white": row.original.status === "Confirmed",
@@ -72,7 +92,7 @@ const deliveryColumns = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => (
+    cell: ({ row }: { row: { original: DeliveryData } }) => (
       <p
         className={clsx("text-center max-w-20 py-1 px-2 rounded-full text-sm", {
           "bg-[#52886C] text-white": row.original.status === "On Track",
@@ -87,7 +107,7 @@ const deliveryColumns = [
 ];
 
 // Sample transaction history data
-const transactionData = [
+const transactionData: TransactionData[] = [
   {
     date: "2024-03-20",
     plan: "Gold",
@@ -212,30 +232,24 @@ const transactionData = [
 
 // Sample contract delivery schedule data
 
-const WalletInfoScreen = () => {
+const WalletInfoScreen: React.FC = () => {
   const { deliveryData } = useWalletStore();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const breadcrumbItems = [
+  const [open, setOpen] = useState<boolean>(false);
+
+  const _breadcrumbItems: BreadcrumbItem[] = [
     { label: "Wallet", path: "/wallet" },
     { label: "", path: "/" },
   ];
   return (
     <>
-      <Modal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        title="List Tokenized Assets"
-      >
+      <Modal isOpen={open} onClose={() => setOpen(false)} title="List Tokenized Assets">
         <ListTokenizedAssets />
       </Modal>
       <Tooltip id="wallet" place="right" />
       <div>
         <div className="space-y-5 ">
-          <Typography
-            variant="h4"
-            className="border-b-2 text-tbase border-[#363638] pb-2"
-          >
+          <Typography variant="h4" className="border-b-2 text-tbase border-[#363638] pb-2">
             Wallet
           </Typography>
           {/* Token Balances & Actions */}
@@ -243,23 +257,16 @@ const WalletInfoScreen = () => {
             {/* Token Balances Card */}
             <div className="bg-[#4C6663] text-white dark:bg-[#191919] rounded-xl border border-[#363638] shadow-lg">
               <div className="p-4">
-                <Typography
-                  variant="h5"
-                  className="border-b   border-[#363638] pb-2"
-                >
+                <Typography variant="h5" className="border-b   border-[#363638] pb-2">
                   Token Balances
                 </Typography>
                 <div className="mt-4 space-y-2">
                   {tokenBalance.map((item, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-center px-3 py-2"
-                    >
+                    <div key={index} className="flex justify-between items-center px-3 py-2">
                       <Typography
                         variant="body2"
                         className={clsx({
-                          "cursor-pointer hover:text-gray-200 transition-colors":
-                            index !== 0,
+                          "cursor-pointer hover:text-gray-200 transition-colors": index !== 0,
                         })}
                         data-tooltip-id={index !== 0 ? "wallet" : undefined}
                         data-tooltip-content={
@@ -285,10 +292,7 @@ const WalletInfoScreen = () => {
             {/* Actions Card */}
             <div className="bg-secondary rounded-xl border border-[#D8D8D8] dark:border-[#363638] shadow-lg">
               <div className="p-4">
-                <Typography
-                  variant="h5"
-                  className="border-b border-[#363638] pb-2 text-tbase"
-                >
+                <Typography variant="h5" className="border-b border-[#363638] pb-2 text-tbase">
                   Deposit / Withdraw
                 </Typography>
                 <div className="grid gap-4 mt-4">
@@ -296,9 +300,7 @@ const WalletInfoScreen = () => {
                     to="deposit"
                     variant="primary"
                     fullWidth
-                    icon={
-                      <FaPlus className="w-4 h-4 text-white dark:text-gray-400" />
-                    }
+                    icon={<FaPlus className="w-4 h-4 text-white dark:text-gray-400" />}
                     className="flex items-center justify-center gap-2"
                   >
                     Deposit (Fiat / Crypto)
@@ -307,9 +309,7 @@ const WalletInfoScreen = () => {
                     to="withdraw-tokenized-carbon-credit"
                     variant="secondary"
                     fullWidth
-                    icon={
-                      <FaHistory className="w-4 h-4 text-white dark:text-gray-400" />
-                    }
+                    icon={<FaHistory className="w-4 h-4 text-white dark:text-gray-400" />}
                     className="flex items-center justify-center gap-2 border-transparent"
                   >
                     Withdraw

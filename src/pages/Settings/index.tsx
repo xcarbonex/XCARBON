@@ -1,43 +1,97 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import user from "@/assets/user.svg";
 import edit from "@/assets/editProfile.svg";
-import {MdDarkMode, MdLightMode} from "react-icons/md";
-import {useTheme} from "@/components/ThemeProvider";
-import {Typography, Button} from "@/components";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
+import { useTheme } from "@/components/ThemeProvider";
+import { Typography, Button } from "@/components";
 import {
   ChangePasswordModal,
   MFAModal,
   AppearanceModal,
   APIKeyModal,
-  CurrencyModal,
   UserOverviewModal,
   EditProfileModal,
 } from "@/components/Modals";
 
-import {SelectField} from "@/components";
+interface SecuritySetting {
+  label: string;
+  action: string;
+  modal: string;
+}
 
-const Settings = () => {
-  const [activeModal, setActiveModal] = useState(null);
-  const [isUserOverviewModalOpen, setIsUserOverviewModalOpen] = useState(false);
-  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+interface Preference {
+  label: string;
+  type: string;
+  options?: string[];
+  modal?: string;
+  action?: string;
+}
+
+interface UserDocument {
+  type: string;
+  status: string;
+  date: string;
+}
+
+interface IndividualData {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  nationality: string;
+  address: string;
+  phone: string;
+  email: string;
+  kycStatus: string;
+  documents: UserDocument[];
+}
+
+interface Representative {
+  name: string;
+  position: string;
+  email: string;
+  phone: string;
+}
+
+interface EnterpriseData {
+  companyName: string;
+  registrationNumber: string;
+  taxId: string;
+  companyAddress: string;
+  companyPhone: string;
+  companyEmail: string;
+  representative: Representative;
+  kycStatus: string;
+  documents: UserDocument[];
+}
+
+interface UserData {
+  type: "enterprise" | "individual";
+  individual: IndividualData;
+  enterprise: EnterpriseData;
+}
+
+const Settings: React.FC = () => {
+  const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [isUserOverviewModalOpen, setIsUserOverviewModalOpen] = useState<boolean>(false);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState<boolean>(false);
 
   // For settings
-  const securitySettings = [
-    {label: "Password", action: "Edit", modal: "password"},
-    {label: "Multi-factor Authorization", action: "Edit", modal: "mfa"},
-    {label: "API Keys", action: "Manage", modal: "apikey"},
+  const securitySettings: SecuritySetting[] = [
+    { label: "Password", action: "Edit", modal: "password" },
+    { label: "Multi-factor Authorization", action: "Edit", modal: "mfa" },
+    { label: "API Keys", action: "Manage", modal: "apikey" },
   ];
 
-  const preferences = [
+  const preferences: Preference[] = [
     {
       label: "Language",
       type: "select",
       options: ["English", "Hindi", "French"],
     },
-    {label: "Appearance", type: "toggle"},
+    { label: "Appearance", type: "toggle" },
   ];
 
-  const handleModalOpen = (modalName) => {
+  const handleModalOpen = (modalName: string) => {
     setActiveModal(modalName);
   };
 
@@ -46,8 +100,8 @@ const Settings = () => {
   };
 
   // Mock user data - In real app, this would come from your user context/state
-  const mockUserData = {
-    type: "enterprise", // or 'individual'
+  const mockUserData: UserData = {
+    type: "enterprise" as const, // or 'individual'
     individual: {
       firstName: "John",
       lastName: "Doe",
@@ -58,8 +112,8 @@ const Settings = () => {
       email: "john.doe@example.com",
       kycStatus: "verified",
       documents: [
-        {type: "ID Card", status: "verified", date: "2024-01-15"},
-        {type: "Proof of Address", status: "verified", date: "2024-01-15"},
+        { type: "ID Card", status: "verified", date: "2024-01-15" },
+        { type: "Proof of Address", status: "verified", date: "2024-01-15" },
       ],
     },
     enterprise: {
@@ -82,7 +136,7 @@ const Settings = () => {
           status: "verified",
           date: "2024-01-15",
         },
-        {type: "Tax Certificate", status: "verified", date: "2024-01-15"},
+        { type: "Tax Certificate", status: "verified", date: "2024-01-15" },
         {
           type: "Company Address Proof",
           status: "pending",
@@ -107,11 +161,7 @@ const Settings = () => {
           <div className="flex items-center justify-between bg-tertiary px-4 py-4 rounded-xl">
             <div className="flex items-center gap-4">
               <div className="relative">
-                <img
-                  src={user}
-                  alt="user"
-                  className="bg-[#C4C4C4] rounded-lg p-2 w-16 h-16"
-                />
+                <img src={user} alt="user" className="bg-[#C4C4C4] rounded-lg p-2 w-16 h-16" />
                 <div
                   className="absolute -bottom-3 -right-3"
                   onClick={() => setIsEditProfileModalOpen(true)}
@@ -150,11 +200,10 @@ const Settings = () => {
               </Typography>
               <div className="grid gap-4 p-2">
                 {securitySettings.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center"
-                  >
-                    <Typography variant="body1" className="dark:text-white text-tbase">{item.label}</Typography>
+                  <div key={index} className="flex justify-between items-center">
+                    <Typography variant="body1" className="dark:text-white text-tbase">
+                      {item.label}
+                    </Typography>
                     <Button
                       variant="dark"
                       size="sm"
@@ -199,14 +248,13 @@ const Settings = () => {
               </Typography>
               <div className="grid gap-4 p-2">
                 {preferences.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center"
-                  >
-                    <Typography variant="body1" className="dark:text-white text-tbase">{item.label}</Typography>
+                  <div key={index} className="flex justify-between items-center">
+                    <Typography variant="body1" className="dark:text-white text-tbase">
+                      {item.label}
+                    </Typography>
                     {item.type === "select" ? (
                       <select className="bg-[#191919] text-white px-3 py-1 rounded-md border border-[#363638] text-sm">
-                        {item.options.map((option, idx) => (
+                        {item.options?.map((option, idx) => (
                           <option key={idx} value={option}>
                             {option}
                           </option>
@@ -218,9 +266,7 @@ const Settings = () => {
                       <Button
                         variant="dark"
                         size="sm"
-                        onClick={() =>
-                          item.modal && handleModalOpen(item.modal)
-                        }
+                        onClick={() => item.modal && handleModalOpen(item.modal)}
                       >
                         {item.action}
                       </Button>
@@ -240,11 +286,10 @@ const Settings = () => {
               Active Sessions
             </Typography>
             <div className="flex justify-between items-center py-4">
-              <Typography variant="body1" className="dark:text-white text-tbase ">Delete Account</Typography>
-              <button
-                size="sm"
-                className="bg-[#C2615F] rounded px-3 py-1 hover:bg-[#c2615fcb]"
-              >
+              <Typography variant="body1" className="dark:text-white text-tbase ">
+                Delete Account
+              </Typography>
+              <button className="bg-[#C2615F] rounded px-3 py-1 hover:bg-[#c2615fcb] text-sm">
                 Permanently Delete Your Account
               </button>
             </div>
@@ -253,19 +298,10 @@ const Settings = () => {
       </div>
 
       {/* Modals */}
-      <ChangePasswordModal
-        isOpen={activeModal === "password"}
-        onClose={handleModalClose}
-      />
+      <ChangePasswordModal isOpen={activeModal === "password"} onClose={handleModalClose} />
       <MFAModal isOpen={activeModal === "mfa"} onClose={handleModalClose} />
-      <AppearanceModal
-        isOpen={activeModal === "appearance"}
-        onClose={handleModalClose}
-      />
-      <APIKeyModal
-        isOpen={activeModal === "apikey"}
-        onClose={handleModalClose}
-      />
+      <AppearanceModal isOpen={activeModal === "appearance"} onClose={handleModalClose} />
+      <APIKeyModal isOpen={activeModal === "apikey"} onClose={handleModalClose} />
       {/* <CurrencyModal
         isOpen={activeModal === "currency"}
         onClose={handleModalClose}
@@ -274,13 +310,13 @@ const Settings = () => {
       <UserOverviewModal
         isOpen={isUserOverviewModalOpen}
         onClose={() => setIsUserOverviewModalOpen(false)}
-        userData={mockUserData}
       />
 
       <EditProfileModal
         isOpen={isEditProfileModalOpen}
         onClose={() => setIsEditProfileModalOpen(false)}
         userData={mockUserData}
+        onSave={() => {}}
       />
     </>
   );
@@ -288,9 +324,9 @@ const Settings = () => {
 
 export default Settings;
 
-const Switcher11 = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const {theme, toggleTheme} = useTheme();
+const Switcher11: React.FC = () => {
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const { theme, toggleTheme } = useTheme();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);

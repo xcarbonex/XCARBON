@@ -1,34 +1,56 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Typography } from '@/components';
-import { IoNotificationsOutline, IoCheckmarkCircleOutline, IoWarningOutline, IoInformationCircleOutline } from 'react-icons/io5';
-import clsx from 'clsx';
-import { notifications } from '@/appData';
-const NotificationsPage = () => {
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Typography } from "@/components";
+import {
+  IoNotificationsOutline,
+  IoCheckmarkCircleOutline,
+  IoWarningOutline,
+  IoInformationCircleOutline,
+} from "react-icons/io5";
+import clsx from "clsx";
+import { notifications } from "@/appData";
+
+interface Tab {
+  id: string;
+  label: string;
+}
+
+interface Notification {
+  id: number;
+  type: string;
+  title: string;
+  message: string;
+  date: string;
+  read: boolean;
+  actionUrl?: string;
+}
+
+type TabType = "all" | "unread" | "transaction" | "system";
+
+const NotificationsPage: React.FC = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState<TabType>("all");
 
   // Sample notification data - replace with actual data
 
-
-  const tabs = [
-    { id: 'all', label: 'All' },
-    { id: 'unread', label: 'Unread' },
-    { id: 'transaction', label: 'Transaction' },
-    { id: 'system', label: 'System' },
+  const tabs: Tab[] = [
+    { id: "all", label: "All" },
+    { id: "unread", label: "Unread" },
+    { id: "transaction", label: "Transaction" },
+    { id: "system", label: "System" },
   ];
 
-  const filteredNotifications = notifications.filter(notification => {
-    if (activeTab === 'all') return true;
-    if (activeTab === 'unread') return !notification.read;
+  const filteredNotifications = notifications.filter((notification: Notification) => {
+    if (activeTab === "all") return true;
+    if (activeTab === "unread") return !notification.read;
     return notification.type === activeTab;
   });
 
-  const getIcon = (type) => {
+  const getIcon = (type: string) => {
     switch (type) {
-      case 'transaction':
+      case "transaction":
         return <IoCheckmarkCircleOutline className="w-6 h-6 text-green-500" />;
-      case 'system':
+      case "system":
         return <IoWarningOutline className="w-6 h-6 text-yellow-500" />;
       default:
         return <IoInformationCircleOutline className="w-6 h-6 text-blue-500" />;
@@ -45,7 +67,9 @@ const NotificationsPage = () => {
           </Typography>
         </div>
         <button
-          onClick={() => {/* Mark all as read logic */}}
+          onClick={() => {
+            /* Mark all as read logic */
+          }}
           className="text-sm text-[#4C6663] hover:underline self-end sm:self-auto"
         >
           Mark all as read
@@ -57,12 +81,12 @@ const NotificationsPage = () => {
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => setActiveTab(tab.id as TabType)}
             className={clsx(
-              'px-4 py-2 text-sm whitespace-nowrap transition-colors',
+              "px-4 py-2 text-sm whitespace-nowrap transition-colors",
               activeTab === tab.id
-                ? 'border-b-2 border-[#4C6663] text-[#4C6663] dark:text-[#6A8A87]'
-                : 'text-gray-500 dark:text-gray-400 hover:text-[#4C6663] dark:hover:text-[#6A8A87]'
+                ? "border-b-2 border-[#4C6663] text-[#4C6663] dark:text-[#6A8A87]"
+                : "text-gray-500 dark:text-gray-400 hover:text-[#4C6663] dark:hover:text-[#6A8A87]"
             )}
           >
             {tab.label}
@@ -79,28 +103,26 @@ const NotificationsPage = () => {
             </Typography>
           </div>
         ) : (
-          filteredNotifications.map((notification) => (
+          filteredNotifications.map((notification: Notification) => (
             <div
               key={notification.id}
               onClick={() => navigate(`/notifications/${notification.id}`)}
               className={clsx(
-                'bg-secondary rounded-lg shadow-sm px-3 py-4',
-                'border ',
-                'cursor-pointer hover:shadow-md transition-shadow',
-                'relative'
+                "bg-secondary rounded-lg shadow-sm px-3 py-4",
+                "border ",
+                "cursor-pointer hover:shadow-md transition-shadow",
+                "relative"
               )}
             >
               <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1">
-                  {getIcon(notification.type)}
-                </div>
+                <div className="flex-shrink-0 mt-1">{getIcon(notification.type)}</div>
                 <div className="flex-grow min-w-0">
                   <div className="flex items-start justify-between gap-x-4">
                     <Typography
                       variant="h6"
                       className={clsx(
-                        'text-gray-900 dark:text-white mb-1',
-                        !notification.read && 'font-semibold'
+                        "text-gray-900 dark:text-white mb-1",
+                        !notification.read && "font-semibold"
                       )}
                     >
                       {notification.title}
@@ -131,4 +153,4 @@ const NotificationsPage = () => {
   );
 };
 
-export default NotificationsPage; 
+export default NotificationsPage;

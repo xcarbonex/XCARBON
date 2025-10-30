@@ -14,12 +14,39 @@ import { Formik, Form } from "formik";
 import FileUpload from "../../../components/FileUpload";
 import * as Yup from "yup";
 
-const breadcrumbItems = [
+interface BreadcrumbItem {
+  label: string;
+  path: string;
+}
+
+interface InputField {
+  label: string;
+  name: string;
+  placeholder: string;
+}
+
+interface TokenStatus {
+  img: React.ReactElement;
+  title: string;
+  description: string;
+}
+
+interface WithdrawFormValues {
+  selectedProject: string;
+  reason: string;
+  organizationName: string;
+  registryId: string;
+  contactEmail: string;
+  notes: string;
+  documentation: File | null;
+}
+
+const breadcrumbItems: BreadcrumbItem[] = [
   { label: "Wallet", path: "/wallet" },
   { label: "Withdraw Tokenized Carbon Credit", path: "/" },
 ];
 
-const inputFields = [
+const inputFields: InputField[] = [
   {
     label: "Organization/Entity Name",
     name: "organizationName",
@@ -32,12 +59,11 @@ const inputFields = [
   },
 ];
 
-const tokenStatusList = [
+const tokenStatusList: TokenStatus[] = [
   {
     img: <ImFire className="w-6 h-6 text-white" />,
     title: "Token is Burned",
-    description:
-      "The digital asset is permanently removed from blockchain circulation",
+    description: "The digital asset is permanently removed from blockchain circulation",
   },
   {
     img: <TfiReload className="w-6 h-6 text-white" />,
@@ -51,12 +77,12 @@ const tokenStatusList = [
   },
 ];
 
-const WithdrawTokenizedCarbonCredit = () => {
+const WithdrawTokenizedCarbonCredit: React.FC = () => {
   return (
     <div>
       <Breadcrumb items={breadcrumbItems} />
 
-      <Formik
+      <Formik<WithdrawFormValues>
         initialValues={{
           selectedProject: "",
           reason: "",
@@ -69,7 +95,7 @@ const WithdrawTokenizedCarbonCredit = () => {
         validationSchema={Yup.object().shape({
           documentation: Yup.mixed().nullable(),
         })}
-        onSubmit={(values) => {
+        onSubmit={(values: WithdrawFormValues) => {
           console.log("Form submitted:", values);
         }}
       >
@@ -84,8 +110,7 @@ const WithdrawTokenizedCarbonCredit = () => {
                 <div>
                   <Typography variant="h5">Select Tokenized Asset</Typography>
                   <Typography variant="caption">
-                    Choose the tokenized carbon credit you wish to withdraw from
-                    circulation
+                    Choose the tokenized carbon credit you wish to withdraw from circulation
                   </Typography>
                 </div>
               </div>
@@ -104,9 +129,7 @@ const WithdrawTokenizedCarbonCredit = () => {
               <div className="bg-[#E2E6E5] dark:bg-[#363638]/50 rounded-lg p-4 mt-4">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <Typography variant="h6">
-                      Rainforest Protection Project
-                    </Typography>
+                    <Typography variant="h6">Rainforest Protection Project</Typography>
                     <Typography variant="caption" className="text-[#949494]">
                       VCS-123456-2022
                     </Typography>
@@ -128,14 +151,10 @@ const WithdrawTokenizedCarbonCredit = () => {
                 </div>
 
                 <div className="flex gap-3 items-center p-3 border border-[#FFA621] bg-white/[8%] rounded-lg mt-4">
-                  <img
-                    src={caution}
-                    alt="caution"
-                    className="hidden sm:block"
-                  />
+                  <img src={caution} alt="caution" className="hidden sm:block" />
                   <Typography variant="body2">
-                    <strong>Notice:</strong> This asset is currently listed for
-                    sale. Delisting will cancel the active sale listing.
+                    <strong>Notice:</strong> This asset is currently listed for sale. Delisting will
+                    cancel the active sale listing.
                   </Typography>
                 </div>
               </div>
@@ -181,7 +200,7 @@ const WithdrawTokenizedCarbonCredit = () => {
                       <Input
                         name={field.name}
                         placeholder={field.placeholder}
-                        value={values[field.name]}
+                        value={values[field.name as keyof WithdrawFormValues] as string}
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />
@@ -224,10 +243,7 @@ const WithdrawTokenizedCarbonCredit = () => {
               <Typography variant="h6" className="mb-2">
                 Upload Documentation (Optional)
               </Typography>
-              <Typography
-                variant="caption"
-                className="text-[#949494] mb-4 block"
-              >
+              <Typography variant="caption" className="text-[#949494] mb-4 block">
                 Proof of ownership or registry transfer intent
               </Typography>
               <FileUpload
@@ -242,8 +258,8 @@ const WithdrawTokenizedCarbonCredit = () => {
             <div className="flex items-start gap-3">
               <input type="checkbox" className="mt-1.5 accent-tbase" />
               <Typography variant="body2">
-                I confirm this asset will be permanently removed from
-                circulation and this action cannot be reversed.
+                I confirm this asset will be permanently removed from circulation and this action
+                cannot be reversed.
               </Typography>
             </div>
 
@@ -274,13 +290,8 @@ const WithdrawTokenizedCarbonCredit = () => {
               <div></div>
               <div className="flex gap-3">
                 <Button variant="outline">Save as Draft</Button>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="flex items-center gap-2"
-                >
-                  Withdraw Asset{" "}
-                  <img src={arrow} alt="arrow" className="w-4 h-4" />
+                <Button variant="primary" type="submit" className="flex items-center gap-2">
+                  Withdraw Asset <img src={arrow} alt="arrow" className="w-4 h-4" />
                 </Button>
               </div>
             </div>
