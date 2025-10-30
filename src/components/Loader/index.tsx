@@ -1,6 +1,6 @@
 import React from "react";
 
-function Loader() {
+const Loader: React.FC = () => {
   return (
     <div className="dark:bg-[#141517] bg-[#FDFDFB] border rounded-xl p-4 mt-3">
       <div className="flex justify-center items-center py-8">
@@ -9,6 +9,6 @@ function Loader() {
       </div>
     </div>
   );
-}
+};
 
 export default Loader;

@@ -1,7 +1,35 @@
 import React from "react";
-import {Typography} from "..";
+import { Typography } from "..";
 
-function List({
+interface ListItem {
+  id?: string | number;
+  key?: string;
+  value?: string | number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  render?: (item: any, index: number) => React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
+type ListSize = "small" | "default" | "large";
+
+interface ListProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dataSource?: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  renderItem?: (item: any, index: number) => React.ReactNode;
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
+  bordered?: boolean;
+  loading?: boolean;
+  size?: ListSize;
+  split?: boolean;
+  items?: ListItem[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?: Record<string, any>;
+}
+
+const List: React.FC<ListProps> = ({
   dataSource: externalDataSource = [], // Rename to avoid conflict if `items` and `data` are provided
   renderItem,
   header,
@@ -12,19 +40,23 @@ function List({
   split = true,
   items = [], // New prop for defining list structure
   data = {}, // New prop for data to be displayed
-}) {
+}) => {
   // Determine the effective dataSource
   const effectiveDataSource =
     items.length > 0 && Object.keys(data).length > 0
-      ? items.map((item) => ({
-          ...item,
-          value:
-            data[item.key] !== null && data[item.key] !== undefined
-              ? typeof data[item.key] === "object"
-                ? JSON.stringify(data[item.key])
-                : data[item.key]
-              : "-",
-        }))
+      ? items.map((item) => {
+          const key = item.key;
+          const dataValue = key ? data[key] : undefined;
+          return {
+            ...item,
+            value:
+              dataValue !== null && dataValue !== undefined
+                ? typeof dataValue === "object"
+                  ? JSON.stringify(dataValue)
+                  : dataValue
+                : "-",
+          };
+        })
       : externalDataSource;
 
   const baseClasses = "border-gray-200 dark:border-gray-700 h-fit";
@@ -73,6 +105,6 @@ function List({
       {footer && <div className={`font-semibold ${itemClasses}`}>{footer}</div>}
     </div>
   );
-}
+};
 
 export default List;
