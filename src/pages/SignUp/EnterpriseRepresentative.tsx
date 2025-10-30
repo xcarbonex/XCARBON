@@ -1,3 +1,4 @@
+import React from "react";
 import certificate from "@/assets/certificate.svg";
 import camera from "@/assets/camera.svg";
 import { Input } from "@/components";
@@ -5,13 +6,49 @@ import clsx from "clsx";
 import { FileUpload } from "@/components";
 import Form from "@/components/Form";
 import * as Yup from "yup";
-
+import type { FormikValues } from "formik";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-const EnterpriseRepresentative = () => {
+
+interface DeclarationsValues {
+  PEP: boolean;
+  SanctionScreening: boolean;
+  TAndC: boolean;
+  Conformation: boolean;
+}
+
+interface RepresentativeFormValues {
+  entityName: string;
+  dateOfBirth: string;
+  nationality: string;
+  companyRole: string;
+  companyIdNumber: string;
+  residentialAddress: string;
+  linkedinUrl: string;
+  isUBO: boolean;
+  governmentId: File | null;
+  selfieId: File | null;
+  declarations: DeclarationsValues;
+  option: string;
+}
+
+interface InputField {
+  label: string;
+  type: string;
+  name: string;
+  placeholder: string;
+}
+
+interface Declaration {
+  name: string;
+  label: string;
+  description: string;
+}
+
+const EnterpriseRepresentative: React.FC = () => {
   const navigate = useNavigate();
 
-  const initialValues = {
+  const initialValues: RepresentativeFormValues = {
     entityName: "",
     dateOfBirth: "",
     nationality: "",
@@ -31,7 +68,7 @@ const EnterpriseRepresentative = () => {
     option: "1", // Default to Yes
   };
 
-  const inputFields = [
+  const inputFields: InputField[] = [
     {
       label: "Entity Name / Company Name",
       type: "text",
@@ -59,7 +96,7 @@ const EnterpriseRepresentative = () => {
   ];
 
   //   Declatarions Field
-  const declarations = [
+  const declarations: Declaration[] = [
     {
       name: "PEP",
       label: "Are you a PEP (Politically Exposed Person)?",
@@ -76,8 +113,7 @@ const EnterpriseRepresentative = () => {
     {
       name: "TAndC",
       label: "I agree to the Terms and Conditions and Privacy Policy",
-      description:
-        "I have read and agree to the Terms and Conditions and  Privacy Policy.",
+      description: "I have read and agree to the Terms and Conditions and  Privacy Policy.",
     },
     {
       name: "Confirmation",
@@ -90,10 +126,8 @@ const EnterpriseRepresentative = () => {
     <>
       <Form
         initialValues={initialValues}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          setSubmitting(false);
+        onSubmit={(_values: FormikValues) => {
           navigate("/");
-          resetForm();
           toast.success("Registration completed successfully!");
         }}
         validationSchema={Yup.object().shape({
@@ -101,12 +135,8 @@ const EnterpriseRepresentative = () => {
           dateOfBirth: Yup.date().required("Date of Birth is required"),
           nationality: Yup.string().required("Nationality is required"),
           companyRole: Yup.string().required("Company Role is required"),
-          companyIdNumber: Yup.string().required(
-            "Company ID Number is required"
-          ),
-          residentialAddress: Yup.string().required(
-            "Residential Address is required"
-          ),
+          companyIdNumber: Yup.string().required("Company ID Number is required"),
+          residentialAddress: Yup.string().required("Residential Address is required"),
           isUBO: Yup.boolean(),
           governmentId: Yup.mixed().nullable(),
           selfieId: Yup.mixed().nullable(),
@@ -118,14 +148,7 @@ const EnterpriseRepresentative = () => {
           }),
         })}
       >
-        {({
-          values,
-          handleChange,
-          setFieldValue,
-          handleBlur,
-          errors,
-          touched,
-        }) => (
+        {({ values, handleChange, setFieldValue, handleBlur, errors, touched }) => (
           <div className="grid grid-cols-2 gap-5">
             {inputFields.map((field, index) => (
               <div key={index} className="space-y-2 col-span-2 md:col-span-1">
@@ -140,9 +163,7 @@ const EnterpriseRepresentative = () => {
                 />
 
                 {errors[field.name] && touched[field.name] && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors[field.name]}
-                  </p>
+                  <p className="text-red-500 text-sm mt-1">{String(errors[field.name])}</p>
                 )}
               </div>
             ))}
@@ -159,9 +180,7 @@ const EnterpriseRepresentative = () => {
                 // className="w-full mt-3 text-white px-3 py-3 bg-[#363638]/50 text-[14px] rounded-md focus:outline-none focus:ring-2 focus:ring-[#363638]"
               />
               {errors.companyIdNumber && touched.companyIdNumber && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.companyIdNumber}
-                </p>
+                <p className="text-red-500 text-sm mt-1">{String(errors.companyIdNumber)}</p>
               )}
             </div>
 
@@ -169,7 +188,6 @@ const EnterpriseRepresentative = () => {
               <label>Residential Address</label>
               <textarea
                 name="residentialAddress"
-                type="text"
                 value={values.residentialAddress}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -177,9 +195,7 @@ const EnterpriseRepresentative = () => {
                 className="w-full mt-3 bg-input border rounded-md  focus:ring-1 focus:ring-input px-3 py-3"
               />
               {errors.residentialAddress && touched.residentialAddress && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.residentialAddress}
-                </p>
+                <p className="text-red-500 text-sm mt-1">{String(errors.residentialAddress)}</p>
               )}
             </div>
 
@@ -194,9 +210,7 @@ const EnterpriseRepresentative = () => {
                 onBlur={handleBlur}
               />
               {errors.linkedinUrl && touched.linkedinUrl && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.linkedinUrl}
-                </p>
+                <p className="text-red-500 text-sm mt-1">{String(errors.linkedinUrl)}</p>
               )}
             </div>
 
@@ -231,7 +245,7 @@ const EnterpriseRepresentative = () => {
                 </label>
               </div>
               {errors.option && touched.option && (
-                <p className="text-red-500 text-sm mt-1">{errors.option}</p>
+                <p className="text-red-500 text-sm mt-1">{String(errors.option)}</p>
               )}
             </div>
 
@@ -258,17 +272,12 @@ const EnterpriseRepresentative = () => {
                     checked={values.declarations[item.name]}
                     onChange={(e) => {
                       handleChange(e);
-                      setFieldValue(
-                        `declarations.${item.name}`,
-                        e.target.checked
-                      );
+                      setFieldValue(`declarations.${item.name}`, e.target.checked);
                     }}
                     className="bg-transparent accent-tbase border-transparent px-0 shadow-none focus-within:ring-transparent focus-within:border-transparent focus-within:outline-transparent"
                     suffix={
                       <div className="ml-2">
-                        <label className=" text-[14px] text-[#8996A9]">
-                          {item.label}
-                        </label>
+                        <label className=" text-[14px] text-[#8996A9]">{item.label}</label>
                         <p
                           className={clsx("text-[9px] text-[#8996A9]", {
                             hidden: !item.description,

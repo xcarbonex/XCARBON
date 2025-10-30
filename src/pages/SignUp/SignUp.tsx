@@ -1,6 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Person from "@/assets/person.svg";
-import lock from "@/assets/lock.svg";
 import { useTheme } from "@/components/ThemeProvider";
 import clsx from "clsx";
 import { Input, Button } from "@/components";
@@ -11,17 +10,34 @@ import xNeon from "@/assets/xNeon.svg";
 import EnterpriseDetail from "./EnterpriseDetail";
 import IndividualDetail from "./IndividualDetail";
 import { Tabs } from "@/components";
+import type { Tab } from "@/components/Tabs";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import Form from "@/components/Form";
 import * as Yup from "yup";
+import type { FormikValues } from "formik";
 import { BsPersonCheckFill } from "react-icons/bs";
 import { GoVerified } from "react-icons/go";
 import { RiShieldFlashLine } from "react-icons/ri";
 import { BsPerson } from "react-icons/bs";
 import { LuLockKeyhole } from "react-icons/lu";
 
-const data = [
+interface DataItem {
+  id: number;
+  image: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+interface SignUpFormValues {
+  Fname: string;
+  Lname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const data: DataItem[] = [
   {
     id: 1,
     image: <BsPersonCheckFill className="w-6 h-6" />,
@@ -45,35 +61,34 @@ const data = [
   },
 ];
 
-let xtabs = [
+const xtabs: Tab[] = [
   { id: "enterprise", label: "Enterprise" },
   { id: "individual", label: "Individual" },
 ];
-const SignUp = () => {
-  const { theme } = useTheme();
-  const [tabVisible, setTabVisible] = useState(false);
-  const [activeTab, setActiveTab] = useState("enterprise");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  let parentClasses = clsx(
-    theme === "dark" ? "bg-dark-bg" : "bg-light-bg",
-    theme
-  );
+const SignUp: React.FC = () => {
+  const { theme } = useTheme();
+  const [tabVisible, setTabVisible] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>("enterprise");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+
+  let parentClasses = clsx(theme === "dark" ? "bg-dark-bg" : "bg-light-bg", theme);
 
   let logo = theme === "dark" ? logoLight : logoBlack;
   let tabsContainerLogo = theme === "dark" ? xNeon : logoBlack;
 
-  const initialValues = {
+  const initialValues: SignUpFormValues = {
     Fname: "",
     Lname: "",
     email: "",
     password: "",
     confirmPassword: "",
   };
-  const handleSubmit = async (values, { setSubmitting }) => {
+
+  const handleSubmit = async (_values: FormikValues) => {
     setError("");
     setIsLoading(true);
     try {
@@ -84,7 +99,6 @@ const SignUp = () => {
       setError("Failed to create account. Please try again.");
     } finally {
       setIsLoading(false);
-      setSubmitting(false);
     }
   };
 
@@ -99,21 +113,16 @@ const SignUp = () => {
   const validationSchema = Yup.object().shape({
     Fname: Yup.string().required("First Name is required"),
     Lname: Yup.string().required("Last Name is required"),
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
+    email: Yup.string().email("Invalid email address").required("Email is required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
       .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
       .matches(/[a-z]/, "Password must contain at least one lowercase letter")
       .matches(/\d/, "Password must contain at least one number")
-      .matches(
-        /[!@#$%^&*(),.?":{}|<>]/,
-        "Password must contain at least one special character"
-      )
+      .matches(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character")
       .required("Password is required"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .oneOf([Yup.ref("password")], "Passwords must match")
       .required("Confirm Password is required"),
   });
 
@@ -129,11 +138,7 @@ const SignUp = () => {
       >
         <div>
           <div>
-            <img
-              src={logo}
-              className={clsx("w-fit h-fit pl-7 md:scale-125")}
-              alt="X Carbon Logo"
-            />
+            <img src={logo} className={clsx("w-fit h-fit pl-7 md:scale-125")} alt="X Carbon Logo" />
           </div>
           <div className="hidden md:block">
             <div className="text-2xl tracking-wider">
@@ -147,9 +152,7 @@ const SignUp = () => {
                   </div>
                   <div className="grid grid-cols-1 gap-y-2 mt-3">
                     <h2 className="text-[16px]">{item.title}</h2>
-                    <p className="text-gray-400 text-[14px]">
-                      {item.description}
-                    </p>
+                    <p className="text-gray-400 text-[14px]">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -174,17 +177,13 @@ const SignUp = () => {
                       id="Fname"
                       name="Fname"
                       placeholder="First Name"
-                      prefix={
-                        <BsPerson className="w-6 h-6 text-gray-400 dark:text-white" />
-                      }
+                      prefix={<BsPerson className="w-6 h-6 text-gray-400 dark:text-white" />}
                       value={values.Fname}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
                     {errors.Fname && touched.Fname && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.Fname}
-                      </p>
+                      <p className="text-red-500 text-sm mt-1">{String(errors.Fname)}</p>
                     )}
                   </div>
                   <div className="space-y-2 col-span-2 md:col-span-1">
@@ -194,17 +193,13 @@ const SignUp = () => {
                       id="Lname"
                       name="Lname"
                       placeholder=" Last Name"
-                      prefix={
-                        <BsPerson className="w-6 h-6 text-gray-400 dark:text-white" />
-                      }
+                      prefix={<BsPerson className="w-6 h-6 text-gray-400 dark:text-white" />}
                       value={values.Lname}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
                     {errors.Lname && touched.Lname && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.Lname}
-                      </p>
+                      <p className="text-red-500 text-sm mt-1">{String(errors.Lname)}</p>
                     )}
                   </div>
                   <div className="space-y-2 col-span-2">
@@ -214,18 +209,14 @@ const SignUp = () => {
                       id="email"
                       name="email"
                       placeholder="Email"
-                      prefix={
-                        <MdOutlineEmail className="h-6 w-6 text-gray-400 dark:text-white" />
-                      }
+                      prefix={<MdOutlineEmail className="h-6 w-6 text-gray-400 dark:text-white" />}
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       disabled={isLoading}
                     />
                     {errors.email && touched.email && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.email}
-                      </p>
+                      <p className="text-red-500 text-sm mt-1">{String(errors.email)}</p>
                     )}
                   </div>
                   <div className="space-y-2 col-span-2">
@@ -235,9 +226,7 @@ const SignUp = () => {
                       id="password"
                       name="password"
                       placeholder="Password"
-                      prefix={
-                        <LuLockKeyhole className="w-6 h-6 text-gray-400 dark:text-white" />
-                      }
+                      prefix={<LuLockKeyhole className="w-6 h-6 text-gray-400 dark:text-white" />}
                       suffix={
                         <button
                           type="button"
@@ -257,9 +246,7 @@ const SignUp = () => {
                       disabled={isLoading}
                     />
                     {errors.password && touched.password && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.password}
-                      </p>
+                      <p className="text-red-500 text-sm mt-1">{String(errors.password)}</p>
                     )}
                   </div>
                   <div className="space-y-2 col-span-2">
@@ -288,9 +275,7 @@ const SignUp = () => {
                       disabled={isLoading}
                     />
                     {errors.confirmPassword && touched.confirmPassword && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.confirmPassword}
-                      </p>
+                      <p className="text-red-500 text-sm mt-1">{String(errors.confirmPassword)}</p>
                     )}
                   </div>
                   <div className="col-span-2 mt-3">
@@ -363,9 +348,7 @@ const SignUp = () => {
                           </svg>
                         </div>
                         <div className="ml-3">
-                          <p className="text-sm font-medium text-red-800">
-                            {error}
-                          </p>
+                          <p className="text-sm font-medium text-red-800">{error}</p>
                         </div>
                       </div>
                     </div>
@@ -384,18 +367,14 @@ const SignUp = () => {
       >
         <div className="w-full md:w-1/2 mb-3">
           <div className={`w-fit h-fit mx-auto`}>
-            <img
-              src={tabsContainerLogo}
-              className="w-full"
-              alt="X Carbon Logo"
-            />
+            <img src={tabsContainerLogo} className="w-full" alt="X Carbon Logo" />
           </div>
           <div className="p-4  bg-secondary rounded-xl drop-shadow space-y-7">
             {/* <div className="grid grid-cols-2 gap-4 "> */}
             <Tabs
               tabs={xtabs}
               activeTab={activeTab}
-              onTabChange={setActiveTab}
+              onTabChange={(tabId) => setActiveTab(tabId as string)}
               containerClassName="border-b-0"
               tabClassName={"w-full border-input border h-16"}
             />
@@ -415,11 +394,7 @@ const SignUp = () => {
                 </button>
               ))} */}
             {/* </div> */}
-            {activeTab === "enterprise" ? (
-              <EnterpriseDetail />
-            ) : (
-              <IndividualDetail />
-            )}
+            {activeTab === "enterprise" ? <EnterpriseDetail /> : <IndividualDetail />}
           </div>
         </div>
       </div>

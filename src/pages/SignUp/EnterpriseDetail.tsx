@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // import logox from "@/assets/logoX.svg";
 import certificate from "@/assets/certificate.svg";
@@ -7,18 +7,41 @@ import Input from "@/components/Input";
 import EnterpriseRepresentative from "./EnterpriseRepresentative";
 import clsx from "clsx";
 import Form from "@/components/Form";
-import * as Yup from 'yup';
+import * as Yup from "yup";
+import type { FormikValues } from "formik";
 import { FileUpload } from "@/components";
-import {Select, SelectItem} from "@heroui/react";
+import { Select, SelectItem } from "@heroui/react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const Enterprise = () => {
-  const navigate = useNavigate();
-  const [isrepresentative, setIsRepresentative] = useState(false);
-  const [showRepresentative, setShowRepresentative] = useState(false);
+interface EnterpriseFormValues {
+  entityName: string;
+  companyNumber: string;
+  taxNumber: string;
+  dateOfIncorporation: string;
+  countryOfIncorporation: string;
+  website: string;
+  companyEmail: string;
+  businessPhone: string;
+  businessType: string;
+  industrySector: string;
+  officeAddress: string;
+  certificate: File | null;
+  license: File | null;
+  isUBO: boolean;
+}
 
-  const initialValues = {
+interface SelectOption {
+  key: string;
+  label: string;
+}
+
+const Enterprise: React.FC = () => {
+  const navigate = useNavigate();
+  const [isrepresentative, setIsRepresentative] = useState<boolean>(false);
+  const [showRepresentative, setShowRepresentative] = useState<boolean>(false);
+
+  const initialValues: EnterpriseFormValues = {
     entityName: "",
     companyNumber: "",
     taxNumber: "",
@@ -52,45 +75,77 @@ const Enterprise = () => {
     isUBO: Yup.boolean(),
   });
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = (_values: FormikValues) => {
     if (isrepresentative) {
       setShowRepresentative(true);
-    }else{
+    } else {
       setShowRepresentative(false);
       toast.success("Registration completed successfully!");
       navigate("/");
-      resetForm(); 
-      setSubmitting(false);
     }
   };
 
-  const businessTypes = [
-  {key: "", label: "Select Business Type"},
-  {key: "LLC", label: "LLC"},
-  {key: "Corporation", label: "Corporation"},
-  {key: "Partnership", label: "Partnership"},
-];
+  const businessTypes: SelectOption[] = [
+    { key: "", label: "Select Business Type" },
+    { key: "LLC", label: "LLC" },
+    { key: "Corporation", label: "Corporation" },
+    { key: "Partnership", label: "Partnership" },
+  ];
 
-const industryTypes = [
-  {key: "", label: "Select Industry Sector"},
-  {key: "Technology", label: "Technology"},
-  {key: "Finance", label: "Finance"},
-  {key: "Healthcare", label: "Healthcare"},
-];
+  const industryTypes: SelectOption[] = [
+    { key: "", label: "Select Industry Sector" },
+    { key: "Technology", label: "Technology" },
+    { key: "Finance", label: "Finance" },
+    { key: "Healthcare", label: "Healthcare" },
+  ];
   return (
     <>
-      <Form initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
+      <Form
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
         {({ values, handleChange, setFieldValue, handleBlur, errors, touched }) => (
-          <div className={clsx('grid grid-cols-2 gap-3 md:gap-4', { hidden: showRepresentative })}>
+          <div className={clsx("grid grid-cols-2 gap-3 md:gap-4", { hidden: showRepresentative })}>
             {[
-              { label: "Entity Name / Company Name", name: "entityName", type: "text", placeholder: "Company Name" },
-              { label: "Company Number", name: "companyNumber", type: "text", placeholder: "Company Number" },
+              {
+                label: "Entity Name / Company Name",
+                name: "entityName",
+                type: "text",
+                placeholder: "Company Name",
+              },
+              {
+                label: "Company Number",
+                name: "companyNumber",
+                type: "text",
+                placeholder: "Company Number",
+              },
               { label: "Tax Number", name: "taxNumber", type: "text", placeholder: "Tax Number" },
-              { label: "Date of Incorporation", name: "dateOfIncorporation", type: "date", placeholder: "Select Date" },
-              { label: "Country of Incorporation", name: "countryOfIncorporation", type: "text", placeholder: "Country of Incorporation" },
+              {
+                label: "Date of Incorporation",
+                name: "dateOfIncorporation",
+                type: "date",
+                placeholder: "Select Date",
+              },
+              {
+                label: "Country of Incorporation",
+                name: "countryOfIncorporation",
+                type: "text",
+                placeholder: "Country of Incorporation",
+              },
               { label: "Website URL", name: "website", type: "url", placeholder: "Website URL" },
-              { label: "Company Email", name: "companyEmail", type: "email", placeholder: "Company Email" },
-              { label: "Business Phone Number", name: "businessPhone", type: "tel", placeholder: "Business Phone Number" },
+              {
+                label: "Company Email",
+                name: "companyEmail",
+                type: "email",
+                placeholder: "Company Email",
+              },
+              {
+                label: "Business Phone Number",
+                name: "businessPhone",
+                type: "tel",
+                placeholder: "Business Phone Number",
+              },
             ].map((field, index) => (
               <div key={index} className="col-span-2 md:col-span-1 space-y-2">
                 <label>{field.label}</label>
@@ -103,43 +158,50 @@ const industryTypes = [
                   onBlur={handleBlur}
                 />
                 {errors[field.name] && touched[field.name] && (
-                  <p className="text-red-500 text-sm mt-1">{errors[field.name]}</p>
+                  <p className="text-red-500 text-sm mt-1">{String(errors[field.name])}</p>
                 )}
               </div>
             ))}
             <div className="col-span-2 md:col-span-1 space-y-2">
               <label>Business Type</label>
-               <Select name="businessType" size="lg" radius="sm" variant={'flat'}  onChange={(e) =>setFieldValue("businessType", e.target.value)}>
-                 {businessTypes.map((type) => (
-                   <SelectItem key={type.key} value={type.key}>
-                     {type.label}
-                   </SelectItem>
-                 ))}
-               </Select>
-          
+              <Select
+                name="businessType"
+                size="lg"
+                radius="sm"
+                variant={"flat"}
+                onChange={(e) => setFieldValue("businessType", e.target.value)}
+              >
+                {businessTypes.map((type) => (
+                  <SelectItem key={type.key}>{type.label}</SelectItem>
+                ))}
+              </Select>
+
               {errors.businessType && touched.businessType && (
-                <p className="text-red-500 text-sm mt-1">{errors.businessType}</p>
+                <p className="text-red-500 text-sm mt-1">{String(errors.businessType)}</p>
               )}
             </div>
             <div className="col-span-2 md:col-span-1 space-y-2">
               <label>Industry Sector</label>
-               <Select name="industrySector" size="lg" radius="sm" variant={'flat'} onChange={(e) =>setFieldValue("industrySector", e.target.value)}>
-                 {industryTypes.map((type) => (
-                   <SelectItem key={type.key} value={type.key}>
-                     {type.label}
-                   </SelectItem>
-                 ))}
-               </Select>
-      
+              <Select
+                name="industrySector"
+                size="lg"
+                radius="sm"
+                variant={"flat"}
+                onChange={(e) => setFieldValue("industrySector", e.target.value)}
+              >
+                {industryTypes.map((type) => (
+                  <SelectItem key={type.key}>{type.label}</SelectItem>
+                ))}
+              </Select>
+
               {errors.industrySector && touched.industrySector && (
-                <p className="text-red-500 text-sm mt-1">{errors.industrySector}</p>
+                <p className="text-red-500 text-sm mt-1">{String(errors.industrySector)}</p>
               )}
             </div>
             <div className="col-span-2 space-y-2">
               <label>Registered Office Address</label>
               <textarea
                 name="officeAddress"
-                type="text"
                 placeholder="Registered Office Address"
                 className="w-full mt-3 bg-input border rounded-md  focus:ring-1 focus:ring-input px-3 py-3"
                 value={values.officeAddress}
@@ -147,23 +209,23 @@ const industryTypes = [
                 onBlur={handleBlur}
               />
               {errors.officeAddress && touched.officeAddress && (
-                <p className="text-red-500 text-sm mt-1">{errors.officeAddress}</p>
+                <p className="text-red-500 text-sm mt-1">{String(errors.officeAddress)}</p>
               )}
             </div>
-         
-             <FileUpload
-                          name="certificate"
-                          label="Certificate of Incorporation"
-                          icon={certificate}
-                          helperText="Upload PDF, JPG (Max 10MB)"
-                        />
-           
-              <FileUpload
-                          name="license"
-                          label="Company License"
-                          icon={license}
-                          helperText="Upload PDF, JPG (Max 10MB)"
-                        />
+
+            <FileUpload
+              name="certificate"
+              label="Certificate of Incorporation"
+              icon={certificate}
+              helperText="Upload PDF, JPG (Max 10MB)"
+            />
+
+            <FileUpload
+              name="license"
+              label="Company License"
+              icon={license}
+              helperText="Upload PDF, JPG (Max 10MB)"
+            />
             <div className="col-span-2">
               <p className=" text-lg md:text-2xl font-bold ">Representative Information</p>
               <div>
@@ -171,7 +233,7 @@ const industryTypes = [
                   type="checkbox"
                   name="isUBO"
                   checked={values.isUBO}
-                  onChange={e => {
+                  onChange={(e) => {
                     handleChange(e);
                     setIsRepresentative(e.target.checked);
                   }}
@@ -181,12 +243,15 @@ const industryTypes = [
                   Are you a UBO (Ultimate Beneficial Owner) a0Person?
                 </label>
                 {errors.isUBO && touched.isUBO && (
-                  <p className="text-red-500 text-sm mt-1">{errors.isUBO}</p>
+                  <p className="text-red-500 text-sm mt-1">{String(errors.isUBO)}</p>
                 )}
               </div>
             </div>
-            <button type='submit' className="col-span-2 p-3 mt-10 bg-btn rounded-lg text-text hover:drop-shadow">
-              { values.isUBO ? 'Next' : 'Complete Registration' }
+            <button
+              type="submit"
+              className="col-span-2 p-3 mt-10 bg-btn rounded-lg text-text hover:drop-shadow"
+            >
+              {values.isUBO ? "Next" : "Complete Registration"}
             </button>
           </div>
         )}
