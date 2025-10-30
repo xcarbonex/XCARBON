@@ -1,7 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, ReactNode } from "react";
 import useAuthStore from "../../store/authStore";
 
-const AuthProvider = ({ children }) => {
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const { initializeAuth, refreshToken, isAuthenticated } = useAuthStore();
 
   useEffect(() => {
@@ -12,9 +16,12 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Set up token refresh interval if user is authenticated
     if (isAuthenticated) {
-      const refreshInterval = setInterval(() => {
-        refreshToken();
-      }, 15 * 60 * 1000); // Refresh every 15 minutes
+      const refreshInterval = setInterval(
+        () => {
+          refreshToken();
+        },
+        15 * 60 * 1000
+      ); // Refresh every 15 minutes
 
       return () => clearInterval(refreshInterval);
     }

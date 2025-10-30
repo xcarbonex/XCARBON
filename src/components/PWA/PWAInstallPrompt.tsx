@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-const PWAInstallPrompt = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
+
+const PWAInstallPrompt: React.FC = () => {
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [showInstallPrompt, setShowInstallPrompt] = useState<boolean>(false);
 
   useEffect(() => {
-    const handleBeforeInstallPrompt = (e) => {
+    const handleBeforeInstallPrompt = (e: Event) => {
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
       // Stash the event so it can be triggered later
-      setDeferredPrompt(e);
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
       // Show the install prompt
       setShowInstallPrompt(true);
     };
@@ -24,10 +29,7 @@ const PWAInstallPrompt = () => {
     window.addEventListener("appinstalled", handleAppInstalled);
 
     return () => {
-      window.removeEventListener(
-        "beforeinstallprompt",
-        handleBeforeInstallPrompt
-      );
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, []);
@@ -65,9 +67,7 @@ const PWAInstallPrompt = () => {
           <img src="/logodark.png" alt="Quantum" className="w-8 h-8 rounded" />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-            Install Quantum App
-          </h3>
+          <h3 className="text-sm font-medium text-gray-900 dark:text-white">Install Quantum App</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Install our app for a better experience.
           </p>

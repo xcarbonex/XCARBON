@@ -1,16 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import useAuthStore from "../../store/authStore";
 
-const ProtectedRoute = ({
+interface ProtectedRouteProps {
+  children: ReactNode;
+  requiredRole?: string | null;
+  requiredRoles?: string[];
+  redirectTo?: string;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   requiredRole = null,
   requiredRoles = [],
   redirectTo = "/login",
 }) => {
   const location = useLocation();
-  const { isAuthenticated, user, isLoading, initializeAuth, getCurrentUser } =
-    useAuthStore();
+  const { isAuthenticated, user, isLoading, initializeAuth, getCurrentUser } = useAuthStore();
 
   useEffect(() => {
     // Initialize auth state on component mount
@@ -49,34 +55,22 @@ const ProtectedRoute = ({
       return (
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">
-              Access Denied
-            </h1>
-            <p className="text-gray-600 mb-4">
-              You don't have permission to access this page.
-            </p>
-            <p className="text-sm text-gray-500">
-              Required role: {requiredRole}
-            </p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Access Denied</h1>
+            <p className="text-gray-600 mb-4">You don't have permission to access this page.</p>
+            <p className="text-sm text-gray-500">Required role: {requiredRole}</p>
           </div>
         </div>
       );
     }
 
     // Check multiple required roles
-    if (requiredRoles.length > 0 && !requiredRoles.includes(userRole)) {
+    if (requiredRoles.length > 0 && userRole && !requiredRoles.includes(userRole)) {
       return (
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">
-              Access Denied
-            </h1>
-            <p className="text-gray-600 mb-4">
-              You don't have permission to access this page.
-            </p>
-            <p className="text-sm text-gray-500">
-              Required roles: {requiredRoles.join(", ")}
-            </p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Access Denied</h1>
+            <p className="text-gray-600 mb-4">You don't have permission to access this page.</p>
+            <p className="text-sm text-gray-500">Required roles: {requiredRoles.join(", ")}</p>
           </div>
         </div>
       );

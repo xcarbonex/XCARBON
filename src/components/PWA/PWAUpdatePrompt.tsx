@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+// @ts-expect-error - virtual:pwa-register/react is a Vite plugin virtual module
 import { useRegisterSW } from "virtual:pwa-register/react";
 
-const PWAUpdatePrompt = () => {
-  const [showUpdatePrompt, setShowUpdatePrompt] = useState(false);
+const PWAUpdatePrompt: React.FC = () => {
+  const [showUpdatePrompt, setShowUpdatePrompt] = useState<boolean>(false);
 
   const {
     offlineReady: [offlineReady, setOfflineReady],
