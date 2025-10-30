@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -6,23 +6,47 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
   flexRender,
-} from '@tanstack/react-table';
-import { IoIosSearch } from 'react-icons/io';
+  ColumnDef,
+  SortingState,
+} from "@tanstack/react-table";
+import { IoIosSearch } from "react-icons/io";
 import { IoMdCalendar } from "react-icons/io";
 import { HiDotsVertical } from "react-icons/hi";
 import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa6";
 import { MdFilterAltOff } from "react-icons/md";
-import clsx from 'clsx';
-import { Input } from '..';
-import Pagination from './Pagination';
-import Dropdown from '../Dropdown';
+import clsx from "clsx";
+import { Input } from "..";
+import Pagination from "./Pagination";
+import Dropdown from "../Dropdown";
 // import Datepicker from 'react-tailwindcss-datepicker';
-import Typography from '../Typography';
-import { ScrollBarWrapper } from '..';
-import { DateRangeCalander } from '..';
+import Typography from "../Typography";
+import { ScrollBarWrapper } from "..";
+import { DateRangeCalander } from "..";
+
+interface DateRangeState {
+  startDate: Date | null;
+  endDate: Date | null;
+  key: string;
+}
+
+interface TableProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  columns: ColumnDef<any, any>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any[];
+  showSearch?: boolean;
+  showPageSize?: boolean;
+  showDataFilter?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onRowClick?: (row: any) => void;
+  title?: string;
+  prepend?: React.ReactNode;
+  dateField?: string;
+  defaultPageSize?: number;
+}
 
 // TODO: Helper funcition to get date range based on filter
-const getDateRange = (filter) => {
+const getDateRange = (filter: string | null): string | null => {
   const now = new Date();
   // Set seconds and milliseconds to 0 for more precise time comparison
   now.setSeconds(0);
@@ -30,27 +54,27 @@ const getDateRange = (filter) => {
 
   let fromDate;
   switch (filter) {
-    case '12H':
+    case "12H":
       fromDate = new Date(now);
       fromDate.setHours(now.getHours() - 12);
       return fromDate.toISOString();
-    case '1D':
+    case "1D":
       fromDate = new Date(now);
       fromDate.setDate(now.getDate() - 1);
       return fromDate.toISOString();
-    case '1W':
+    case "1W":
       fromDate = new Date(now);
       fromDate.setDate(now.getDate() - 7);
       return fromDate.toISOString();
-    case '1M':
+    case "1M":
       fromDate = new Date(now);
       fromDate.setMonth(now.getMonth() - 1);
       return fromDate.toISOString();
-    case '3M':
+    case "3M":
       fromDate = new Date(now);
       fromDate.setMonth(now.getMonth() - 3);
       return fromDate.toISOString();
-    case '6M':
+    case "6M":
       fromDate = new Date(now);
       fromDate.setMonth(now.getMonth() - 6);
       return fromDate.toISOString();
@@ -59,30 +83,30 @@ const getDateRange = (filter) => {
   }
 };
 
-const Table = ({ 
-  columns, 
-  data, 
-  showSearch = false, 
-  showPageSize = false, 
-  showDataFilter = false, 
-  onRowClick = () => {}, 
-  title = '',
-  prepend=null,
-  dateField = 'createdDate',
-  defaultPageSize = 10
+const Table: React.FC<TableProps> = ({
+  columns,
+  data,
+  showSearch = false,
+  showPageSize = false,
+  showDataFilter = false,
+  onRowClick = () => {},
+  title = "",
+  prepend = null,
+  dateField = "createdDate",
+  defaultPageSize = 10,
 }) => {
-  const [sorting, setSorting] = useState([]);
-  const [pageSize, setPageSize] = useState(defaultPageSize);
-  const [pageIndex, setPageIndex] = useState(0);
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [selectedDataFilter, setSelectedDataFilter] = useState(null);
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [pageSize, setPageSize] = useState<number>(defaultPageSize);
+  const [pageIndex, setPageIndex] = useState<number>(0);
+  const [globalFilter, setGlobalFilter] = useState<string>("");
+  const [selectedDataFilter, setSelectedDataFilter] = useState<string | null>(null);
   // const [showDatePicker, setShowDatePicker] = useState(false);
-  const [dateRange, setDateRange] = useState({
+  const [dateRange, setDateRange] = useState<DateRangeState>({
     startDate: null,
     endDate: null,
-    key: 'selection'
+    key: "selection",
   });
-  const datePickerRef = useRef(null);
+  const datePickerRef = useRef<HTMLDivElement>(null);
 
   // Update pageSize when defaultPageSize prop changes
   useEffect(() => {
@@ -91,27 +115,31 @@ const Table = ({
 
   // Handle click outside to close date picker
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (datePickerRef.current && !datePickerRef.current.contains(event.target as Node)) {
         // setShowDatePicker(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Reset all filters
   const resetFilters = () => {
-    setGlobalFilter('');
+    setGlobalFilter("");
     setSelectedDataFilter(null);
-    setDateRange({ startDate: null, endDate: null });
+    setDateRange({ startDate: null, endDate: null, key: "selection" });
     setSorting([]);
     setPageSize(defaultPageSize);
     setPageIndex(0);
   };
 
   // Check if any filter is active
-  const isFilterActive = globalFilter || selectedDataFilter || sorting.length > 0 || (dateRange.startDate && dateRange.endDate);
+  const isFilterActive =
+    globalFilter ||
+    selectedDataFilter ||
+    sorting.length > 0 ||
+    (dateRange.startDate && dateRange.endDate);
 
   // Filter data based on selected date range
   const filteredData = useMemo(() => {
@@ -126,7 +154,8 @@ const Table = ({
         now.setSeconds(0);
         now.setMilliseconds(0);
         const currentDate = now.toISOString();
-        filtered = filtered.filter(row => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        filtered = filtered.filter((row: any) => {
           const rowDate = row[dateField];
           return rowDate >= fromDate && rowDate <= currentDate;
         });
@@ -135,10 +164,11 @@ const Table = ({
 
     // Apply date range picker filter
     if (dateRange.startDate && dateRange.endDate && dateField) {
-      filtered = filtered.filter(row => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      filtered = filtered.filter((row: any) => {
         const rowDate = new Date(row[dateField]);
-        const startDate = new Date(dateRange.startDate);
-        const endDate = new Date(dateRange.endDate);
+        const startDate = new Date(dateRange.startDate as Date);
+        const endDate = new Date(dateRange.endDate as Date);
         endDate.setHours(23, 59, 59, 999); // Include the entire end date
         return rowDate >= startDate && rowDate <= endDate;
       });
@@ -150,17 +180,17 @@ const Table = ({
   const table = useReactTable({
     data: filteredData,
     columns,
-    state: { 
+    state: {
       sorting,
       pagination: {
         pageSize,
-        pageIndex
+        pageIndex,
       },
-      globalFilter 
+      globalFilter,
     },
     onSortingChange: setSorting,
     onPaginationChange: (updater) => {
-      if (typeof updater === 'function') {
+      if (typeof updater === "function") {
         const newState = updater(table.getState().pagination);
         setPageSize(newState.pageSize);
         setPageIndex(newState.pageIndex);
@@ -172,29 +202,25 @@ const Table = ({
     onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: (row, columnId, filterValue) => {
       const value = row.getValue(columnId);
-      return String(value)
-        .toLowerCase()
-        .includes(String(filterValue).toLowerCase());
+      return String(value).toLowerCase().includes(String(filterValue).toLowerCase());
     },
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     manualPagination: false,
-    pageCount: Math.ceil(filteredData.length / pageSize)
+    pageCount: Math.ceil(filteredData.length / pageSize),
   });
 
   return (
-    <div className={clsx('w-full overflow-auto')}>
+    <div className={clsx("w-full overflow-auto")}>
       <div className="flex flex-col items-center sm:flex-row gap-4">
-        <div className={clsx({hidden:!prepend})}>
-          {prepend}
-        </div>
-        <Typography variant="h4" className={clsx("whitespace-nowrap md:mb-4", {hidden:!title})}>
+        <div className={clsx({ hidden: !prepend })}>{prepend}</div>
+        <Typography variant="h4" className={clsx("whitespace-nowrap md:mb-4", { hidden: !title })}>
           {title}
         </Typography>
-        
-        <div className='flex flex-wrap items-center mb-4 gap-3 w-full sm:w-auto ml-auto'>
+
+        <div className="flex flex-wrap items-center mb-4 gap-3 w-full sm:w-auto ml-auto">
           {/* Search Input - Full width on mobile */}
           {showSearch && (
             <div className="w-full sm:w-auto order-1">
@@ -202,8 +228,8 @@ const Table = ({
                 type="text"
                 placeholder="Search..."
                 className="w-full sm:w-[250px] lg:w-[300px] rounded-[4rem] text-tbase"
-                variant='xs'
-                prefix={<IoIosSearch className="w-5 h-6"/>}
+                variant="xs"
+                prefix={<IoIosSearch className="w-5 h-6" />}
                 value={globalFilter}
                 onChange={(e) => setGlobalFilter(e.target.value)}
                 aria-label="Search table"
@@ -242,8 +268,12 @@ const Table = ({
             {/* Time Range Filter */}
             {showDataFilter && (
               <Dropdown
+                // @ts-expect-error - Dropdown not yet migrated to TypeScript
                 options={options}
-                onSelect={(value) => setSelectedDataFilter(value.value)}
+                // @ts-expect-error - Dropdown not yet migrated to TypeScript
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onSelect={(value: any) => setSelectedDataFilter(value.value)}
+                // @ts-expect-error - Dropdown not yet migrated to TypeScript
                 selectedOption={selectedDataFilter}
                 buttonClassName="text-sm sm:text-base"
               />
@@ -252,27 +282,30 @@ const Table = ({
             {/* Page Size Dropdown */}
             {showPageSize && (
               <Dropdown
+                // @ts-expect-error - Dropdown not yet migrated to TypeScript
                 options={sizeOptions}
-                onSelect={(value) => table.setPageSize(value.value)}
+                // @ts-expect-error - Dropdown not yet migrated to TypeScript
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onSelect={(value: any) => table.setPageSize(value.value)}
                 icon={<HiDotsVertical className="w-5 h-5" />}
-                buttonClassName={clsx('rounded-full p-[7px] hover:bg-black/5')}
+                buttonClassName={clsx("rounded-full p-[7px] hover:bg-black/5")}
               />
             )}
           </div>
         </div>
       </div>
-            
+
       <div className={clsx("w-full text-tbase overflow-auto")}>
         <table className={clsx("w-full")}>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id} className='border-y'>
+              <tr key={headerGroup.id} className="border-y">
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
                     className={clsx(
-                      'px-6 py-5 text-nowrap text-left text-tbase opacity-65 text-sm font-medium tracking-wider',
-                      header.column.getCanSort() && 'cursor-pointer select-none'
+                      "px-6 py-5 text-nowrap text-left text-tbase opacity-65 text-sm font-medium tracking-wider",
+                      header.column.getCanSort() && "cursor-pointer select-none"
                     )}
                     onClick={header.column.getToggleSortingHandler()}
                   >
@@ -281,10 +314,9 @@ const Table = ({
                       {header.column.getCanSort() && (
                         <span className="ml-2 text-gray-400 transition-opacity cursor-pointer">
                           {{
-                            asc: <FaSortUp/>,
-                            desc: <FaSortDown/>,
-                            false: <FaSort/>
-                          }[header.column.getIsSorted()]}
+                            asc: <FaSortUp />,
+                            desc: <FaSortDown />,
+                          }[header.column.getIsSorted() as string] || <FaSort />}
                         </span>
                       )}
                     </div>
@@ -296,7 +328,11 @@ const Table = ({
           <tbody>
             {table.getRowModel().rows.length > 0 ? (
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="hover:bg-input" onClick={() => onRowClick(row.original)}>
+                <tr
+                  key={row.id}
+                  className="hover:bg-input"
+                  onClick={() => onRowClick(row.original)}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className="px-4 py-3 text-sm">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -306,21 +342,21 @@ const Table = ({
               ))
             ) : (
               <tr>
-                <td 
-                  colSpan={table.getAllColumns().length} 
+                <td
+                  colSpan={table.getAllColumns().length}
                   className="text-center py-8 text-gray-500"
                 >
                   <div className="flex flex-col items-center justify-center gap-2">
-                    <svg 
-                      className="w-12 h-12 opacity-50" 
-                      fill="none" 
-                      stroke="currentColor" 
+                    <svg
+                      className="w-12 h-12 opacity-50"
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth="1" 
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1"
                         d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
                       />
                     </svg>
@@ -339,7 +375,7 @@ const Table = ({
             currentPage={table.getState().pagination.pageIndex + 1}
             totalCount={table.getRowCount()}
             pageSize={table.getState().pagination.pageSize}
-            onPageChange={(page) => table.setPageIndex(page - 1)}
+            onPageChange={(page: number) => table.setPageIndex(page - 1)}
           />
         </div>
       </div>
@@ -351,34 +387,34 @@ export default Table;
 
 const options = [
   {
-    label:'12H',
-    value: '12H'
+    label: "12H",
+    value: "12H",
   },
   {
-    label:'1D',
-    value: '1D'
+    label: "1D",
+    value: "1D",
   },
   {
-    label:'1W',
-    value: '1W'
+    label: "1W",
+    value: "1W",
   },
   {
-    label:'1M',
-    value: '1M'
+    label: "1M",
+    value: "1M",
   },
   {
-    label:'3M',
-    value: '3M'
+    label: "3M",
+    value: "3M",
   },
   {
-    label:'6M',
-    value: '6M'
+    label: "6M",
+    value: "6M",
   },
-]
+];
 
 const sizeOptions = [
-  { label: '5', value: 5 },
-  { label: '10', value: 10 },
-  { label: '20', value: 20 },
-  { label: '50', value: 50 },
-]
+  { label: "5", value: 5 },
+  { label: "10", value: 10 },
+  { label: "20", value: 20 },
+  { label: "50", value: 50 },
+];
