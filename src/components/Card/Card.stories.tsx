@@ -1,4 +1,5 @@
 import React from "react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Card from ".";
 import { Typography, Button } from "..";
 
@@ -46,9 +47,9 @@ export default {
       description: "Custom class name for the card header",
     },
   },
-};
+} as Meta<typeof Card>;
 
-const Template = (args) => <Card {...args} />;
+const Template: StoryFn<typeof Card> = (args) => <Card {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -70,7 +71,7 @@ export const WithExtra = Template.bind({});
 WithExtra.args = {
   ...Default.args,
   title: "Card With Extra Content",
-  extra: <Button type="primary">More</Button>,
+  extra: <Button variant="primary">More</Button>,
   children: "This card has extra content in the header.",
 };
 
@@ -107,7 +108,9 @@ WithActions.args = {
   children: "This card has action buttons at the bottom.",
   actions: [
     <Button key="cancel">Cancel</Button>,
-    <Button key="ok" type="primary">OK</Button>,
+    <Button key="ok" variant="primary">
+      OK
+    </Button>,
   ],
 };
 
@@ -117,4 +120,4 @@ WithFooter.args = {
   title: "Card With Footer",
   children: "This card has a custom footer.",
   footer: <Typography.Text>Card Footer Content</Typography.Text>,
-}; 
+};
