@@ -1,13 +1,26 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from "react";
+import clsx from "clsx";
 import { useTheme } from "@/components/ThemeProvider";
 
-const Tabs = ({ 
-  tabs, 
-  activeTab, 
+export interface Tab {
+  id: string | number;
+  label: string;
+}
+
+interface TabsProps {
+  tabs: Tab[];
+  activeTab: string | number;
+  onTabChange: (tabId: string | number) => void;
+  containerClassName?: string;
+  tabClassName?: string;
+}
+
+const Tabs: React.FC<TabsProps> = ({
+  tabs,
+  activeTab,
   onTabChange,
-  containerClassName = '',
-  tabClassName = '',
+  containerClassName = "",
+  tabClassName = "",
 }) => {
   const theme = useTheme();
 
@@ -34,4 +47,4 @@ const Tabs = ({
   );
 };
 
-export default Tabs; 
+export default Tabs;

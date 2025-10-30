@@ -1,8 +1,13 @@
-import React, {useState} from "react";
-import {FiChevronDown} from "react-icons/fi";
+import React, { useState } from "react";
+import { FiChevronDown } from "react-icons/fi";
 
-const Accordion = ({title, children}) => {
-  const [isOpen, setIsOpen] = useState(false);
+interface AccordionProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);

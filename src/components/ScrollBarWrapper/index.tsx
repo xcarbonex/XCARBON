@@ -3,9 +3,20 @@ import Scrollbar from "react-scrollbars-custom";
 import { useTheme } from "../ThemeProvider";
 import { useLocation } from "react-router-dom";
 
-function ScrollBarWrapper({ children, width='100%', height='100%' }) {
+interface ScrollBarWrapperProps {
+  children: React.ReactNode;
+  width?: string | number;
+  height?: string | number;
+}
+
+const ScrollBarWrapper: React.FC<ScrollBarWrapperProps> = ({
+  children,
+  width = "100%",
+  height = "100%",
+}) => {
   const { theme } = useTheme();
-  const scrollbarRef = useRef(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const scrollbarRef = useRef<any>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -54,6 +65,6 @@ function ScrollBarWrapper({ children, width='100%', height='100%' }) {
       {children}
     </Scrollbar>
   );
-}
+};
 
 export default ScrollBarWrapper;
