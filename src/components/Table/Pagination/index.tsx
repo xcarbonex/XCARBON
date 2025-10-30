@@ -1,12 +1,21 @@
 import React from "react";
 import { getPaginationRange } from "./paginationRange";
 import clsx from "clsx";
-import {
-  MdOutlineKeyboardArrowLeft,
-  MdOutlineKeyboardArrowRight,
-} from "react-icons/md";
+import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 
-const Pagination = ({ currentPage, totalCount, pageSize, onPageChange }) => {
+interface PaginationProps {
+  currentPage: number;
+  totalCount: number;
+  pageSize: number;
+  onPageChange: (page: number) => void;
+}
+
+const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  totalCount,
+  pageSize,
+  onPageChange,
+}) => {
   const totalPages = Math.ceil(totalCount / pageSize);
 
   const range = getPaginationRange(currentPage, totalPages);
@@ -22,12 +31,12 @@ const Pagination = ({ currentPage, totalCount, pageSize, onPageChange }) => {
         <MdOutlineKeyboardArrowLeft className="" />
       </button>
 
-      {range.map((item, index) => {
+      {range.map((item: number | string, index: number) => {
         return (
           <button
             type="button"
             key={index}
-            onClick={item !== "..." ? () => onPageChange(item) : () => {}}
+            onClick={item !== "..." ? () => onPageChange(item as number) : () => {}}
             className={clsx(" px-2 ", {
               "font-extrabold": item === currentPage,
               "cursor-default": item === "...",

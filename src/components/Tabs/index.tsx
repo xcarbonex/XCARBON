@@ -22,7 +22,7 @@ const Tabs: React.FC<TabsProps> = ({
   containerClassName = "",
   tabClassName = "",
 }) => {
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   return (
     <div className={clsx("flex gap-1 border-b md:border-transparent", containerClassName)}>
