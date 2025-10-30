@@ -1,25 +1,22 @@
 import React from "react";
-import {Outlet} from "react-router-dom";
-import {Input as SearchInput} from "@/components";
-import {IoIosSearch} from "react-icons/io";
-import {HiOutlineDotsVertical} from "react-icons/hi";
-import {useTheme} from "@/components/ThemeProvider";
-import {SidebarProvider, useSidebar} from "@/context/SidebarContext";
+import { Outlet } from "react-router-dom";
+import { Input as SearchInput } from "@/components";
+import { IoIosSearch } from "react-icons/io";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import { useTheme } from "@/components/ThemeProvider";
+import { SidebarProvider, useSidebar } from "@/context/SidebarContext";
 import Sidebar from "@/components/Sidebar";
-import {RiMenu3Line, RiCloseLine} from "react-icons/ri";
+import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import NotificationPopup from "@/components/NotificationPopup";
-import {
-  ScrollBarWrapper,
-  PWAInstallPrompt,
-  PWAUpdatePrompt,
-} from "@/components";
-import {UserProfile} from "@/components/Auth";
+import { ScrollBarWrapper, PWAInstallPrompt, PWAUpdatePrompt } from "@/components";
+import { UserProfile } from "@/components/Auth";
 import clsx from "clsx";
-import {ThemeProvider} from "@/components/ThemeProvider";
-import {AuthProvider} from "@/components/Auth";
-function MainLayout() {
-  const {theme} = useTheme();
-  const {isMobileOpen, toggleMobileSidebar} = useSidebar();
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { AuthProvider } from "@/components/Auth";
+
+const MainLayout: React.FC = () => {
+  const { theme } = useTheme();
+  const { isMobileOpen, toggleMobileSidebar } = useSidebar();
 
   return (
     <main className={`flex min-h-screen ${theme}`}>
@@ -41,9 +38,7 @@ function MainLayout() {
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4 py-2 sm:py-0">
               <NotificationPopup />
-              <div className="p-2 border rounded-lg">
-                Google LLC
-              </div>
+              <div className="p-2 border rounded-lg">Google LLC</div>
               {/* <UserProfile /> */}
             </div>
           </div>
@@ -63,9 +58,9 @@ function MainLayout() {
       <PWAUpdatePrompt /> */}
     </main>
   );
-}
+};
 
-function Layout() {
+const Layout: React.FC = () => {
   return (
     <AuthProvider>
       <ThemeProvider>
@@ -75,6 +70,6 @@ function Layout() {
       </ThemeProvider>
     </AuthProvider>
   );
-}
+};
 
 export default Layout;
