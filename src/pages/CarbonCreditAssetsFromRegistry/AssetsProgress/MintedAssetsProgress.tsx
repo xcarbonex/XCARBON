@@ -1,5 +1,5 @@
 import React from "react";
-import {Chip} from "@heroui/react";
+import { Chip } from "@heroui/react";
 const statusColors = {
   PENDING: "bg-yellow-100 text-yellow-800",
   CONFIRMED: "bg-green-100 text-green-800",
@@ -12,15 +12,35 @@ const statusLabels = {
   FAILED: "Failed",
 };
 
-function MintedAssetsProgress({mintedAssets = []}) {
+interface MintedAsset {
+  projectName: string;
+  vintageYear: string;
+  location: string;
+  quantity: number;
+  mintedQuantity: number;
+  totalQuantity: number;
+  blockchain: string;
+  tokenSymbol: string;
+  status: string;
+  walletAddress: string;
+  transactionHash: string;
+  blockNumber: number | null;
+  mintedAt: string | null;
+}
+
+interface MintedAssetsProgressProps {
+  mintedAssets?: MintedAsset[];
+}
+
+const MintedAssetsProgress: React.FC<MintedAssetsProgressProps> = ({ mintedAssets = [] }) => {
   if (mintedAssets.length === 0) {
     return (
       <div className="flex flex-col border rounded-md items-center justify-center py-12 text-center">
         <div className="text-4xl mb-4">⏳</div>
         <h3 className="text-lg font-semibold">No Minted Assets Yet</h3>
         <p className="text-sm text-gray-500 max-w-md">
-          You don’t have any minted carbon credit assets at the moment. Once you
-          mint asset, they’ll appear here with live progress updates.
+          You don’t have any minted carbon credit assets at the moment. Once you mint asset, they’ll
+          appear here with live progress updates.
         </p>
       </div>
     );
@@ -40,16 +60,17 @@ function MintedAssetsProgress({mintedAssets = []}) {
               size="sm"
               variant="flat"
               className={`text-xs px-2 py-0.5 rounded shadow ${
-                statusColors[asset.status] || 'bg-yellow-100 text-yellow-800'
+                (asset.status && statusColors[asset.status as keyof typeof statusColors]) ||
+                "bg-yellow-100 text-yellow-800"
               }`}
             >
-              {statusLabels[asset.status] || "Pending"}
+              {(asset.status && statusLabels[asset.status as keyof typeof statusLabels]) ||
+                "Pending"}
             </Chip>
           </div>
 
           <p className="text-sm text-tbase mb-3">
-            {asset.location} • Qty: {asset.quantity} • Token:{" "}
-            {asset.tokenSymbol}
+            {asset.location} • Qty: {asset.quantity} • Token: {asset.tokenSymbol}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-tbase mt-2">
@@ -60,10 +81,11 @@ function MintedAssetsProgress({mintedAssets = []}) {
               <strong>Wallet:</strong>{" "}
               <span className="text-xs">{asset.walletAddress}</span>
             </p> */}
-           {asset.transactionHash && <p>
-              <strong>Tx Hash:</strong>{" "}
-              <span className="text-xs">{asset.transactionHash}</span>
-            </p>}
+            {asset.transactionHash && (
+              <p>
+                <strong>Tx Hash:</strong> <span className="text-xs">{asset.transactionHash}</span>
+              </p>
+            )}
             {/* {asset.blockNumber && (
               <p>
                 <strong>Block #:</strong> {asset.blockNumber}
@@ -71,8 +93,7 @@ function MintedAssetsProgress({mintedAssets = []}) {
             )} */}
             {asset.mintedAt && (
               <p>
-                <strong>Minted At:</strong>{" "}
-                {new Date(asset.mintedAt).toLocaleString()}
+                <strong>Minted At:</strong> {new Date(asset.mintedAt).toLocaleString()}
               </p>
             )}
           </div>
@@ -80,6 +101,6 @@ function MintedAssetsProgress({mintedAssets = []}) {
       ))}
     </div>
   );
-}
+};
 
 export default MintedAssetsProgress;

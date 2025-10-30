@@ -1,10 +1,40 @@
 import React from "react";
-import {Chip} from "@heroui/react";
+import { Chip } from "@heroui/react";
 import useStore from "@/store/store";
 import { useNavigate } from "react-router-dom";
 
-function SavedAsDraftAssets({drafts = []}) {
-  const {getDraft} = useStore();
+interface ImpactTag {
+  tag: string;
+}
+
+interface DraftAsset {
+  id: string;
+  registry: string;
+  projectName: string;
+  vintageYear: string;
+  location: string;
+  impactTags: ImpactTag[];
+  quantity: number;
+  status: string;
+  type: string;
+  project_developer: string;
+  serial_number: string;
+  transferable: boolean;
+  verification_body: string;
+  tokenSymbol: string;
+  listingPrice: number;
+  listingDuration: string;
+  allowFactorization: string;
+  fraction: number;
+  files: unknown[];
+}
+
+interface SavedAsDraftAssetsProps {
+  drafts?: DraftAsset[];
+}
+
+const SavedAsDraftAssets: React.FC<SavedAsDraftAssetsProps> = ({ drafts = [] }) => {
+  const { getDraft } = useStore();
   const navigate = useNavigate();
   if (drafts.length === 0) {
     return (
@@ -12,16 +42,15 @@ function SavedAsDraftAssets({drafts = []}) {
         <div className="text-4xl mb-4">📄</div>
         <h3 className="text-lg font-semibold">No Drafts Yet</h3>
         <p className="text-sm text-gray-500 max-w-md">
-          You don’t have any drafted carbon credit assets at the moment. Start
-          creating a draft to begin the tokenization process.
+          You don’t have any drafted carbon credit assets at the moment. Start creating a draft to
+          begin the tokenization process.
         </p>
       </div>
     );
   }
-  const handleDraftClick = (draft) => {
-    getDraft(draft?.id, navigate);
+  const handleDraftClick = (draft: DraftAsset) => {
+    getDraft(draft.id, navigate);
   };
-
   return (
     <div className="grid gap-4">
       {drafts.map((draft, index) => (
@@ -70,14 +99,9 @@ function SavedAsDraftAssets({drafts = []}) {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-2 mt-3">
-            {draft.impactTags.map((tag, i) => (
-              <Chip
-                size="sm"
-                variant="flat"
-                key={i}
-                className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded"
-              >
+          <div className="flex flex-wrap gap-2 mt-2">
+            {draft.impactTags.map((tag: ImpactTag, i: number) => (
+              <Chip key={i} size="sm" variant="flat">
                 {tag.tag}
               </Chip>
             ))}
@@ -86,6 +110,6 @@ function SavedAsDraftAssets({drafts = []}) {
       ))}
     </div>
   );
-}
+};
 
 export default SavedAsDraftAssets;
