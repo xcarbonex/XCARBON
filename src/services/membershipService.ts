@@ -1,7 +1,7 @@
 import apiClient from "./apiClient";
 import type { AuthServiceResponse } from "@/types/api";
 
-interface CurrentPlan {
+export interface CurrentPlan {
   id: string;
   type: string;
   price: number;
@@ -9,16 +9,16 @@ interface CurrentPlan {
   description: string;
 }
 
-interface MutationResponse {
+export interface MutationResponse {
   success: boolean;
   message: string;
 }
 
-interface GenerateOtpResponse extends MutationResponse {
+export interface GenerateOtpResponse extends MutationResponse {
   otpKey?: string;
 }
 
-interface UpdateProfileInput {
+export interface UpdateProfileInput {
   [key: string]: unknown;
 }
 

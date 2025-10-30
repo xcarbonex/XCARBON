@@ -1,13 +1,13 @@
 import apiClient from "./apiClient";
 import type { AuthServiceResponse, UserSettings } from "@/types/api";
 
-interface DetailDocument {
+export interface DetailDocument {
   name: string;
   url: string;
   verified: boolean;
 }
 
-interface UserDetail extends UserSettings {
+export interface UserDetail extends UserSettings {
   id?: string;
   name?: string;
   registrationNumber?: string;
@@ -18,7 +18,7 @@ interface UserDetail extends UserSettings {
   documents?: DetailDocument[];
 }
 
-interface UpdateDetailResponse {
+export interface UpdateDetailResponse {
   success: boolean;
   message: string;
 }

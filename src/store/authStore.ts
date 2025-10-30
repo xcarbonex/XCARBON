@@ -1,12 +1,40 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import authService from "../services/authService";
-import { withDevtools } from './withDevtools';
+import { withDevtools } from "./withDevtools";
+import type { User, RegisterRequest } from "@/types/api";
 
-const useAuthStore = create(
+interface AuthState {
+  user: User | null;
+  token: string | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  error: string | null;
+  login: (
+    email: string,
+    password: string
+  ) => Promise<{ success: boolean; message?: string }>;
+  register: (
+    userData: RegisterRequest
+  ) => Promise<{ success: boolean; message?: string }>;
+  logout: () => Promise<{ success: boolean; message?: string }>;
+  refreshToken: () => Promise<{ success: boolean; message?: string }>;
+  getCurrentUser: () => Promise<{
+    success: boolean;
+    data?: User;
+    message?: string;
+  }>;
+  initializeAuth: () => void;
+  clearError: () => void;
+  updateUser: (userData: Partial<User>) => void;
+  hasRole: (role: string) => boolean;
+  hasAnyRole: (roles: string[]) => boolean;
+}
+
+const useAuthStore = create<AuthState>()(
   withDevtools(
     persist(
-      (set, get) => ({
+      (set, get): AuthState => ({
         // State
         user: null,
         token: null,
@@ -15,13 +43,13 @@ const useAuthStore = create(
         error: null,
 
         // Actions
-        login: async (email, password) => {
+        login: async (email: string, password: string) => {
           set({ isLoading: true, error: null });
 
           try {
             const result = await authService.login(email, password);
 
-            if (result.success) {
+            if (result.success && result.data) {
               set({
                 user: result.data.user,
                 token: result.data.token,
@@ -38,7 +66,8 @@ const useAuthStore = create(
               return { success: false, message: result.message };
             }
           } catch (error) {
-            const errorMessage = error.message || "Login failed";
+            const errorMessage =
+              error instanceof Error ? error.message : "Login failed";
             set({
               isLoading: false,
               error: errorMessage,
@@ -47,13 +76,13 @@ const useAuthStore = create(
           }
         },
 
-        register: async (userData) => {
+        register: async (userData: RegisterRequest) => {
           set({ isLoading: true, error: null });
 
           try {
             const result = await authService.register(userData);
 
-            if (result.success) {
+            if (result.success && result.data) {
               set({
                 user: result.data.user,
                 token: result.data.token,
@@ -70,7 +99,8 @@ const useAuthStore = create(
               return { success: false, message: result.message };
             }
           } catch (error) {
-            const errorMessage = error.message || "Registration failed";
+            const errorMessage =
+              error instanceof Error ? error.message : "Registration failed";
             set({
               isLoading: false,
               error: errorMessage,
@@ -92,7 +122,7 @@ const useAuthStore = create(
               error: null,
             });
             return { success: true, message: "Logged out successfully" };
-          } catch (error) {
+          } catch {
             // Even if logout API fails, clear local state
             set({
               user: null,
@@ -109,7 +139,7 @@ const useAuthStore = create(
           try {
             const result = await authService.refreshToken();
 
-            if (result.success) {
+            if (result.success && result.data) {
               set({
                 token: result.data.token,
                 error: null,
@@ -122,7 +152,9 @@ const useAuthStore = create(
             }
           } catch (error) {
             get().logout();
-            return { success: false, message: error.message };
+            const message =
+              error instanceof Error ? error.message : "Token refresh failed";
+            return { success: false, message };
           }
         },
 
@@ -132,7 +164,7 @@ const useAuthStore = create(
           try {
             const result = await authService.getCurrentUser();
 
-            if (result.success) {
+            if (result.success && result.data) {
               set({
                 user: result.data,
                 isLoading: false,
@@ -147,7 +179,8 @@ const useAuthStore = create(
               return { success: false, message: result.message };
             }
           } catch (error) {
-            const errorMessage = error.message || "Failed to get user data";
+            const errorMessage =
+              error instanceof Error ? error.message : "Failed to get user data";
             set({
               isLoading: false,
               error: errorMessage,
@@ -187,24 +220,24 @@ const useAuthStore = create(
         },
 
         // Update user profile
-        updateUser: (userData) => {
+        updateUser: (userData: Partial<User>) => {
           const currentUser = get().user;
-          const updatedUser = { ...currentUser, ...userData };
+          const updatedUser = { ...currentUser, ...userData } as User;
 
           set({ user: updatedUser });
           localStorage.setItem("user", JSON.stringify(updatedUser));
         },
 
         // Check if user has specific role
-        hasRole: (role) => {
+        hasRole: (role: string) => {
           const user = get().user;
           return user?.role === role;
         },
 
         // Check if user has any of the specified roles
-        hasAnyRole: (roles) => {
+        hasAnyRole: (roles: string[]) => {
           const user = get().user;
-          return roles.includes(user?.role);
+          return user?.role ? roles.includes(user.role) : false;
         },
       }),
       {
@@ -215,7 +248,8 @@ const useAuthStore = create(
           isAuthenticated: state.isAuthenticated,
         }),
       }
-    )
+    ),
+    "AuthStore"
   )
 );
 

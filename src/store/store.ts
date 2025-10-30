@@ -2,28 +2,182 @@ import { create } from "zustand";
 import axios from "axios";
 import { withDevtools } from "./withDevtools";
 import { GOLD_STANDARD } from "./appData";
+import type { ProjectType } from "./appData";
 
-const useStore = create(
+// Types for the store
+interface FilteredParameter {
+  registry: string;
+  assetReferenceType: string;
+  reference: string;
+}
+
+interface ProjectListItem {
+  value: number;
+  label: string;
+}
+
+interface ImpactTag {
+  tag: string;
+}
+
+interface MintedAsset {
+  projectName: string;
+  vintageYear: string;
+  location: string;
+  quantity: number;
+  mintedQuantity: number;
+  totalQuantity: number;
+  blockchain: string;
+  tokenSymbol: string;
+  status: string;
+  walletAddress: string;
+  transactionHash: string;
+  blockNumber: number | null;
+  mintedAt: string | null;
+}
+
+interface DraftAsset {
+  id: string;
+  registry: string;
+  projectName: string;
+  vintageYear: string;
+  location: string;
+  impactTags: ImpactTag[];
+  quantity: number;
+  status: string;
+  type: string;
+  project_developer: string;
+  serial_number: string;
+  transferable: boolean;
+  verification_body: string;
+  tokenSymbol: string;
+  listingPrice: number;
+  listingDuration: string;
+  allowFactorization: string;
+  fraction: number;
+  files: unknown[];
+}
+
+interface CarbonCreditDetails {
+  projectId: string;
+  projectName: string;
+  country: string;
+  vintageYear: string | number;
+  quantity: number | string;
+  status: string;
+  description: string;
+  registry: string;
+  assetType: string;
+  reference: string;
+  impactTags: ImpactTag[];
+  type?: string;
+  transferable?: boolean;
+  project_developer?: string;
+  serial_number?: string;
+  verification_body?: string;
+}
+
+interface VolumeFilter {
+  min?: number;
+  max?: number;
+}
+
+interface RetirementTypeFilter {
+  retired?: boolean;
+  assigned?: boolean;
+}
+
+interface MainStoreState {
+  filteredPamaeter: FilteredParameter;
+  registryProjectListError: string | null;
+  registryProjectList: ProjectListItem[];
+  isLoadingRegistryProjectList: boolean;
+  totalProjectCount: number;
+  registryData: CarbonCreditDetails | null;
+  registryDataList: unknown[];
+  isLoading: boolean;
+  error: string | null;
+  searchType: string | null;
+  registryDataListCount: number;
+  selectedCarbonCreditDetails: CarbonCreditDetails | null;
+  isCarbonCreditDetailsLoading: boolean;
+  carbonCreditDetailsError: string | null;
+  preview: boolean;
+  mintedAssets: MintedAsset[];
+  mintedAssetsLoading: boolean;
+  mintedError: string | null;
+  draft: DraftAsset[];
+  draftLoading: boolean;
+  draftError: string | null;
+  selectedProjectType: ProjectType | null;
+  projectTypeList: ProjectType[];
+  setProjectType: () => void;
+  setMintedAssets: (asset: MintedAsset | MintedAsset[]) => void;
+  setDraft: (asset: DraftAsset | DraftAsset[]) => void;
+  getDraft: (id: string, navigate: (path: string) => void) => void;
+  mapSingleRecord: (
+    data: any,
+    registry: string,
+    assetType: string,
+    reference: string
+  ) => CarbonCreditDetails;
+  getRegistryApiUrl: (
+    registry: string,
+    assetType: string,
+    reference: string,
+    query?: string,
+    page?: number,
+    size?: number
+  ) => string;
+  getRegistryAssets: (registry: string, assetType: string) => Promise<void>;
+  fetchRegistryProjectList: (
+    registry: string,
+    page?: number,
+    size?: number
+  ) => Promise<void>;
+  filterRegistryAssets: (
+    registry: string,
+    assetType: string,
+    project: string,
+    type: string,
+    volume: VolumeFilter,
+    retirementType: RetirementTypeFilter,
+    query: string,
+    page?: number,
+    size?: number
+  ) => Promise<void>;
+  fetchCarbonCreditById: (registry: string, projectId: string) => Promise<void>;
+  searchRegistry: (
+    registry: string,
+    assetType: string,
+    reference?: string,
+    query?: string,
+    page?: number,
+    size?: number
+  ) => Promise<void>;
+  selectCarbonCredit: (selectedCredit: CarbonCreditDetails) => void;
+  togglePreview: () => void;
+  clearSearchResults: () => void;
+}
+
+const useStore = create<MainStoreState>()(
   withDevtools(
-    (set, get) => ({
+    (set: any, get: any) => ({
       filteredPamaeter: {
         registry: "",
         assetReferenceType: "sno",
         reference: "",
       },
-      //Todo: Registry Project List
       registryProjectListError: null,
       registryProjectList: [],
       isLoadingRegistryProjectList: false,
-      totalProjectCount: 0, // New state for total project count
-      //Todo:  States for carbon assets fetched.
+      totalProjectCount: 0,
       registryData: null,
-      registryDataList: [], // For multiple results (Project ID searches)
+      registryDataList: [],
       isLoading: false,
       error: null,
-      searchType: null, // 'single' or 'multiple'
+      searchType: null,
       registryDataListCount: 0,
-      //Todo:  State for selected carbon assets.
       selectedCarbonCreditDetails: null,
       isCarbonCreditDetailsLoading: false,
       carbonCreditDetailsError: null,
@@ -77,7 +231,6 @@ const useStore = create(
       ],
       mintedAssetsLoading: false,
       mintedError: null,
-      //Todo: State for saving data draft.
       draft: [
         {
           id: "515883",
@@ -86,21 +239,11 @@ const useStore = create(
           vintageYear: "2023",
           location: "Panama",
           impactTags: [
-            {
-              tag: "Goal 1: No Poverty",
-            },
-            {
-              tag: "Goal 8: Decent Work and Economic Growth",
-            },
-            {
-              tag: "Goal 12: Responsible Production and Consumption",
-            },
-            {
-              tag: "Goal 13: Climate Action",
-            },
-            {
-              tag: "Goal 15: Life On Land",
-            },
+            { tag: "Goal 1: No Poverty" },
+            { tag: "Goal 8: Decent Work and Economic Growth" },
+            { tag: "Goal 12: Responsible Production and Consumption" },
+            { tag: "Goal 13: Climate Action" },
+            { tag: "Goal 15: Life On Land" },
           ],
           quantity: 7,
           status: "RETIRED",
@@ -119,7 +262,6 @@ const useStore = create(
       ],
       draftLoading: false,
       draftError: null,
-
       selectedProjectType: null,
       projectTypeList: [],
 
@@ -129,10 +271,10 @@ const useStore = create(
         });
       },
 
-      setMintedAssets: (asset) => {
+      setMintedAssets: (asset: MintedAsset | MintedAsset[]) => {
         set({ mintedAssetsLoading: true, mintedError: null });
         try {
-          set((state) => {
+          set((state: MainStoreState) => {
             const newDraft = Array.isArray(asset)
               ? [...state.mintedAssets, ...asset]
               : [...state.mintedAssets, asset];
@@ -143,15 +285,17 @@ const useStore = create(
             };
           });
         } catch (err) {
-          set({ mintedError: err.message || "Failed to add draft" });
+          const message = err instanceof Error ? err.message : "Failed to add draft";
+          set({ mintedError: message });
         } finally {
           set({ mintedAssetsLoading: false });
         }
       },
-      setDraft: (asset) => {
+
+      setDraft: (asset: DraftAsset | DraftAsset[]) => {
         set({ draftLoading: true, draftError: null });
         try {
-          set((state) => {
+          set((state: MainStoreState) => {
             const newDraft = Array.isArray(asset)
               ? [...state.draft, ...asset]
               : [...state.draft, asset];
@@ -162,23 +306,29 @@ const useStore = create(
             };
           });
         } catch (err) {
-          set({ draftError: err.message || "Failed to add draft" });
+          const message = err instanceof Error ? err.message : "Failed to add draft";
+          set({ draftError: message });
         } finally {
           set({ draftLoading: false });
         }
       },
 
-      getDraft: (id, navigate) => {
+      getDraft: (id: string, navigate: (path: string) => void) => {
         const { draft } = get();
-        const draftItem = draft.find((item) => item.id === id) || null;
+        const draftItem = draft.find((item: DraftAsset) => item.id === id) || null;
 
         set({ selectedCarbonCreditDetails: draftItem });
         if (draftItem) {
           navigate(`/assets/look-up`);
         }
       },
-      // Helper function to map individual record
-      mapSingleRecord: (data, registry, assetType, reference) => {
+
+      mapSingleRecord: (
+        data: any,
+        registry: string,
+        assetType: string,
+        reference: string
+      ): CarbonCreditDetails => {
         if (registry === "verra") {
           return {
             projectId: data.resourceIdentifier,
@@ -209,7 +359,7 @@ const useStore = create(
             transferable: data.is_transferable,
             project_developer: data.project?.project_developer || "N/A",
             impactTags: data.project?.sustainable_development_goals
-              ? data.project.sustainable_development_goals.map((goal) => ({
+              ? data.project.sustainable_development_goals.map((goal: any) => ({
                   tag: goal.name,
                 }))
               : [],
@@ -232,16 +382,16 @@ const useStore = create(
           };
         }
       },
-      // Helper function to construct API URL
-       getRegistryApiUrl: (
-        registry,
-        assetType,
-        reference,
-        query,
+
+      getRegistryApiUrl: (
+        registry: string,
+        assetType: string,
+        reference: string,
+        query = "",
         page = 1,
         size = 5
-      ) => {
-        const registryURL = {
+      ): string => {
+        const registryURL: Record<string, any> = {
           verra: {
             url: `https://registry.verra.org/uiapi/resource`,
             list: `/list`,
@@ -289,80 +439,65 @@ const useStore = create(
         return `${baseUrl}${endpoint}`;
       },
 
-      getRegistryAssets: async (registry, assetType) => {
-        // set({
-        //   isLoading: true,
-        //   error: null,
-        // });
+      getRegistryAssets: async (registry: string, assetType: string) => {
         try {
-          // await get().fetchRegistryProjectList(registry);
           await get().searchRegistry(registry, assetType);
         } catch (error) {
+          const message = error instanceof Error ? error.message : "Failed to fetch registry data.";
           set({
-            error: error.message || "Failed to fetch registry data.",
+            error: message,
             isLoading: false,
           });
         }
       },
 
-      fetchRegistryProjectList: async (registry, page = 1, size = 25) => {
+      fetchRegistryProjectList: async (
+        registry: string,
+        page = 1,
+        size = 25
+      ) => {
         set({
           isLoadingRegistryProjectList: true,
         });
         try {
-          const apiUrl = get().getRegistryApiUrl(
-            registry,
-            "list",
-            "",
-            page,
-            size
-          );
+          const apiUrl = get().getRegistryApiUrl(registry, "list", "", "", page, size);
           const response = await axios.get(apiUrl);
-          const totalCount =
-            parseInt(response.headers["x-total-count"], 10) || 0;
-          let list = response?.data
-            ?.map((project) => ({
+          const totalCount = parseInt(response.headers["x-total-count"], 10) || 0;
+          const list = response?.data
+            ?.map((project: any) => ({
               value: project.id,
-              label: /*`${project.gs_id} | */ project.name,
+              label: project.name,
             }))
-            .sort((a, b) => a.value - b.value);
+            .sort((a: ProjectListItem, b: ProjectListItem) => a.value - b.value);
           set({
             isLoadingRegistryProjectList: false,
             totalProjectCount: totalCount,
             registryProjectList: list,
           });
         } catch (error) {
+          const message = error instanceof Error ? error.message : "Failed to fetch project list.";
           set({
             isLoadingRegistryProjectList: false,
-            registryProjectListError:
-              error.message || "Failed to fetch project list.",
+            registryProjectListError: message,
           });
         }
       },
 
       filterRegistryAssets: async (
-        registry,
-        assetType,
-        project,
-        type,
-        volume,
-        retirementType,
-        query,
+        registry: string,
+        assetType: string,
+        project: string,
+        type: string,
+        volume: VolumeFilter,
+        retirementType: RetirementTypeFilter,
+        query: string,
         page = 1,
         size = 25
       ) => {
-        let { min, max } = volume || {};
-        let {retired, assigned} = retirementType||{}
-        let appendUrl = ""
-          // min && max && type && retired && assigned
-          //   ? `&minQuantity=${min}&maxQuantity=${max}&projectTypes=${type}&retired=${retired}&assigned=${assigned}`
-          //   : min && max
-          //   ? `&minQuantity=${min}&maxQuantity=${max}`
-          //   : type
-          //   ? `&projectTypes=${type}`
-          //   : "";
+        const { min, max } = volume || {};
+        const { retired, assigned } = retirementType || {};
+        let appendUrl = "";
 
-          
         if (min && max) {
           appendUrl += `&minQuantity=${min}&maxQuantity=${max}`;
         }
@@ -372,14 +507,17 @@ const useStore = create(
         }
 
         if (retired || assigned) {
-          if(retired && !assigned) appendUrl += `&retired=${retired}`;
-          if(assigned && !retired) appendUrl += `&assigned=${assigned}`;
-          if(assigned && retired) appendUrl += `&retired=${retired}&assigned=${assigned}`;
+          if (retired && !assigned) appendUrl += `&retired=${retired}`;
+          if (assigned && !retired) appendUrl += `&assigned=${assigned}`;
+          if (assigned && retired)
+            appendUrl += `&retired=${retired}&assigned=${assigned}`;
         }
+
         set({
           isLoading: true,
           error: null,
         });
+
         try {
           const apiUrl = get().getRegistryApiUrl(
             registry,
@@ -390,40 +528,29 @@ const useStore = create(
             size
           );
           const response = await axios.get(apiUrl + appendUrl);
-          const totalCount =
-            parseInt(response.headers["x-total-count"], 10) || 0;
+          const totalCount = parseInt(response.headers["x-total-count"], 10) || 0;
           set({
             isLoading: false,
             registryDataList: response.data,
             registryDataListCount: totalCount,
           });
         } catch (error) {
+          const message = error instanceof Error ? error.message : "Failed to fetch registry data.";
           set({
-            error: error.message || "Failed to fetch registry data.",
+            error: message,
             isLoading: false,
           });
         }
       },
 
-      // New function to fetch carbon credit details by ID
-      fetchCarbonCreditById: async (registry, projectId) => {
+      fetchCarbonCreditById: async (registry: string, projectId: string) => {
         set({
           isCarbonCreditDetailsLoading: true,
           carbonCreditDetailsError: null,
           selectedCarbonCreditDetails: null,
-          // Clear main search results state when fetching a single credit by ID
-          // registryData: null,
-          // registryDataList: null, // Keep the list intact
-          // isLoading: false, // Ensure main isLoading is false
-          // error: null, // Ensure main error is null
-          // searchType: null, // Reset search type
         });
         try {
-          const apiUrl = get().getRegistryApiUrl(
-            registry,
-            "creditById",
-            projectId
-          );
+          const apiUrl = get().getRegistryApiUrl(registry, "creditById", projectId);
           const response = await axios.get(apiUrl);
 
           const getProjectByIdURL = get().getRegistryApiUrl(
@@ -435,34 +562,22 @@ const useStore = create(
 
           const updatedResponse = {
             ...response.data,
-            project: res.data, // replace project with detailed info
+            project: res.data,
           };
+
           if (response.data) {
             const singleResult = get().mapSingleRecord(
               updatedResponse,
               registry,
-              "projectID", // Treat as a projectID search for mapping consistency
+              "projectID",
               projectId
             );
             set({
               selectedCarbonCreditDetails: singleResult,
               isCarbonCreditDetailsLoading: false,
             });
-            // return { success: true, data: singleResult };
           }
-          // else {
-          //   set({
-          //     carbonCreditDetailsError: "no_data_found",
-          //     isCarbonCreditDetailsLoading: false,
-          //     selectedCarbonCreditDetails: null,
-          //   });
-          //   return {
-          //     success: false,
-          //     message: "No data found for this project ID.",
-          //   };
-          // }
-        } catch (error) {
-          // console.error("API call error (fetchCarbonCreditById):", error);
+        } catch (error: any) {
           if (error.response?.data?.message) {
             set({
               carbonCreditDetailsError:
@@ -470,26 +585,13 @@ const useStore = create(
               isCarbonCreditDetailsLoading: false,
               selectedCarbonCreditDetails: null,
             });
-            // return { success: false, message: "Record not found." };
           }
-          // else {
-          //   set({
-          //     carbonCreditDetailsError:
-          //       error.message || "Failed to fetch carbon credit details.",
-          //     isCarbonCreditDetailsLoading: false,
-          //   });
-          //   return {
-          //     success: false,
-          //     message:
-          //       error.message || "Failed to fetch carbon credit details.",
-          //   };
-          // }
         }
       },
 
       searchRegistry: async (
-        registry,
-        assetType,
+        registry: string,
+        assetType: string,
         reference = "",
         query = "",
         page = 1,
@@ -516,23 +618,22 @@ const useStore = create(
           console.log(registry, assetType, reference, query, apiUrl);
 
           const response = await axios.get(apiUrl);
-          const totalCount =
-            parseInt(response.headers["x-total-count"], 10) || 0;
+          const totalCount = parseInt(response.headers["x-total-count"], 10) || 0;
           set({
             isLoading: false,
             registryDataList: response.data,
             registryDataListCount: totalCount,
           });
         } catch (error) {
+          const message = error instanceof Error ? error.message : "Failed to fetch registry data.";
           set({
-            error: error.message || "Failed to fetch registry data.",
+            error: message,
             isLoading: false,
           });
         }
       },
 
-      // Action to select a specific carbon credit from the list
-      selectCarbonCredit: (selectedCredit) => {
+      selectCarbonCredit: (selectedCredit: CarbonCreditDetails) => {
         set({
           registryData: selectedCredit,
           registryDataList: null,
@@ -541,12 +642,11 @@ const useStore = create(
       },
 
       togglePreview: () => {
-        set((state) => ({
+        set((state: MainStoreState) => ({
           preview: !state.preview,
         }));
       },
 
-      // Action to clear search results and go back to search
       clearSearchResults: () => {
         set({
           filteredPamaeter: {
@@ -557,15 +657,13 @@ const useStore = create(
           registryProjectListError: null,
           registryProjectList: [],
           isLoadingRegistryProjectList: false,
-          totalProjectCount: 0, // New state for total project count
-
+          totalProjectCount: 0,
           registryData: null,
-          registryDataList: [], // For multiple results (Project ID searches)
+          registryDataList: [],
           isLoading: false,
           error: null,
-          searchType: null, // 'single' or 'multiple'
+          searchType: null,
           registryDataListCount: 0,
-
           selectedCarbonCreditDetails: null,
           isCarbonCreditDetailsLoading: false,
           carbonCreditDetailsError: null,

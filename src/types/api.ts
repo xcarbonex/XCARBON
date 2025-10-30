@@ -191,6 +191,46 @@ export interface UserSettings {
   [key: string]: unknown;
 }
 
+export interface UserDetail {
+  id?: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  documents?: Array<{
+    type: string;
+    url: string;
+    name?: string;
+  }>;
+  [key: string]: unknown;
+}
+
+// Common mutation response
+export interface MutationResponse {
+  success: boolean;
+  message: string;
+  [key: string]: unknown;
+}
+
+// Deposit types
+export interface DepositResponse {
+  transactionId?: string;
+  status?: string;
+  amount?: number;
+  currency?: string;
+  [key: string]: unknown;
+}
+
+export interface DepositListItem {
+  id: string;
+  amount: number;
+  currency: string;
+  method: string;
+  status: string;
+  date: string;
+  [key: string]: unknown;
+}
+
 // Membership types
 export interface MembershipPlan {
   id: string;
