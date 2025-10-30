@@ -1,8 +1,29 @@
 import clsx from "clsx";
 import React from "react";
-import Select from "react-select";
+import Select, {
+  Props as ReactSelectProps,
+  StylesConfig,
+  SingleValue,
+  MultiValue,
+} from "react-select";
 
-const SelectField = ({
+interface SelectOption {
+  value: string | number;
+  label: string;
+  [key: string]: unknown;
+}
+
+interface SelectFieldProps extends Omit<ReactSelectProps<SelectOption>, "styles" | "onChange"> {
+  options?: SelectOption[];
+  value?: SelectOption | null;
+  onChange?: (option: SelectOption | null) => void;
+  placeholder?: string;
+  formatOptionLabel?: (option: SelectOption) => React.ReactNode;
+  className?: string;
+  menuIsOpen?: boolean;
+}
+
+const SelectField: React.FC<SelectFieldProps> = ({
   options,
   value,
   onChange,
@@ -13,7 +34,7 @@ const SelectField = ({
   ...rest
 }) => {
   // Custom styles for react-select to match Tailwind config
-  const customStyles = {
+  const customStyles: StylesConfig<SelectOption> = {
     menu: (provided) => ({
       ...provided,
       backgroundColor: "var(--bg-secondary)",
@@ -26,17 +47,13 @@ const SelectField = ({
     option: (provided, state) => ({
       // Include state for disabled options
       ...provided,
-      backgroundColor: state.isDisabled
-        ? "var(--bg-disabled)"
-        : "var(--bg-secondary)",
+      backgroundColor: state.isDisabled ? "var(--bg-disabled)" : "var(--bg-secondary)",
       color: state.isDisabled ? "var(--text-disabled)" : "var(--text-input)",
       padding: ".5rem", // Matches px-3 py-2
       borderRadius: ".2rem",
       cursor: state.isDisabled ? "not-allowed" : "pointer", // Cursor for options
       "&:hover": {
-        backgroundColor: state.isDisabled
-          ? "var(--bg-disabled)"
-          : "var(--bg-input)",
+        backgroundColor: state.isDisabled ? "var(--bg-disabled)" : "var(--bg-input)",
       },
     }),
     singleValue: (provided) => ({
@@ -70,12 +87,19 @@ const SelectField = ({
     },
   };
 
+  const handleChange = (newValue: SingleValue<SelectOption> | MultiValue<SelectOption>) => {
+    if (onChange) {
+      // Assuming single select mode
+      onChange(newValue as SelectOption | null);
+    }
+  };
+
   return (
     <div className="w-full">
       <Select
         options={options}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         styles={customStyles}
         placeholder={placeholder}
         className={clsx("text-secondary", className)}
