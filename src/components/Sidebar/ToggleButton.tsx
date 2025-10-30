@@ -1,8 +1,8 @@
-import React from 'react';
-import { useSidebar } from '@/context/SidebarContext';
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import React from "react";
+import { useSidebar } from "@/context/SidebarContext";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-const ToggleButton = () => {
+const ToggleButton: React.FC = () => {
   const { isCollapsed, toggleSidebar } = useSidebar();
 
   return (
@@ -19,4 +19,4 @@ const ToggleButton = () => {
   );
 };
 
-export default ToggleButton; 
+export default ToggleButton;
