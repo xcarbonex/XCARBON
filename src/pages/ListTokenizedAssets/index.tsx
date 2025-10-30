@@ -3,14 +3,19 @@ import { Input, Typography } from "@/components";
 import SelectField from "@/components/Select";
 import { Toggle } from "@/components";
 
-const ListTokenizedAssets = () => {
+interface ProjectDetail {
+  label: string;
+  value: string;
+}
+
+const ListTokenizedAssets: React.FC = () => {
   const options = [
     { label: "VCS-123456 - Amazon Rainforest Conservation", value: "VCS-123456" },
-    { label: "VCS-213434 - InfoSell", value: "VCS-213434" },  
-    { label: "VCS-546743 - SHGBMF Consultants", value: "VCS-546743" },  
+    { label: "VCS-213434 - InfoSell", value: "VCS-213434" },
+    { label: "VCS-546743 - SHGBMF Consultants", value: "VCS-546743" },
   ];
 
-  const projectDetails = [
+  const projectDetails: ProjectDetail[] = [
     { label: "Project Type", value: "REDD+" },
     { label: "Vintage", value: "2024" },
     { label: "Available Balance", value: "1,000 tCO2e" },
@@ -27,11 +32,7 @@ const ListTokenizedAssets = () => {
         {/* Asset Selection */}
         <div className="space-y-2">
           <Typography variant="subtitle2">Select Tokenized Asset</Typography>
-          <SelectField
-            isClearable
-            options={options}
-            className="w-full"
-          />
+          <SelectField isClearable options={options} className="w-full" />
         </div>
 
         {/* Project Info */}
@@ -116,10 +117,10 @@ const ListTokenizedAssets = () => {
             <SelectField
               isClearable
               options={[
-                {value: '', label: 'Select'},
-                {value: 30, label: '30 Days'},
-                {value: 60, label: '60 Days'},
-                {value: 90, label: '90 Days'}
+                { value: "", label: "Select" },
+                { value: 30, label: "30 Days" },
+                { value: 60, label: "60 Days" },
+                { value: 90, label: "90 Days" },
               ]}
             />
             <input
@@ -138,7 +139,7 @@ const ListTokenizedAssets = () => {
                 Limit who can purchase this asset
               </Typography>
             </div>
-            <Toggle />
+            <Toggle onToggle={() => {}} />
           </div>
         </div>
 

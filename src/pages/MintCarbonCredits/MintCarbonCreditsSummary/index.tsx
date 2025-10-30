@@ -4,8 +4,18 @@ import { Breadcrumb } from "@/components";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const MintCarbonCreditsSummary = () => {
-  const projectDetails = [
+interface Detail {
+  label: string;
+  value: string;
+}
+
+interface BreadcrumbItem {
+  label: string;
+  path: string;
+}
+
+const MintCarbonCreditsSummary: React.FC = () => {
+  const projectDetails: Detail[] = [
     {
       label: "Project Name",
       value: "Amazon Rainforest Reforestation",
@@ -24,7 +34,7 @@ const MintCarbonCreditsSummary = () => {
     },
   ];
 
-  const batchDetails = [
+  const batchDetails: Detail[] = [
     {
       label: "Vintage Year",
       value: "2022",
@@ -43,7 +53,7 @@ const MintCarbonCreditsSummary = () => {
     },
   ];
 
-  const breadcrumbItems = [
+  const breadcrumbItems: BreadcrumbItem[] = [
     { label: "MintCarbonCredits", path: "/MintCarbonCredits" },
     { label: "Mint Summary", path: "/" },
   ];
@@ -56,16 +66,11 @@ const MintCarbonCreditsSummary = () => {
       <div>
         <Breadcrumb items={breadcrumbItems} />
         <div className="space-y-5 text-black dark:text-[#FFFFFF]/80 ">
-          <Typography
-            variant="h4"
-            className="border-b-2 border-[#363638] pb-[8px]"
-          >
+          <Typography variant="h4" className="border-b-2 border-[#363638] pb-[8px]">
             Mint Summary
           </Typography>
           <Typography variant="h5">Review & Mint Carbon Credits</Typography>
-          <p className="text-[14px] text-[#949494]">
-            Confirm details before minting to blockchain
-          </p>
+          <p className="text-[14px] text-[#949494]">Confirm details before minting to blockchain</p>
 
           {/* Row 1 */}
 
@@ -77,10 +82,7 @@ const MintCarbonCreditsSummary = () => {
 
                 <div className="mt-5">
                   {projectDetails.map((item, index) => (
-                    <div
-                      key={index}
-                      className="flex mt-2 items-center justify-between"
-                    >
+                    <div key={index} className="flex mt-2 items-center justify-between">
                       <div className="text-[16px]">{item.label}</div>
                       <div className="text-[16px]">{item.value}</div>
                     </div>
@@ -94,10 +96,7 @@ const MintCarbonCreditsSummary = () => {
 
                   <div className="mt-5">
                     {batchDetails.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex mt-2 items-center justify-between"
-                      >
+                      <div key={index} className="flex mt-2 items-center justify-between">
                         <div className="text-[16px]">{item.label}</div>
                         <div className="text-[16px]">{item.value}</div>
                       </div>
@@ -116,9 +115,7 @@ const MintCarbonCreditsSummary = () => {
                   <p className="text-[20px] font-semibold">0.0045 MATIC</p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-[16px] text-[#949494]">
-                    Based on current network conditions
-                  </p>
+                  <p className="text-[16px] text-[#949494]">Based on current network conditions</p>
                   <p className="text-[16px] text-[#949494]">0.0045 MATIC</p>
                 </div>
               </div>
@@ -134,8 +131,8 @@ const MintCarbonCreditsSummary = () => {
                 className="h-4 w-4 accent-tbase  border-gray-300 rounded"
               />
               <label className="ml-3 text-[14px] text-[#8996A9]  ">
-                I confirm that the above details are correct and understand that
-                minting will be permanent and irreversible.
+                I confirm that the above details are correct and understand that minting will be
+                permanent and irreversible.
               </label>
             </div>
             <div>
@@ -145,8 +142,8 @@ const MintCarbonCreditsSummary = () => {
                 className="h-4 w-4 accent-tbase border-gray-300 rounded"
               />
               <label className="ml-3 text-[14px] text-[#8996A9]  ">
-                I have verified that the carbon credits are legitimate and have
-                not been previously tokenized.
+                I have verified that the carbon credits are legitimate and have not been previously
+                tokenized.
               </label>
             </div>
 
@@ -157,8 +154,7 @@ const MintCarbonCreditsSummary = () => {
                 className="h-4 w-4 accent-tbase border-gray-300 rounded"
               />
               <label className="ml-3 text-[14px] text-[#8996A9]  ">
-                I agree to the <b>Terms of Service</b> and <b>Minting Policy</b>
-                .
+                I agree to the <b>Terms of Service</b> and <b>Minting Policy</b>.
               </label>
             </div>
           </div>
@@ -166,10 +162,7 @@ const MintCarbonCreditsSummary = () => {
           <div className="mt-10 flex justify-between gap-x-5">
             <div>
               <div className=" py-2 px-3 border text-black dark:text-white  bg-transparent dark:border-[#363638] rounded-lg cursor-pointer">
-                <Link
-                  to="/MintCarbonCredits"
-                  className="flex gap-x-1 items-center"
-                >
+                <Link to="/MintCarbonCredits" className="flex gap-x-1 items-center">
                   <FaArrowLeft /> <p>Back To Details</p>
                 </Link>
               </div>

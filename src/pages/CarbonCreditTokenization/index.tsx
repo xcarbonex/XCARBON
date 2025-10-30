@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import { Typography, Input, SelectField } from '@/components';
-import { IoCloudUploadOutline } from 'react-icons/io5';
-import { HiDocumentText } from 'react-icons/hi';
-import clsx from 'clsx';
+import React, { useState } from "react";
+import { Typography, Input, SelectField } from "@/components";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import { HiDocumentText } from "react-icons/hi";
+import clsx from "clsx";
 
-const CarbonCreditTokenization = () => {
-  const [selectedRegistry, setSelectedRegistry] = useState('');
-  const [projectId, setProjectId] = useState('');
-  const [creditAmount, setCreditAmount] = useState('');
-  const [vintage, setVintage] = useState('');
-  const [file, setFile] = useState(null);
+const CarbonCreditTokenization: React.FC = () => {
+  const [selectedRegistry, setSelectedRegistry] = useState("");
+  const [projectId, setProjectId] = useState<string>("");
+  const [creditAmount, setCreditAmount] = useState<string>("");
+  const [vintage, setVintage] = useState<string>("");
+  const [file, setFile] = useState<File | null>(null);
 
   const registryOptions = [
-    { value: 'verra', label: 'Verra Registry' },
-    { value: 'goldstandard', label: 'Gold Standard' },
-    { value: 'americancarbonregistry', label: 'American Carbon Registry' },
-    { value: 'climateactionreserve', label: 'Climate Action Reserve' }
+    { value: "verra", label: "Verra Registry" },
+    { value: "goldstandard", label: "Gold Standard" },
+    { value: "americancarbonregistry", label: "American Carbon Registry" },
+    { value: "climateactionreserve", label: "Climate Action Reserve" },
   ];
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       setFile(file);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
   };
 
@@ -38,7 +38,8 @@ const CarbonCreditTokenization = () => {
             Tokenize Carbon Credits
           </Typography>
           <Typography variant="body2" className="text-gray-500 dark:text-gray-400">
-            Convert your registry carbon credits into XCB tokens. Please ensure you have the required documentation ready.
+            Convert your registry carbon credits into XCB tokens. Please ensure you have the
+            required documentation ready.
           </Typography>
         </div>
 
@@ -55,8 +56,7 @@ const CarbonCreditTokenization = () => {
                     </Typography>
                     <SelectField
                       options={registryOptions}
-                      value={selectedRegistry}
-                      onChange={setSelectedRegistry}
+                      onChange={(option) => setSelectedRegistry(String(option?.value || ""))}
                       placeholder="Select registry"
                       className="w-full"
                     />
@@ -138,7 +138,7 @@ const CarbonCreditTokenization = () => {
                             <IoCloudUploadOutline className="w-8 h-8 text-gray-400" />
                             <div className="text-center">
                               <Typography variant="body2">
-                                Drop your verification documents here or{' '}
+                                Drop your verification documents here or{" "}
                                 <span className="text-tertiary">browse</span>
                               </Typography>
                               <Typography variant="caption" className="text-gray-500">
@@ -235,4 +235,4 @@ const CarbonCreditTokenization = () => {
   );
 };
 
-export default CarbonCreditTokenization; 
+export default CarbonCreditTokenization;

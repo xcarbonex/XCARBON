@@ -9,14 +9,26 @@ import { BsFillTreeFill } from "react-icons/bs";
 import { SelectField } from "@/components";
 import upload from "@/assets/upload.svg";
 
-const index = () => {
-  const items = [
+interface Item {
+  title: string;
+  subtitle: string;
+}
+
+interface ProjectSelection {
+  key: string;
+  label: string;
+  placeholder: string;
+  options: string[];
+}
+
+const MintCarbonCredits: React.FC = () => {
+  const items: Item[] = [
     { title: "Registry", subtitle: "Verra" },
     { title: "Available Credits", subtitle: "125,000" },
     { title: "Verification Date", subtitle: "March 15 2025" },
   ];
 
-  const projectSelections = [
+  const projectSelections: ProjectSelection[] = [
     {
       key: "vintageYear",
       label: "Vintage Year",
@@ -27,12 +39,7 @@ const index = () => {
       key: "creditsType",
       label: "Credits Type",
       placeholder: "Methane Capture",
-      options: [
-        "Methane Capture",
-        "Reforestation",
-        "Renewable Energy",
-        "Energy Efficiency",
-      ],
+      options: ["Methane Capture", "Reforestation", "Renewable Energy", "Energy Efficiency"],
     },
     {
       key: "blockChainNetwork",
@@ -46,10 +53,7 @@ const index = () => {
     <>
       <div>
         <div className="space-y-6 text-black dark:text-[#FFFFFF]/80 ">
-          <Typography
-            variant="h4"
-            className="border-b-2 border-[#363638] pb-[8px]"
-          >
+          <Typography variant="h4" className="border-b-2 border-[#363638] pb-[8px]">
             Mint Carbon Credits
           </Typography>
 
@@ -69,12 +73,8 @@ const index = () => {
           <div className="mt-[24px] bg-[#E2E6E5] dark:bg-[#282828]/65 border dark:border-[#363638] p-5 rounded-xl shadow-xl">
             <div className="flex items-center justify-between">
               <div>
-                <Typography variant="subtitle1">
-                  Amazon Rainforest Reforestation
-                </Typography>
-                <p className="text-[#949494] text-[14px]">
-                  Project ID: VCS-2023-4582
-                </p>
+                <Typography variant="subtitle1">Amazon Rainforest Reforestation</Typography>
+                <p className="text-[#949494] text-[14px]">Project ID: VCS-2023-4582</p>
               </div>
               <div>
                 <RxCross1 className="cursor-pointer" />
@@ -147,21 +147,17 @@ const index = () => {
 
             <div className="mt-[15px] p-5 bg-[#FFFFFF]/5 rounded-md dark:border dark:border-[#363638]">
               <label
-                for="uploadFile1"
-                class=" text-[#949494]  font-semibold  rounded p-[40px] flex flex-col items-center justify-center cursor-pointer border-2 border-[#363638] border-dashed mx-auto"
+                htmlFor="uploadFile1"
+                className=" text-[#949494]  font-semibold  rounded p-[40px] flex flex-col items-center justify-center cursor-pointer border-2 border-[#363638] border-dashed mx-auto"
               >
                 <img src={upload} alt="upload" className="mb-[5px]" />
-                <p className="text-center">
-                  Drag and drop files here, or click to browse
-                </p>
-                <input type="file" id="uploadFile1" class="hidden" />
-                <p class="text-[10px] font-medium text-[#949494] mt-2">
+                <p className="text-center">Drag and drop files here, or click to browse</p>
+                <input type="file" id="uploadFile1" className="hidden" />
+                <p className="text-[10px] font-medium text-[#949494] mt-2">
                   Supported formats: PDF, JPG, PNG (Max 10MB)
                 </p>
 
-                <div className="px-5 py-1 bg-[#333438] text-white rounded-md mt-4">
-                  Upload
-                </div>
+                <div className="px-5 py-1 bg-[#333438] text-white rounded-md mt-4">Upload</div>
               </label>
             </div>
           </div>
@@ -173,9 +169,7 @@ const index = () => {
                 <p className="text-[20px] font-semibold">0.0045 MATIC</p>
               </div>
               <div className="flex items-center justify-between">
-                <p className="text-[16px] text-[#949494]">
-                  Based on current network conditions
-                </p>
+                <p className="text-[16px] text-[#949494]">Based on current network conditions</p>
                 <p className="text-[16px] text-[#949494]">0.0045 MATIC</p>
               </div>
             </div>
@@ -199,4 +193,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default MintCarbonCredits;
