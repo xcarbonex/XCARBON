@@ -1,0 +1,170 @@
+/* 
+ * Design Tokens - Evergreen + Sky Palette
+ * CSS Variable fallbacks for backwards compatibility
+ * These values match tailwind.config.js color definitions
+ */
+
+:root {
+  /* Brand - Evergreen Colors */
+  --brand-900: #0b3b2e;
+  --brand-700: #166534;
+  --brand-600: #15803d;
+  --brand-500: #22c55e;
+  --brand-400: #4ade80;
+  --brand-300: #86efac;
+  --brand-200: #bbf7d0;
+  --brand-100: #dcfce7;
+  --brand-50: #f0fdf4;
+
+  /* Accent - Sky Colors */
+  --accent-500: #0ea5e9;
+  --accent-400: #38bdf8;
+  --accent-300: #7dd3fc;
+  --accent-200: #bae6fd;
+  --accent-100: #e0f2fe;
+
+  /* Neutral Colors */
+  --neutral-900: #0f172a;
+  --neutral-800: #1e293b;
+  --neutral-700: #334155;
+  --neutral-600: #475569;
+  --neutral-500: #64748b;
+  --neutral-400: #94a3b8;
+  --neutral-300: #cbd5e1;
+  --neutral-200: #e2e8f0;
+  --neutral-100: #f1f5f9;
+  --neutral-50: #f8fafc;
+
+  /* Legacy color variables (for backwards compatibility) */
+  --primary-color: #166534;
+  --bg-secondary: #64748b;
+  --bg-color: #f8fafc;
+  --text-color: #0f172a;
+  --bg-main: #ffffff;
+  --text-secondary: #64748b;
+  --bg-input: #ffffff;
+  --bg-btn: #166534;
+  --bg-tertiary: #f1f5f9;
+
+  /* Typography */
+  --font-sans: "Bai Jamjuree", ui-sans-serif, system-ui, sans-serif;
+
+  /* Spacing - based on Tailwind scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 2.5rem;
+  --spacing-3xl: 3rem;
+  --spacing-4xl: 3.5rem;
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-custom: 12px;
+
+  /* Shadows */
+  --shadow-sm: 1px 1px 7px rgba(148, 148, 148, 0.25);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+
+  /* Transition */
+  --transition-fast: 150ms ease-in-out;
+  --transition-default: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+
+  /* Z-index scale */
+  --z-hide: -1;
+  --z-auto: auto;
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+/* Dark mode overrides (when dark class is applied) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1e293b;
+    --text-color: #f1f5f9;
+    --bg-main: #0f172a;
+    --text-secondary: #cbd5e1;
+    --bg-input: #1e293b;
+    --bg-tertiary: #334155;
+  }
+}
+
+/* Accessibility: High contrast mode support */
+@media (prefers-contrast: more) {
+  :root {
+    --neutral-900: #000000;
+    --neutral-50: #ffffff;
+    --brand-700: #0d4620;
+    --brand-100: #e6ffe6;
+  }
+}
+
+/* Accessibility: Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-500);
+  outline-offset: 2px;
+}
+
+/* High contrast focus for better visibility */
+@media (prefers-contrast: more) {
+  :focus-visible {
+    outline: 3px solid var(--neutral-900);
+    outline-offset: 2px;
+  }
+}
+
+/* Utility classes for design token usage */
+.text-brand-900 {
+  color: var(--brand-900);
+}
+
+.text-brand-700 {
+  color: var(--brand-700);
+}
+
+.text-accent-500 {
+  color: var(--accent-500);
+}
+
+.bg-brand-100 {
+  background-color: var(--brand-100);
+}
+
+.bg-brand-700 {
+  background-color: var(--brand-700);
+}
+
+.border-brand-200 {
+  border-color: var(--brand-200);
+}
+
+.shadow-custom {
+  box-shadow: var(--shadow-md);
+}
+
+/* Focus ring utility */
+.ring-focus {
+  outline: 2px solid var(--accent-500);
+  outline-offset: 2px;
+}
