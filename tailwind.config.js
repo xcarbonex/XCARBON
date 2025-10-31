@@ -54,6 +54,62 @@ export default {
           100: "#F1F5F9",
           50: "#F8FAFC",
         },
+        // Financial Semantic Colors (Phase 6)
+        success: {
+          50: "#F0FDF4",
+          100: "#D1FAE5",
+          200: "#A7F3D0",
+          300: "#6EE7B7",
+          400: "#34D399",
+          500: "#10B981",
+          600: "#059669",
+          700: "#047857",
+          800: "#065F46",
+          900: "#064E3B",
+        },
+        warning: {
+          50: "#FFFBEB",
+          100: "#FEF3C7",
+          200: "#FDE68A",
+          300: "#FCD34D",
+          400: "#FBBF24",
+          500: "#F59E0B",
+          600: "#D97706",
+          700: "#B45309",
+          800: "#92400E",
+          900: "#78350F",
+        },
+        error: {
+          50: "#FEF2F2",
+          100: "#FEE2E2",
+          200: "#FECACA",
+          300: "#FCA5A5",
+          400: "#F87171",
+          500: "#EF4444",
+          600: "#DC2626",
+          700: "#B91C1C",
+          800: "#991B1B",
+          900: "#7F1D1D",
+        },
+        info: {
+          50: "#F0F9FF",
+          100: "#E0F2FE",
+          200: "#BAE6FD",
+          300: "#7DD3FC",
+          400: "#38BDF8",
+          500: "#0284C7",
+          600: "#0369A1",
+          700: "#0C4A6E",
+          800: "#082F49",
+          900: "#0C2D48",
+        },
+        // Ecology Colors (Phase 6)
+        eco: {
+          forest: "#134E4A",
+          leaf: "#059669",
+          water: "#06B6D4",
+          earth: "#B45309",
+        },
         // Legacy color mappings (for gradual migration)
         primary: "var(--primary-color, #166534)",
         secondary: "var(--bg-secondary, #64748B)",
@@ -66,9 +122,37 @@ export default {
         tertiary: "var(--bg-tertiary, #F1F5F9)",
       },
       fontFamily: {
-        sans: ['"Bai Jamjuree"', "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ['"Inter"', "ui-sans-serif", "system-ui", "sans-serif"],
+        accent: ['"Bai Jamjuree"', "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', "monospace"],
       },
       fontSize: {
+        // Display Level (Page Titles)
+        "display-lg": ["3.5rem", { lineHeight: "1.125", fontWeight: "700" }],
+        "display-md": ["3rem", { lineHeight: "1.125", fontWeight: "700" }],
+        "display-sm": ["2.25rem", { lineHeight: "1.125", fontWeight: "700" }],
+
+        // Headline Level (Section Titles)
+        "headline-lg": ["2rem", { lineHeight: "1.25", fontWeight: "600" }],
+        "headline-md": ["1.75rem", { lineHeight: "1.25", fontWeight: "600" }],
+        "headline-sm": ["1.5rem", { lineHeight: "1.25", fontWeight: "600" }],
+
+        // Title Level (Component Headers)
+        "title-lg": ["1.25rem", { lineHeight: "1.5", fontWeight: "600" }],
+        "title-md": ["1.125rem", { lineHeight: "1.5", fontWeight: "600" }],
+        "title-sm": ["1rem", { lineHeight: "1.5", fontWeight: "600" }],
+
+        // Body Level (Main Content)
+        "body-lg": ["1rem", { lineHeight: "1.5", fontWeight: "400" }],
+        "body-md": ["0.875rem", { lineHeight: "1.5", fontWeight: "400" }],
+        "body-sm": ["0.75rem", { lineHeight: "1.5", fontWeight: "400" }],
+
+        // Label Level (UI Labels)
+        "label-lg": ["0.875rem", { lineHeight: "1.25", fontWeight: "500" }],
+        "label-md": ["0.75rem", { lineHeight: "1.25", fontWeight: "500" }],
+        "label-sm": ["0.625rem", { lineHeight: "1.25", fontWeight: "500" }],
+
+        // Legacy sizes (maintained for compatibility)
         xs: ["0.75rem", { lineHeight: "1rem" }],
         sm: ["0.875rem", { lineHeight: "1.25rem" }],
         base: ["1rem", { lineHeight: "1.5rem" }],
@@ -151,6 +235,25 @@ export default {
       addUtilities({
         ".x-logo": {
           backgroundImage: theme("logo"),
+        },
+        // Financial Data Typography
+        ".typography-metric": {
+          fontFamily: '"JetBrains Mono", monospace',
+          fontWeight: "600",
+          fontSize: "1.125rem",
+          letterSpacing: "-0.02em",
+          lineHeight: "1.25",
+        },
+        ".typography-address": {
+          fontFamily: '"JetBrains Mono", monospace',
+          fontSize: "0.75rem",
+          letterSpacing: "0.01em",
+          fontWeight: "500",
+        },
+        ".typography-percentage": {
+          fontFamily: '"JetBrains Mono", monospace',
+          fontWeight: "600",
+          fontSize: "0.875rem",
         },
       });
     },

@@ -35,6 +35,66 @@
   --neutral-100: #f1f5f9;
   --neutral-50: #f8fafc;
 
+  /* Financial Semantic Colors (Phase 6) */
+  /* Success / Growth */
+  --success-900: #064e3b;
+  --success-800: #065f46;
+  --success-700: #047857;
+  --success-600: #059669;
+  --success-500: #10b981;
+  --success-400: #34d399;
+  --success-300: #6ee7b7;
+  --success-200: #a7f3d0;
+  --success-100: #d1fae5;
+  --success-50: #f0fdf4;
+
+  /* Warning / Caution */
+  --warning-900: #78350f;
+  --warning-800: #92400e;
+  --warning-700: #b45309;
+  --warning-600: #d97706;
+  --warning-500: #f59e0b;
+  --warning-400: #fbbf24;
+  --warning-300: #fcd34d;
+  --warning-200: #fde68a;
+  --warning-100: #fef3c7;
+  --warning-50: #fffbeb;
+
+  /* Error / Decline */
+  --error-900: #7f1d1d;
+  --error-800: #991b1b;
+  --error-700: #b91c1c;
+  --error-600: #dc2626;
+  --error-500: #ef4444;
+  --error-400: #f87171;
+  --error-300: #fca5a5;
+  --error-200: #fecaca;
+  --error-100: #fee2e2;
+  --error-50: #fef2f2;
+
+  /* Info / Neutral */
+  --info-900: #0c2d48;
+  --info-800: #082f49;
+  --info-700: #0c4a6e;
+  --info-600: #0369a1;
+  --info-500: #0284c7;
+  --info-400: #38bdf8;
+  --info-300: #7dd3fc;
+  --info-200: #bae6fd;
+  --info-100: #e0f2fe;
+  --info-50: #f0f9ff;
+
+  /* Ecology Colors */
+  --eco-forest: #134e4a;
+  --eco-leaf: #059669;
+  --eco-water: #06b6d4;
+  --eco-earth: #b45309;
+
+  /* Financial Data Colors */
+  --color-positive: #10b981;
+  --color-negative: #ef4444;
+  --color-neutral: #64748b;
+
   /* Legacy color variables (for backwards compatibility) */
   --primary-color: #166534;
   --bg-secondary: #64748b;
@@ -47,7 +107,9 @@
   --bg-tertiary: #f1f5f9;
 
   /* Typography */
-  --font-sans: "Bai Jamjuree", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-accent: "Bai Jamjuree", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
   /* Spacing - based on Tailwind scale */
   --spacing-xs: 0.25rem;
@@ -70,6 +132,7 @@
   --shadow-sm: 1px 1px 7px rgba(148, 148, 148, 0.25);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
   /* Transition */
   --transition-fast: 150ms ease-in-out;
@@ -98,6 +161,17 @@
     --text-secondary: #cbd5e1;
     --bg-input: #1e293b;
     --bg-tertiary: #334155;
+
+    /* Dark mode semantic colors - brighter for visibility */
+    --color-positive: #34d399;
+    --color-negative: #f87171;
+    --color-neutral: #9ca3af;
+
+    /* Dark mode eco colors */
+    --eco-forest: #20c997;
+    --eco-leaf: #34d399;
+    --eco-water: #22d3ee;
+    --eco-earth: #fbbf24;
   }
 }
 
