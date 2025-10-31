@@ -43,6 +43,8 @@ interface TableProps {
   prepend?: React.ReactNode;
   dateField?: string;
   defaultPageSize?: number;
+  loading?: boolean;
+  zebraStripes?: boolean;
 }
 
 // TODO: Helper funcition to get date range based on filter
@@ -94,6 +96,8 @@ const Table: React.FC<TableProps> = ({
   prepend = null,
   dateField = "createdDate",
   defaultPageSize = 10,
+  loading = false,
+  zebraStripes = true,
 }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pageSize, setPageSize] = useState<number>(defaultPageSize);
@@ -294,85 +298,121 @@ const Table: React.FC<TableProps> = ({
         </div>
       </div>
 
-      <div className={clsx("w-full text-tbase overflow-auto")}>
-        <table className={clsx("w-full")}>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr
-                key={headerGroup.id}
-                className="border-y border-neutral-200 dark:border-neutral-700/50 bg-neutral-50/50 dark:bg-neutral-800/50 backdrop-blur-sm"
-              >
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className={clsx(
-                      "px-6 py-5 text-nowrap text-left text-neutral-700 dark:text-neutral-300 opacity-90 text-sm font-semibold tracking-wide",
-                      header.column.getCanSort() &&
-                        "cursor-pointer select-none hover:opacity-100 transition-opacity duration-200"
-                    )}
-                    onClick={header.column.getToggleSortingHandler()}
-                  >
-                    <div className="group flex items-center gap-2">
-                      {flexRender(header.column.columnDef.header, header.getContext())}
-                      {header.column.getCanSort() && (
-                        <span className="ml-1 text-neutral-500 dark:text-neutral-400 transition-opacity duration-200 cursor-pointer group-hover:opacity-100">
-                          {{
-                            asc: <FaSortUp />,
-                            desc: <FaSortDown />,
-                          }[header.column.getIsSorted() as string] || <FaSort />}
-                        </span>
-                      )}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.length > 0 ? (
-              table.getRowModel().rows.map((row) => (
+      {/* Premium Table Container */}
+      <div className="w-full overflow-hidden rounded-xl border border-neutral-200/50 dark:border-neutral-700/30 shadow-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            {/* Premium Header */}
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
                 <tr
-                  key={row.id}
-                  className="hover:bg-brand-50 dark:hover:bg-neutral-800/50 border-b border-neutral-200 dark:border-neutral-700/50 transition-colors duration-200"
-                  onClick={() => onRowClick(row.original)}
+                  key={headerGroup.id}
+                  className="border-b-2 border-neutral-200 dark:border-neutral-700 bg-gradient-to-r from-neutral-50 to-neutral-100/50 dark:from-neutral-800 dark:to-neutral-800/50"
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <td
-                      key={cell.id}
-                      className="px-4 py-3 text-sm text-neutral-900 dark:text-neutral-50"
+                  {headerGroup.headers.map((header) => (
+                    <th
+                      key={header.id}
+                      className={clsx(
+                        "px-6 py-4 text-left text-xs font-bold uppercase tracking-wider",
+                        "text-neutral-700 dark:text-neutral-300",
+                        header.column.getCanSort() &&
+                          "cursor-pointer select-none hover:bg-neutral-100/50 dark:hover:bg-neutral-700/30 transition-colors duration-200"
+                      )}
+                      onClick={header.column.getToggleSortingHandler()}
                     >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
+                      <div className="flex items-center gap-2">
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {header.column.getCanSort() && (
+                          <span className="text-neutral-400 dark:text-neutral-500 transition-all duration-200 hover:text-brand-600 dark:hover:text-brand-400">
+                            {{
+                              asc: <FaSortUp className="w-3.5 h-3.5" />,
+                              desc: <FaSortDown className="w-3.5 h-3.5" />,
+                            }[header.column.getIsSorted() as string] || (
+                              <FaSort className="w-3.5 h-3.5 opacity-50" />
+                            )}
+                          </span>
+                        )}
+                      </div>
+                    </th>
                   ))}
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan={table.getAllColumns().length}
-                  className="text-center py-8 text-neutral-500 dark:text-neutral-400"
-                >
-                  <div className="flex flex-col items-center justify-center gap-2">
-                    <svg
-                      className="w-12 h-12 opacity-50"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1"
-                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                      />
-                    </svg>
-                    <p className="text-base">No data available</p>
-                  </div>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              ))}
+            </thead>
+
+            {/* Table Body */}
+            <tbody className="divide-y divide-neutral-200/50 dark:divide-neutral-700/30">
+              {loading ? (
+                // Loading State
+                Array.from({ length: 5 }).map((_, index) => (
+                  <tr key={`loading-${index}`} className="animate-pulse">
+                    {columns.map((_, colIndex) => (
+                      <td key={`loading-cell-${colIndex}`} className="px-6 py-4">
+                        <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded"></div>
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : table.getRowModel().rows.length > 0 ? (
+                // Data Rows with Premium Styling
+                table.getRowModel().rows.map((row, index) => (
+                  <tr
+                    key={row.id}
+                    className={clsx(
+                      "group transition-all duration-200",
+                      "hover:bg-brand-50/50 dark:hover:bg-brand-900/10",
+                      "hover:shadow-sm",
+                      "cursor-pointer",
+                      zebraStripes && index % 2 === 1 && "bg-neutral-50/30 dark:bg-neutral-800/20"
+                    )}
+                    onClick={() => onRowClick && onRowClick(row.original)}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <td
+                        key={cell.id}
+                        className="px-6 py-4 text-sm text-neutral-900 dark:text-neutral-100 whitespace-nowrap"
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : (
+                // Empty State
+                <tr>
+                  <td colSpan={table.getAllColumns().length} className="text-center py-16">
+                    <div className="flex flex-col items-center justify-center gap-4">
+                      <div className="w-16 h-16 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
+                        <svg
+                          className="w-8 h-8 text-neutral-400 dark:text-neutral-500"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1.5"
+                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                          />
+                        </svg>
+                      </div>
+                      <div className="space-y-1">
+                        <p className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                          No data available
+                        </p>
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                          {isFilterActive
+                            ? "Try adjusting your filters"
+                            : "Get started by adding some data"}
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-between mt-4 gap-4 text-text">
