@@ -746,3 +746,4 @@ const CarbonCreditList: React.FC<CarbonCreditListProps> = ({
 };
 
 export default CarbonCreditList;
+export type { CarbonCredit };
