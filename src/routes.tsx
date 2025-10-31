@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import {
   Dashboard,
   Settings,
@@ -20,7 +20,7 @@ import {
   ResetPassword,
   MintCarbonCreditsSummary,
   SearchAssetFromRegistry,
-  AssetsProgress
+  AssetsProgress,
 } from "./pages";
 import NotificationsPage from "./pages/Notifications";
 import NotificationDetail from "./pages/Notifications/NotificationDetail";
@@ -108,7 +108,7 @@ export const router = createBrowserRouter([
           {
             path: "look-up",
             element: <SearchAssetFromRegistry />,
-          }
+          },
         ],
       },
       {
