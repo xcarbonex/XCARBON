@@ -7,9 +7,9 @@ import settings from "./assets/settings.svg";
 import logout from "./assets/navigation/logout.svg";
 import logolight from "./assets/logolight.png";
 import bronze from "@/assets/bronze.svg";
-import silver from "@/assets/silver.svg";
-import gold from "@/assets/gold.svg";
-import platinum from "@/assets/platinum.svg";
+import silver from "@/assets/Silver.svg";
+import gold from "@/assets/Gold.svg";
+import platinum from "@/assets/Platinum.svg";
 import registysearch from "@/assets/registrysearch.svg";
 
 const sidebar = {
