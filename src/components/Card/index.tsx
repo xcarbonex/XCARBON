@@ -17,80 +17,90 @@ interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> 
   footer?: React.ReactNode;
 }
 
-const Card: React.FC<CardProps> = ({
-  title,
-  extra,
-  children,
-  bordered = true,
-  loading = false,
-  size = "default",
-  className = "",
-  bodyClassName = "",
-  headClassName = "",
-  actions,
-  footer,
-  ...props
-}) => {
-  const baseClasses = "bg-white dark:bg-neutral-900 rounded-lg shadow-sm";
-  const borderClasses = bordered ? "border border-neutral-200 dark:border-neutral-700" : "";
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  (
+    {
+      children,
+      className = "",
+      size = "default",
+      loading = false,
+      title,
+      extra,
+      bodyClassName = "",
+      headClassName = "",
+      actions,
+      footer,
+      ...props
+    },
+    ref
+  ) => {
+    const baseClasses =
+      "backdrop-blur-xl bg-white/80 dark:bg-neutral-900/80 rounded-2xl shadow-lg shadow-neutral-900/5 dark:shadow-neutral-900/20 hover:shadow-xl hover:shadow-neutral-900/10 dark:hover:shadow-neutral-900/30 hover:-translate-y-0.5 transition-all duration-300 border border-neutral-200/50 dark:border-neutral-700/30 overflow-hidden";
 
-  const sizeClasses = {
-    default: "p-4",
-    small: "p-3",
-  };
+    const sizeClasses = {
+      default: "p-6",
+      small: "p-4",
+    };
 
-  const headPaddingClasses = {
-    default: "px-4 pt-4",
-    small: "px-3 pt-3",
-  };
+    const headPaddingClasses = {
+      default: "px-6 pt-6",
+      small: "px-4 pt-4",
+    };
 
-  const actionClasses = "border-t border-neutral-200 dark:border-neutral-700 pt-3 mt-3 px-4"; // Style for actions
-  const footerClasses = "border-t border-neutral-200 dark:border-neutral-700 pt-3 mt-3 px-4"; // Style for footer
+    const actionClasses =
+      "border-t border-neutral-200/50 dark:border-neutral-700/30 pt-4 mt-4 px-6"; // Style for actions
+    const footerClasses =
+      "border-t border-neutral-200/50 dark:border-neutral-700/30 pt-4 mt-4 px-6"; // Style for footer
 
-  if (loading) {
+    if (loading) {
+      return (
+        <div
+          className={`animate-pulse ${baseClasses} ${sizeClasses[size]} ${className}`.trim()}
+          ref={ref}
+          {...props}
+        >
+          <div className={`flex justify-between items-center mb-4 ${headPaddingClasses[size]}`}>
+            <div className="h-6 bg-neutral-300/50 dark:bg-neutral-600/50 rounded-lg w-1/3"></div>
+            <div className="h-6 bg-neutral-300/50 dark:bg-neutral-600/50 rounded-lg w-1/6"></div>
+          </div>
+          <div className="space-y-3">
+            <div className="h-4 bg-neutral-300/50 dark:bg-neutral-600/50 rounded-lg"></div>
+            <div className="h-4 bg-neutral-300/50 dark:bg-neutral-600/50 rounded-lg w-5/6"></div>
+            <div className="h-4 bg-neutral-300/50 dark:bg-neutral-600/50 rounded-lg w-4/6"></div>
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div
-        className={`animate-pulse ${baseClasses} ${borderClasses} ${sizeClasses[size]} ${className}`.trim()}
-        {...props}
-      >
-        <div className={`flex justify-between items-center mb-4 ${headPaddingClasses[size]}`}>
-          <div className="h-5 bg-neutral-300 dark:bg-neutral-600 rounded w-1/3"></div>
-          <div className="h-5 bg-neutral-300 dark:bg-neutral-600 rounded w-1/6"></div>
-        </div>
-        <div className="space-y-3">
-          <div className="h-3 bg-neutral-300 dark:bg-neutral-600 rounded"></div>
-          <div className="h-3 bg-neutral-300 dark:bg-neutral-600 rounded w-5/6"></div>
-          <div className="h-3 bg-neutral-300 dark:bg-neutral-600 rounded w-4/6"></div>
-        </div>
+      <div ref={ref} className={`${baseClasses} ${className}`.trim()} {...props}>
+        {(title || extra) && (
+          <div
+            className={`flex flex-row items-center justify-between border-b border-neutral-200/50 dark:border-neutral-700/30 ${headPaddingClasses[size]} pb-4 mb-4 ${headClassName}`.trim()}
+          >
+            {title && (
+              <Typography
+                variant="h6"
+                className="text-neutral-900 dark:text-white font-bold text-lg"
+              >
+                {title}
+              </Typography>
+            )}
+            {extra && <div className="flex-shrink-0">{extra}</div>}
+          </div>
+        )}
+        <div className={`${sizeClasses[size]} ${bodyClassName}`.trim()}>{children}</div>
+        {actions && actions.length > 0 && (
+          <div className={`${actionClasses} flex justify-end gap-3`}>
+            {actions.map((action, index) => (
+              <React.Fragment key={index}>{action}</React.Fragment>
+            ))}
+          </div>
+        )}
+        {footer && <div className={`${footerClasses}`}>{footer}</div>}
       </div>
     );
   }
-
-  return (
-    <div className={`${baseClasses} ${borderClasses} ${className}`.trim()} {...props}>
-      {(title || extra) && (
-        <div
-          className={`flex flex-col border-b text-tbase border-neutral-200 dark:border-neutral-700 ${headPaddingClasses[size]} pb-3 mb-3 ${headClassName}`.trim()}
-        >
-          {title && (
-            <Typography variant="h6" className="text-tbase font-semibold">
-              {title}
-            </Typography>
-          )}
-          {extra && <div className="ml-auto">{extra}</div>}
-        </div>
-      )}
-      <div className={`${sizeClasses[size]} ${bodyClassName}`.trim()}>{children}</div>
-      {actions && actions.length > 0 && (
-        <div className={`${actionClasses} flex justify-end gap-2`}>
-          {actions.map((action, index) => (
-            <React.Fragment key={index}>{action}</React.Fragment>
-          ))}
-        </div>
-      )}
-      {footer && <div className={`${footerClasses}`}>{footer}</div>}
-    </div>
-  );
-};
+);
 
 export default Card;
