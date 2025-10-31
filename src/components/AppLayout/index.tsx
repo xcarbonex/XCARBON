@@ -22,23 +22,28 @@ const MainLayout: React.FC = () => {
     <main className={`flex min-h-screen ${theme}`}>
       <Sidebar />
       <div className="flex-1 transition-all duration-500 ease-in-out flex flex-col">
-        <header className="sticky top-0 z-30 backdrop-blur-xl bg-gradient-to-r from-brand-800 to-brand-900 dark:from-neutral-900 dark:to-neutral-950 border-b border-brand-700/30 dark:border-neutral-700/30 shadow-xl shadow-brand-900/20 dark:shadow-neutral-950/40">
+        {/* Header with proper light/dark mode contrast */}
+        <header className="sticky top-0 z-30 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border-b border-neutral-300/80 dark:border-neutral-700/50 shadow-lg">
           <div className="flex flex-row items-center justify-between px-6 py-4">
+            {/* Left: Mobile menu button */}
             <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start gap-4">
               <button
-                className="lg:hidden p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
+                className="lg:hidden p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 border border-neutral-300 dark:border-neutral-600"
                 onClick={toggleMobileSidebar}
+                aria-label={isMobileOpen ? "Close navigation menu" : "Open navigation menu"}
               >
                 {isMobileOpen ? (
-                  <RiCloseLine className="h-5 w-5 text-white" />
+                  <RiCloseLine className="h-5 w-5 text-neutral-900 dark:text-neutral-100" />
                 ) : (
-                  <RiMenu3Line className="h-5 w-5 text-white" />
+                  <RiMenu3Line className="h-5 w-5 text-neutral-900 dark:text-neutral-100" />
                 )}
               </button>
             </div>
+
+            {/* Right: Control cluster */}
             <div className="flex items-center gap-3">
               <NotificationPopup />
-              <div className="px-5 py-2.5 rounded-xl bg-white/95 text-brand-800 font-bold text-sm shadow-lg shadow-white/10 hover:bg-white transition-all duration-200">
+              <div className="px-4 py-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 font-semibold text-sm border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200">
                 Google LLC
               </div>
               {/* <UserProfile /> */}

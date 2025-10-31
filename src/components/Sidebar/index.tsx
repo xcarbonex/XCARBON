@@ -33,17 +33,17 @@ const Sidebar: React.FC = () => {
     setIsLogoutModalOpen(false);
   };
 
-  // Base classes for the sidebar
+  // Base classes for the sidebar - unified theme for light and dark
   const sidebarClasses = `
     fixed lg:relative
     flex flex-col
     h-full md:h-screen
     backdrop-blur-xl
-    bg-gradient-to-b from-brand-800 to-brand-900
-    dark:bg-gradient-to-b dark:from-neutral-900 dark:to-neutral-950
-    border-r border-brand-700/30 dark:border-neutral-700/30
+    bg-gradient-to-b from-brand-700 via-brand-800 to-brand-900
+    dark:bg-gradient-to-b dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-950
+    border-r border-brand-600/30 dark:border-neutral-700/50
     py-4
-    shadow-xl shadow-brand-900/20 dark:shadow-neutral-950/40
+    shadow-xl
     transition-all duration-300 ease-in-out
     ${isCollapsed ? "w-20" : "w-72"}
     ${isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
@@ -91,15 +91,15 @@ const Sidebar: React.FC = () => {
                     data-tooltip-id={isCollapsed ? "sidebar_nav" : undefined}
                     data-tooltip-content={isCollapsed ? item.label : undefined}
                     className={({ isActive }) => `
-                      flex items-center
+                      relative flex items-center
                       px-4 py-3
-                      rounded-xl
+                      rounded-lg
                       transition-all duration-200
                       ${isCollapsed ? "justify-center" : ""}
                       ${
                         isActive
-                          ? "bg-white/95 text-brand-800 shadow-lg shadow-white/10"
-                          : "text-white/80 hover:bg-white/10 hover:text-white"
+                          ? "bg-brand-500/20 dark:bg-brand-400/10 text-white dark:text-brand-300 border-l-4 border-brand-400 dark:border-brand-500 ml-0 pl-3"
+                          : "text-white/80 dark:text-neutral-300 hover:bg-white/10 dark:hover:bg-neutral-800/50 hover:text-white dark:hover:text-white border-l-4 border-transparent"
                       }
                     `}
                   >
@@ -109,7 +109,7 @@ const Sidebar: React.FC = () => {
                       className={`
                         h-6 w-6 min-w-[24px]
                         ${!isCollapsed && "mr-3"}
-                        ${location.pathname === item.route ? "brightness-0" : "brightness-0 invert opacity-80"}
+                        ${location.pathname === item.route ? "brightness-0 invert" : "brightness-0 invert opacity-80"}
                       `}
                     />
                     {!isCollapsed && (
@@ -117,7 +117,7 @@ const Sidebar: React.FC = () => {
                         variant="body2"
                         className={clsx(
                           "whitespace-nowrap overflow-hidden transition-all duration-200",
-                          location.pathname === item.route ? "font-bold" : "font-semibold"
+                          location.pathname === item.route ? "font-bold" : "font-medium"
                         )}
                       >
                         {item.label}
@@ -131,16 +131,33 @@ const Sidebar: React.FC = () => {
 
           {/* Footer Navigation */}
           <footer className="mt-auto">
-            <div className="flex flex-nowrap gap-3 w-full mb-3 p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20">
-              <img src={bronze} alt={"Bronze Plan"} className="h-7 w-7" />
+            {/* Tier Status - Reduced Prominence */}
+            <div className="mb-4">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 dark:bg-neutral-800/30 border border-white/10 dark:border-neutral-700/30">
+                <img src={bronze} alt="Bronze tier" className="h-5 w-5 opacity-80" />
+                {!isCollapsed && (
+                  <Typography
+                    variant="body2"
+                    className="text-white/70 dark:text-neutral-400 text-xs font-medium"
+                  >
+                    Bronze Tier
+                  </Typography>
+                )}
+              </div>
+            </div>
 
+            {/* Utilities Section Divider */}
+            <div className="mb-3 px-3">
+              <hr className="border-white/10 dark:border-neutral-700/30" />
               {!isCollapsed && (
-                <Typography variant="h4" className="text-amber-400 font-bold">
-                  Bronze
+                <Typography
+                  variant="body2"
+                  className="text-white/50 dark:text-neutral-500 text-[10px] uppercase tracking-wider mt-3 font-semibold"
+                >
+                  Utilities
                 </Typography>
               )}
             </div>
-            <hr className="border-white/10 mb-4" />
             <ul className="space-y-1">
               {sidebar.footernav.map((item, index) => (
                 <li key={index}>
@@ -148,15 +165,15 @@ const Sidebar: React.FC = () => {
                     to={item.route}
                     onClick={item.label === "Logout" ? openLogoutModal : toggleMobileSidebar}
                     className={({ isActive }) => `
-                      flex items-center
+                      relative flex items-center
                       px-4 py-3
-                      rounded-xl
+                      rounded-lg
                       transition-all duration-200
                       ${isCollapsed ? "justify-center" : ""}
                       ${
                         isActive
-                          ? "bg-white/95 text-brand-800 shadow-lg shadow-white/10"
-                          : "text-white/80 hover:bg-white/10 hover:text-white"
+                          ? "bg-brand-500/20 dark:bg-brand-400/10 text-white dark:text-brand-300 border-l-4 border-brand-400 dark:border-brand-500 ml-0 pl-3"
+                          : "text-white/80 dark:text-neutral-300 hover:bg-white/10 dark:hover:bg-neutral-800/50 hover:text-white dark:hover:text-white border-l-4 border-transparent"
                       }
                     `}
                   >
@@ -166,7 +183,7 @@ const Sidebar: React.FC = () => {
                       className={`
                         h-6 w-6 min-w-[24px]
                         ${!isCollapsed && "mr-3"}
-                        ${location.pathname === item.route ? "brightness-0" : "brightness-0 invert opacity-80"}
+                        ${location.pathname === item.route ? "brightness-0 invert" : "brightness-0 invert opacity-80"}
                       `}
                     />
                     {!isCollapsed && (
@@ -174,7 +191,7 @@ const Sidebar: React.FC = () => {
                         variant="body2"
                         className={clsx(
                           "whitespace-nowrap overflow-hidden transition-all duration-200",
-                          location.pathname === item.route ? "font-bold" : "font-semibold"
+                          location.pathname === item.route ? "font-bold" : "font-medium"
                         )}
                       >
                         {item.label}
