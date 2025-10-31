@@ -159,10 +159,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
 
         // Shadow & Hover
         "shadow-lg hover:shadow-xl",
-        "hover:-translate-y-0.5",
 
         // Transitions
-        "transition-all duration-300",
+        "transition-shadow duration-300",
 
         // Rounded
         "rounded-2xl",

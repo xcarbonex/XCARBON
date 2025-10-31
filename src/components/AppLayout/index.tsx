@@ -22,23 +22,23 @@ const MainLayout: React.FC = () => {
     <main className={`flex min-h-screen ${theme}`}>
       <Sidebar />
       <div className="flex-1 transition-all duration-500 ease-in-out flex flex-col">
-        <header className="sticky top-0 z-30 backdrop-blur-xl bg-white/70 dark:bg-neutral-900/70 border-b border-neutral-200/50 dark:border-neutral-700/30 shadow-sm">
-          <div className="flex flex-row items-center justify-between px-6 py-3">
+        <header className="sticky top-0 z-30 backdrop-blur-xl bg-white/90 dark:bg-neutral-900/90 border-b border-neutral-200/80 dark:border-neutral-700/50 shadow-md shadow-neutral-900/5 dark:shadow-neutral-900/20">
+          <div className="flex flex-row items-center justify-between px-6 py-4">
             <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start gap-4">
               <button
-                className="lg:hidden p-2 rounded-xl hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 transition-all duration-200"
+                className="lg:hidden p-2.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors duration-200 shadow-sm"
                 onClick={toggleMobileSidebar}
               >
                 {isMobileOpen ? (
-                  <RiCloseLine className="h-6 w-6 text-neutral-700 dark:text-neutral-300" />
+                  <RiCloseLine className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
                 ) : (
-                  <RiMenu3Line className="h-6 w-6 text-neutral-700 dark:text-neutral-300" />
+                  <RiMenu3Line className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
                 )}
               </button>
             </div>
             <div className="flex items-center gap-3">
               <NotificationPopup />
-              <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold text-sm shadow-md shadow-brand-700/20">
+              <div className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-700 to-brand-600 hover:from-brand-600 hover:to-brand-500 text-white font-bold text-sm shadow-lg shadow-brand-700/30 transition-all duration-200">
                 Google LLC
               </div>
               {/* <UserProfile /> */}
