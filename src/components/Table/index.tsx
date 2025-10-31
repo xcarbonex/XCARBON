@@ -300,21 +300,22 @@ const Table: React.FC<TableProps> = ({
             {table.getHeaderGroups().map((headerGroup) => (
               <tr
                 key={headerGroup.id}
-                className="border-y border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800"
+                className="border-y border-neutral-200 dark:border-neutral-700/50 bg-neutral-50/50 dark:bg-neutral-800/50 backdrop-blur-sm"
               >
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
                     className={clsx(
-                      "px-6 py-5 text-nowrap text-left text-neutral-700 dark:text-neutral-300 opacity-75 text-sm font-medium tracking-wider",
-                      header.column.getCanSort() && "cursor-pointer select-none"
+                      "px-6 py-5 text-nowrap text-left text-neutral-700 dark:text-neutral-300 opacity-90 text-sm font-semibold tracking-wide",
+                      header.column.getCanSort() &&
+                        "cursor-pointer select-none hover:opacity-100 transition-opacity duration-200"
                     )}
                     onClick={header.column.getToggleSortingHandler()}
                   >
-                    <div className="group flex items-center gap-1">
+                    <div className="group flex items-center gap-2">
                       {flexRender(header.column.columnDef.header, header.getContext())}
                       {header.column.getCanSort() && (
-                        <span className="ml-2 text-neutral-500 dark:text-neutral-400 transition-opacity cursor-pointer">
+                        <span className="ml-1 text-neutral-500 dark:text-neutral-400 transition-opacity duration-200 cursor-pointer group-hover:opacity-100">
                           {{
                             asc: <FaSortUp />,
                             desc: <FaSortDown />,
@@ -332,7 +333,7 @@ const Table: React.FC<TableProps> = ({
               table.getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className="hover:bg-brand-50 dark:hover:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700"
+                  className="hover:bg-brand-50 dark:hover:bg-neutral-800/50 border-b border-neutral-200 dark:border-neutral-700/50 transition-colors duration-200"
                   onClick={() => onRowClick(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (

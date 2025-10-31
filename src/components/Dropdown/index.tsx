@@ -202,7 +202,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       {isOpen && (
         <div
           className={clsx(
-            "absolute right-0 bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded shadow-lg z-20 p-1",
+            "absolute right-0 bg-white dark:bg-neutral-900/95 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700/50 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 z-20 p-2",
             dropdownClassName
           )}
         >

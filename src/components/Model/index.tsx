@@ -39,7 +39,7 @@ const Modal: React.FC<ModalProps> = ({
   const modalContent = (
     <div
       className={clsx(
-        "absolute w-full transition duration-slow inset-0 z-50 flex items-center bg-black justify-center  bg-opacity-60 overflow-auto",
+        "absolute w-full transition-all duration-300 inset-0 z-50 flex items-center bg-black justify-center bg-opacity-50 backdrop-blur-sm overflow-auto",
         theme,
         { hidden: !isOpen }
       )}
@@ -47,18 +47,18 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div
         className={clsx(
-          "mx-4 p-2 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 rounded-lg shadow-lg relative border border-neutral-300 dark:border-neutral-700 w-full max-w-2xl",
+          "mx-4 p-6 bg-white dark:bg-neutral-900/95 backdrop-blur-sm text-neutral-900 dark:text-neutral-50 rounded-xl shadow-2xl relative border border-neutral-200 dark:border-neutral-700/50 w-full max-w-2xl transform transition-all duration-300",
           className
         )}
         onClick={(e) => e.stopPropagation()}
       >
         {showCloseButton && (
           <button
-            className="absolute -top-2 -right-2 bg-neutral-100 dark:bg-neutral-800 rounded-full p-1 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-900 dark:text-neutral-50 focus:outline-none"
+            className="absolute -top-3 -right-3 bg-white dark:bg-neutral-800 rounded-full p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-900 dark:text-neutral-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400 shadow-md hover:shadow-lg transition-all duration-200"
             onClick={onClose}
             aria-label="Close modal"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -69,7 +69,7 @@ const Modal: React.FC<ModalProps> = ({
           </button>
         )}
 
-        {title && <h2 className="text-xl font-semibold mb-4 px-3">{title}</h2>}
+        {title && <h2 className="text-2xl font-bold mb-4 px-2 pr-8">{title}</h2>}
         <div className="w-full h-fit text-tbase ">{children}</div>
       </div>
     </div>

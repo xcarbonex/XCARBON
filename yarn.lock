@@ -29,6 +29,21 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
+"@axe-core/playwright@^4.11.0":
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/@axe-core/playwright/-/playwright-4.11.0.tgz#64beab80764c1f3f0ec4ac21f9b2c2d7df508958"
+  integrity sha512-70vBT/Ylqpm65RQz2iCG2o0JJCEG/WCNyefTr2xcOcr1CoSee60gNQYUMZZ7YukoKkFLv26I/jjlsvwwp532oQ==
+  dependencies:
+    axe-core "~4.11.0"
+
+"@axe-core/react@^4.11.0":
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/@axe-core/react/-/react-4.11.0.tgz#a2032b9f6d2b7f933d652e2452802005e0e71d4f"
+  integrity sha512-ko5hYRmdLzbsxagsb0u3GD8IqtZa+vUJZ4K4+z8qjsHGrHBNBps5Sy0EIfSL8whzyIKBQ3xYa1reK1QenIAkyw==
+  dependencies:
+    axe-core "~4.11.0"
+    requestidlecallback "^0.3.0"
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.27.1":
   version "7.27.1"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.27.1.tgz"
@@ -4865,6 +4880,11 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
+axe-core@^4.11.0, axe-core@~4.11.0:
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.11.0.tgz#16f74d6482e343ff263d4f4503829e9ee91a86b6"
+  integrity sha512-ilYanEU8vxxBexpJd8cWM4ElSQq4QctCLKih0TSfjIfCQTeyH/6zVrmIJfLPrKTKJRbiG+cfnZbQIjAlJmF1jQ==
+
 axe-core@^4.2.0:
   version "4.10.3"
   resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.10.3.tgz"
@@ -7928,6 +7948,11 @@ regjsparser@^0.12.0:
   integrity sha512-cnE+y8bz4NhMjISKbgeVJtqNbtf5QpjZP+Bslo+UqkIt9QPnX9q095eiRRASJG1/tz6dlNr6Z5NsBiWYokp6EQ==
   dependencies:
     jsesc "~3.0.2"
+
+requestidlecallback@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/requestidlecallback/-/requestidlecallback-0.3.0.tgz#6fb74e0733f90df3faa4838f9f6a2a5f9b742ac5"
+  integrity sha512-TWHFkT7S9p7IxLC5A1hYmAYQx2Eb9w1skrXmQ+dS1URyvR8tenMLl4lHbqEOUnpEYxNKpkVMXUgknVpBZWXXfQ==
 
 require-from-string@^2.0.2:
   version "2.0.2"
