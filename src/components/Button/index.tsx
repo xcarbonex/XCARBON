@@ -67,34 +67,36 @@ const Button: React.FC<ButtonProps> = ({
     "inline-flex items-center justify-center transition-all duration-200 hover:opacity-80";
 
   const variants = {
-    // Filled variants
-    primary: "bg-btn hover:bg-btn-500 text-white dark:border-[#363638] shadow-sm hover:shadow-md",
+    // Filled variants (Evergreen + Sky palette)
+    primary:
+      "bg-brand-700 hover:bg-brand-600 text-white dark:border-neutral-800 shadow-sm hover:shadow-md",
     secondary:
-      "dark:bg-btn bg-[#4C6663] hover:bg-opacity-90 text-white dark:border-[#363638] border shadow-sm hover:shadow-md",
-    gold: "bg-[#C2A57B] hover:bg-opacity-90 text-white dark:bg-[#3B3B3B] shadow-sm hover:shadow-md",
-    dark: "bg-black text-white dark:bg-black dark:text-white hover:bg-opacity-90 [&_*]:text-white shadow-sm hover:shadow-md",
+      "dark:bg-neutral-700 bg-neutral-700 hover:bg-neutral-600 text-white dark:border-neutral-800 border shadow-sm hover:shadow-md",
+    gold: "bg-accent-500 hover:bg-accent-400 text-white dark:bg-neutral-800 shadow-sm hover:shadow-md",
+    dark: "bg-neutral-900 text-white dark:bg-neutral-900 dark:text-white hover:bg-neutral-800 [&_*]:text-white shadow-sm hover:shadow-md",
 
-    // Tonal variants
-    "tonal-primary": "bg-btn/10 hover:bg-btn/20 text-btn dark:text-btn-300",
+    // Tonal variants (Evergreen + Sky palette)
+    "tonal-primary": "bg-brand-700/10 hover:bg-brand-700/20 text-brand-700 dark:text-brand-400",
     "tonal-secondary":
-      "bg-[#4C6663]/10 hover:bg-[#4C6663]/20 text-[#4C6663] dark:text-[#4C6663]/80",
-    "tonal-gold": "bg-[#C2A57B]/10 hover:bg-[#C2A57B]/20 text-[#C2A57B] dark:text-[#C2A57B]/80",
+      "bg-neutral-700/10 hover:bg-neutral-700/20 text-neutral-700 dark:text-neutral-400",
+    "tonal-gold": "bg-accent-500/10 hover:bg-accent-500/20 text-accent-500 dark:text-accent-400",
 
-    // Flat variants
-    "flat-primary": "hover:bg-btn/5 text-btn dark:text-btn-300",
-    "flat-secondary": "hover:bg-[#4C6663]/5 text-[#4C6663] dark:text-[#4C6663]/80",
-    "flat-gold": "hover:bg-[#C2A57B]/5 text-[#C2A57B] dark:text-[#C2A57B]/80",
+    // Flat variants (Evergreen + Sky palette)
+    "flat-primary": "hover:bg-brand-700/5 text-brand-700 dark:text-brand-400",
+    "flat-secondary": "hover:bg-neutral-700/5 text-neutral-700 dark:text-neutral-400",
+    "flat-gold": "hover:bg-accent-500/5 text-accent-500 dark:text-accent-400",
 
-    // Border variants
-    "border-primary": "border-2 border-btn hover:bg-btn/5 text-btn dark:text-btn-300",
+    // Border variants (Evergreen + Sky palette)
+    "border-primary":
+      "border-2 border-brand-700 hover:bg-brand-700/5 text-brand-700 dark:text-brand-400",
     "border-secondary":
-      "border-2 border-[#4C6663] hover:bg-[#4C6663]/5 text-[#4C6663] dark:text-[#4C6663]/80",
+      "border-2 border-neutral-700 hover:bg-neutral-700/5 text-neutral-700 dark:text-neutral-400",
     "border-gold":
-      "border-2 border-[#C2A57B] hover:bg-[#C2A57B]/5 text-[#C2A57B] dark:text-[#C2A57B]/80",
+      "border-2 border-accent-500 hover:bg-accent-500/5 text-accent-500 dark:text-accent-400",
 
     // Outline variant (kept for backward compatibility)
     outline:
-      "border border-black dark:border-[#363638] hover:bg-opacity-5 hover:bg-black dark:hover:bg-white/5",
+      "border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-900/5 hover:bg-neutral-900 dark:hover:bg-white/5",
   };
 
   const sizes = {

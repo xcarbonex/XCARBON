@@ -33,36 +33,47 @@ const SelectField: React.FC<SelectFieldProps> = ({
   menuIsOpen,
   ...rest
 }) => {
-  // Custom styles for react-select to match Tailwind config
+  // Custom styles for react-select to match brand tokens
   const customStyles: StylesConfig<SelectOption> = {
     menu: (provided) => ({
       ...provided,
-      backgroundColor: "var(--bg-secondary)",
-      color: "var(--text-secondary)",
-      borderColor: "var(--bg-input)",
-      marginTop: "0.25rem", // Matches mt-1
+      backgroundColor: "var(--neutral-900)",
+      color: "var(--neutral-50)",
+      borderColor: "var(--neutral-700)",
+      marginTop: "0.25rem",
       zIndex: 10,
-      boxShadow: "0 0 0 1px var(--border)",
+      boxShadow: "0 0 0 1px var(--neutral-700)",
     }),
     option: (provided, state) => ({
-      // Include state for disabled options
       ...provided,
-      backgroundColor: state.isDisabled ? "var(--bg-disabled)" : "var(--bg-secondary)",
-      color: state.isDisabled ? "var(--text-disabled)" : "var(--text-input)",
-      padding: ".5rem", // Matches px-3 py-2
+      backgroundColor: state.isDisabled
+        ? "var(--neutral-800)"
+        : state.isSelected
+          ? "var(--brand-700)"
+          : "var(--neutral-900)",
+      color: state.isDisabled
+        ? "var(--neutral-600)"
+        : state.isSelected
+          ? "var(--neutral-50)"
+          : "var(--neutral-50)",
+      padding: ".5rem",
       borderRadius: ".2rem",
-      cursor: state.isDisabled ? "not-allowed" : "pointer", // Cursor for options
+      cursor: state.isDisabled ? "not-allowed" : "pointer",
       "&:hover": {
-        backgroundColor: state.isDisabled ? "var(--bg-disabled)" : "var(--bg-input)",
+        backgroundColor: state.isDisabled
+          ? "var(--neutral-800)"
+          : state.isSelected
+            ? "var(--brand-600)"
+            : "var(--neutral-800)",
       },
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: "var(--text-secondary)",
+      color: "var(--neutral-900)",
     }),
     placeholder: (provided) => ({
       ...provided,
-      color: "gray",
+      color: "var(--neutral-500)",
     }),
     menuList: (provided) => ({
       ...provided,
@@ -72,17 +83,17 @@ const SelectField: React.FC<SelectFieldProps> = ({
     control: (provided, state) => {
       return {
         ...provided,
-        backgroundColor: "var(--bg-input)", // Matches #4C666326 (light) or #FFFFFF14 (dark)
-        borderColor: "var(--border)",
-        borderRadius: "0.375rem", // Matches rounded-md
-        padding: ".3rem", // Matches px-3 py-3
-        boxShadow: "none",
+        backgroundColor: "var(--neutral-50)",
+        borderColor: "var(--neutral-300)",
+        borderRadius: "0.375rem",
+        padding: ".3rem",
+        boxShadow: state.isFocused ? `0 0 0 3px var(--brand-700, rgba(22, 101, 52, 0.1))` : "none",
         "&:hover": {
-          borderColor: "var(--border)",
+          borderColor: "var(--brand-700)",
         },
-        color: "var(--text-secondary)",
-        opacity: state.isDisabled ? 0.5 : 1, // Adjust opacity for disabled state
-        cursor: state.isDisabled ? "not-allowed" : "pointer", // Conditional cursor
+        color: "var(--neutral-900)",
+        opacity: state.isDisabled ? 0.5 : 1,
+        cursor: state.isDisabled ? "not-allowed" : "pointer",
       };
     },
   };

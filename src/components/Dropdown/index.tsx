@@ -202,7 +202,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       {isOpen && (
         <div
           className={clsx(
-            "absolute right-0 bg-secondary border rounded shadow-lg z-20 p-1",
+            "absolute right-0 bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded shadow-lg z-20 p-1",
             dropdownClassName
           )}
         >
@@ -233,7 +233,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                             onChange={(e) => handleSearch(e.target.value)}
                             placeholder={placeholder}
                             variant="xs"
-                            className="w-full px-2 py-1 mb-1 border border-gray-300 rounded-md text-sm text-center focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            className="w-full px-2 py-1 mb-1 border border-neutral-300 rounded-md text-sm text-center focus:outline-none focus:ring-1 focus:ring-brand-700"
                             onClick={(e) => e.stopPropagation()}
                           />
                         )}
@@ -242,7 +242,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                             type="button"
                             size="sm"
                             onClick={handleResetFilter}
-                            className="mt-1 w-fit h-full px-2 py-1 bg-gray-300 text-gray-700 rounded text-sm hover:bg-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
+                            className="mt-1 w-fit h-full px-2 py-1 bg-neutral-300 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-50 rounded text-sm hover:bg-neutral-400 dark:hover:bg-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-400"
                           >
                             Reset
                           </Button>

@@ -243,7 +243,7 @@ const Table: React.FC<TableProps> = ({
             {isFilterActive && (
               <button
                 onClick={resetFilters}
-                className="bg-secondary text-tbase border rounded-full p-2 hover:bg-opacity-80 transition-colors"
+                className="bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-50 border border-neutral-300 dark:border-neutral-700 rounded-full p-2 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
                 title="Reset all filters"
               >
                 <MdFilterAltOff className="w-4 h-4" />
@@ -298,12 +298,15 @@ const Table: React.FC<TableProps> = ({
         <table className={clsx("w-full")}>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id} className="border-y">
+              <tr
+                key={headerGroup.id}
+                className="border-y border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800"
+              >
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
                     className={clsx(
-                      "px-6 py-5 text-nowrap text-left text-tbase opacity-65 text-sm font-medium tracking-wider",
+                      "px-6 py-5 text-nowrap text-left text-neutral-700 dark:text-neutral-300 opacity-75 text-sm font-medium tracking-wider",
                       header.column.getCanSort() && "cursor-pointer select-none"
                     )}
                     onClick={header.column.getToggleSortingHandler()}
@@ -311,7 +314,7 @@ const Table: React.FC<TableProps> = ({
                     <div className="group flex items-center gap-1">
                       {flexRender(header.column.columnDef.header, header.getContext())}
                       {header.column.getCanSort() && (
-                        <span className="ml-2 text-gray-400 transition-opacity cursor-pointer">
+                        <span className="ml-2 text-neutral-500 dark:text-neutral-400 transition-opacity cursor-pointer">
                           {{
                             asc: <FaSortUp />,
                             desc: <FaSortDown />,
@@ -329,11 +332,14 @@ const Table: React.FC<TableProps> = ({
               table.getRowModel().rows.map((row) => (
                 <tr
                   key={row.id}
-                  className="hover:bg-input"
+                  className="hover:bg-brand-50 dark:hover:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700"
                   onClick={() => onRowClick(row.original)}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-4 py-3 text-sm">
+                    <td
+                      key={cell.id}
+                      className="px-4 py-3 text-sm text-neutral-900 dark:text-neutral-50"
+                    >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
@@ -343,7 +349,7 @@ const Table: React.FC<TableProps> = ({
               <tr>
                 <td
                   colSpan={table.getAllColumns().length}
-                  className="text-center py-8 text-gray-500"
+                  className="text-center py-8 text-neutral-500 dark:text-neutral-400"
                 >
                   <div className="flex flex-col items-center justify-center gap-2">
                     <svg

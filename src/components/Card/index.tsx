@@ -31,8 +31,8 @@ const Card: React.FC<CardProps> = ({
   footer,
   ...props
 }) => {
-  const baseClasses = "bg-white dark:bg-dark-secondary rounded-lg shadow-sm";
-  const borderClasses = bordered ? "border border-gray-200 dark:border-gray-700" : "";
+  const baseClasses = "bg-white dark:bg-neutral-900 rounded-lg shadow-sm";
+  const borderClasses = bordered ? "border border-neutral-200 dark:border-neutral-700" : "";
 
   const sizeClasses = {
     default: "p-4",
@@ -44,8 +44,8 @@ const Card: React.FC<CardProps> = ({
     small: "px-3 pt-3",
   };
 
-  const actionClasses = "border-t border-gray-200 dark:border-gray-700 pt-3 mt-3 px-4"; // Style for actions
-  const footerClasses = "border-t border-gray-200 dark:border-gray-700 pt-3 mt-3 px-4"; // Style for footer
+  const actionClasses = "border-t border-neutral-200 dark:border-neutral-700 pt-3 mt-3 px-4"; // Style for actions
+  const footerClasses = "border-t border-neutral-200 dark:border-neutral-700 pt-3 mt-3 px-4"; // Style for footer
 
   if (loading) {
     return (
@@ -54,13 +54,13 @@ const Card: React.FC<CardProps> = ({
         {...props}
       >
         <div className={`flex justify-between items-center mb-4 ${headPaddingClasses[size]}`}>
-          <div className="h-5 bg-gray-300 dark:bg-gray-600 rounded w-1/3"></div>
-          <div className="h-5 bg-gray-300 dark:bg-gray-600 rounded w-1/6"></div>
+          <div className="h-5 bg-neutral-300 dark:bg-neutral-600 rounded w-1/3"></div>
+          <div className="h-5 bg-neutral-300 dark:bg-neutral-600 rounded w-1/6"></div>
         </div>
         <div className="space-y-3">
-          <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded"></div>
-          <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-5/6"></div>
-          <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-4/6"></div>
+          <div className="h-3 bg-neutral-300 dark:bg-neutral-600 rounded"></div>
+          <div className="h-3 bg-neutral-300 dark:bg-neutral-600 rounded w-5/6"></div>
+          <div className="h-3 bg-neutral-300 dark:bg-neutral-600 rounded w-4/6"></div>
         </div>
       </div>
     );
@@ -70,7 +70,7 @@ const Card: React.FC<CardProps> = ({
     <div className={`${baseClasses} ${borderClasses} ${className}`.trim()} {...props}>
       {(title || extra) && (
         <div
-          className={`flex   flex-col border-b text-tbase border-gray-200 dark:border-gray-700 ${headPaddingClasses[size]} pb-3 mb-3 ${headClassName}`.trim()}
+          className={`flex flex-col border-b text-tbase border-neutral-200 dark:border-neutral-700 ${headPaddingClasses[size]} pb-3 mb-3 ${headClassName}`.trim()}
         >
           {title && (
             <Typography variant="h6" className="text-tbase font-semibold">

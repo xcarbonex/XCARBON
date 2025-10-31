@@ -47,14 +47,14 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div
         className={clsx(
-          "mx-4 p-2 bg-secondary text-tbase rounded-lg shadow-lg relative border border-[#D8D8D8] dark:border-[#363638] w-full max-w-2xl",
+          "mx-4 p-2 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 rounded-lg shadow-lg relative border border-neutral-300 dark:border-neutral-700 w-full max-w-2xl",
           className
         )}
         onClick={(e) => e.stopPropagation()}
       >
         {showCloseButton && (
           <button
-            className="absolute -top-2 -right-2 bg-tertiary rounded-full p-1 hover:text-gray-500 focus:outline-none"
+            className="absolute -top-2 -right-2 bg-neutral-100 dark:bg-neutral-800 rounded-full p-1 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-900 dark:text-neutral-50 focus:outline-none"
             onClick={onClose}
             aria-label="Close modal"
           >

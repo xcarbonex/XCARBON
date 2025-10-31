@@ -38,7 +38,7 @@ const Input: React.FC<InputProps> = ({
     fit: "w-fit",
   };
   let classes = clsx(
-    "flex flex-nowrap items-center gap-3 px-4 bg-input border rounded-md focus-within:ring-1 focus-within:ring-input",
+    "flex flex-nowrap items-center gap-3 px-4 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-md focus-within:ring-1 focus-within:ring-brand-700",
     {
       "opacity-70 cursor-not-allowed": rest.disabled,
     },
