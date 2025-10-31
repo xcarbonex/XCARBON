@@ -236,24 +236,89 @@ export default {
         ".x-logo": {
           backgroundImage: theme("logo"),
         },
-        // Financial Data Typography
-        ".typography-metric": {
-          fontFamily: '"JetBrains Mono", monospace',
-          fontWeight: "600",
-          fontSize: "1.125rem",
-          letterSpacing: "-0.02em",
-          lineHeight: "1.25",
+
+        // ==================================================================
+        // GLASSMORPHISM UTILITIES
+        // ==================================================================
+        ".glass": {
+          background: "rgba(255, 255, 255, 0.7)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          border: "1px solid rgba(255, 255, 255, 0.18)",
         },
-        ".typography-address": {
-          fontFamily: '"JetBrains Mono", monospace',
-          fontSize: "0.75rem",
-          letterSpacing: "0.01em",
-          fontWeight: "500",
+        ".glass-dark": {
+          background: "rgba(15, 23, 42, 0.7)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
         },
-        ".typography-percentage": {
-          fontFamily: '"JetBrains Mono", monospace',
-          fontWeight: "600",
-          fontSize: "0.875rem",
+        ".glass-heavy": {
+          background: "rgba(255, 255, 255, 0.85)",
+          backdropFilter: "blur(20px) saturate(180%)",
+          WebkitBackdropFilter: "blur(20px) saturate(180%)",
+          border: "1px solid rgba(255, 255, 255, 0.3)",
+        },
+        ".glass-subtle": {
+          background: "rgba(255, 255, 255, 0.5)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+        },
+
+        // ==================================================================
+        // FINANCIAL STATUS UTILITIES
+        // ==================================================================
+        ".status-profit": {
+          color: "#10B981",
+          backgroundColor: "rgba(16, 185, 129, 0.1)",
+        },
+        ".status-loss": {
+          color: "#EF4444",
+          backgroundColor: "rgba(239, 68, 68, 0.1)",
+        },
+        ".status-neutral": {
+          color: "#64748B",
+          backgroundColor: "rgba(100, 116, 139, 0.1)",
+        },
+
+        // ==================================================================
+        // GRADIENT UTILITIES
+        // ==================================================================
+        ".gradient-eco": {
+          background: "linear-gradient(135deg, #059669 0%, #134E4A 100%)",
+        },
+        ".gradient-eco-subtle": {
+          background:
+            "linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(19, 78, 74, 0.1) 100%)",
+        },
+        ".gradient-finance": {
+          background: "linear-gradient(135deg, #0EA5E9 0%, #0369A1 100%)",
+        },
+        ".gradient-finance-subtle": {
+          background:
+            "linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(3, 105, 161, 0.1) 100%)",
+        },
+        ".gradient-brand": {
+          background: "linear-gradient(135deg, #166534 0%, #15803D 100%)",
+        },
+        ".gradient-brand-hero": {
+          background: "linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 50%, #E0F2FE 100%)",
+        },
+
+        // ==================================================================
+        // PREMIUM SHADOWS
+        // ==================================================================
+        ".shadow-glow-brand": {
+          boxShadow: "0 0 20px rgba(22, 101, 52, 0.3)",
+        },
+        ".shadow-glow-accent": {
+          boxShadow: "0 0 20px rgba(14, 165, 233, 0.3)",
+        },
+        ".shadow-glow-success": {
+          boxShadow: "0 0 20px rgba(16, 185, 129, 0.3)",
+        },
+        ".shadow-glow-error": {
+          boxShadow: "0 0 20px rgba(239, 68, 68, 0.3)",
         },
       });
     },

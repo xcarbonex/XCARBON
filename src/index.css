@@ -5,6 +5,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import custom typography system */
+@import "./styles/typography.css";
+
 @layer base {
   :root {
     /* Evergreen + Sky Brand Tokens */

@@ -35,3 +35,6 @@ export {
 
 // PWA Components
 export { PWAInstallPrompt, PWAUpdatePrompt } from "./PWA";
+
+// Modern Financial Components
+export { MetricCard, MetricCardGrid } from "./MetricCard";
