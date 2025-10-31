@@ -90,25 +90,25 @@ const NotificationPopup: React.FC = () => {
     <div className="relative" ref={popupRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 hover:bg-black/10 rounded-full transition-colors duration-300"
+        className="relative p-2 hover:bg-brand-700/10 dark:hover:bg-brand-700/20 rounded-full transition-colors duration-300"
         title="Notifications"
       >
-        <IoNotificationsOutline className="w-6 h-6" />
+        <IoNotificationsOutline className="w-6 h-6 text-neutral-900 dark:text-neutral-50" />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 w-4 h-4 bg-[#4C6663] text-white text-xs rounded-full flex items-center justify-center">
+          <span className="absolute top-1 right-1 w-4 h-4 bg-brand-700 text-white text-xs rounded-full flex items-center justify-center">
             {unreadCount}
           </span>
         )}
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-96 h-128 rounded-lg flex flex-col border bg-secondary drop-shadow z-50">
-          <div className="p-4 border-b border">
+        <div className="absolute right-0 mt-2 w-96 h-128 rounded-lg flex flex-col border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 drop-shadow z-50">
+          <div className="p-4 border-b border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800">
             <div className="flex items-center justify-between">
               <Typography variant="h6">Notifications</Typography>
               <Link
                 to="notifications"
-                className="text-sm text-[#4C6663] hover:underline"
+                className="text-sm text-brand-700 dark:text-brand-400 hover:underline"
                 onClick={() => setIsOpen(false)}
               >
                 View All
@@ -123,25 +123,31 @@ const NotificationPopup: React.FC = () => {
                   <div
                     key={notification.id}
                     className={clsx(
-                      "p-4 border-b hover:bg-black/10 cursor-pointer ",
-                      !notification.read && "bg-black/5"
+                      "p-4 border-b border-neutral-200 dark:border-neutral-700 hover:bg-brand-50 dark:hover:bg-neutral-800 cursor-pointer transition-colors",
+                      !notification.read && "bg-brand-50 dark:bg-neutral-800/50"
                     )}
                   >
-                    <div className="flex items-start  gap-3">
+                    <div className="flex items-start gap-3">
                       <div
                         className={clsx(
                           "w-2 h-2 mt-2 rounded-full flex-shrink-0",
-                          notification.read ? "bg-gray-300" : "bg-[#4C6663]"
+                          notification.read ? "bg-neutral-300 dark:bg-neutral-600" : "bg-brand-700"
                         )}
                       />
-                      <div className="flex-1 ">
-                        <Typography variant="body2" className="font-medium   ">
+                      <div className="flex-1">
+                        <Typography variant="body2" className="font-medium">
                           {notification.title}
                         </Typography>
-                        <Typography variant="caption" className=" mt-1">
+                        <Typography
+                          variant="caption"
+                          className="mt-1 text-neutral-600 dark:text-neutral-400"
+                        >
                           {notification.message}
                         </Typography>
-                        <Typography variant="caption" className=" mt-2">
+                        <Typography
+                          variant="caption"
+                          className="mt-2 text-neutral-500 dark:text-neutral-500"
+                        >
                           {formatDate(notification.date)}
                         </Typography>
                       </div>
@@ -149,7 +155,7 @@ const NotificationPopup: React.FC = () => {
                   </div>
                 ))
               ) : (
-                <div className="p-4 text-center text-gray-500">
+                <div className="p-4 text-center text-neutral-500 dark:text-neutral-400">
                   <Typography variant="body2">No notifications</Typography>
                 </div>
               )}

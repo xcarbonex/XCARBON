@@ -58,8 +58,8 @@ const LineChart: React.FC = () => {
       let backgroundColor;
       if (theme === "light") {
         const gradient = ctx.createLinearGradient(0, area.top, 0, area.bottom);
-        gradient.addColorStop(0, "rgba(194, 165, 123, 0.4)");
-        gradient.addColorStop(1, "rgba(76, 102, 99, 0.4)");
+        gradient.addColorStop(0, "rgba(22, 101, 52, 0.4)"); // brand-700 with opacity
+        gradient.addColorStop(1, "rgba(14, 165, 233, 0.4)"); // accent-500 with opacity
         backgroundColor = gradient;
       } else {
         backgroundColor = "rgba(255, 255, 255, 0.0)";
@@ -70,7 +70,7 @@ const LineChart: React.FC = () => {
         datasets: [
           {
             ...defaultData.datasets[0],
-            borderColor: isDark ? "#ffffff" : "#A6B3B1",
+            borderColor: isDark ? "var(--accent-500)" : "var(--brand-700)",
             backgroundColor,
           },
         ],
@@ -102,14 +102,16 @@ const LineChart: React.FC = () => {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: theme === "dark" ? "#333" : "#fff",
-        titleColor: theme === "dark" ? "#fff" : "#000",
-        bodyColor: theme === "dark" ? "#fff" : "#000",
+        backgroundColor: theme === "dark" ? "var(--neutral-800)" : "var(--neutral-50)",
+        titleColor: theme === "dark" ? "var(--neutral-50)" : "var(--neutral-900)",
+        bodyColor: theme === "dark" ? "var(--neutral-50)" : "var(--neutral-900)",
+        borderColor: theme === "dark" ? "var(--neutral-700)" : "var(--neutral-300)",
+        borderWidth: 1,
       },
       zoom: {
         zoom: {
           wheel: {
-            enabled: true, // Require Ctrl key for zooming
+            enabled: true,
             speed: 0.1,
           },
           pinch: { enabled: true },
@@ -127,22 +129,22 @@ const LineChart: React.FC = () => {
       y: {
         grid: {
           display: true,
-          color: theme === "dark" ? "#fff" : "#000",
+          color: theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)",
         },
         ticks: {
-          color: theme === "dark" ? "#fff" : "#000",
+          color: theme === "dark" ? "var(--neutral-400)" : "var(--neutral-600)",
           padding: 14,
         },
         border: {
           display: false,
-          color: theme === "dark" ? "#fff" : "#000",
+          color: theme === "dark" ? "var(--neutral-700)" : "var(--neutral-300)",
         },
         position: "right",
       },
       x: {
         grid: { display: false },
         ticks: {
-          color: theme === "dark" ? "#fff" : "#000",
+          color: theme === "dark" ? "var(--neutral-400)" : "var(--neutral-600)",
           padding: 14,
         },
       },

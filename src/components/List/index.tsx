@@ -59,8 +59,10 @@ const List: React.FC<ListProps> = ({
         })
       : externalDataSource;
 
-  const baseClasses = "border-gray-200 dark:border-gray-700 h-fit";
-  const borderClasses = bordered ? `border ${baseClasses} rounded-md` : "";
+  const baseClasses = "border-neutral-200 dark:border-neutral-700 h-fit";
+  const borderClasses = bordered
+    ? `border ${baseClasses} rounded-md bg-white dark:bg-neutral-900`
+    : "";
 
   const sizeClasses = {
     small: "py-1 px-2 text-sm",
@@ -74,7 +76,9 @@ const List: React.FC<ListProps> = ({
 
   if (loading) {
     return (
-      <div className={`flex justify-center items-center ${borderClasses} p-4`}>
+      <div
+        className={`flex justify-center items-center ${borderClasses} p-4 bg-neutral-50 dark:bg-neutral-800`}
+      >
         <Typography>Loading...</Typography>
       </div>
     );
@@ -82,7 +86,9 @@ const List: React.FC<ListProps> = ({
 
   if (effectiveDataSource.length === 0) {
     return (
-      <div className={`flex justify-center items-center ${borderClasses} p-4`}>
+      <div
+        className={`flex justify-center items-center ${borderClasses} p-4 bg-neutral-50 dark:bg-neutral-800`}
+      >
         <Typography>No Data</Typography>
       </div>
     );

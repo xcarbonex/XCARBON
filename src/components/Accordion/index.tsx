@@ -14,20 +14,20 @@ const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
   };
 
   return (
-    <div className="border rounded mb-3 overflow-hidden">
+    <div className="border border-neutral-300 dark:border-neutral-700 rounded mb-3 overflow-hidden">
       <button
-        className="flex justify-between items-center w-full p-4 text-left focus:outline-none dark:bg-[#282828] bg-[#A6B3B1] text-black dark:text-white"
+        className="flex justify-between items-center w-full p-4 text-left focus:outline-none dark:focus:ring-2 dark:focus:ring-brand-700 focus:ring-2 focus:ring-brand-700 dark:bg-neutral-800 bg-neutral-100 text-neutral-900 dark:text-neutral-50 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
         onClick={toggleAccordion}
       >
-        <span className="font-medium text-tbase">{title}</span>
+        <span className="font-medium text-base">{title}</span>
         <FiChevronDown
           className={`w-5 h-5 transition-transform duration-300 ${
             isOpen ? "transform rotate-180" : ""
-          } text-black dark:text-white`}
+          } text-neutral-900 dark:text-neutral-50`}
         />
       </button>
       {isOpen && (
-        <div className="p-4 dark:bg-[#191919] bg-[#FDFDFB] text-sm text-black dark:text-[#949494]">
+        <div className="p-4 dark:bg-neutral-900 bg-neutral-50 text-sm text-neutral-900 dark:text-neutral-300">
           {children}
         </div>
       )}

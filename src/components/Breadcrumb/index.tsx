@@ -47,14 +47,14 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items: initialItems, className 
           <li key={item.path} className="flex items-center">
             {index > 0 && (
               <IoChevronForward
-                className="flex-shrink-0 mx-2 h-4 w-4 text-gray-400 dark:text-gray-500"
+                className="flex-shrink-0 mx-2 h-4 w-4 text-neutral-400 dark:text-neutral-500"
                 aria-hidden="true"
               />
             )}
             {index === items.length - 1 ? (
               <Typography
                 variant="body2"
-                className="text-gray-600 dark:text-gray-300"
+                className="text-neutral-600 dark:text-neutral-400"
                 aria-current="page"
               >
                 {item.label}
@@ -62,7 +62,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items: initialItems, className 
             ) : (
               <Link
                 to={item.path}
-                className="text-sm text-[#4C6663] dark:text-[#6A8A87] hover:text-[#3A4F4D] dark:hover:text-[#7B9E9B] transition-colors"
+                className="text-sm text-brand-700 dark:text-brand-400 hover:text-brand-600 dark:hover:text-brand-300 transition-colors"
               >
                 {item.label}
               </Link>
