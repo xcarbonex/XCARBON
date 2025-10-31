@@ -169,3 +169,5 @@ const TokenizationPreview: React.FC<TokenizationPreviewProps> = ({ reviewData })
     </>
   );
 };
+
+export default TokenizationPreview;
