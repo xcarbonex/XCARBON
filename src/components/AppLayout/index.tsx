@@ -22,23 +22,25 @@ const MainLayout: React.FC = () => {
     <main className={`flex min-h-screen ${theme}`}>
       <Sidebar />
       <div className="flex-1 transition-all duration-500 ease-in-out flex flex-col">
-        <header className="sticky top-0 z-30 bg-[#A6B3B1] dark:bg-background text-tbase border-b">
-          <div className="flex flex-row items-center justify-between px-4 py-2">
-            <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start gap-4 py-2 sm:py-0">
+        <header className="sticky top-0 z-30 backdrop-blur-xl bg-white/70 dark:bg-neutral-900/70 border-b border-neutral-200/50 dark:border-neutral-700/30 shadow-sm">
+          <div className="flex flex-row items-center justify-between px-6 py-3">
+            <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start gap-4">
               <button
-                className="lg:hidden bg-transparent p-2 rounded-md hover:bg-black/10 transition-colors duration-300"
+                className="lg:hidden p-2 rounded-xl hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 transition-all duration-200"
                 onClick={toggleMobileSidebar}
               >
                 {isMobileOpen ? (
-                  <RiCloseLine className="h-6 w-6 text-tbase" />
+                  <RiCloseLine className="h-6 w-6 text-neutral-700 dark:text-neutral-300" />
                 ) : (
-                  <RiMenu3Line className="h-6 w-6 text-tbase" />
+                  <RiMenu3Line className="h-6 w-6 text-neutral-700 dark:text-neutral-300" />
                 )}
               </button>
             </div>
-            <div className="flex items-center space-x-2 sm:space-x-4 py-2 sm:py-0">
+            <div className="flex items-center gap-3">
               <NotificationPopup />
-              <div className="p-2 border rounded-lg">Google LLC</div>
+              <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold text-sm shadow-md shadow-brand-700/20">
+                Google LLC
+              </div>
               {/* <UserProfile /> */}
             </div>
           </div>

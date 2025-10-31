@@ -38,10 +38,11 @@ const Sidebar: React.FC = () => {
     fixed lg:relative
     flex flex-col
     h-full md:h-screen
-    bg-background
-    py-2
-    transition delay-150 duration-[300ms] ease-in-out
-    dark:border-r
+    backdrop-blur-xl
+    bg-white/80 dark:bg-neutral-900/80
+    border-r border-neutral-200/50 dark:border-neutral-700/30
+    py-4
+    transition-all duration-300 ease-in-out
     ${isCollapsed ? "w-20" : "w-72"}
     ${isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
     z-50
@@ -90,14 +91,13 @@ const Sidebar: React.FC = () => {
                     className={({ isActive }) => `
                       flex items-center
                       px-4 py-3
-                       rounded-md
-                       border
-                      transition-all duration-900
+                      rounded-xl
+                      transition-all duration-200
                       ${isCollapsed ? "justify-center" : ""}
                       ${
                         isActive
-                          ? "bg-[#A6B3B1] dark:bg-black border-[#A6B3B1] dark:border-[#363638]"
-                          : "hover:bg-[#5d7975] dark:hover:bg-[#202020d8] border-transparent"
+                          ? "bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-lg shadow-brand-700/20"
+                          : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50"
                       }
                     `}
                   >
@@ -128,16 +128,16 @@ const Sidebar: React.FC = () => {
 
           {/* Footer Navigation */}
           <footer className="mt-auto">
-            <div className="flex flex-nowrap gap-3 w-full border-1 mb-3 p-3 rounded-md">
+            <div className="flex flex-nowrap gap-3 w-full mb-3 p-3 rounded-xl bg-gradient-to-r from-amber-700/10 to-amber-600/10 dark:from-amber-700/20 dark:to-amber-600/20 border border-amber-700/30 dark:border-amber-600/30">
               <img src={bronze} alt={"Bronze Plan"} className="h-7 w-7" />
 
               {!isCollapsed && (
-                <Typography variant="h4" className="text-[#949494]">
+                <Typography variant="h4" className="text-amber-700 dark:text-amber-500 font-bold">
                   Bronze
                 </Typography>
               )}
             </div>
-            <hr className="border-[#A6B3B1] dark:border-[#363638] mb-4" />
+            <hr className="border-neutral-200/50 dark:border-neutral-700/30 mb-4" />
             <ul className="space-y-1">
               {sidebar.footernav.map((item, index) => (
                 <li key={index}>
@@ -147,14 +147,13 @@ const Sidebar: React.FC = () => {
                     className={({ isActive }) => `
                       flex items-center
                       px-4 py-3
-                       rounded-md
-                       border
-                      transition-all duration-900
+                      rounded-xl
+                      transition-all duration-200
                       ${isCollapsed ? "justify-center" : ""}
                       ${
                         isActive
-                          ? "bg-[#A6B3B1] dark:bg-black border-[#A6B3B1] dark:border-[#363638]"
-                          : "hover:bg-[#5d7975] dark:hover:bg-[#202020d8] border-transparent"
+                          ? "bg-gradient-to-r from-brand-600 to-brand-500 text-white shadow-lg shadow-brand-700/20"
+                          : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50"
                       }
                     `}
                   >
@@ -164,14 +163,15 @@ const Sidebar: React.FC = () => {
                       className={`
                         h-6 w-6 min-w-[24px]
                         ${!isCollapsed && "mr-3"}
+                        ${location.pathname === item.route ? "opacity-100" : "opacity-70"}
                       `}
                     />
                     {!isCollapsed && (
                       <Typography
                         variant="body2"
                         className={clsx(
-                          "whitespace-nowrap text-white overflow-hidden transition-all duration-300",
-                          { "font-extrabold": location.pathname === item.route }
+                          "whitespace-nowrap overflow-hidden transition-all duration-200",
+                          location.pathname === item.route ? "font-bold" : "font-medium"
                         )}
                       >
                         {item.label}

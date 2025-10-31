@@ -35,7 +35,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     ref
   ) => {
     const baseClasses =
-      "backdrop-blur-xl bg-white/80 dark:bg-neutral-900/80 rounded-2xl shadow-lg shadow-neutral-900/5 dark:shadow-neutral-900/20 hover:shadow-xl hover:shadow-neutral-900/10 dark:hover:shadow-neutral-900/30 hover:-translate-y-0.5 transition-all duration-300 border border-neutral-200/50 dark:border-neutral-700/30 overflow-hidden";
+      "backdrop-blur-xl bg-white/80 dark:bg-neutral-900/80 rounded-2xl shadow-lg shadow-neutral-900/5 dark:shadow-neutral-900/20 hover:shadow-xl hover:shadow-neutral-900/10 dark:hover:shadow-neutral-900/30 transition-shadow duration-300 border border-neutral-200/50 dark:border-neutral-700/30 overflow-hidden";
 
     const sizeClasses = {
       default: "p-6",
