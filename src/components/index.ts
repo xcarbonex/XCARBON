@@ -34,4 +34,4 @@ export {
 };
 
 // PWA Components
-export {PWAInstallPrompt, PWAUpdatePrompt} from "./PWA";
+export { PWAInstallPrompt, PWAUpdatePrompt } from "./PWA";

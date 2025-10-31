@@ -44,5 +44,5 @@ export {
   MintCarbonCreditsSummary,
   Deposit,
   AssetsProgress,
-  SearchAssetFromRegistry
+  SearchAssetFromRegistry,
 };

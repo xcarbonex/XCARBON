@@ -11,7 +11,7 @@ export const portfolioData = {
         vintage: "2023",
         location: "Brazil",
         status: "Active",
-        date: "2024-03-15"
+        date: "2024-03-15",
       },
       {
         assetName: "Wind Farm Project",
@@ -22,7 +22,7 @@ export const portfolioData = {
         vintage: "2024",
         location: "India",
         status: "Active",
-        date: "2024-03-10"
+        date: "2024-03-10",
       },
       {
         assetName: "Mangrove Restoration",
@@ -33,7 +33,7 @@ export const portfolioData = {
         vintage: "2023",
         location: "Indonesia",
         status: "Active",
-        date: "2024-02-28"
+        date: "2024-02-28",
       },
       {
         assetName: "Congo Basin Forest Protection",
@@ -44,7 +44,7 @@ export const portfolioData = {
         vintage: "2024",
         location: "DR Congo",
         status: "Active",
-        date: "2024-03-18"
+        date: "2024-03-18",
       },
       {
         assetName: "Solar Farm Initiative",
@@ -55,7 +55,7 @@ export const portfolioData = {
         vintage: "2024",
         location: "Morocco",
         status: "Active",
-        date: "2024-03-12"
+        date: "2024-03-12",
       },
       {
         assetName: "Coastal Wetland Protection",
@@ -66,7 +66,7 @@ export const portfolioData = {
         vintage: "2023",
         location: "Vietnam",
         status: "Active",
-        date: "2024-03-05"
+        date: "2024-03-05",
       },
       {
         assetName: "Borneo Peatland Conservation",
@@ -77,7 +77,7 @@ export const portfolioData = {
         vintage: "2023",
         location: "Malaysia",
         status: "Active",
-        date: "2024-03-20"
+        date: "2024-03-20",
       },
       {
         assetName: "Geothermal Power Plant",
@@ -88,7 +88,7 @@ export const portfolioData = {
         vintage: "2024",
         location: "Iceland",
         status: "Active",
-        date: "2024-03-08"
+        date: "2024-03-08",
       },
       {
         assetName: "Seagrass Meadow Restoration",
@@ -99,7 +99,7 @@ export const portfolioData = {
         vintage: "2024",
         location: "Philippines",
         status: "Active",
-        date: "2024-03-17"
+        date: "2024-03-17",
       },
       {
         assetName: "Atlantic Forest Recovery",
@@ -110,7 +110,7 @@ export const portfolioData = {
         vintage: "2023",
         location: "Brazil",
         status: "Active",
-        date: "2024-03-22"
+        date: "2024-03-22",
       },
       {
         assetName: "Tidal Energy Project",
@@ -121,7 +121,7 @@ export const portfolioData = {
         vintage: "2024",
         location: "UK",
         status: "Active",
-        date: "2024-03-14"
+        date: "2024-03-14",
       },
       {
         assetName: "Coral Reef Protection",
@@ -132,7 +132,7 @@ export const portfolioData = {
         vintage: "2023",
         location: "Australia",
         status: "Active",
-        date: "2024-03-19"
+        date: "2024-03-19",
       },
       {
         assetName: "Madagascar Forest Conservation",
@@ -143,7 +143,7 @@ export const portfolioData = {
         vintage: "2024",
         location: "Madagascar",
         status: "Active",
-        date: "2024-03-21"
+        date: "2024-03-21",
       },
       {
         assetName: "Biomass Energy Facility",
@@ -154,7 +154,7 @@ export const portfolioData = {
         vintage: "2024",
         location: "Sweden",
         status: "Active",
-        date: "2024-03-16"
+        date: "2024-03-16",
       },
       {
         assetName: "Kelp Forest Restoration",
@@ -165,9 +165,9 @@ export const portfolioData = {
         vintage: "2023",
         location: "Chile",
         status: "Active",
-        date: "2024-03-11"
-      }
-    ]
+        date: "2024-03-11",
+      },
+    ],
   },
   historicalTrades: {
     title: "Historical Trades",
@@ -180,7 +180,7 @@ export const portfolioData = {
         tradedValue: "$42,000",
         tradeType: "Buy",
         date: "2024-01-15",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-002",
@@ -190,7 +190,7 @@ export const portfolioData = {
         tradedValue: "$70,000",
         tradeType: "Sell",
         date: "2024-02-01",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-003",
@@ -200,7 +200,7 @@ export const portfolioData = {
         tradedValue: "$28,000",
         tradeType: "Buy",
         date: "2024-02-15",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-004",
@@ -210,7 +210,7 @@ export const portfolioData = {
         tradedValue: "$56,000",
         tradeType: "Buy",
         date: "2024-02-20",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-005",
@@ -220,7 +220,7 @@ export const portfolioData = {
         tradedValue: "$84,000",
         tradeType: "Sell",
         date: "2024-02-25",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-006",
@@ -230,7 +230,7 @@ export const portfolioData = {
         tradedValue: "$98,000",
         tradeType: "Buy",
         date: "2024-03-01",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-007",
@@ -240,7 +240,7 @@ export const portfolioData = {
         tradedValue: "$49,000",
         tradeType: "Buy",
         date: "2024-03-05",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-008",
@@ -250,7 +250,7 @@ export const portfolioData = {
         tradedValue: "$63,000",
         tradeType: "Sell",
         date: "2024-03-08",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-009",
@@ -260,7 +260,7 @@ export const portfolioData = {
         tradedValue: "$77,000",
         tradeType: "Buy",
         date: "2024-03-10",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-010",
@@ -270,7 +270,7 @@ export const portfolioData = {
         tradedValue: "$112,000",
         tradeType: "Buy",
         date: "2024-03-12",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-011",
@@ -280,7 +280,7 @@ export const portfolioData = {
         tradedValue: "$91,000",
         tradeType: "Sell",
         date: "2024-03-15",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-012",
@@ -290,7 +290,7 @@ export const portfolioData = {
         tradedValue: "$53,200",
         tradeType: "Buy",
         date: "2024-03-17",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-013",
@@ -300,7 +300,7 @@ export const portfolioData = {
         tradedValue: "$58,800",
         tradeType: "Buy",
         date: "2024-03-19",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-014",
@@ -310,7 +310,7 @@ export const portfolioData = {
         tradedValue: "$105,000",
         tradeType: "Sell",
         date: "2024-03-20",
-        status: "Completed"
+        status: "Completed",
       },
       {
         tradeId: "TR-2024-015",
@@ -320,9 +320,9 @@ export const portfolioData = {
         tradedValue: "$67,200",
         tradeType: "Buy",
         date: "2024-03-22",
-        status: "Completed"
-      }
-    ]
+        status: "Completed",
+      },
+    ],
   },
   pendingContracts: {
     title: "Pending Contracts",
@@ -334,7 +334,7 @@ export const portfolioData = {
         quantity: "7,000",
         value: "$98,000",
         dueDate: "2024-04-30",
-        status: "Pending Approval"
+        status: "Pending Approval",
       },
       {
         contractId: "CT-2024-002",
@@ -343,7 +343,7 @@ export const portfolioData = {
         quantity: "4,000",
         value: "$56,000",
         dueDate: "2024-05-15",
-        status: "Under Review"
+        status: "Under Review",
       },
       {
         contractId: "CT-2024-003",
@@ -352,7 +352,7 @@ export const portfolioData = {
         quantity: "9,000",
         value: "$126,000",
         dueDate: "2024-05-01",
-        status: "Pending Approval"
+        status: "Pending Approval",
       },
       {
         contractId: "CT-2024-004",
@@ -361,7 +361,7 @@ export const portfolioData = {
         quantity: "6,000",
         value: "$84,000",
         dueDate: "2024-05-20",
-        status: "Under Review"
+        status: "Under Review",
       },
       {
         contractId: "CT-2024-005",
@@ -370,7 +370,7 @@ export const portfolioData = {
         quantity: "5,500",
         value: "$77,000",
         dueDate: "2024-05-10",
-        status: "Pending Approval"
+        status: "Pending Approval",
       },
       {
         contractId: "CT-2024-006",
@@ -379,7 +379,7 @@ export const portfolioData = {
         quantity: "8,000",
         value: "$112,000",
         dueDate: "2024-05-25",
-        status: "Under Review"
+        status: "Under Review",
       },
       {
         contractId: "CT-2024-007",
@@ -388,7 +388,7 @@ export const portfolioData = {
         quantity: "10,000",
         value: "$140,000",
         dueDate: "2024-05-05",
-        status: "Pending Approval"
+        status: "Pending Approval",
       },
       {
         contractId: "CT-2024-008",
@@ -397,7 +397,7 @@ export const portfolioData = {
         quantity: "4,500",
         value: "$63,000",
         dueDate: "2024-06-01",
-        status: "Under Review"
+        status: "Under Review",
       },
       {
         contractId: "CT-2024-009",
@@ -406,7 +406,7 @@ export const portfolioData = {
         quantity: "6,500",
         value: "$91,000",
         dueDate: "2024-05-15",
-        status: "Pending Approval"
+        status: "Pending Approval",
       },
       {
         contractId: "CT-2024-010",
@@ -415,7 +415,7 @@ export const portfolioData = {
         quantity: "7,500",
         value: "$105,000",
         dueDate: "2024-06-10",
-        status: "Under Review"
+        status: "Under Review",
       },
       {
         contractId: "CT-2024-011",
@@ -424,7 +424,7 @@ export const portfolioData = {
         quantity: "8,500",
         value: "$119,000",
         dueDate: "2024-05-20",
-        status: "Pending Approval"
+        status: "Pending Approval",
       },
       {
         contractId: "CT-2024-012",
@@ -433,7 +433,7 @@ export const portfolioData = {
         quantity: "5,000",
         value: "$70,000",
         dueDate: "2024-06-15",
-        status: "Under Review"
+        status: "Under Review",
       },
       {
         contractId: "CT-2024-013",
@@ -442,7 +442,7 @@ export const portfolioData = {
         quantity: "7,000",
         value: "$98,000",
         dueDate: "2024-05-25",
-        status: "Pending Approval"
+        status: "Pending Approval",
       },
       {
         contractId: "CT-2024-014",
@@ -451,7 +451,7 @@ export const portfolioData = {
         quantity: "9,000",
         value: "$126,000",
         dueDate: "2024-06-20",
-        status: "Under Review"
+        status: "Under Review",
       },
       {
         contractId: "CT-2024-015",
@@ -460,10 +460,10 @@ export const portfolioData = {
         quantity: "6,000",
         value: "$84,000",
         dueDate: "2024-05-30",
-        status: "Pending Approval"
-      }
-    ]
-  }
+        status: "Pending Approval",
+      },
+    ],
+  },
 };
 
 export const activeAgreements = {
@@ -477,7 +477,7 @@ export const activeAgreements = {
       totalDeliveries: "4/12",
       quantity: "2,500",
       status: "On Track",
-      vintage: "2023"
+      vintage: "2023",
     },
     {
       agreementId: "AG-2024-002",
@@ -487,7 +487,7 @@ export const activeAgreements = {
       totalDeliveries: "2/6",
       quantity: "1,000",
       status: "On Track",
-      vintage: "2024"
+      vintage: "2024",
     },
     {
       agreementId: "AG-2024-003",
@@ -497,7 +497,7 @@ export const activeAgreements = {
       totalDeliveries: "1/4",
       quantity: "2,000",
       status: "Pending",
-      vintage: "2023"
+      vintage: "2023",
     },
     {
       agreementId: "AG-2024-004",
@@ -507,7 +507,7 @@ export const activeAgreements = {
       totalDeliveries: "3/8",
       quantity: "3,500",
       status: "On Track",
-      vintage: "2024"
+      vintage: "2024",
     },
     {
       agreementId: "AG-2024-005",
@@ -517,7 +517,7 @@ export const activeAgreements = {
       totalDeliveries: "2/10",
       quantity: "1,800",
       status: "Delayed",
-      vintage: "2024"
+      vintage: "2024",
     },
     {
       agreementId: "AG-2024-006",
@@ -527,7 +527,7 @@ export const activeAgreements = {
       totalDeliveries: "3/6",
       quantity: "2,200",
       status: "On Track",
-      vintage: "2023"
+      vintage: "2023",
     },
     {
       agreementId: "AG-2024-007",
@@ -537,7 +537,7 @@ export const activeAgreements = {
       totalDeliveries: "1/8",
       quantity: "4,000",
       status: "Pending",
-      vintage: "2024"
+      vintage: "2024",
     },
     {
       agreementId: "AG-2024-008",
@@ -547,7 +547,7 @@ export const activeAgreements = {
       totalDeliveries: "4/12",
       quantity: "2,800",
       status: "On Track",
-      vintage: "2023"
+      vintage: "2023",
     },
     {
       agreementId: "AG-2024-009",
@@ -557,7 +557,7 @@ export const activeAgreements = {
       totalDeliveries: "2/6",
       quantity: "1,500",
       status: "Delayed",
-      vintage: "2024"
+      vintage: "2024",
     },
     {
       agreementId: "AG-2024-010",
@@ -567,7 +567,7 @@ export const activeAgreements = {
       totalDeliveries: "3/10",
       quantity: "3,200",
       status: "On Track",
-      vintage: "2023"
+      vintage: "2023",
     },
     {
       agreementId: "AG-2024-011",
@@ -577,7 +577,7 @@ export const activeAgreements = {
       totalDeliveries: "1/8",
       quantity: "2,600",
       status: "Pending",
-      vintage: "2024"
+      vintage: "2024",
     },
     {
       agreementId: "AG-2024-012",
@@ -587,7 +587,7 @@ export const activeAgreements = {
       totalDeliveries: "2/4",
       quantity: "1,700",
       status: "On Track",
-      vintage: "2023"
+      vintage: "2023",
     },
     {
       agreementId: "AG-2024-013",
@@ -597,7 +597,7 @@ export const activeAgreements = {
       totalDeliveries: "1/6",
       quantity: "3,800",
       status: "On Track",
-      vintage: "2024"
+      vintage: "2024",
     },
     {
       agreementId: "AG-2024-014",
@@ -607,7 +607,7 @@ export const activeAgreements = {
       totalDeliveries: "5/12",
       quantity: "2,400",
       status: "Delayed",
-      vintage: "2023"
+      vintage: "2023",
     },
     {
       agreementId: "AG-2024-015",
@@ -617,9 +617,9 @@ export const activeAgreements = {
       totalDeliveries: "2/8",
       quantity: "1,900",
       status: "On Track",
-      vintage: "2024"
-    }
-  ]
+      vintage: "2024",
+    },
+  ],
 };
 
 export const registryApiEndpoints = {
@@ -638,4 +638,4 @@ export const registryApiEndpoints = {
     projectID: "https://api.example.com/climateactionreserve/project",
     registryURL: "https://api.example.com/climateactionreserve/url",
   },
-}; 
+};

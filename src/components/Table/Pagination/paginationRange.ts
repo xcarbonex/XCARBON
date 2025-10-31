@@ -1,5 +1,5 @@
-export function getPaginationRange(currentPage, totalPages) {
-  const range = [];
+export function getPaginationRange(currentPage: number, totalPages: number): (number | string)[] {
+  const range: (number | string)[] = [];
 
   // Always add the first page
   range.push(1);
@@ -11,7 +11,7 @@ export function getPaginationRange(currentPage, totalPages) {
     }
     // Add ellipsis if there are more pages before the last
     if (totalPages > 4) {
-      range.push('...');
+      range.push("...");
     }
   }
   // If currentPage is near the start (2 or 3), adjust the range
@@ -20,22 +20,22 @@ export function getPaginationRange(currentPage, totalPages) {
       range.push(i);
     }
     if (totalPages > 4) {
-      range.push('...');
+      range.push("...");
     }
   }
   // If currentPage is in the middle, show one page before and after
   else if (currentPage <= totalPages - 3) {
-    range.push('...');
+    range.push("...");
     range.push(currentPage - 1);
     range.push(currentPage);
     range.push(currentPage + 1);
     if (currentPage + 1 < totalPages - 1) {
-      range.push('...');
+      range.push("...");
     }
   }
   // If currentPage is near the end, show pages up to the last
   else {
-    range.push('...');
+    range.push("...");
     for (let i = Math.max(2, totalPages - 3); i <= totalPages - 1; i++) {
       range.push(i);
     }

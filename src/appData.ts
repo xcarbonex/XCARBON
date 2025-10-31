@@ -3540,7 +3540,6 @@ const marketplace = [
 const newsESG = [
   {
     tag: "ESG",
-
     title: "EU Proposes New Green Bond Standard",
     timeLabel: "15 min ago",
     description:
@@ -3548,7 +3547,6 @@ const newsESG = [
   },
   {
     tag: "ESG",
-
     title: "EU Proposes New Green Bond Standard",
     timeLabel: "15 min ago",
     description:
@@ -3556,7 +3554,6 @@ const newsESG = [
   },
   {
     tag: "ESG",
-
     title: "EU Proposes New Green Bond Standard",
     timeLabel: "15 min ago",
     description:
@@ -3564,7 +3561,6 @@ const newsESG = [
   },
   {
     tag: "ESG",
-
     title: "EU Proposes New Green Bond Standard",
     timeLabel: "15 min ago",
     description:
@@ -3575,7 +3571,6 @@ const newsESG = [
 const newsMajorTrades = [
   {
     tag: "Major Trades",
-
     title: "Tech Stocks Lead Market Rally",
     timeLabel: "15 min ago",
     description:
@@ -3583,7 +3578,6 @@ const newsMajorTrades = [
   },
   {
     tag: "Major Trades",
-
     title: "Tech Stocks Lead Market Rally",
     timeLabel: "15 min ago",
     description:
@@ -3591,7 +3585,6 @@ const newsMajorTrades = [
   },
   {
     tag: "Major Trades",
-
     title: "Tech Stocks Lead Market Rally",
     timeLabel: "15 min ago",
     description:
@@ -3599,7 +3592,6 @@ const newsMajorTrades = [
   },
   {
     tag: "Major Trades",
-
     title: "Tech Stocks Lead Market Rally",
     timeLabel: "15 min ago",
     description:
@@ -3610,7 +3602,6 @@ const newsMajorTrades = [
 const newsRegulatory = [
   {
     tag: "Regulatory",
-
     title: "SEC Announces Crypto Exchange Crackdown",
     timeLabel: "15 min ago",
     description:
@@ -3618,7 +3609,6 @@ const newsRegulatory = [
   },
   {
     tag: "Regulatory",
-
     title: "SEC Announces Crypto Exchange Crackdown",
     timeLabel: "15 min ago",
     description:
@@ -3626,7 +3616,6 @@ const newsRegulatory = [
   },
   {
     tag: "Regulatory",
-
     title: "SEC Announces Crypto Exchange Crackdown",
     timeLabel: "15 min ago",
     description:
@@ -3634,7 +3623,6 @@ const newsRegulatory = [
   },
   {
     tag: "Regulatory",
-
     title: "SEC Announces Crypto Exchange Crackdown",
     timeLabel: "15 min ago",
     description:

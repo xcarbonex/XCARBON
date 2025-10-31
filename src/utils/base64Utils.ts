@@ -1,4 +1,4 @@
-// base64Utils.js
+// base64Utils.ts
 
 /**
  * Robust, Unicode-safe Base64 encoding/decoding utility.
@@ -6,17 +6,20 @@
  */
 
 const isNode =
-  typeof process !== "undefined" &&
-  process.versions != null &&
-  process.versions.node != null;
+  typeof process !== "undefined" && process.versions != null && process.versions.node != null;
 
-const base64Utils = {
+interface Base64Utils {
+  encode(str: string): string;
+  decode(b64Str: string): string;
+}
+
+const base64Utils: Base64Utils = {
   /**
    * Encode a string (Unicode-safe) to Base64.
-   * @param {string} str - The input string.
-   * @returns {string} Base64-encoded string.
+   * @param str - The input string.
+   * @returns Base64-encoded string.
    */
-  encode(str) {
+  encode(str: string): string {
     if (isNode) {
       // Node.js: use Buffer
       return Buffer.from(str, "utf-8").toString("base64");
@@ -32,10 +35,10 @@ const base64Utils = {
 
   /**
    * Decode a Base64 string (Unicode-safe) back to string.
-   * @param {string} b64Str - The Base64 string.
-   * @returns {string} Decoded string.
+   * @param b64Str - The Base64 string.
+   * @returns Decoded string.
    */
-  decode(b64Str) {
+  decode(b64Str: string): string {
     if (isNode) {
       // Node.js: use Buffer
       return Buffer.from(b64Str, "base64").toString("utf-8");
