@@ -14,6 +14,7 @@ import {
   CarbonCreditAssetsFromRegistry,
   WalletInfoScreen,
   MarketPlaceAssets,
+  DashboardHome,
   ProjectDetail,
   CarbonCreditTokenization,
   ForgotPassword,
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "",
+            element: <DashboardHome />,
+          },
+          {
+            path: "marketplace",
             element: <MarketPlaceAssets />,
           },
           {

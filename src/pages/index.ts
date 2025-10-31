@@ -10,6 +10,7 @@ import Logout from "./Logout";
 import ListTokenizedAssets from "./ListTokenizedAssets";
 import WalletInfoScreen from "./Wallet/WalletInforScreen";
 import MarketPlaceAssets from "./Dashboard/MarketPlaceAssets";
+import DashboardHome from "./Dashboard/DashboardHome";
 import ProjectDetail from "./ProjectDetail";
 import CarbonCreditTokenization from "./CarbonCreditTokenization";
 import NotificationsPage from "./Notifications";
@@ -35,6 +36,7 @@ export {
   ListTokenizedAssets,
   WalletInfoScreen,
   MarketPlaceAssets,
+  DashboardHome,
   ProjectDetail,
   CarbonCreditTokenization,
   NotificationsPage,
