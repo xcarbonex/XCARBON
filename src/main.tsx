@@ -1,11 +1,11 @@
-import {StrictMode} from "react";
-import {createRoot} from "react-dom/client";
-import {RouterProvider} from "react-router-dom";
-import {router} from "./routes";
-import {ThemeProvider} from "./components/ThemeProvider";
-import {AuthProvider} from "./components/Auth";
-import {ToastContainer} from "react-toastify";
-import {HeroUIProvider} from "@heroui/react";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
+import { ThemeProvider } from "./components/ThemeProvider";
+import { AuthProvider } from "./components/Auth";
+import { ToastContainer } from "react-toastify";
+import { HeroUIProvider } from "@heroui/react";
 
 import "react-toastify/dist/ReactToastify.css";
 import "react-tooltip/dist/react-tooltip.css";
