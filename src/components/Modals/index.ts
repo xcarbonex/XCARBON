@@ -5,3 +5,5 @@ export { default as APIKeyModal } from "./APIKeyModal";
 export { default as CurrencyModal } from "./CurrencyModal";
 export { default as UserOverviewModal } from "./UserOverviewModal";
 export { default as EditProfileModal } from "./EditProfileModal";
+export { default as TokenizationModal } from "./TokenizationModal";
+export { default as MintingModal } from "./MintingModal";

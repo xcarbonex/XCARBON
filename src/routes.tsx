@@ -11,6 +11,7 @@ import {
   Help,
   ListTokenizedAssets,
   CarbonCreditAssetsFromRegistry,
+  Assets,
   WalletInfoScreen,
   MarketPlaceAssets,
   DashboardHome,
@@ -50,25 +51,30 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Dashboard />,
-        children: [
-          {
-            path: "",
-            element: <DashboardHome />,
-          },
-          {
-            path: "marketplace",
-            element: <MarketPlaceAssets />,
-          },
-          {
-            path: "project-detail/:assets-id",
-            element: <ProjectDetail />,
-          },
-        ],
+        element: <DashboardHome />,
       },
       {
+        path: "marketplace",
+        element: <MarketPlaceAssets />,
+      },
+      {
+        path: "project-detail/:assets-id",
+        element: <ProjectDetail />,
+      },
+      // Redirect old marketplace route to new top-level
+      {
+        path: "dashboard/marketplace",
+        element: <Navigate to="/marketplace" replace />,
+      },
+      // Redirect old assets lookup to unified assets hub
+      {
+        path: "assets/look-up",
+        element: <Navigate to="/assets?tab=registry" replace />,
+      },
+      // Redirect old portfolio to unified assets hub
+      {
         path: "portfolio",
-        element: <Portfolio />,
+        element: <Navigate to="/assets?tab=portfolio" replace />,
       },
       {
         path: "wallet",
@@ -112,8 +118,14 @@ export const router = createBrowserRouter([
         path: "notifications/:id",
         element: <NotificationDetailRedirect />,
       },
+      // New unified Assets hub (consolidates Portfolio + Registry Assets)
       {
         path: "assets",
+        element: <Assets />,
+      },
+      // Redirect old portfolio route to assets
+      {
+        path: "assets-old",
         element: <CarbonCreditAssetsFromRegistry />,
         children: [
           {

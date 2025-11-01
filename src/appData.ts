@@ -1,5 +1,4 @@
 import dashboard from "./assets/navigation/dashboard.svg";
-import portfolio from "./assets/navigation/portfolio.svg";
 import carbon_wallet from "./assets/navigation/carbon_wallet.svg";
 import user from "./assets/navigation/user.svg";
 import help from "./assets/navigation/help.svg";
@@ -11,30 +10,33 @@ import silver from "@/assets/Silver.svg";
 import gold from "@/assets/Gold.svg";
 import platinum from "@/assets/Platinum.svg";
 import registysearch from "@/assets/registrysearch.svg";
+import mintCarbon from "./assets/navigation/mintCarbon.svg";
 
 const sidebar = {
   logo: logolight,
   navigation: [
+    // Core Navigation (Primary)
     {
       label: "Dashboard",
       icon: dashboard,
       route: "/",
     },
     {
-      label: "Portfolio",
-      icon: portfolio,
-      route: "/portfolio",
+      label: "Marketplace",
+      icon: mintCarbon,
+      route: "/marketplace",
+    },
+    {
+      label: "Assets",
+      icon: registysearch,
+      route: "/assets",
     },
     {
       label: "Wallet",
       icon: carbon_wallet,
       route: "/wallet",
     },
-    {
-      label: "Carbon Assets",
-      icon: registysearch,
-      route: "/assets",
-    },
+    // Account & Settings (Secondary)
     {
       label: "Membership",
       icon: user,

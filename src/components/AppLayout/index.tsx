@@ -7,16 +7,19 @@ import { useTheme } from "@/components/ThemeProvider";
 import { SidebarProvider, useSidebar } from "@/context/SidebarContext";
 import Sidebar from "@/components/Sidebar";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
+import { IoHelpCircleOutline } from "react-icons/io5";
 import NotificationPopup from "@/components/NotificationPopup";
 import { ScrollBarWrapper, PWAInstallPrompt, PWAUpdatePrompt } from "@/components";
 import { UserProfile } from "@/components/Auth";
 import clsx from "clsx";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/components/Auth";
+import { useNavigate } from "react-router-dom";
 
 const MainLayout: React.FC = () => {
   const { theme } = useTheme();
   const { isMobileOpen, toggleMobileSidebar } = useSidebar();
+  const navigate = useNavigate();
 
   return (
     <main className={`flex min-h-screen ${theme}`}>
@@ -42,8 +45,21 @@ const MainLayout: React.FC = () => {
 
             {/* Right: Control cluster */}
             <div className="flex items-center gap-3">
+              {/* Help Button */}
+              <button
+                onClick={() => navigate('/help')}
+                className="relative p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-all duration-200 border border-neutral-300 dark:border-neutral-700 group"
+                aria-label="Help & Support"
+                title="Help & Support"
+              >
+                <IoHelpCircleOutline className="w-6 h-6 text-neutral-700 dark:text-neutral-300 group-hover:text-info-600 dark:group-hover:text-info-400 transition-colors" />
+              </button>
+
+              {/* Notifications */}
               <NotificationPopup />
-              <div className="px-4 py-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 font-semibold text-sm border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200">
+              
+              {/* Company/User Badge */}
+              <div className="px-4 py-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 font-semibold text-sm border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 cursor-pointer">
                 Google LLC
               </div>
               {/* <UserProfile /> */}

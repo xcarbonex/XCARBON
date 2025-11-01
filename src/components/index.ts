@@ -66,6 +66,7 @@ export { Modal } from "./Modal";
 export type { ModalProps, ModalSize } from "./Modal";
 export { Drawer } from "./Drawer";
 export type { DrawerProps, DrawerSize, DrawerAnchor } from "./Drawer";
+export { default as ListAssetDrawer } from "./Drawer/ListAssetDrawer";
 export { BottomSheet } from "./BottomSheet";
 export type { BottomSheetProps, BottomSheetSnapPoint } from "./BottomSheet";
 export { Toast } from "./Toast";

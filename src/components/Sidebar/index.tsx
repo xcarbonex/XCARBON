@@ -84,47 +84,54 @@ const Sidebar: React.FC = () => {
           <nav className="flex-1 overflow-y-auto">
             <ul className="space-y-1 py-4">
               {sidebar.navigation.map((item, index) => (
-                <li key={index}>
-                  <NavLink
-                    to={item.route}
-                    onClick={toggleMobileSidebar}
-                    data-tooltip-id={isCollapsed ? "sidebar_nav" : undefined}
-                    data-tooltip-content={isCollapsed ? item.label : undefined}
-                    className={({ isActive }) => `
-                      relative flex items-center
-                      px-4 py-3
-                      rounded-lg
-                      transition-all duration-200
-                      ${isCollapsed ? "justify-center" : ""}
-                      ${
-                        isActive
-                          ? "bg-brand-500/20 dark:bg-brand-400/10 text-white dark:text-brand-300 border-l-4 border-brand-400 dark:border-brand-500 ml-0 pl-3"
-                          : "text-white/80 dark:text-neutral-300 hover:bg-white/10 dark:hover:bg-neutral-800/50 hover:text-white dark:hover:text-white border-l-4 border-transparent"
-                      }
-                    `}
-                  >
-                    <img
-                      src={item.icon}
-                      alt={item.label}
-                      className={`
-                        h-6 w-6 min-w-[24px]
-                        ${!isCollapsed && "mr-3"}
-                        ${location.pathname === item.route ? "brightness-0 invert" : "brightness-0 invert opacity-80"}
+      <React.Fragment key={index}>
+        {/* Divider after Wallet (index 3) - separates core navigation from account settings */}
+        {index === 4 && !isCollapsed && (
+          <li className="px-3 py-2">
+            <hr className="border-white/10 dark:border-neutral-700/30" />
+          </li>
+        )}                  <li>
+                    <NavLink
+                      to={item.route}
+                      onClick={toggleMobileSidebar}
+                      data-tooltip-id={isCollapsed ? "sidebar_nav" : undefined}
+                      data-tooltip-content={isCollapsed ? item.label : undefined}
+                      className={({ isActive }) => `
+                        relative flex items-center
+                        px-4 py-3
+                        rounded-lg
+                        transition-all duration-200
+                        ${isCollapsed ? "justify-center" : ""}
+                        ${
+                          isActive
+                            ? "bg-brand-500/20 dark:bg-brand-400/10 text-white dark:text-brand-300 border-l-4 border-brand-400 dark:border-brand-500 ml-0 pl-3"
+                            : "text-white/80 dark:text-neutral-300 hover:bg-white/10 dark:hover:bg-neutral-800/50 hover:text-white dark:hover:text-white border-l-4 border-transparent"
+                        }
                       `}
-                    />
-                    {!isCollapsed && (
-                      <Typography
-                        variant="body2"
-                        className={clsx(
-                          "whitespace-nowrap overflow-hidden transition-all duration-200",
-                          location.pathname === item.route ? "font-bold" : "font-medium"
-                        )}
-                      >
-                        {item.label}
-                      </Typography>
-                    )}
-                  </NavLink>
-                </li>
+                    >
+                      <img
+                        src={item.icon}
+                        alt={item.label}
+                        className={`
+                          h-6 w-6 min-w-[24px]
+                          ${!isCollapsed && "mr-3"}
+                          ${location.pathname === item.route ? "brightness-0 invert" : "brightness-0 invert opacity-80"}
+                        `}
+                      />
+                      {!isCollapsed && (
+                        <Typography
+                          variant="body2"
+                          className={clsx(
+                            "whitespace-nowrap overflow-hidden transition-all duration-200",
+                            location.pathname === item.route ? "font-bold" : "font-medium"
+                          )}
+                        >
+                          {item.label}
+                        </Typography>
+                      )}
+                    </NavLink>
+                  </li>
+                </React.Fragment>
               ))}
             </ul>
           </nav>

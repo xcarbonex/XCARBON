@@ -19,6 +19,7 @@ import MintCarbonCreditsSummary from "./MintCarbonCredits/MintCarbonCreditsSumma
 import AssetsProgress from "./CarbonCreditAssetsFromRegistry/AssetsProgress";
 import SearchAssetFromRegistry from "./CarbonCreditAssetsFromRegistry/SearchAssetFromRegistry";
 import CarbonCreditAssetsFromRegistry from "./CarbonCreditAssetsFromRegistry";
+import Assets from "./Assets";
 export {
   Dashboard,
   Portfolio,
@@ -30,6 +31,7 @@ export {
   Help,
   Logout,
   CarbonCreditAssetsFromRegistry,
+  Assets,
   ListTokenizedAssets,
   WalletInfoScreen,
   MarketPlaceAssets,

@@ -172,25 +172,26 @@ const DashboardHome: React.FC = () => {
             </Button>
           </div>
 
-          {/* Secondary CTA - Premium Card */}
+          {/* Secondary CTA - Browse Marketplace */}
           <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-success-500/30 to-brand-500/30 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-0 bg-gradient-to-r from-info-500/30 to-brand-500/30 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
             <Button
               variant="secondary"
               size="lg"
               fullWidth
-              className="relative h-24 justify-start pl-6 text-left bg-white dark:bg-neutral-800 border-2 hover:border-brand-400 dark:hover:border-brand-600 shadow-lg"
+              onClick={() => window.location.href = '/marketplace'}
+              className="relative h-24 justify-start pl-6 text-left bg-white dark:bg-neutral-800 border-2 hover:border-info-400 dark:hover:border-info-600 shadow-lg"
             >
               <div className="flex items-center gap-4 w-full">
-                <div className="p-3 rounded-xl bg-success-100 dark:bg-success-900/30 group-hover:bg-success-200 dark:group-hover:bg-success-800/40 transition-colors">
-                  <IoLeafOutline className="w-6 h-6 flex-shrink-0 text-success-600 dark:text-success-400" />
+                <div className="p-3 rounded-xl bg-info-100 dark:bg-info-900/30 group-hover:bg-info-200 dark:group-hover:bg-info-800/40 transition-colors">
+                  <IoLeafOutline className="w-6 h-6 flex-shrink-0 text-info-600 dark:text-info-400" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs text-neutral-600 dark:text-neutral-400 font-medium">
-                    Quick Action
+                    Discover Projects
                   </span>
                   <span className="text-lg font-bold text-neutral-900 dark:text-white">
-                    Buy Credits
+                    Browse Marketplace
                   </span>
                 </div>
               </div>
