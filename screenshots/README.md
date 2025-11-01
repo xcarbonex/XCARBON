@@ -30,29 +30,40 @@ The tool automatically captures screenshots of:
 ### Public Screens (No Auth Required)
 
 - ✅ Login page
-- ✅ Sign Up page
+- ✅ Sign Up page  
 - ✅ Forgot Password page
+- ✅ Reset Password page
+- ✅ Two-Factor Authentication
 
 ### Authenticated Screens (Requires Login)
 
+#### Core Navigation
 - ✅ Dashboard Home
-- ✅ Portfolio Overview
+- ✅ Marketplace - Browse Assets
+- ✅ Marketplace - Project Detail View
 - ✅ Wallet Overview
-- ✅ Wallet Deposit
+- ✅ Wallet - Deposit Funds
+
+#### **Assets Hub (NEW Consolidated Design)**
+The unified Assets page with multiple interactive states:
+- ✅ **Portfolio Tab** - View tokenized assets (`/assets?tab=portfolio`)
+- ✅ **Registry Lookup Tab** - Search registry assets (`/assets?tab=registry`)
+- ✅ **Tokenization Modal** - 4-step wizard (`/assets?action=tokenize`)
+- ✅ **Minting Modal** - 4-step wizard (`/assets?action=mint`)
+- ✅ **List Asset Drawer** - Side panel form (`/assets?action=list`)
+
+#### Account & Settings
 - ✅ Membership Tiers
-- ✅ Settings
-- ✅ Carbon Credit Tokenization
-- ✅ List Tokenized Assets
-- ✅ Notifications
+- ✅ Settings & Account
+- ✅ Notifications Center
 - ✅ Help & Support
-- ✅ Marketplace Assets
-- ✅ Registry Assets
 
 ### Variations
 
-- **Themes**: Light mode + Dark mode for each screen
+- **Themes**: Light mode + Dark mode for every screen
 - **Viewports**: Desktop (1920x1080) + Mobile (375x812) for key screens
-- **Total Screenshots**: ~40+ images
+- **Interactive States**: Modals, drawers, and tab variations captured via URL parameters
+- **Total Screenshots**: **~60 images** (24 screens × 2 themes + 6 mobile × 2 themes)
 
 ## ⚙️ Configuration
 

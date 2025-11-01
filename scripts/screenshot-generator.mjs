@@ -60,6 +60,20 @@ const SCREENS = [
     waitFor: 'input[type="email"]',
     description: 'Forgot Password Screen'
   },
+  {
+    name: 'two-factor-auth',
+    path: '/two-factor-auth',
+    requiresAuth: false,
+    waitFor: 'input',
+    description: 'Two-Factor Authentication'
+  },
+  {
+    name: 'reset-password',
+    path: '/reset-password',
+    requiresAuth: false,
+    waitFor: 'input[type="password"]',
+    description: 'Reset Password Screen'
+  },
   
   // Protected screens (require auth)
   {
@@ -70,12 +84,63 @@ const SCREENS = [
     description: 'Dashboard Home'
   },
   {
-    name: 'portfolio',
-    path: '/portfolio',
+    name: 'marketplace',
+    path: '/marketplace',
+    requiresAuth: true,
+    waitFor: 'div',
+    description: 'Marketplace - Browse Assets'
+  },
+  {
+    name: 'marketplace-project-detail',
+    path: '/project-detail/1',
+    requiresAuth: true,
+    waitFor: 'div',
+    description: 'Marketplace - Project Detail'
+  },
+  
+  // Assets Hub - NEW consolidated page
+  {
+    name: 'assets-portfolio',
+    path: '/assets?tab=portfolio',
     requiresAuth: true,
     waitFor: 'table',
-    description: 'Portfolio Overview'
+    description: 'Assets Hub - Portfolio Tab'
   },
+  {
+    name: 'assets-registry',
+    path: '/assets?tab=registry',
+    requiresAuth: true,
+    waitFor: 'form',
+    description: 'Assets Hub - Registry Lookup Tab'
+  },
+  
+  // Assets Hub with Modal States
+  {
+    name: 'assets-tokenize-modal',
+    path: '/assets?action=tokenize',
+    requiresAuth: true,
+    waitFor: '[role="dialog"]',
+    description: 'Assets Hub - Tokenization Modal',
+    additionalWait: 1500
+  },
+  {
+    name: 'assets-mint-modal',
+    path: '/assets?action=mint',
+    requiresAuth: true,
+    waitFor: '[role="dialog"]',
+    description: 'Assets Hub - Minting Modal',
+    additionalWait: 1500
+  },
+  {
+    name: 'assets-list-drawer',
+    path: '/assets?action=list',
+    requiresAuth: true,
+    waitFor: 'aside',
+    description: 'Assets Hub - List Asset Drawer',
+    additionalWait: 1500
+  },
+  
+  // Wallet screens
   {
     name: 'wallet',
     path: '/wallet',
@@ -88,8 +153,10 @@ const SCREENS = [
     path: '/wallet/deposit',
     requiresAuth: true,
     waitFor: 'form',
-    description: 'Deposit Screen'
+    description: 'Wallet - Deposit Funds'
   },
+  
+  // Account & Settings
   {
     name: 'membership',
     path: '/membership',
@@ -102,28 +169,16 @@ const SCREENS = [
     path: '/settings',
     requiresAuth: true,
     waitFor: 'img[alt="user"]',
-    description: 'Settings Screen'
+    description: 'Settings & Account'
   },
-  {
-    name: 'tokenization',
-    path: '/carbon-credit-tokenization',
-    requiresAuth: true,
-    waitFor: 'form',
-    description: 'Carbon Credit Tokenization'
-  },
-  {
-    name: 'list-assets',
-    path: '/list-tokenized-assets',
-    requiresAuth: true,
-    waitFor: 'form',
-    description: 'List Tokenized Assets'
-  },
+  
+  // Additional screens
   {
     name: 'notifications',
     path: '/notifications',
     requiresAuth: true,
     waitFor: 'h1, h2, h3, h4',
-    description: 'Notifications Page'
+    description: 'Notifications Center'
   },
   {
     name: 'help',
@@ -131,20 +186,6 @@ const SCREENS = [
     requiresAuth: true,
     waitFor: 'h1, h2, h3, h4',
     description: 'Help & Support'
-  },
-  {
-    name: 'marketplace',
-    path: '/marketplace',
-    requiresAuth: true,
-    waitFor: 'div',
-    description: 'Marketplace Assets'
-  },
-  {
-    name: 'assets',
-    path: '/assets',
-    requiresAuth: true,
-    waitFor: 'div',
-    description: 'Registry Assets'
   }
 ];
 
@@ -241,7 +282,8 @@ async function captureScreen(page, screen, theme, viewport = 'desktop') {
     }
     
     // Additional wait for animations/transitions
-    await page.waitForTimeout(1000);
+    const waitTime = screen.additionalWait || 1000;
+    await page.waitForTimeout(waitTime);
     
     // Take screenshot
     await page.screenshot({
@@ -351,7 +393,7 @@ async function generateScreenshots() {
     
     // Capture a few key screens in mobile view
     const mobileScreens = SCREENS.filter(s => 
-      ['dashboard', 'portfolio', 'wallet', 'login'].includes(s.name)
+      ['dashboard', 'assets-portfolio', 'marketplace', 'wallet', 'login', 'assets-tokenize-modal'].includes(s.name)
     );
     
     for (const theme of ['light', 'dark']) {
@@ -629,7 +671,7 @@ async function generateIndexHTML(screens) {
                 <div class="screenshot-tabs">
                     <button class="tab active" data-target="light-desktop">☀️ Light</button>
                     <button class="tab" data-target="dark-desktop">🌙 Dark</button>
-                    ${['dashboard', 'portfolio', 'wallet', 'login'].includes(screen.name) ? 
+                    ${['dashboard', 'assets-portfolio', 'marketplace', 'wallet', 'login', 'assets-tokenize-modal'].includes(screen.name) ? 
                       '<button class="tab" data-target="mobile">📱 Mobile</button>' : ''}
                 </div>
                 
@@ -644,7 +686,7 @@ async function generateIndexHTML(screens) {
                              alt="${screen.description} - Dark Mode"
                              onclick="openModal(this.src)">
                     </div>
-                    ${['dashboard', 'portfolio', 'wallet', 'login'].includes(screen.name) ? `
+                    ${['dashboard', 'assets-portfolio', 'marketplace', 'wallet', 'login', 'assets-tokenize-modal'].includes(screen.name) ? `
                     <div class="screenshot-view" data-view="mobile">
                         <img src="${screen.name}-light-mobile.png" 
                              alt="${screen.description} - Mobile"
@@ -661,7 +703,7 @@ async function generateIndexHTML(screens) {
     </div>
     
     <div class="timestamp">
-        <p>Total Screenshots: ${screens.length * 2} desktop + ${screens.filter(s => ['dashboard', 'portfolio', 'wallet', 'login'].includes(s.name)).length * 2} mobile</p>
+        <p>Total Screenshots: ${screens.length * 2} desktop + ${screens.filter(s => ['dashboard', 'assets-portfolio', 'marketplace', 'wallet', 'login', 'assets-tokenize-modal'].includes(s.name)).length * 2} mobile</p>
     </div>
     
     <script>
@@ -701,7 +743,7 @@ async function generateIndexHTML(screens) {
                     } else if (filter === 'desktop') {
                         show = true; // All cards have desktop
                     } else if (filter === 'mobile') {
-                        show = ['dashboard', 'portfolio', 'wallet', 'login'].includes(card.dataset.name);
+                        show = ['dashboard', 'assets-portfolio', 'marketplace', 'wallet', 'login', 'assets-tokenize-modal'].includes(card.dataset.name);
                     }
                     
                     card.style.display = show ? 'block' : 'none';
