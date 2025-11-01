@@ -28,3 +28,11 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# Screenshots (generated files)
+screenshots/*.png
+screenshots/*.jpg
+screenshots/*.jpeg
+# But keep README and index.html
+!screenshots/README.md
+!screenshots/index.html

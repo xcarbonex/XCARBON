@@ -16,7 +16,9 @@
     "test:coverage": "vitest --coverage",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "screenshots": "node scripts/screenshot-generator.mjs",
+    "screenshots:debug": "node scripts/screenshot-generator.mjs --debug"
   },
   "dependencies": {
     "@heroui/react": "^2.8.1",
