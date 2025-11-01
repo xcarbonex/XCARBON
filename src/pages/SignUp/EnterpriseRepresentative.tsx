@@ -1,13 +1,12 @@
 import React from "react";
 import certificate from "@/assets/certificate.svg";
 import camera from "@/assets/camera.svg";
-import { Input } from "@/components";
+import { Input, useToast } from "@/components";
 import clsx from "clsx";
 import { FileUpload } from "@/components";
 import Form from "@/components/Form";
 import * as Yup from "yup";
 import type { FormikValues } from "formik";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 interface DeclarationsValues {
@@ -46,6 +45,7 @@ interface Declaration {
 }
 
 const EnterpriseRepresentative: React.FC = () => {
+  const { toast } = useToast();
   const navigate = useNavigate();
 
   const initialValues: RepresentativeFormValues = {
@@ -127,8 +127,8 @@ const EnterpriseRepresentative: React.FC = () => {
       <Form
         initialValues={initialValues}
         onSubmit={(_values: FormikValues) => {
+          toast.success("Registration Complete!", "Your enterprise registration has been submitted successfully");
           navigate("/");
-          toast.success("Registration completed successfully!");
         }}
         validationSchema={Yup.object().shape({
           entityName: Yup.string().required("Entity Name is required"),

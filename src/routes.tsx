@@ -1,10 +1,9 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate, useLocation } from "react-router-dom";
 import {
   Dashboard,
   Settings,
   Portfolio,
   Wallet,
-  Deposit,
   Membership,
   Login,
   SignUp,
@@ -17,20 +16,31 @@ import {
   DashboardHome,
   ProjectDetail,
   CarbonCreditTokenization,
-  ForgotPassword,
-  ResetPassword,
   MintCarbonCreditsSummary,
   SearchAssetFromRegistry,
   AssetsProgress,
 } from "./pages";
 import NotificationsPage from "./pages/Notifications";
-import NotificationDetail from "./pages/Notifications/NotificationDetail";
 import TestError from "@/pages/TestError";
 import Layout from "@/components/AppLayout";
-import WithdrawTokenizedCarbonCredit from "./pages/Wallet/WithdrawTokenizedCarbonCredit";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import NotFound from "@/pages/NotFound";
 import TwoFactorAuth from "./pages/TwoFactorAuth";
+
+// Redirect component for reset-password that preserves token parameter
+const ResetPasswordRedirect = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const token = searchParams.get("token") || "";
+  return <Navigate to={`/login?modal=reset-password&token=${token}`} replace />;
+};
+
+// Redirect component for notification detail
+const NotificationDetailRedirect = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/").pop();
+  return <Navigate to={`/notifications?detail=${id}`} replace />;
+};
 
 export const router = createBrowserRouter([
   {
@@ -70,11 +80,11 @@ export const router = createBrowserRouter([
           },
           {
             path: "deposit",
-            element: <Deposit />,
+            element: <Navigate to="/wallet?action=deposit" replace />,
           },
           {
             path: "withdraw-tokenized-carbon-credit",
-            element: <WithdrawTokenizedCarbonCredit />,
+            element: <Navigate to="/wallet?action=withdraw" replace />,
           },
         ],
       },
@@ -100,7 +110,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "notifications/:id",
-        element: <NotificationDetail />,
+        element: <NotificationDetailRedirect />,
       },
       {
         path: "assets",
@@ -137,13 +147,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/forgot-password",
-    element: <ForgotPassword />,
-    errorElement: <ErrorBoundary />,
+    element: <Navigate to="/login?modal=forgot-password" replace />,
   },
   {
     path: "/reset-password",
-    element: <ResetPassword />,
-    errorElement: <ErrorBoundary />,
+    element: <ResetPasswordRedirect />,
   },
   {
     path: "/signup",

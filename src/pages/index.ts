@@ -14,11 +14,8 @@ import DashboardHome from "./Dashboard/DashboardHome";
 import ProjectDetail from "./ProjectDetail";
 import CarbonCreditTokenization from "./CarbonCreditTokenization";
 import NotificationsPage from "./Notifications";
-import ForgotPassword from "./ForgotPassword";
-import ResetPassword from "./ResetPassword";
 import MintCarbonCredits from "./MintCarbonCredits";
 import MintCarbonCreditsSummary from "./MintCarbonCredits/MintCarbonCreditsSummary";
-import Deposit from "./Deposit";
 import AssetsProgress from "./CarbonCreditAssetsFromRegistry/AssetsProgress";
 import SearchAssetFromRegistry from "./CarbonCreditAssetsFromRegistry/SearchAssetFromRegistry";
 import CarbonCreditAssetsFromRegistry from "./CarbonCreditAssetsFromRegistry";
@@ -40,11 +37,8 @@ export {
   ProjectDetail,
   CarbonCreditTokenization,
   NotificationsPage,
-  ForgotPassword,
-  ResetPassword,
   MintCarbonCredits,
   MintCarbonCreditsSummary,
-  Deposit,
   AssetsProgress,
   SearchAssetFromRegistry,
 };

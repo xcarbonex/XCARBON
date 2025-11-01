@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Typography } from "@/components";
+import { useSearchParams } from "react-router-dom";
+import { Typography, Drawer } from "@/components";
 import {
   IoNotificationsOutline,
   IoCheckmarkCircleOutline,
@@ -28,10 +28,12 @@ interface Notification {
 type TabType = "all" | "unread" | "transaction" | "system";
 
 const NotificationsPage: React.FC = () => {
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState<TabType>("all");
 
-  // Sample notification data - replace with actual data
+  // Get notification ID from URL
+  const notificationId = searchParams.get("detail");
+  const isDrawerOpen = !!notificationId;
 
   const tabs: Tab[] = [
     { id: "all", label: "All" },
@@ -39,6 +41,14 @@ const NotificationsPage: React.FC = () => {
     { id: "transaction", label: "Transaction" },
     { id: "system", label: "System" },
   ];
+
+  const openNotificationDetail = (id: number) => {
+    setSearchParams({ detail: id.toString() });
+  };
+
+  const closeDrawer = () => {
+    setSearchParams({});
+  };
 
   const filteredNotifications = notifications.filter((notification: Notification) => {
     if (activeTab === "all") return true;
@@ -106,7 +116,7 @@ const NotificationsPage: React.FC = () => {
           filteredNotifications.map((notification: Notification) => (
             <div
               key={notification.id}
-              onClick={() => navigate(`/notifications/${notification.id}`)}
+              onClick={() => openNotificationDetail(notification.id)}
               className={clsx(
                 "bg-secondary rounded-lg shadow-sm px-3 py-4",
                 "border ",
@@ -149,7 +159,166 @@ const NotificationsPage: React.FC = () => {
           ))
         )}
       </div>
+
+      {/* Notification Detail Drawer */}
+      <NotificationDetailDrawer
+        isOpen={isDrawerOpen}
+        onClose={closeDrawer}
+        notificationId={notificationId ? parseInt(notificationId) : null}
+        allNotifications={notifications}
+      />
     </div>
+  );
+};
+
+// NotificationDetailDrawer Component
+interface NotificationDetailDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  notificationId: number | null;
+  allNotifications: Notification[];
+}
+
+const NotificationDetailDrawer: React.FC<NotificationDetailDrawerProps> = ({
+  isOpen,
+  onClose,
+  notificationId,
+  allNotifications,
+}) => {
+  const [, setSearchParams] = useSearchParams();
+
+  const currentNotification = allNotifications.find((n) => n.id === notificationId);
+  const currentIndex = allNotifications.findIndex((n) => n.id === notificationId);
+
+  const hasPrevious = currentIndex > 0;
+  const hasNext = currentIndex < allNotifications.length - 1;
+
+  const navigateToPrevious = () => {
+    if (hasPrevious) {
+      const previousNotification = allNotifications[currentIndex - 1];
+      setSearchParams({ detail: previousNotification.id.toString() });
+    }
+  };
+
+  const navigateToNext = () => {
+    if (hasNext) {
+      const nextNotification = allNotifications[currentIndex + 1];
+      setSearchParams({ detail: nextNotification.id.toString() });
+    }
+  };
+
+  const getIcon = (type: string) => {
+    switch (type) {
+      case "transaction":
+        return <IoCheckmarkCircleOutline className="w-8 h-8 text-green-500" />;
+      case "system":
+        return <IoWarningOutline className="w-8 h-8 text-yellow-500" />;
+      default:
+        return <IoInformationCircleOutline className="w-8 h-8 text-blue-500" />;
+    }
+  };
+
+  if (!currentNotification) {
+    return (
+      <Drawer
+        isOpen={isOpen}
+        onClose={onClose}
+        title="Notification Not Found"
+        size="lg"
+        anchor="right"
+      >
+        <div className="flex flex-col items-center justify-center py-12">
+          <Typography variant="h5" className="text-gray-500 dark:text-gray-400">
+            Notification not found
+          </Typography>
+        </div>
+      </Drawer>
+    );
+  }
+
+  return (
+    <Drawer
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Notification Details"
+      description={`${currentIndex + 1} of ${allNotifications.length} notifications`}
+      size="lg"
+      anchor="right"
+      navigation={{
+        onPrevious: hasPrevious ? navigateToPrevious : undefined,
+        onNext: hasNext ? navigateToNext : undefined,
+        hasPrevious,
+        hasNext,
+      }}
+    >
+      <div className="space-y-6">
+        <div className="bg-secondary rounded-lg shadow-lg p-6 space-y-6 border border-neutral-200 dark:border-neutral-700">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0">{getIcon(currentNotification.type)}</div>
+            <div className="flex-grow">
+              <Typography variant="h5" className="mb-2 text-tbase dark:text-white">
+                {currentNotification.title}
+              </Typography>
+              <Typography variant="caption" className="text-gray-500 dark:text-gray-400">
+                {new Date(currentNotification.date).toLocaleString()}
+              </Typography>
+              <div className="mt-2">
+                <span
+                  className={clsx(
+                    "inline-block px-3 py-1 rounded-full text-xs font-medium",
+                    currentNotification.type === "transaction" &&
+                      "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+                    currentNotification.type === "system" &&
+                      "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+                    currentNotification.type !== "transaction" &&
+                      currentNotification.type !== "system" &&
+                      "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                  )}
+                >
+                  {currentNotification.type.charAt(0).toUpperCase() +
+                    currentNotification.type.slice(1)}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+            <Typography
+              variant="body1"
+              className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap"
+            >
+              {currentNotification.message}
+            </Typography>
+          </div>
+
+          {currentNotification.actionUrl && (
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+              <a
+                href={currentNotification.actionUrl}
+                className="inline-flex items-center px-4 py-2 bg-[#4C6663] text-white rounded-lg hover:bg-opacity-90 transition-colors"
+              >
+                View Details
+              </a>
+            </div>
+          )}
+
+          {/* Read Status Indicator */}
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+            <div className="flex items-center gap-2">
+              <div
+                className={clsx(
+                  "w-2 h-2 rounded-full",
+                  currentNotification.read ? "bg-gray-400" : "bg-[#467570]"
+                )}
+              />
+              <Typography variant="caption" className="text-gray-500 dark:text-gray-400">
+                {currentNotification.read ? "Read" : "Unread"}
+              </Typography>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Drawer>
   );
 };
 

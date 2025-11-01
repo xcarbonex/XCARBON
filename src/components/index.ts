@@ -6,7 +6,7 @@ import DateRangeCalander from "./DateRangePicker";
 import Tabs from "./Tabs";
 import Typography from "./Typography";
 import Button from "./Button";
-import Modal from "./Model";
+import OldModal from "./Model"; // Legacy modal component
 import ScrollBarWrapper from "./ScrollBarWrapper";
 import Breadcrumb from "./Breadcrumb";
 import Accordion from "./Accordion";
@@ -23,7 +23,7 @@ export {
   Tabs,
   Typography,
   Button,
-  Modal,
+  OldModal,
   ScrollBarWrapper,
   Breadcrumb,
   FileUpload,
@@ -38,3 +38,38 @@ export { PWAInstallPrompt, PWAUpdatePrompt } from "./PWA";
 
 // Modern Financial Components
 export { MetricCard, MetricCardGrid } from "./MetricCard";
+
+// Phase 1 Components
+export { EmptyState } from "./EmptyState";
+export type { EmptyStateProps } from "./EmptyState";
+export {
+  Skeleton,
+  SkeletonCard,
+  SkeletonTable,
+  SkeletonText,
+  SkeletonAvatar,
+  SkeletonButton,
+} from "./Skeleton";
+export type {
+  SkeletonProps,
+  SkeletonCardProps,
+  SkeletonTableProps,
+  SkeletonTextProps,
+  SkeletonAvatarProps,
+  SkeletonButtonProps,
+} from "./Skeleton";
+export { FormField } from "./Form/FormField";
+export type { FormFieldProps } from "./Form/FormField";
+
+// Phase 2 Components - Overlay Components
+export { Modal } from "./Modal";
+export type { ModalProps, ModalSize } from "./Modal";
+export { Drawer } from "./Drawer";
+export type { DrawerProps, DrawerSize, DrawerAnchor } from "./Drawer";
+export { BottomSheet } from "./BottomSheet";
+export type { BottomSheetProps, BottomSheetSnapPoint } from "./BottomSheet";
+export { Toast } from "./Toast";
+export type { ToastProps, ToastVariant } from "./Toast";
+export { ToastProvider, useToast } from "./Toast/ToastProvider";
+export { Stepper, StepperControls } from "./Stepper";
+export type { StepperProps, StepperControlsProps, Step, StepStatus } from "./Stepper";

@@ -6,9 +6,8 @@ import Form from "@/components/Form";
 import * as Yup from "yup";
 import type { FormikValues } from "formik";
 import { DatePicker, Select, SelectItem } from "@heroui/react";
-import { FileUpload } from "@/components";
+import { FileUpload, useToast } from "@/components";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 interface IndividualFormValues {
   fullName: string;
@@ -55,6 +54,7 @@ const countryCodes: string[] = [
 ];
 
 const IndividualDetail: React.FC = () => {
+  const { toast } = useToast();
   const navigate = useNavigate();
   const initialValues: IndividualFormValues = {
     fullName: "",
@@ -98,9 +98,9 @@ const IndividualDetail: React.FC = () => {
 
   const handleSubmit = (_values: FormikValues) => {
     // setSubmitting(false);
+    toast.success("Registration Complete!", "Your individual registration has been submitted successfully");
     navigate("/");
     // resetForm();
-    toast.success("Registration completed successfully!");
   };
   return (
     <>

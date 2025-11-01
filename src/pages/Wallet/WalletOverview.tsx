@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button, Typography, MetricCard, MetricCardGrid } from "@/components";
+import { Card, Button, Typography, MetricCard, MetricCardGrid, useToast } from "@/components";
 import {
   IoCopy,
   IoCheckmarkCircle,
@@ -32,6 +32,7 @@ interface Transaction {
 }
 
 const WalletInfoScreen: React.FC = () => {
+  const { toast } = useToast();
   const [copiedAddress, setCopiedAddress] = useState<boolean>(false);
 
   const walletAddress = "0x742d35Cc6634C0532925a3b844Bc...";
@@ -106,10 +107,16 @@ const WalletInfoScreen: React.FC = () => {
     },
   ];
 
-  const handleCopyAddress = () => {
-    navigator.clipboard.writeText(fullAddress);
-    setCopiedAddress(true);
-    setTimeout(() => setCopiedAddress(false), 2000);
+  const handleCopyAddress = async () => {
+    try {
+      await navigator.clipboard.writeText(fullAddress);
+      setCopiedAddress(true);
+      toast.success("Copied!", "Wallet address copied to clipboard");
+      setTimeout(() => setCopiedAddress(false), 2000);
+    } catch (error) {
+      console.error("Failed to copy address:", error);
+      toast.error("Copy Failed", "Unable to copy wallet address to clipboard");
+    }
   };
 
   return (

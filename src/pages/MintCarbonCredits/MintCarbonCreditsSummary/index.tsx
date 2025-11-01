@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography } from "@/components";
+import { Typography, useToast } from "@/components";
 import { Breadcrumb } from "@/components";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -15,6 +15,8 @@ interface BreadcrumbItem {
 }
 
 const MintCarbonCreditsSummary: React.FC = () => {
+  const { toast } = useToast();
+  
   const projectDetails: Detail[] = [
     {
       label: "Project Name",
@@ -58,8 +60,11 @@ const MintCarbonCreditsSummary: React.FC = () => {
     { label: "Mint Summary", path: "/" },
   ];
 
-  const showAlert = () => {
-    alert("Your Carbon Credits have been minted");
+  const handleMintCredits = () => {
+    toast.success(
+      "Carbon Credits Minted!",
+      "Your carbon credits have been successfully minted to the blockchain."
+    );
   };
   return (
     <>
@@ -173,7 +178,7 @@ const MintCarbonCreditsSummary: React.FC = () => {
               </div>
 
               <div
-                onClick={showAlert}
+                onClick={handleMintCredits}
                 className="py-2 px-8 dark:bg-[#3B3B3B] bg-[#C2A57B] text-white rounded-lg cursor-pointer"
               >
                 Mint Carbon Credits

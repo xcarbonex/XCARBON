@@ -10,7 +10,7 @@ import Form from "@/components/Form";
 import clsx from "clsx";
 import useStore from "@/store/store";
 import TokenizationPreview from "./TokenizationPreview";
-import { toast, Bounce } from "react-toastify";
+import { useToast } from "@/components";
 import { useNavigate } from "react-router-dom";
 
 const bgTags = ["bg-[#A6B3B1]", "bg-[#4C6663]", "bg-[#C2A57B]", "bg-[#949494]", "bg-[#A6B3B1]"];
@@ -53,6 +53,7 @@ const RegistryForms: React.FC<RegistryFormsProps> = ({
   showBackToList = false,
   resetParentForm,
 }) => {
+  const { toast } = useToast();
   const navigate = useNavigate();
   const {
     selectedCarbonCreditDetails,
@@ -104,16 +105,7 @@ const RegistryForms: React.FC<RegistryFormsProps> = ({
     await togglePreview();
     await resetParentForm?.current?.resetForm();
     await navigate("/assets");
-    toast.success("Tokenization request submitted successfully!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+    toast.success("Tokenization Submitted!", "Your tokenization request has been submitted successfully");
   };
 
   const handleSaveAsDraft = async (values: TokenizationFormValues) => {
@@ -121,17 +113,7 @@ const RegistryForms: React.FC<RegistryFormsProps> = ({
     await togglePreview();
     await resetParentForm?.current?.resetForm();
     await navigate("/assets");
-    toast.success("Draft successfully saved", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
+    toast.success("Draft Saved", "Your tokenization draft has been saved successfully");
   };
 
   const transferRestrictionsOptions = [

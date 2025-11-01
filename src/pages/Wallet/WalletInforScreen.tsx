@@ -3,12 +3,14 @@ import { tokenBalance } from "@/appData";
 import { Tooltip } from "react-tooltip";
 import Modal from "@/components/Model";
 import { ListTokenizedAssets } from "..";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import clsx from "clsx";
-import { Table, Typography, Button } from "@/components";
+import { Table, Typography, Button, Drawer } from "@/components";
 import useWalletStore from "@/store/walletStore";
 import { FaPlus } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
+import DepositDrawer from "./DepositDrawer";
+import WithdrawDrawer from "./WithdrawDrawer";
 
 interface TransactionData {
   date: string;
@@ -236,6 +238,24 @@ const WalletInfoScreen: React.FC = () => {
   const { deliveryData } = useWalletStore();
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Drawer state from URL parameters
+  const currentAction = searchParams.get("action");
+  const isDepositOpen = currentAction === "deposit";
+  const isWithdrawOpen = currentAction === "withdraw";
+
+  const openDepositDrawer = () => {
+    setSearchParams({ action: "deposit" });
+  };
+
+  const openWithdrawDrawer = () => {
+    setSearchParams({ action: "withdraw" });
+  };
+
+  const closeDrawer = () => {
+    setSearchParams({});
+  };
 
   const _breadcrumbItems: BreadcrumbItem[] = [
     { label: "Wallet", path: "/wallet" },
@@ -297,7 +317,7 @@ const WalletInfoScreen: React.FC = () => {
                 </Typography>
                 <div className="grid gap-4 mt-4">
                   <Button
-                    to="deposit"
+                    onClick={openDepositDrawer}
                     variant="primary"
                     fullWidth
                     icon={<FaPlus className="w-4 h-4 text-white dark:text-gray-400" />}
@@ -306,7 +326,7 @@ const WalletInfoScreen: React.FC = () => {
                     Deposit (Fiat / Crypto)
                   </Button>
                   <Button
-                    to="withdraw-tokenized-carbon-credit"
+                    onClick={openWithdrawDrawer}
                     variant="secondary"
                     fullWidth
                     icon={<FaHistory className="w-4 h-4 text-white dark:text-gray-400" />}
@@ -348,6 +368,12 @@ const WalletInfoScreen: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Deposit Drawer */}
+      <DepositDrawer isOpen={isDepositOpen} onClose={closeDrawer} />
+
+      {/* Withdraw Drawer */}
+      <WithdrawDrawer isOpen={isWithdrawOpen} onClose={closeDrawer} />
     </>
   );
 };

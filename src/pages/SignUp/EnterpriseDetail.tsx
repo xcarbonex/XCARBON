@@ -9,9 +9,8 @@ import clsx from "clsx";
 import Form from "@/components/Form";
 import * as Yup from "yup";
 import type { FormikValues } from "formik";
-import { FileUpload } from "@/components";
+import { FileUpload, useToast } from "@/components";
 import { Select, SelectItem } from "@heroui/react";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 interface EnterpriseFormValues {
@@ -37,6 +36,7 @@ interface SelectOption {
 }
 
 const Enterprise: React.FC = () => {
+  const { toast } = useToast();
   const navigate = useNavigate();
   const [isrepresentative, setIsRepresentative] = useState<boolean>(false);
   const [showRepresentative, setShowRepresentative] = useState<boolean>(false);
@@ -80,7 +80,7 @@ const Enterprise: React.FC = () => {
       setShowRepresentative(true);
     } else {
       setShowRepresentative(false);
-      toast.success("Registration completed successfully!");
+      toast.success("Registration Complete!", "Your enterprise registration has been submitted successfully");
       navigate("/");
     }
   };

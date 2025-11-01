@@ -31,8 +31,8 @@ const CONFIG = {
   },
   // Test credentials (update with your test account)
   testCredentials: {
-    email: 'test@xcarbon.com',
-    password: 'Test123!@#'
+    email: 'demo@example.com',
+    password: 'Demo@123'
   }
 };
 
@@ -268,8 +268,27 @@ async function generateScreenshots() {
   
   // Launch browser
   console.log('🌐 Launching browser...');
+  
+  // WSL-specific configuration
+  const isWSL = process.platform === 'linux' && 
+                (process.env.WSL_DISTRO_NAME || 
+                 process.env.WSLENV || 
+                 await fs.readFile('/proc/version', 'utf8').catch(() => '').then(v => v.includes('microsoft')));
+  
+  if (isWSL) {
+    console.log('🐧 WSL environment detected - using optimized settings');
+  }
+  
   const browser = await chromium.launch({
-    headless: true // Set to false for debugging
+    headless: true, // Set to false for debugging
+    // WSL-specific flags
+    args: isWSL ? [
+      '--disable-dev-shm-usage',
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-gpu',
+      '--single-process'
+    ] : []
   });
   
   try {

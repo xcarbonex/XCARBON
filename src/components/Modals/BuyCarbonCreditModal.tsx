@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Input, Typography, SelectField } from "@/components";
+import { Input, Typography, SelectField, useToast } from "@/components";
 import Modal from "@/components/Model";
 import clsx from "clsx";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IoWalletOutline } from "react-icons/io5";
 import { Spinner } from "@heroui/react";
-import { toast } from "react-toastify";
 import useDashboardStore from "@/store/dashboardStore";
 
 interface CreditData {
@@ -35,6 +34,7 @@ const BuyCarbonCreditModal: React.FC<BuyCarbonCreditModalProps> = ({
   onClose,
   creditData,
 }) => {
+  const { toast } = useToast();
   const { buyCarbonAssets } = useDashboardStore();
   const [paymentMethod, setPaymentMethod] = useState<SelectOption | null>({
     value: "fiat",
@@ -118,15 +118,10 @@ const BuyCarbonCreditModal: React.FC<BuyCarbonCreditModalProps> = ({
 
     try {
       await buyCarbonAssets(assetsObj);
-      toast.success("Payment successful!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      toast.success("Payment Successful!", "Your carbon credit purchase has been completed");
     } catch (error) {
       console.error("Payment error:", error);
+      toast.error("Payment Failed", "Unable to complete your purchase. Please try again");
     } finally {
       setIsLoading(false);
       setQuantity("");

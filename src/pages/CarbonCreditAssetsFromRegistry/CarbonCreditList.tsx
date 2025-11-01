@@ -7,10 +7,9 @@ import dayjs from "dayjs";
 import NoDataFound from "./NoDataFound";
 import useStore from "@/store/store";
 import Dropdown from "@/components/Dropdown";
-import { Typography, Input } from "@/components"; // Import Typography for custom renderOption
+import { Typography, Input, useToast } from "@/components"; // Import Typography for custom renderOption
 import { Tooltip } from "react-tooltip";
 import { Button } from "@/components";
-import { toast } from "react-toastify";
 
 const bgTags = ["bg-[#A6B3B1]", "bg-[#4C6663]", "bg-[#C2A57B]", "bg-[#949494]"];
 
@@ -67,6 +66,7 @@ const CarbonCreditList: React.FC<CarbonCreditListProps> = ({
   isLoading,
   onSearch = () => {},
 }) => {
+  const { toast } = useToast();
   const {
     filteredPamaeter,
     registryProjectList,

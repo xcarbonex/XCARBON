@@ -5,6 +5,17 @@
 1. **Install Playwright Browsers** (if not already installed):
 
    ```bash
+   npx playwright install chromium --with-deps
+   ```
+
+   **⚠️ Important Notes:**
+   - This downloads ~170MB and installs system dependencies
+   - Takes 5-10 minutes - **do not interrupt!**
+   - Requires sudo password
+   - If interrupted, run the command again to resume
+
+   **Alternative** (if above fails):
+   ```bash
    npx playwright install chromium
    ```
 
@@ -23,6 +34,20 @@
    ```
 
 ## Running Screenshots
+
+### WSL Users (Important!)
+
+If you're on Windows Subsystem for Linux:
+
+```bash
+# Set display environment (if not set)
+export DISPLAY=:0
+
+# Or use the optimized settings (script detects WSL automatically)
+yarn screenshots
+```
+
+The script automatically detects WSL and applies optimized browser settings.
 
 ### Step 1: Start Dev Server
 
