@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Input, Typography, Breadcrumb } from "@/components";
+import { Input, Typography, Breadcrumb, Card } from "@/components";
 import info from "../../../src/assets/info.svg";
 import { BsFillBox2Fill } from "react-icons/bs";
 import { PiBagSimpleFill } from "react-icons/pi";
-import { IoDocumentSharp } from "react-icons/io5";
-import { FaHandshake } from "react-icons/fa";
+import { IoDocumentSharp, IoCheckmarkCircle, IoCartOutline, IoTrendingUpOutline } from "react-icons/io5";
+import { FaHandshake, FaLeaf } from "react-icons/fa";
 import { FaRobot } from "react-icons/fa";
 import { LuNotebookPen } from "react-icons/lu";
 import LineChart from "@/components/Chart/Line";
@@ -117,21 +117,43 @@ const ProjectDetail: React.FC = () => {
   ];
   return (
     <>
-      <Breadcrumb items={breadcrumbItems} />
-      <div className="bg-white transition-all duration-slow dark:bg-[#141517]">
-        <div className="space-y-5 text-black dark:text-[#FFFFFF]/80 ">
-          {/* Row 1 */}
-          <div className="w-full grid sm:flex items-start gap-3">
-            {/* Col 1 */}
-            <div className="w-full sm:w-7/12 dark:bg-[#191919] bg-[#FDFDFB] dark:border-[#363638] border rounded-xl p-4">
-              <div>
-                <Typography variant="h4" className="border-b-2 border-[#363638] pb-[20px]">
-                  VCS-REDD+ Brazil Forest 2019
-                </Typography>
+      <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-accent-50/30 dark:from-neutral-950 dark:via-neutral-900 dark:to-accent-950/20 p-6">
+        <div className="max-w-7xl mx-auto space-y-6">
+          <Breadcrumb items={breadcrumbItems} />
+          
+          {/* Premium Project Header Card */}
+          <Card className="border-2 border-success-200 dark:border-success-800 shadow-xl">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-success-100 to-success-200 dark:from-success-900/30 dark:to-success-800/30 shadow-lg shadow-success-500/30">
+                  <FaLeaf className="w-8 h-8 text-success-700 dark:text-success-400" />
+                </div>
+                <div>
+                  <Typography variant="h4" className="text-neutral-900 dark:text-white font-bold">
+                    VCS-REDD+ Brazil Forest 2019
+                  </Typography>
+                  <Typography variant="body2" className="text-neutral-600 dark:text-neutral-400">
+                    Amazon Rainforest Conservation Project
+                  </Typography>
+                </div>
               </div>
-              <div className="mt-10">
-                <Typography variant="h4">Project Overview</Typography>
-                <Typography variant="body1" className="mt-5">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-success-100 to-success-200 dark:from-success-900/30 dark:to-success-800/30 border-2 border-success-300 dark:border-success-700">
+                <IoCheckmarkCircle className="w-5 h-5 text-success-700 dark:text-success-400" />
+                <span className="text-sm font-bold text-success-700 dark:text-success-400">Verified Registry</span>
+              </div>
+            </div>
+          </Card>
+
+          {/* Main Content Grid */}
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Left Column - Project Details (2/3 width) */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Project Overview Card */}
+              <Card className="border-2 border-info-200 dark:border-info-800 shadow-xl">
+                <Typography variant="h5" className="text-neutral-900 dark:text-white font-bold mb-4">
+                  Project Overview
+                </Typography>
+                <Typography variant="body1" className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis purus odio,
                   eu fermentum metus porta eu. Nullam tincidunt dolor non vulputate pharetra.Lorem
                   ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis purus odio, eu
@@ -141,229 +163,211 @@ const ProjectDetail: React.FC = () => {
                   ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis purus odio, eu
                   fermentum metus porta eu. Nullam tincidunt dolor non vulputate pharetra.
                 </Typography>
-              </div>
-              <div className="bg-transparent dark:bg-black p-2 rounded-xl mt-2">
-                <div className="flex justify-between">
-                  <div className="text-tbase">
-                    <Typography variant="subtitle1" className="font-semibold">
-                      Price history
-                    </Typography>
-                    <Typography variant="h5" className="text-[#bababa]">
-                      $18.75 per assets
-                    </Typography>
+              </Card>
+
+              {/* Premium Price History Card */}
+              <Card className="border-2 border-brand-200 dark:border-brand-800 shadow-xl">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-xl bg-gradient-to-br from-brand-100 to-brand-200 dark:from-brand-900/30 dark:to-brand-800/30">
+                      <IoTrendingUpOutline className="w-6 h-6 text-brand-700 dark:text-brand-400" />
+                    </div>
+                    <div>
+                      <Typography variant="h6" className="text-neutral-900 dark:text-white font-bold">
+                        Price History
+                      </Typography>
+                      <Typography variant="body2" className="text-neutral-600 dark:text-neutral-400 font-medium">
+                        $18.75 per asset
+                      </Typography>
+                    </div>
                   </div>
-                  <div className="bg-tertiary text-white space-x-3 rounded-xl p-2">
-                    <button className="p-2 dark:text-[#9291A5]">Daily</button>
-                    <button className="p-2 dark:text-[#9291A5]">Weekly</button>
-                    <button className="p-2 bg-[#4C6663] rounded-xl dark:bg-[#555556] text-white">
+                  <div className="flex gap-2">
+                    <button className="px-4 py-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 font-medium hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
+                      Daily
+                    </button>
+                    <button className="px-4 py-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 font-medium hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
+                      Weekly
+                    </button>
+                    <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-brand-600 to-brand-700 text-white font-medium shadow-lg shadow-brand-600/30">
                       Annually
                     </button>
                   </div>
                 </div>
                 <LineChart />
-              </div>
+              </Card>
             </div>
 
-            {/* Col 2 */}
-            <div className="w-full sm:w-5/12 dark:bg-[#191919] bg-[#FDFDFB] dark:border-[#363638] border rounded-xl p-4">
-              <div className="flex items-center justify-between">
-                <Typography variant="h5" className="font-bold">
-                  Available Balance: <span>5,240.00</span> USD
-                </Typography>
-                <div>
-                  <img src={info} alt="info" className="cursor-pointer" />
+            {/* Right Column - Purchase Card (1/3 width) */}
+            <div className="lg:col-span-1">
+              <Card className="border-2 border-success-200 dark:border-success-800 shadow-xl sticky top-6">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-2">
+                    <IoCartOutline className="w-6 h-6 text-success-700 dark:text-success-400" />
+                    <div>
+                      <Typography variant="subtitle2" className="text-neutral-600 dark:text-neutral-400">
+                        Available Balance
+                      </Typography>
+                      <Typography variant="h6" className="text-neutral-900 dark:text-white font-bold">
+                        $5,240.00 USD
+                      </Typography>
+                    </div>
+                  </div>
+                  <img src={info} alt="info" className="cursor-pointer w-5 h-5" />
                 </div>
-              </div>
 
-              <div className="grid gap-3">
-                {/* Price per assets */}
-                <div className="mt-5">
-                  <Typography variant="subtitle1" className="font-bold">
-                    Price per assets
-                  </Typography>
-                  <div className="mt-1">
+                <div className="space-y-4">
+                  {/* Price per assets */}
+                  <div>
+                    <Typography variant="subtitle2" className="text-neutral-700 dark:text-neutral-300 font-medium mb-2">
+                      Price per asset
+                    </Typography>
                     <Input
                       type="Number"
                       prefix="$"
-                      placeholder=""
+                      placeholder="Enter price"
                       value={pricePerCredit}
                       onChange={(e) => setPricePerCredit(e.target.value)}
                       suffix={
-                        <Typography
-                          variant="body2"
-                          className="text-nowrap text-[#A2A4A2] font-medium"
-                        >
+                        <span className="text-info-600 dark:text-info-400 font-medium text-sm">
                           Fixed Price
-                        </Typography>
+                        </span>
                       }
+                      className="h-12"
                     />
                   </div>
-                </div>
 
-                {/* Quantity */}
-                <div className="mt-3">
-                  <Typography variant="subtitle1" className="font-bold">
-                    Quantity
-                  </Typography>
-                  <div className="mt-1">
+                  {/* Quantity */}
+                  <div>
+                    <Typography variant="subtitle2" className="text-neutral-700 dark:text-neutral-300 font-medium mb-2">
+                      Quantity
+                    </Typography>
                     <Input
                       type="Number"
-                      placeholder="Quantity"
+                      placeholder="Enter quantity"
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                       suffix={
-                        <Typography
-                          variant="body2"
-                          className="text-nowrap text-[#A2A4A2] font-medium"
-                        >
+                        <span className="text-neutral-500 dark:text-neutral-400 font-medium text-sm">
                           Assets
-                        </Typography>
+                        </span>
                       }
+                      className="h-12"
                     />
                   </div>
-                </div>
 
-                {/* Total Cost */}
-                <div className="mt-3">
-                  <Typography variant="subtitle1" className="font-bold">
-                    Total Cost
-                  </Typography>
-                  <div className="mt-1">
-                    <Input
-                      type="Number"
-                      readOnly
-                      value={totalCost}
-                      prefix={
-                        <Typography variant="body2" className="text-nowrap font-bold">
-                          $
-                        </Typography>
-                      }
-                      suffix={
-                        <Typography
-                          variant="body2"
-                          className="text-nowrap text-[#A2A4A2] font-medium"
-                        >
-                          USD
-                        </Typography>
-                      }
-                    />
+                  {/* Total Cost */}
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-brand-50 to-accent-50 dark:from-brand-950/20 dark:to-accent-950/20 border-2 border-brand-200 dark:border-brand-800">
+                    <Typography variant="subtitle2" className="text-neutral-700 dark:text-neutral-300 font-medium mb-2">
+                      Total Cost
+                    </Typography>
+                    <Typography variant="h4" className="text-neutral-900 dark:text-white font-bold">
+                      ${totalCost} USD
+                    </Typography>
                   </div>
-                </div>
 
-                {/* Buy Button */}
-                <div className="w-full mt-3">
-                  <button className="w-full text-[19px] text-center font-bold py-2 px-8 bg-btn text-text rounded-lg">
+                  {/* Buy Button */}
+                  <button className="w-full py-4 bg-gradient-to-r from-success-600 to-success-700 hover:from-success-700 hover:to-success-800 text-white text-lg font-bold rounded-xl shadow-lg shadow-success-600/40 hover:shadow-success-600/60 transition-all">
                     Buy Now
                   </button>
-                </div>
 
-                {/* Agreement Note */}
-                <div className="mt-3">
-                  <Typography variant="subtitle2" className="text-center">
-                    By purchasing, you agree to our Terms of Service and Carbon assets Policies
+                  {/* Agreement Note */}
+                  <Typography variant="caption" className="text-center text-neutral-600 dark:text-neutral-400 block">
+                    By purchasing, you agree to our Terms of Service and Carbon Assets Policies
                   </Typography>
                 </div>
-              </div>
+              </Card>
             </div>
           </div>
 
-          {/* Row 2 */}
-          <div className="dark:bg-[#191919] bg-[#FDFDFB] dark:border-[#363638] border rounded-xl p-4">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-              <div className="border border-[#363638] rounded-md p-4">
-                {/* row 1 */}
-                <div>
-                  <Typography variant="h5" className="font-semibold">
-                    What are Monthly contracts?
-                  </Typography>
-                  <Typography variant="body2" className="mt-5 font-medium">
-                    Schedule recurring purchases of carbon assets with smart contract-based
-                    delivery. Perfect for organizations with ESG commitments and regular offsetting
-                    needs.
-                  </Typography>
-                </div>
+          {/* Premium Contracts & Features Section */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* What are Monthly Contracts */}
+            <Card className="border-2 border-info-200 dark:border-info-800 shadow-xl">
+              <Typography variant="h6" className="text-neutral-900 dark:text-white font-bold mb-4">
+                What are Monthly Contracts?
+              </Typography>
+              <Typography variant="body2" className="text-neutral-700 dark:text-neutral-300 leading-relaxed mb-6">
+                Schedule recurring purchases of carbon assets with smart contract-based
+                delivery. Perfect for organizations with ESG commitments and regular offsetting
+                needs.
+              </Typography>
 
-                {/* row 2 */}
-                <div className="mt-5">
-                  <div className="flex flex-col gap-y-4">
-                    {contracts.map((item, index) => (
-                      <div key={index} className="flex items-center gap-x-2">
-                        <div>{item.icon}</div>
-                        <div>
-                          <Typography variant="subtitle2" className="font-semibold">
-                            {item.title}
-                          </Typography>
-                          <Typography variant="caption" className="font-medium">
-                            {item.description}
-                          </Typography>
-                        </div>
-                      </div>
-                    ))}
+              <div className="space-y-4">
+                {contracts.map((item, index) => (
+                  <div key={index} className="flex items-start gap-3 p-3 rounded-xl bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-900">
+                    <div className="p-2 rounded-lg bg-info-100 dark:bg-info-900/30 text-info-700 dark:text-info-400">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <Typography variant="subtitle2" className="text-neutral-900 dark:text-white font-bold mb-1">
+                        {item.title}
+                      </Typography>
+                      <Typography variant="caption" className="text-neutral-600 dark:text-neutral-400">
+                        {item.description}
+                      </Typography>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-              <div className="border border-[#363638] rounded-md p-4">
-                <div className="grid gap-3">
-                  <div>
-                    <Typography variant="h5" className="font-semibold">
-                      Available Contract Terms
+            </Card>
+
+            {/* Available Contract Terms */}
+            <Card className="border-2 border-warning-200 dark:border-warning-800 shadow-xl">
+              <Typography variant="h6" className="text-neutral-900 dark:text-white font-bold mb-4">
+                Available Contract Terms
+              </Typography>
+              
+              <div className="space-y-3">
+                {contractTerms.map((contract, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col xs:flex-row justify-between gap-2 p-4 rounded-xl bg-gradient-to-r from-warning-50 to-warning-100 dark:from-warning-950/20 dark:to-warning-900/20 border border-warning-200 dark:border-warning-800"
+                  >
+                    <div>
+                      <Typography variant="subtitle2" className="text-neutral-900 dark:text-white font-bold">
+                        {contract.duration}
+                      </Typography>
+                      <Typography variant="caption" className="text-neutral-600 dark:text-neutral-400">
+                        {contract.minCredits}
+                      </Typography>
+                    </div>
+                    <div className="text-left xs:text-right">
+                      <Typography variant="subtitle2" className="text-warning-700 dark:text-warning-400 font-bold">
+                        {contract.pricePerCredit}
+                      </Typography>
+                      <Typography variant="caption" className="text-success-600 dark:text-success-400 font-medium">
+                        {contract.discount}
+                      </Typography>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Institutional Features */}
+            <Card className="border-2 border-brand-200 dark:border-brand-800 shadow-xl">
+              <Typography variant="h6" className="text-neutral-900 dark:text-white font-bold mb-4">
+                Institutional Features
+              </Typography>
+              
+              <div className="space-y-5">
+                {features.map((feature, index) => (
+                  <div key={index}>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="p-2 rounded-lg bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400">
+                        {feature.icon}
+                      </div>
+                      <Typography variant="subtitle2" className="text-neutral-900 dark:text-white font-bold">
+                        {feature.title}
+                      </Typography>
+                    </div>
+                    <Typography variant="caption" className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                      {feature.description}
                     </Typography>
                   </div>
-                  <div className="">
-                    {contractTerms.map((contract, index) => (
-                      <div
-                        key={index}
-                        className="grid xs:flex justify-between border-[#363638] border rounded-md p-2 mt-3"
-                      >
-                        <div>
-                          <Typography variant="subtitle2" className="font-semibold">
-                            {contract.duration}
-                          </Typography>
-                          <Typography variant="caption" className="font-medium">
-                            {contract.minCredits}
-                          </Typography>
-                        </div>
-                        <div className="text-left xs:text-right">
-                          <Typography variant="subtitle2" className="font-semibold">
-                            {contract.pricePerCredit}
-                          </Typography>
-                          <Typography variant="caption" className="font-medium">
-                            {contract.discount}
-                          </Typography>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                ))}
               </div>
-              <div className="border border-[#363638] rounded-md">
-                <div className="grid gap-3 p-4">
-                  <div></div>
-                  <div>
-                    <Typography variant="h5" className="font-semibold">
-                      Institutional Features
-                    </Typography>
-                  </div>
-                  <div className="mt-3">
-                    {features.map((feature, index) => (
-                      <div key={index} className="mt-5">
-                        <div className="flex items-center gap-2">
-                          <div>{feature.icon}</div>
-                          <div>
-                            <Typography variant="subtitle2" className="font-semibold">
-                              {feature.title}
-                            </Typography>
-                          </div>
-                        </div>
-                        <Typography variant="caption" className="font-medium">
-                          {feature.description}
-                        </Typography>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            </Card>
           </div>
         </div>
       </div>

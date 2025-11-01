@@ -1,7 +1,9 @@
 import React from "react";
-import { Input, Typography } from "@/components";
+import { Input, Typography, Card } from "@/components";
 import SelectField from "@/components/Select";
 import { Toggle } from "@/components";
+import { IoCheckmarkCircle, IoCubeOutline, IoCloudUploadOutline, IoLockClosedOutline } from "react-icons/io5";
+import { FaLeaf } from "react-icons/fa";
 
 interface ProjectDetail {
   label: string;
@@ -23,133 +25,192 @@ const ListTokenizedAssets: React.FC = () => {
   ];
 
   return (
-    <div className="bg-secondary p-4">
-      <div className="space-y-4 text-black dark:text-[#FFFFFF]/80">
-        <Typography variant="caption" className="text-[#4C6663] dark:text-white/30 block mb-4">
-          Select an eligible tokenized asset from your wallet to list on the marketplace.
-        </Typography>
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-accent-50/30 dark:from-neutral-950 dark:via-neutral-900 dark:to-accent-950/20 p-6">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Premium Header */}
+        <Card className="border-2 border-success-200 dark:border-success-800 shadow-xl">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="p-2 rounded-xl bg-gradient-to-br from-success-100 to-success-200 dark:from-success-900/30 dark:to-success-800/30 shadow-lg shadow-success-500/30">
+              <IoCloudUploadOutline className="w-6 h-6 text-success-700 dark:text-success-400" />
+            </div>
+            <Typography variant="h4" className="text-neutral-900 dark:text-white font-bold">
+              List Tokenized Asset
+            </Typography>
+          </div>
+          <Typography variant="body2" className="text-neutral-600 dark:text-neutral-400 ml-14">
+            Select an eligible tokenized asset from your wallet to list on the marketplace.
+          </Typography>
+        </Card>
 
-        {/* Asset Selection */}
-        <div className="space-y-2">
-          <Typography variant="subtitle2">Select Tokenized Asset</Typography>
+        {/* Premium Asset Selection Card */}
+        <Card className="border-2 border-info-200 dark:border-info-800 shadow-xl">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded-xl bg-gradient-to-br from-info-100 to-info-200 dark:from-info-900/30 dark:to-info-800/30">
+              <IoCubeOutline className="w-5 h-5 text-info-700 dark:text-info-400" />
+            </div>
+            <Typography variant="subtitle2" className="text-neutral-900 dark:text-white font-bold">
+              Select Tokenized Asset
+            </Typography>
+          </div>
           <SelectField isClearable options={options} className="w-full" />
-        </div>
+        </Card>
 
-        {/* Project Info */}
-        <div className="dark:bg-[#363638]/50 bg-[#F5F6F6] p-4 rounded-lg">
-          <div className="flex justify-between items-center mb-4">
-            <Typography variant="h6">Amazon Rainforest Conservation</Typography>
-            <span className="bg-[#4C6663] text-white dark:bg-[#949494] px-3 py-1 text-xs rounded-full">
-              Verified
-            </span>
+        {/* Premium Project Info Card */}
+        <Card className="border-2 border-success-200 dark:border-success-800 shadow-xl">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-success-100 to-success-200 dark:from-success-900/30 dark:to-success-800/30">
+                <FaLeaf className="w-5 h-5 text-success-700 dark:text-success-400" />
+              </div>
+              <Typography variant="h6" className="text-neutral-900 dark:text-white font-bold">
+                Amazon Rainforest Conservation
+              </Typography>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-success-100 to-success-200 dark:from-success-900/30 dark:to-success-800/30 border-2 border-success-300 dark:border-success-700">
+              <IoCheckmarkCircle className="w-4 h-4 text-success-700 dark:text-success-400" />
+              <span className="text-sm font-bold text-success-700 dark:text-success-400">Verified</span>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             {projectDetails.map((item, index) => (
-              <div key={index}>
-                <Typography variant="caption" className="text-[#949494] block">
+              <div key={index} className="p-3 rounded-xl bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-900">
+                <Typography variant="caption" className="text-neutral-600 dark:text-neutral-400 block mb-1">
                   {item.label}
                 </Typography>
-                <Typography variant="body1" className="text-black dark:text-white">
+                <Typography variant="body1" className="text-neutral-900 dark:text-white font-bold">
                   {item.value}
                 </Typography>
               </div>
             ))}
           </div>
-        </div>
+        </Card>
 
-        {/* Quantity Input */}
-        <div className="space-y-2">
-          <Typography variant="subtitle2">Quantity to List (tCO2e)</Typography>
-          <Input
-            required
-            placeholder="Enter Quantity"
-            suffix={<span className="text-[#949494]">Max: 1000</span>}
-          />
-        </div>
-
-        {/* Listing Method */}
-        <div className="space-y-2">
-          <Typography variant="subtitle2">Listing Method</Typography>
-          <div className="grid grid-cols-2 gap-4">
-            <label className="relative">
-              <Input
-                type="radio"
-                name="listingMethod"
-                value="spot"
-                suffix={<span className="text-[#949494]">SPOT</span>}
-                className="bg-transparent dark:bg-[#363638]/50 accent-tbase border"
-              />
-            </label>
-            <label className="relative">
-              <Input
-                type="radio"
-                name="listingMethod"
-                value="auction"
-                disabled
-                suffix={<span className="text-[#949494]">AUCTION</span>}
-                className="bg-transparent dark:bg-[#363638]/50 accent-tbase border"
-              />
-              <span className="absolute right-2 top-0 bg-[#4C6663] dark:bg-[#3B3B3B] text-white text-xs px-2 py-1 rounded">
-                Coming Soon
-              </span>
-            </label>
-          </div>
-        </div>
-
-        {/* Price Input */}
-        <div className="space-y-2">
-          <Typography variant="subtitle2">Price Per Unit (USD)</Typography>
-          <Input
-            required
-            type="number"
-            placeholder="12.50"
-            prefix="$"
-            suffix={<span className="text-[#949494]">Market: $12.50</span>}
-            className="[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-          />
-        </div>
-
-        {/* Duration */}
-        <div className="space-y-2">
-          <Typography variant="subtitle2">List Duration (Optional)</Typography>
-          <div className="grid grid-cols-2 gap-4">
-            <SelectField
-              isClearable
-              options={[
-                { value: "", label: "Select" },
-                { value: 30, label: "30 Days" },
-                { value: 60, label: "60 Days" },
-                { value: 90, label: "90 Days" },
-              ]}
-            />
-            <input
-              type="date"
-              className="h-12 px-3 rounded-lg border-none dark:border bg-[#E2E6E5] dark:border-[#363638] placeholder:text-[#949494] dark:bg-[#363638]/50 text-sm focus:outline-none"
-            />
-          </div>
-        </div>
-
-        {/* Transfer Restrictions */}
-        <div className="dark:bg-[#363638]/50 bg-[#E2E6E5] p-4 rounded-lg">
-          <div className="flex justify-between items-center">
-            <div>
-              <Typography variant="subtitle2">Apply Transfer Restrictions</Typography>
-              <Typography variant="caption" className="text-[#4C6663] dark:text-[#949494]">
-                Limit who can purchase this asset
+        {/* Premium Listing Details Card */}
+        <Card className="border-2 border-brand-200 dark:border-brand-800 shadow-xl">
+          <Typography variant="h6" className="text-neutral-900 dark:text-white font-bold mb-6">
+            Listing Details
+          </Typography>
+          
+          <div className="space-y-6">
+            {/* Quantity Input */}
+            <div className="space-y-2">
+              <Typography variant="subtitle2" className="text-neutral-700 dark:text-neutral-300 font-medium">
+                Quantity to List (tCO2e)
               </Typography>
+              <Input
+                required
+                placeholder="Enter Quantity"
+                suffix={<span className="text-neutral-500 dark:text-neutral-400 font-medium">Max: 1000</span>}
+                className="h-12"
+              />
+            </div>
+
+            {/* Listing Method */}
+            <div className="space-y-3">
+              <Typography variant="subtitle2" className="text-neutral-700 dark:text-neutral-300 font-medium">
+                Listing Method
+              </Typography>
+              <div className="grid grid-cols-2 gap-4">
+                <label className="relative cursor-pointer">
+                  <div className="p-4 rounded-xl border-2 border-success-200 dark:border-success-800 bg-gradient-to-br from-success-50 to-success-100 dark:from-success-950/20 dark:to-success-900/20 hover:from-success-100 hover:to-success-200 dark:hover:from-success-900/30 dark:hover:to-success-800/30 transition-all">
+                    <Input
+                      type="radio"
+                      name="listingMethod"
+                      value="spot"
+                      className="sr-only"
+                    />
+                    <Typography variant="body1" className="text-neutral-900 dark:text-white font-bold text-center">
+                      SPOT SALE
+                    </Typography>
+                  </div>
+                </label>
+                <label className="relative cursor-not-allowed opacity-60">
+                  <div className="p-4 rounded-xl border-2 border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-900/20 dark:to-neutral-800/20">
+                    <Input
+                      type="radio"
+                      name="listingMethod"
+                      value="auction"
+                      disabled
+                      className="sr-only"
+                    />
+                    <Typography variant="body1" className="text-neutral-600 dark:text-neutral-400 font-bold text-center">
+                      AUCTION
+                    </Typography>
+                  </div>
+                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-warning-600 to-warning-700 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
+                    Coming Soon
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            {/* Price Input */}
+            <div className="space-y-2">
+              <Typography variant="subtitle2" className="text-neutral-700 dark:text-neutral-300 font-medium">
+                Price Per Unit (USD)
+              </Typography>
+              <Input
+                required
+                type="number"
+                placeholder="12.50"
+                prefix="$"
+                suffix={<span className="text-info-600 dark:text-info-400 font-medium">Market: $12.50</span>}
+                className="[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none h-12"
+              />
+            </div>
+
+            {/* Duration */}
+            <div className="space-y-2">
+              <Typography variant="subtitle2" className="text-neutral-700 dark:text-neutral-300 font-medium">
+                List Duration (Optional)
+              </Typography>
+              <div className="grid grid-cols-2 gap-4">
+                <SelectField
+                  isClearable
+                  options={[
+                    { value: "", label: "Select Duration" },
+                    { value: 30, label: "30 Days" },
+                    { value: 60, label: "60 Days" },
+                    { value: 90, label: "90 Days" },
+                  ]}
+                />
+                <input
+                  type="date"
+                  className="h-12 px-4 rounded-lg border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-brand-500 dark:focus:border-brand-500 outline-none"
+                />
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Premium Transfer Restrictions Card */}
+        <Card className="border-2 border-warning-200 dark:border-warning-800 shadow-xl">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-warning-100 to-warning-200 dark:from-warning-900/30 dark:to-warning-800/30">
+                <IoLockClosedOutline className="w-5 h-5 text-warning-700 dark:text-warning-400" />
+              </div>
+              <div>
+                <Typography variant="subtitle2" className="text-neutral-900 dark:text-white font-bold mb-1">
+                  Apply Transfer Restrictions
+                </Typography>
+                <Typography variant="caption" className="text-neutral-600 dark:text-neutral-400">
+                  Limit who can purchase this asset (KYC verification, jurisdiction, etc.)
+                </Typography>
+              </div>
             </div>
             <Toggle onToggle={() => {}} />
           </div>
-        </div>
+        </Card>
 
-        {/* Actions */}
-        <div className="flex justify-end gap-3 pt-4">
-          <button className="px-4 py-2 border border-black dark:border-[#363638] rounded-lg">
+        {/* Premium Actions */}
+        <div className="flex justify-end gap-4 pt-2">
+          <button className="px-6 py-3 border-2 border-neutral-300 dark:border-neutral-700 rounded-lg text-neutral-700 dark:text-neutral-300 font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
             Cancel
           </button>
-          <button className="px-6 py-2 bg-[#C2A57B] dark:bg-[#3B3B3B] text-white rounded-lg">
-            Confirm
+          <button className="px-8 py-3 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-lg font-bold shadow-lg shadow-brand-600/40 hover:shadow-brand-600/60 transition-all">
+            List Asset
           </button>
         </div>
       </div>
