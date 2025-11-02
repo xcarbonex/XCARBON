@@ -389,7 +389,7 @@ async function generateScreenshots() {
     
     // Optional: Capture mobile screenshots
     console.log('\n📱 Capturing mobile screenshots...\n');
-    await context.setViewportSize(CONFIG.mobileViewport);
+    await page.setViewportSize(CONFIG.mobileViewport);
     
     // Capture a few key screens in mobile view
     const mobileScreens = SCREENS.filter(s => 
